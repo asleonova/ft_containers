@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/03/30 13:57:38 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/03/29 21:18:50 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include <iostream>
 #include <memory>
 #include <vector>
-
-#include "Iterator.hpp"
 
 std::vector<int>vec;
 
@@ -35,13 +33,13 @@ namespace ft
 		typedef typename Alloc::const_reference const_reference;
 		typedef typename Alloc::pointer pointer;
 		typedef typename Alloc::const_pointer const_pointer;
-		typedef ft::iterator<T>     iterator;
-
-		typedef size_t size_type;
 		
 
 
-
+		template <class iterator>
+		{
+			
+		} 
 		// а дальше надо создать итератор!!!
 		// и потом еще некоторые параметры (которые дальше на сайте С++)
 
