@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/03/30 16:52:59 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/03/30 19:22:22 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,19 +91,20 @@ namespace ft
     
     private:
     T   *_ptr;
-    // size_t _size;
 
     public:
-        iterator(): _ptr(0), _begin(0) {}       //default
+        iterator(): _ptr(0) {} // default
         iterator(iterator const &src) // copy constructor
         {
+            *this = src;
+        }
 
-        }            
         iterator &operator=(iterator const &rhs) // asignment operator
         {
-
+            this->_ptr = rhs._ptr;
+            return (*this);
         }
-        ~iterator();                              // destructor
+        ~iterator() {} // destructor
 
         // Comparison operations:
 
@@ -113,7 +114,7 @@ namespace ft
         // Dereferensing operations as an rvalue:
 
         const T &operator*() const { return *(this->_ptr); }
-        const T *operator->() const; { return this->_ptr; }
+        const T *operator->() const { return this->_ptr; }
 
         // Dereferencing operations as an lvalue (only for non-constant iterators)
         // TO DO: потому что так я не поняла, как реализовывать
@@ -159,25 +160,25 @@ namespace ft
             return(copy);
         }
 
-        iterator &operator-(size_t n) const; // between an iterator and int value
+        iterator &operator-(size_t n) const // between an iterator and int value
         {
             iterator copy = *this;
             copy._ptr -= n;
             return (copy);
         }
-        iterator &operator+(iterator const &rhs) const; // between iterator and iterator
+        iterator &operator+(iterator const &rhs) const // between iterator and iterator
         {
             return (this->_ptr + rhs._ptr);
         }
-        iterator &operator-(iterator const &rhs) const; // between iterator and iterator
+        iterator &operator-(iterator const &rhs) const // between iterator and iterator
         {
             return (this->_ptr - rhs._ptr);
         }
         // Inequality relational operators (< , > , <= and >=)
         bool operator>(iterator const &rhs) { return this->_ptr > rhs._ptr; }
-        bool operator>=(iterator const &rhs); { return this->ptr >= rhs._ptr; }
-        bool operator<(iterator const &rhs); { return this->ptr < rhs._ptr; }
-        bool operator<=(iterator const &rhs); { return this->ptr <= rhs._ptr; }
+        bool operator>=(iterator const &rhs) { return this->ptr >= rhs._ptr; }
+        bool operator<(iterator const &rhs) { return this->ptr < rhs._ptr; }
+        bool operator<=(iterator const &rhs) { return this->ptr <= rhs._ptr; }
 
         // Compound assignment operations += and -=
         iterator &operator+=(size_t n)
