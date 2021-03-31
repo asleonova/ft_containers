@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/03/30 19:22:22 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/03/31 20:36:16 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,13 @@ namespace ft
     template <typename T>
     class iterator
     {
-    
+
     private:
-    T   *_ptr;
+        T *_ptr;
 
     public:
-        iterator(): _ptr(0) {} // default
+        iterator() : _ptr(0) {} // default
+        iterator(T *ptr) : _ptr(ptr) {} //param constructor (for iterator init: begin, end, etc)
         iterator(iterator const &src) // copy constructor
         {
             *this = src;
@@ -139,7 +140,7 @@ namespace ft
 
         // Decrementing operations:
 
-        iterator &operator--()   //--a
+        iterator &operator--() //--a
         {
             this->_ptr--;
             return (*this);
@@ -157,7 +158,7 @@ namespace ft
         {
             iterator copy = *this;
             copy._ptr += n;
-            return(copy);
+            return (copy);
         }
 
         iterator &operator-(size_t n) const // between an iterator and int value
@@ -186,7 +187,7 @@ namespace ft
             this->_ptr += n;
             return (*this);
         }
-        
+
         iterator &operator-=(size_t n)
         {
             this->_ptr -= n;
