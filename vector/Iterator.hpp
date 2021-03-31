@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/03/31 20:36:16 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/03/31 22:10:12 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +85,16 @@ namespace ft
 
 namespace ft
 {
-    template <typename T>
+    template <class T>
     class iterator
     {
 
     private:
-        T *_ptr;
+        T _ptr;
 
     public:
         iterator() : _ptr(0) {} // default
-        iterator(T *ptr) : _ptr(ptr) {} //param constructor (for iterator init: begin, end, etc)
+        iterator(T ptr) : _ptr(ptr) {} //param constructor (for iterator init: begin, end, etc)
         iterator(iterator const &src) // copy constructor
         {
             *this = src;

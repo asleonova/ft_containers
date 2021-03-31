@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/03/31 20:39:58 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/03/31 22:09:45 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ namespace ft
 		typedef typename Alloc::const_reference const_reference;
 		typedef typename Alloc::pointer pointer;
 		typedef typename Alloc::const_pointer const_pointer;
-		typedef ft::iterator<T>     iterator;
-		// TO DO : const_iterator, reverse iterator, const reverse iterator
+		typedef ft::iterator<pointer>     iterator;
+		typedef ft::iterator<const_pointer> const_iterator;
+		// TO DO :  reverse iterator, const reverse iterator
 
 		typedef ptrdiff_t difference_type;
 		typedef size_t size_type;
@@ -65,12 +66,15 @@ namespace ft
 		vector &operator=(vector const &rhs) {}
 
 		/* ITERATORS */
-		iterator begin() { return iterator(&(front())); } // тут мы получаем ссылку из указателя (фронт возвращает указатель, и подставляем в конструктор)
-		
-		iterator end() { return iterator(&(back()) + 1)); } // Unlike member vector::end, which returns an iterator just past this element, this function returns a direct reference, поэтому +1 
 
-		//const_iterator begin() const { return iterator(&(front()));}
-		//const_iterator end const();
+		iterator begin() { return (iterator(&(front()))); } // тут мы получаем ссылку из указателя (фронт возвращает указатель, и подставляем в конструктор)
+		
+		iterator end() { return iterator(&(back()) + 1); } // Unlike member vector::end, which returns an iterator just past this element, this function returns a direct reference, поэтому +1 
+
+		const_iterator begin() const { return const_iterator(&(front())); }
+		
+		const_iterator end() const { return const_iterator(&(back()) + 1); }
+		
 		//reverse_iterator rbegin();
 		//reverse_iterator rend();
 		//const_reverse_iterator rbegin();
