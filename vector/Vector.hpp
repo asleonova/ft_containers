@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/03/31 22:09:45 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/05 19:01:51 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "Iterator.hpp"
+#include "stddef.h"
 
 namespace ft
 {
@@ -33,15 +34,14 @@ namespace ft
 		typedef typename Alloc::const_reference const_reference;
 		typedef typename Alloc::pointer pointer;
 		typedef typename Alloc::const_pointer const_pointer;
-		typedef ft::iterator<pointer>     iterator;
-		typedef ft::iterator<const_pointer> const_iterator;
+		typedef ft::myIterator<pointer>     iterator;
+		typedef ft::myIterator<const pointer> const_iterator;
 		// TO DO :  reverse iterator, const reverse iterator
 
 		typedef ptrdiff_t difference_type;
 		typedef size_t size_type;
 		
 		
-
 
 		// а дальше надо создать итератор!!!
 		// и потом еще некоторые параметры (которые дальше на сайте С++)
@@ -89,6 +89,7 @@ namespace ft
 		/* */
 
 		private:
+
 			pointer _v_begin;
 			pointer _v_end;
 			size_t _v_size;

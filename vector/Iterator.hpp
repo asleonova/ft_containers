@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/03/31 22:10:12 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/05 19:10:43 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,32 +85,96 @@ namespace ft
 
 namespace ft
 {
-    template <class T>
-    class iterator
+    struct input_iterator_tag
     {
+    };
+    struct forward_iterator_tag : input_iterator_tag
+    {
+    };
+    struct bidirectional_iterator_tag : forward_iterator_tag
+    {
+    };
+    struct random_access_iterator_tag : bidirectional_iterator_tag
+    {
+    };
+    struct output_iterator_tag
+    {
+    };
 
+    template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T *, class Reference = T &>
+    struct iterator
+    {
+        typedef T value_type;               // Type of elements pointed by the iterator.
+        typedef Distance difference_type;   // Type to represent the difference between two iterators.
+        typedef Pointer pointer;            // Type to represent a pointer to an element pointed by the iterator.
+        typedef Reference reference;        // Type to represent a reference to an element pointed by the iterator.
+        typedef Category iterator_category; // Category to which the iterator belongs to. It must be one of the following iterator tags:
+        // input_iterator_tag; output_iterator_tag; forward_iterator_tag; bidireational_iterator_tag; random_access_iterator_tag; random_access_iterator_tag;
+    };
+
+    template <class Iterator>
+    struct iterator_traits
+    {
+        typedef typename Iterator::difference_type difference_type;
+        typedef typename Iterator::value_type value_type;
+        typedef typename Iterator::pointer pointer;
+        typedef typename Iterator::reference reference;
+        typedef typename Iterator::iterator_category iterator_category;
+    };
+
+    template <class T>
+    struct iterator_traits<T *>
+    {
+        typedef ptrdiff_t difference_type;
+        typedef T value_type;
+        typedef T *pointer;
+        typedef T &reference;
+        typedef random_access_iterator_tag iterator_category;
+    };
+
+    template <class T>
+    struct iterator_traits<const T *>
+    {
+        typedef ptrdiff_t difference_type;
+        typedef T value_type;
+        typedef T *pointer;
+        typedef T &reference;
+        typedef random_access_iterator_tag iterator_category;
+    };
+
+    template <class T>
+    class myIterator
+    {
     private:
+        typedef typename ft::iterator_traits<T> iterator_traits;
         T _ptr;
 
     public:
-        iterator() : _ptr(0) {} // default
-        iterator(T ptr) : _ptr(ptr) {} //param constructor (for iterator init: begin, end, etc)
-        iterator(iterator const &src) // copy constructor
+        typedef typename iterator_traits::iterator_category iterator_category;
+        typedef typename iterator_traits::value_type value_type;
+        typedef typename iterator_traits::difference_type difference_type;
+        typedef typename iterator_traits::reference reference;
+        typedef typename iterator_traits::pointer pointer;
+
+        myIterator() : _ptr(NULL) {} // default
+                                     // iterator(T ptr) : _ptr(ptr) {} //param constructor (for iterator init: begin, end, etc)
+        myIterator(const T &ptr) : _ptr(ptr) {}
+        myIterator(myIterator const &src) // copy constructor
         {
             *this = src;
         }
 
-        iterator &operator=(iterator const &rhs) // asignment operator
+        myIterator &operator=(myIterator const &rhs) // asignment operator
         {
             this->_ptr = rhs._ptr;
             return (*this);
         }
-        ~iterator() {} // destructor
+        ~myIterator() {} // destructor
 
         // Comparison operations:
 
-        bool &operator==(iterator const &rhs) { return this->_ptr == rhs._ptr; }
-        bool &operator!=(iterator const &rhs) { return this->_ptr != rhs._ptr; }
+        bool &operator==(myIterator const &rhs) { return this->_ptr == rhs._ptr; }
+        bool &operator!=(myIterator const &rhs) { return this->_ptr != rhs._ptr; }
 
         // Dereferensing operations as an rvalue:
 
@@ -122,73 +186,73 @@ namespace ft
 
         // Incrementing operations
 
-        iterator &operator++() // ++a
+        myIterator &operator++() // ++a
         {
             this->_ptr++;
             return (*this);
         }
 
-        iterator &operator++(int) //a++
+        myIterator operator++(int) //a++
         {
-            iterator copy = *this;
+            myIterator copy(*this);
             this->_ptr++;
             return (copy);
         }
 
         // TO DO:
-        // вот это тоже не поняла на самом деле: "Two iterators that compare equal, keep comparing equal after being both increased." *a++"
+        // вот это тоже не поняла на самом деле: "Two myIterators that compare equal, keep comparing equal after being both increased." *a++"
 
         // Decrementing operations:
 
-        iterator &operator--() //--a
+        myIterator &operator--() //--a
         {
             this->_ptr--;
             return (*this);
         }
-        iterator &operator--(int) // a--
+        myIterator &operator--(int) // a--
         {
-            iterator copy;
+            myIterator copy;
             this->_ptr--;
             return (*this);
         }
 
         // Arithmetic operations + -
 
-        iterator &operator+(size_t n) const // between an iterator and int value
+        myIterator &operator+(size_t n) const // between an myIterator and int value
         {
-            iterator copy = *this;
+            myIterator copy = *this;
             copy._ptr += n;
             return (copy);
         }
 
-        iterator &operator-(size_t n) const // between an iterator and int value
+        myIterator &operator-(size_t n) const // between an myIterator and int value
         {
-            iterator copy = *this;
+            myIterator copy = *this;
             copy._ptr -= n;
             return (copy);
         }
-        iterator &operator+(iterator const &rhs) const // between iterator and iterator
+        myIterator &operator+(myIterator const &rhs) const // between myIterator and myIterator
         {
             return (this->_ptr + rhs._ptr);
         }
-        iterator &operator-(iterator const &rhs) const // between iterator and iterator
+        myIterator &operator-(myIterator const &rhs) const // between myIterator and myIterator
         {
             return (this->_ptr - rhs._ptr);
         }
         // Inequality relational operators (< , > , <= and >=)
-        bool operator>(iterator const &rhs) { return this->_ptr > rhs._ptr; }
-        bool operator>=(iterator const &rhs) { return this->ptr >= rhs._ptr; }
-        bool operator<(iterator const &rhs) { return this->ptr < rhs._ptr; }
-        bool operator<=(iterator const &rhs) { return this->ptr <= rhs._ptr; }
+        bool operator>(myIterator const &rhs) { return this->_ptr > rhs._ptr; }
+        bool operator>=(myIterator const &rhs) { return this->ptr >= rhs._ptr; }
+        bool operator<(myIterator const &rhs) { return this->ptr < rhs._ptr; }
+        bool operator<=(myIterator const &rhs) { return this->ptr <= rhs._ptr; }
 
         // Compound assignment operations += and -=
-        iterator &operator+=(size_t n)
+        myIterator &operator+=(size_t n)
         {
             this->_ptr += n;
             return (*this);
         }
 
-        iterator &operator-=(size_t n)
+        myIterator &operator-=(size_t n)
         {
             this->_ptr -= n;
             return (*this);
