@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/05 19:10:43 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/05 21:47:55 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,18 +143,17 @@ namespace ft
     };
 
     template <class T>
-    class myIterator
+    class myIterator : public ft::iterator<ft::random_access_iterator_tag, T> // нужно конечно же будет изменить для каждого типа!!! когда сделаю assign
     {
     private:
-        typedef typename ft::iterator_traits<T> iterator_traits;
         T _ptr;
 
     public:
-        typedef typename iterator_traits::iterator_category iterator_category;
-        typedef typename iterator_traits::value_type value_type;
-        typedef typename iterator_traits::difference_type difference_type;
-        typedef typename iterator_traits::reference reference;
-        typedef typename iterator_traits::pointer pointer;
+        typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
+        typedef typename ft::iterator_traits<T>::value_type value_type;
+        typedef typename ft::iterator_traits<T>::difference_type difference_type;
+        typedef typename ft::iterator_traits<T>::reference reference;
+        typedef typename ft::iterator_traits<T>::pointer pointer;
 
         myIterator() : _ptr(NULL) {} // default
                                      // iterator(T ptr) : _ptr(ptr) {} //param constructor (for iterator init: begin, end, etc)
@@ -264,6 +263,99 @@ namespace ft
             return *(*this + n);
         }
     };
+
+    template <class Iterator>
+    class myReverse_iterator : public ft::iterator<typename ft::iterator_traits<Iterator>::iterator_category, \
+            typename ft::iterator_traits<Iterator>::value_type, typename ft::iterator_traits<Iterator>::difference_type, \
+            typename ft::iterator_traits<Iterator>::pointer, typename ft::iterator_traits<Iterator>::reference>
+    {
+    public:
+        typedef Iterator iterator_type;
+        typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
+        typedef typename ft::iterator_traits<Iterator>::value_type value_type;
+        typedef typename ft::iterator_traits<Iterator>::difference_type difference_type;
+        typedef typename ft::iterator_traits<Iterator>::pointer pointer;
+        typedef typename ft::iterator_traits<Iterator>::reference reference;
+
+        myReverse_iterator() {}                                        // default
+        explicit myReverse_iterator(iterator_type type) : _type(type) {} // initialization constructor
+        template <class Iter>
+        myReverse_iterator(const myReverse_iterator<Iter> &rev_type) : _type(rev_type._type) {}
+
+        iterator_type base() const // returns a copy of the base iterator
+        {
+            return (_type);
+        }
+
+        reference operator*() const // Internally, the function decreases a copy of its base iterator and returns the result of dereferencing it.
+        {
+            iterator_type base_copy = this->_type;
+            return *(--base_copy);
+        }
+
+        myReverse_iterator operator+(difference_type n) const // Internally, the function applies the binary operator- on the base iterator and returns a reverse iterator constructed with the resulting iterator value.
+        {
+            return myReverse_iterator(this->_type - n);
+        }
+
+        myReverse_iterator &operator++() // Internally, the pre-increment version (1) decrements the base iterator kept by the object (as if applying operator-- to it).
+        {
+            this->_type--;
+            return (*this);
+        }
+
+        myReverse_iterator operator++(int)
+        {
+            myReverse_iterator base_copy(*this);
+            this->_type--;
+            return (base_copy);
+        }
+
+        myReverse_iterator &operator+=(difference_type n) // Internally, the function decreases by n the base iterator kept by the object (as if applying operator-= to it)
+        {
+            this->_type -= n;
+            return (*this);
+        }
+
+        myReverse_iterator operator-(difference_type n) const
+        {
+            return myReverse_iterator(this->_type + n);
+        }
+
+        myReverse_iterator &operator--()
+        {
+            this->_type++;
+            return (*this);
+        }
+
+        myReverse_iterator operator--(int)
+        {
+            myReverse_iterator base_copy(*this);
+            this->type++;
+            return (base_copy);
+        }
+
+        myReverse_iterator& operator-=(difference_type n)
+        {
+            this->_type += n;
+            return (*this); 
+        }
+
+        pointer operator->() const
+        {
+            return &(operator*());
+        }
+
+        reference operator[] (difference_type n) const // Internally, the function accesses the proper element of its base iterator, returning the same as: base()[-n-1].
+        {
+            return base()[-n - 1];
+        }
+
+    private:
+        iterator_type _type;
+    };
+
+    // TO DO: Non-member function overloads for reverse iterator!!!
 }
 
 #endif
