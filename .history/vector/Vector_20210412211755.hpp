@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/12 21:25:59 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/12 21:17:55 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,36 +122,22 @@ namespace ft
 		{
 			if (this->_v_size > n)
 			{
-				erase(begin() + n, end());
+				// reduced to its first n elements, removing those beyond and destroying them
 			}
 			if (this->_v_size < n)
 			{
 				size_type offset;
 				offset = n - this->_v_size;
-				insert(end(), offset, val);
+				insert(iterator position, offset, val);
+				
+				// add more elements, as many as n
+
+				// If val is specified, the new elements are initialized as copies of val, otherwise, they are value-initialized.
 				
 			}
+			If n is also greater than the current container capacity, an automatic reallocation of the allocated storage space takes place.
 		}
 
-		void push_back (const value_type& val)
-		{
-			
-		}
-
-		void pop_back()
-		{
-			
-		}
-
-		iterator erase (iterator position)
-		{
-
-		}
-		
-		iterator erase (iterator first, iterator last)
-		{
-
-		}
 
 		iterator insert (iterator position, const value_type& val)
 		{

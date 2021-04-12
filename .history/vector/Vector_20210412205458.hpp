@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/12 21:25:59 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/12 20:54:58 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,51 +107,6 @@ namespace ft
 		reference back() { return *(this->_v_end - 1); }
 		const_reference back() const { return *(this->_v_end_ - 1); }
 		size_type size() const { return this->_v_size; }
-		
-		size_t				max_size(void) const
-		{
-			return allocator_type.max_size();
-		}
-		
-
-		// Resizes the container so that it contains n elements.
-
-
-
-		void resize (size_type n, value_type val = value_type())
-		{
-			if (this->_v_size > n)
-			{
-				erase(begin() + n, end());
-			}
-			if (this->_v_size < n)
-			{
-				size_type offset;
-				offset = n - this->_v_size;
-				insert(end(), offset, val);
-				
-			}
-		}
-
-		void push_back (const value_type& val)
-		{
-			
-		}
-
-		void pop_back()
-		{
-			
-		}
-
-		iterator erase (iterator position)
-		{
-
-		}
-		
-		iterator erase (iterator first, iterator last)
-		{
-
-		}
 
 		iterator insert (iterator position, const value_type& val)
 		{
@@ -182,17 +137,8 @@ namespace ft
 
 		size_type capacity() const
 		{
-			return this->_capacity;
+			
 		}
-
-		bool empty() const
-		{
-			if (this->_v_size == 0)
-				return true;
-			else 
-				return false;
-		}
-		
 
 		/* */
 
@@ -201,7 +147,6 @@ namespace ft
 			pointer _v_begin;
 			pointer _v_end;
 			size_t _v_size;
-			size_t _capacity;
 	};
 
 }

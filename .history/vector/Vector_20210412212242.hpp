@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/12 21:25:59 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/12 21:22:42 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,16 +131,6 @@ namespace ft
 				insert(end(), offset, val);
 				
 			}
-		}
-
-		void push_back (const value_type& val)
-		{
-			
-		}
-
-		void pop_back()
-		{
-			
 		}
 
 		iterator erase (iterator position)
