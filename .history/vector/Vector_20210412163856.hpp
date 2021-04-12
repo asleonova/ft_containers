@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/12 16:40:29 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/12 16:38:56 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,16 +113,6 @@ namespace ft
 
 		}
 
-		void insert (iterator position, size_type n, const value_type& val)
-		{
-			
-		}
-
-		template <class InputIterator>
-    		void insert (iterator position, InputIterator first, InputIterator last)
-		{
-
-		}
 		
 		template <class InputIterator>
   			void assign (InputIterator first, InputIterator last)

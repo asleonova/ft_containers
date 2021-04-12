@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/12 16:40:29 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/12 16:28:40 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,57 +83,17 @@ namespace ft
 		
 		reverse_iterator rbegin()
 		{
-			return reverse_iterator(end());
+			return reverse_iterator.
 		}
-
-		reverse_iterator rend()
-		{
-			return reverse_iterator(begin());
-		}
-		
-		const_reverse_iterator rbegin()
-		{
-			return const_reverse_iterator(end());
-		}
-
-		const_reverse_iterator rend()
-		{
-			return const_reverse_iterator(begin());
-		}
-
+		//reverse_iterator rend();
+		//const_reverse_iterator rbegin();
+		//const_reverse_iterator rend();
 
 		reference front() { return *_v_begin; }
 		const_reference front() const { return *_v_begin; }
 		reference back() { return *(this->_v_end - 1); }
 		const_reference back() const { return *(this->_v_end_ - 1); }
 		size_type size() const { return this->_v_size; }
-
-		iterator insert (iterator position, const value_type& val)
-		{
-
-		}
-
-		void insert (iterator position, size_type n, const value_type& val)
-		{
-			
-		}
-
-		template <class InputIterator>
-    		void insert (iterator position, InputIterator first, InputIterator last)
-		{
-
-		}
-		
-		template <class InputIterator>
-  			void assign (InputIterator first, InputIterator last)
-		{
-
-		}
-
-		void assign (size_type n, const value_type& val)
-		{
-
-		}
 
 		/* */
 

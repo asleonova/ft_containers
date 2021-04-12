@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/12 16:10:58 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/12 16:07:07 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,10 +146,7 @@ namespace ft
         typename iterator_traits<InputIterator>::difference_type
     distance (InputIterator first, InputIterator last)
     {
-        typename iterator_traits<InputIterator>::difference_type ret(0);
-        for (; first != last; ++first)
-            ++ret;
-        return ret;
+        
     }
 
 

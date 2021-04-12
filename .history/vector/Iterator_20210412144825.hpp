@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/12 16:10:58 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/12 14:48:25 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,18 +141,6 @@ namespace ft
         typedef T &reference;
         typedef random_access_iterator_tag iterator_category;
     };
-
-    template<class InputIterator>
-        typename iterator_traits<InputIterator>::difference_type
-    distance (InputIterator first, InputIterator last)
-    {
-        typename iterator_traits<InputIterator>::difference_type ret(0);
-        for (; first != last; ++first)
-            ++ret;
-        return ret;
-    }
-
-
 
     template <class T>
     class myIterator : public ft::iterator<ft::random_access_iterator_tag, T> // нужно конечно же будет изменить для каждого типа!!! когда сделаю assign
