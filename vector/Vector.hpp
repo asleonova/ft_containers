@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/12 21:25:59 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/15 19:52:01 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,46 +26,41 @@ namespace ft
 	template <class T, class Alloc = std::allocator<T> >
 	class vector
 	{
-		public:
-
+	public:
 		typedef T value_type;
 		typedef Alloc allocator_type;
 		typedef typename Alloc::reference reference;
 		typedef typename Alloc::const_reference const_reference;
 		typedef typename Alloc::pointer pointer;
 		typedef typename Alloc::const_pointer const_pointer;
-		typedef ft::myIterator<pointer>     iterator;
+		typedef ft::myIterator<pointer> iterator;
 		typedef ft::myIterator<const_pointer> const_iterator;
 		typedef ft::myReverse_iterator<iterator> reverse_iterator;
 		typedef ft::myReverse_iterator<const_iterator> const_reverse_iterator;
-		
+
 		typedef ptrdiff_t difference_type;
 		typedef size_t size_type;
-		
-		
 
 		// а дальше надо создать итератор!!!
 		// и потом еще некоторые параметры (которые дальше на сайте С++)
 
 		/* 4 CONSTRUCTORS: */
-			explicit vector(const allocator_type& alloc = allocator_type()) : _v_begin(NULL), _v_size(0) {} // #1: default constructor
-			explicit vector(size_type n, const value_type& val = value_type(), \
-                 const allocator_type& alloc = allocator_type()) {} // #2: fill constructor: constructs a container with n elements. Each element is a copy of val.
-			/* #3: Constructs a container with as many elements as the range [first,last), 
+		explicit vector(const allocator_type &alloc = allocator_type()) : _allocator_type(alloc), _arr(NULL), _v_size(0), _capacity(0) {} // #1: default constructor
+		explicit vector(size_type n, const value_type &val = value_type(),
+						const allocator_type &alloc = allocator_type()) {} // #2: fill constructor: constructs a container with n elements. Each element is a copy of val.
+		/* #3: Constructs a container with as many elements as the range [first,last), 
 			with each element constructed from its corresponding element in that range, in the same order. */
-		/*!!!!!!доделать*/	
-		
-		
-		
-			template <class InputIterator>
-        	 	vector (InputIterator first, InputIterator last,
-                 const allocator_type& alloc = allocator_type()) {}
-				 
-				 /* #4: copy constructor: */
-			explicit vector(vector const &src);
-						
-		/* DESTRUCTOR */	
-			~vector(){}
+		/*!!!!!!доделать*/
+
+		template <class InputIterator>
+		vector(InputIterator first, InputIterator last,
+			   const allocator_type &alloc = allocator_type()) {}
+
+		/* #4: copy constructor: */
+		explicit vector(vector const &src);
+
+		/* DESTRUCTOR */
+		~vector() {}
 
 		/*ASSIGNMENT OPERATOR*/
 
@@ -74,13 +69,13 @@ namespace ft
 		/* ITERATORS */
 
 		iterator begin() { return (iterator(&(front()))); } // тут мы получаем ссылку из указателя (фронт возвращает указатель, и подставляем в конструктор)
-		
-		iterator end() { return iterator(&(back()) + 1); } // Unlike member vector::end, which returns an iterator just past this element, this function returns a direct reference, поэтому +1 
+
+		iterator end() { return iterator(&(back()) + 1); } // Unlike member vector::end, which returns an iterator just past this element, this function returns a direct reference, поэтому +1
 
 		const_iterator begin() const { return const_iterator(&(front())); }
-		
+
 		const_iterator end() const { return const_iterator(&(back()) + 1); }
-		
+
 		reverse_iterator rbegin()
 		{
 			return reverse_iterator(end());
@@ -90,35 +85,31 @@ namespace ft
 		{
 			return reverse_iterator(begin());
 		}
-		
-		const_reverse_iterator rbegin()
+
+		const_reverse_iterator rbegin() const
 		{
 			return const_reverse_iterator(end());
 		}
 
-		const_reverse_iterator rend()
+		const_reverse_iterator rend() const
 		{
 			return const_reverse_iterator(begin());
 		}
 
-
-		reference front() { return *_v_begin; }
-		const_reference front() const { return *_v_begin; }
-		reference back() { return *(this->_v_end - 1); }
-		const_reference back() const { return *(this->_v_end_ - 1); }
+		reference front() { return this->_arr[0]; }
+		const_reference front() const { return this->_arr[0]; }
+		reference back() {return this->_arr[this->_v_size - 1]; }
+		const_reference back() const { return this->arr[this->_v_size - 1]; }
 		size_type size() const { return this->_v_size; }
-		
-		size_t				max_size(void) const
+
+		size_t max_size(void) const
 		{
-			return allocator_type.max_size();
+			return this->_allocator_type.max_size();
 		}
-		
 
 		// Resizes the container so that it contains n elements.
 
-
-
-		void resize (size_type n, value_type val = value_type())
+		void resize(size_type n, value_type val = value_type())
 		{
 			if (this->_v_size > n)
 			{
@@ -129,55 +120,78 @@ namespace ft
 				size_type offset;
 				offset = n - this->_v_size;
 				insert(end(), offset, val);
-				
 			}
 		}
 
-		void push_back (const value_type& val)
+		void reserve(size_type n)
 		{
-			
+			// If n is greater than the current vector capacity,
+			// the function causes the container to reallocate its storage increasing its capacity to n (or greater).
+			if (n < this->_capacity) 
+				return ;
+			if (n > this->_capacity)
+			{
+				T *tmp = new T[n];
+				for (int i = 0; i < this->_v_size; ++i)
+				{
+					tmp[i] = this->_arr[i];
+				}
+				delete[] this->_arr;
+				this->_arr = tmp;
+				this->_capacity = n;
+			}
 		}
+
+		// Adds a new element at the end of the vector, after its current last element. The content of val is copied (or moved) to the new element.
+		// If size < capacity, a push_back simply puts the new element at the end and increments the size by 1.
+		void push_back(const value_type &val)
+		{
+			if (this->_v_size > this->_capacity)
+			{
+				reserve(2 * this->_capacity + 1);
+			}
+			this->_arr[this->_v_size] = val;
+			this->_v_size++;
+		}
+
+		// Removes the last element in the vector, effectively reducing the container size by one.
+		// If the container is not empty, the function never throws exceptions (no-throw guarantee).
+		// Otherwise, it causes undefined behavior.
 
 		void pop_back()
 		{
-			
+			delete this->_arr[this->_v_size - 1];
+			this->_v_size--;
 		}
 
-		iterator erase (iterator position)
+		iterator erase(iterator position)
 		{
-
-		}
-		
-		iterator erase (iterator first, iterator last)
-		{
-
 		}
 
-		iterator insert (iterator position, const value_type& val)
+		iterator erase(iterator first, iterator last)
 		{
-
 		}
 
-		void insert (iterator position, size_type n, const value_type& val)
+		iterator insert(iterator position, const value_type &val)
 		{
-			
+		}
+
+		void insert(iterator position, size_type n, const value_type &val)
+		{
 		}
 
 		template <class InputIterator>
-    		void insert (iterator position, InputIterator first, InputIterator last)
+		void insert(iterator position, InputIterator first, InputIterator last)
 		{
-
 		}
-		
+
 		template <class InputIterator>
-  			void assign (InputIterator first, InputIterator last)
+		void assign(InputIterator first, InputIterator last)
 		{
-
 		}
 
-		void assign (size_type n, const value_type& val)
+		void assign(size_type n, const value_type &val)
 		{
-
 		}
 
 		size_type capacity() const
@@ -189,19 +203,17 @@ namespace ft
 		{
 			if (this->_v_size == 0)
 				return true;
-			else 
+			else
 				return false;
 		}
-		
 
 		/* */
 
-		private:
-
-			pointer _v_begin;
-			pointer _v_end;
-			size_t _v_size;
-			size_t _capacity;
+	private:
+		T *_arr;
+		size_t _v_size;
+		size_t _capacity;
+		allocator_type _allocator_type;
 	};
 
 }

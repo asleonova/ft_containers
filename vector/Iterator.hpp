@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/12 16:10:58 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/15 16:21:30 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ namespace ft
             this->_ptr--;
             return (*this);
         }
-        myIterator &operator--(int) // a--
+        myIterator operator--(int) // a--
         {
             myIterator copy = *this;
             this->_ptr--;
@@ -310,7 +310,7 @@ namespace ft
          const myIterator<T>& m_it)
     // Returns a move iterator pointing to the element located n positions away from the element pointed to by m_it.
     {
-        return (normal_iterator<T>(m_it.base() + n));
+        return (myIterator<T>(m_it.base() + n));
     }
 
     // Returns the distance between lhs and rhs
@@ -471,7 +471,7 @@ namespace ft
              const myReverse_iterator<Iterator>& rev_it)
     // returns an iterator pointing to the element n positions away from rev_it.
     {
-        return (reverse_iterator<Iterator>(rev_it.base() - n));
+        return (myReverse_iterator<Iterator>(rev_it.base() - n));
     }
 
     template <class Iterator>
@@ -480,7 +480,7 @@ namespace ft
             const myReverse_iterator<Iterator>& rhs)
     // The function returns the same as subtracting lhs's base iterator from rhs's base iterator.
     {
-        return rhs.base() - lhs.base()
+        return rhs.base() - lhs.base();
     }
 }
 
