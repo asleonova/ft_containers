@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/15 19:52:01 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/16 21:00:07 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ namespace ft
 		// и потом еще некоторые параметры (которые дальше на сайте С++)
 
 		/* 4 CONSTRUCTORS: */
-		explicit vector(const allocator_type &alloc = allocator_type()) : _allocator_type(alloc), _arr(NULL), _v_size(0), _capacity(0) {} // #1: default constructor
+		explicit vector(const allocator_type &alloc = allocator_type()) : _allocator_type(alloc), _capacity(NULL), _v_begin(NULL), _v_end(NULL) {} // #1: default constructor
 		explicit vector(size_type n, const value_type &val = value_type(),
 						const allocator_type &alloc = allocator_type()) {} // #2: fill constructor: constructs a container with n elements. Each element is a copy of val.
 		/* #3: Constructs a container with as many elements as the range [first,last), 
@@ -60,7 +60,8 @@ namespace ft
 		explicit vector(vector const &src);
 
 		/* DESTRUCTOR */
-		~vector() {}
+		~vector() { this->_allocator_type.deallocate(this->_v_begin, size());
+		}
 
 		/*ASSIGNMENT OPERATOR*/
 
@@ -96,11 +97,11 @@ namespace ft
 			return const_reverse_iterator(begin());
 		}
 
-		reference front() { return this->_arr[0]; }
-		const_reference front() const { return this->_arr[0]; }
-		reference back() {return this->_arr[this->_v_size - 1]; }
-		const_reference back() const { return this->arr[this->_v_size - 1]; }
-		size_type size() const { return this->_v_size; }
+		reference front() { return *(this->_v_begin); }
+		const_reference front() const { return *(this->_v_begin); }
+		reference back() { return *(this->_v_end - 1); }
+		const_reference back() const { return *(this->_v_end - 1); }
+		size_type size() const { return static_cast<size_type>(this->_v_end - this->_v_begin); }
 
 		size_t max_size(void) const
 		{
@@ -127,31 +128,51 @@ namespace ft
 		{
 			// If n is greater than the current vector capacity,
 			// the function causes the container to reallocate its storage increasing its capacity to n (or greater).
-			if (n < this->_capacity) 
-				return ;
-			if (n > this->_capacity)
+			if (n < capacity())
+				return;
+			//pointer val = this->_v_begin;
+			//pointer array = this->_allocator_type.allocate(n);
+			if (n > capacity())
 			{
-				T *tmp = new T[n];
-				for (int i = 0; i < this->_v_size; ++i)
+				pointer old_begin = this->_v_begin;
+				pointer old_end = this->_v_end;
+				//size_type old_size = size();
+				size_type old_capacity = capacity();
+
+				pointer array = _allocator_type.allocate(n); // allocate enough space for n objects
+				this->_v_end = array;
+				while (this->_v_begin != old_end) // copy all previous content to the new array
 				{
-					tmp[i] = this->_arr[i];
+					_allocator_type.construct(this->_v_end, *(this->_v_begin)); // construct objects
+					this->_v_end++;
+					this->_v_begin++;
 				}
-				delete[] this->_arr;
-				this->_arr = tmp;
-				this->_capacity = n;
+				_allocator_type.deallocate(old_begin, old_capacity); 
+				this->_v_begin = array;
+				this->_capacity = this->_v_begin + n; // extend the capacity ??? //check this 
 			}
+
+			
+		//	this->_v_end = _v_begin + n;
 		}
+
+					// 		m_begin = arr;
+					// m_end = m_begin + len;
+					// m_end_capacity = m_begin + n
+
+					// len - it's size() // arr - it's allocate n objects
 
 		// Adds a new element at the end of the vector, after its current last element. The content of val is copied (or moved) to the new element.
 		// If size < capacity, a push_back simply puts the new element at the end and increments the size by 1.
 		void push_back(const value_type &val)
 		{
-			if (this->_v_size > this->_capacity)
+			if (this->_v_end == this->_capacity)
 			{
-				reserve(2 * this->_capacity + 1);
+				size_type reserve_cap = capacity();
+				reserve(2 * reserve_cap + 1);
 			}
-			this->_arr[this->_v_size] = val;
-			this->_v_size++;
+			_allocator_type.construct(this->_v_end, val);
+			this->_v_end++;
 		}
 
 		// Removes the last element in the vector, effectively reducing the container size by one.
@@ -160,12 +181,23 @@ namespace ft
 
 		void pop_back()
 		{
-			delete this->_arr[this->_v_size - 1];
-			this->_v_size--;
+			this->_allocator_type.destroy(&back());
+			this->_v_end--;
 		}
 
 		iterator erase(iterator position)
 		{
+			pointer ptr_pos = &(*position);
+			this->_allocator_type.destroy(&(*position));
+			//if (ptr_pos + 1 == this->_v_end - 1)
+				//this->_allocator_type.destroy(ptr_pos);
+			for (int i = 0; i < this->_v_end - ptr_pos - 1; i++)
+			{
+				this->_allocator_type.construct(ptr_pos + i, *ptr_pos + i + 1)); // put the right side of the array to the place pointed by the destroyed element;
+				this->_allocator_type.destroy(ptr_pos + i + 1); // destroy the duplicate
+			}
+			this->_v_end--;
+			return (iterator(ptr_pos));
 		}
 
 		iterator erase(iterator first, iterator last)
@@ -196,23 +228,22 @@ namespace ft
 
 		size_type capacity() const
 		{
-			return this->_capacity;
+			return static_cast<size_type>(this->_capacity - this->_v_begin);
 		}
 
 		bool empty() const
 		{
-			if (this->_v_size == 0)
+			if (size() == 0)
 				return true;
 			else
 				return false;
 		}
 
 		/* */
-
 	private:
-		T *_arr;
-		size_t _v_size;
-		size_t _capacity;
+		pointer _capacity;
+		pointer _v_begin;
+		pointer _v_end;
 		allocator_type _allocator_type;
 	};
 
