@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/19 13:59:36 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/19 22:18:48 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ namespace ft
 		explicit vector(vector const &src);
 
 		/* DESTRUCTOR */
-		~vector() { this->_allocator_type.deallocate(this->_v_begin, size());
+		~vector()
+		{
+			this->_allocator_type.deallocate(this->_v_begin, size());
 		}
 
 		/*ASSIGNMENT OPERATOR*/
@@ -147,20 +149,19 @@ namespace ft
 					this->_v_end++;
 					this->_v_begin++;
 				}
-				_allocator_type.deallocate(old_begin, old_capacity); 
+				_allocator_type.deallocate(old_begin, old_capacity);
 				this->_v_begin = array;
-				this->_capacity = this->_v_begin + n; // extend the capacity ??? //check this 
+				this->_capacity = this->_v_begin + n; // extend the capacity ??? //check this
 			}
 
-			
-		//	this->_v_end = _v_begin + n;
+			//	this->_v_end = _v_begin + n;
 		}
 
-					// 		m_begin = arr;
-					// m_end = m_begin + len;
-					// m_end_capacity = m_begin + n
+		// 		m_begin = arr;
+		// m_end = m_begin + len;
+		// m_end_capacity = m_begin + n
 
-					// len - it's size() // arr - it's allocate n objects
+		// len - it's size() // arr - it's allocate n objects
 
 		// Adds a new element at the end of the vector, after its current last element. The content of val is copied (or moved) to the new element.
 		// If size < capacity, a push_back simply puts the new element at the end and increments the size by 1.
@@ -185,22 +186,22 @@ namespace ft
 			this->_v_end--;
 		}
 
-		iterator erase(iterator position)
+		iterator erase(iterator position) // returns iterator of the end
 		{
 			pointer ptr_pos = &(*position);
 			this->_allocator_type.destroy(&(*position));
 			//if (ptr_pos + 1 == this->_v_end - 1)
-				//this->_allocator_type.destroy(ptr_pos);
+			//this->_allocator_type.destroy(ptr_pos);
 			for (int i = 0; i < this->_v_end - ptr_pos - 1; i++)
 			{
 				this->_allocator_type.construct(ptr_pos + i, *(ptr_pos + i + 1)); // put the right side of the array to the place pointed by the destroyed element;
-				this->_allocator_type.destroy(ptr_pos + i + 1); // destroy the duplicate
+				this->_allocator_type.destroy(ptr_pos + i + 1);					  // destroy the duplicate
 			}
 			this->_v_end--;
 			return (iterator(ptr_pos));
 		}
 
-		iterator erase(iterator first, iterator last)
+		iterator erase(iterator first, iterator last) // returns iterator to the place of the first erased element
 		{
 			pointer ptr_first = &(*first);
 			pointer ptr_last = &(*last);
@@ -208,12 +209,12 @@ namespace ft
 			while (&(*first) != &(*last))
 			{
 				this->_allocator_type.destroy(&(*first)); // delete the ranged elements
-				first++;	
+				first++;
 			}
 			for (int i = 0; i < this->_v_end - ptr_last; i++)
 			{
 				this->_allocator_type.construct(ptr_first + i, *(ptr_last + i)); // copy the contents of the array to the place of deleted elements
-				this->_allocator_type.destroy(ptr_last + i); // destroy the copied element
+				this->_allocator_type.destroy(ptr_last + i);					 // destroy the copied element
 			}
 			this->_v_end -= ptr_last - ptr_first;
 			return (iterator(ptr_first));
@@ -221,17 +222,73 @@ namespace ft
 
 		iterator insert(iterator position, const value_type &val)
 		{
-			
+			// construct the element in the specified position
+			// increase size by one;
+			// вернуть указатель на inserted element
 		}
+
+
+				// void
+		// insert(iterator position, size_type n, const value_type &val)
+		// {
+		// 	if (n)
+		// 	{
+		// 		Vector v;
+		// 		v.reserve(size() + n);
+
+		// 		iterator it = begin();
+		// 		while (it != position)
+		// 			v.push_back(*(it++));
+		// 		while (n--)
+		// 			v.push_back(val);
+		// 		while (it != end())
+		// 			v.push_back(*(it++));
+
+		// 		swap(v);
+		// 	}}
 
 		void insert(iterator position, size_type n, const value_type &val)
 		{
-		}
+			if (position < this->begin() || position > this->end())
+				throw(std::out_of_range("Error: std::out_of_range"));
 
-		template <class InputIterator>
-		void insert(iterator position, InputIterator first, InputIterator last)
-		{
+			size_type len = &(*position) - this->_v_begin;
+			std::cout << "len value: " << len << std::endl;
+			if (capacity() >= n + size())
+			{
+				std::cout << "capacity value: " << capacity() << std::endl;
+				std::cout << "size() + n : " << size() + n << std::endl; 
+				for (size_type i = 0; i < size() - len; i++)
+					this->_allocator_type.construct(&(*position) + n + i, *(position + i));
+				this->_v_end += n;
+				while(n != 0)
+				{
+					this->_allocator_type.construct(&(*position) + (n - 1), val); // filling from the "end"
+					n--;
+				}
+			}
+		// 	else
+		// 	{
+		// 	}
 		}
+		// 	size_type pos_len = &(*position) - _start;
+		// 	if (size_type(_end_capacity - _end) >= n)
+		// 	{
+		// 		for (size_type i = 0; i < this->size() - pos_len; i++)
+		// 			_alloc.construct(_end - i + (n - 1), *(_end - i - 1));
+		// 		_end += n;
+		// 		while (n)
+		// 		{
+		// 			_alloc.construct(&(*position) + (n - 1), val);
+		// 			n--;
+		// 		}
+		// 	}
+		// }
+
+		// template <class InputIterator>
+		// void insert(iterator position, InputIterator first, InputIterator last)
+		// {
+		// }
 
 		template <class InputIterator>
 		void assign(InputIterator first, InputIterator last)
