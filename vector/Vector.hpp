@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/16 21:00:07 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/19 13:59:36 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ namespace ft
 				//this->_allocator_type.destroy(ptr_pos);
 			for (int i = 0; i < this->_v_end - ptr_pos - 1; i++)
 			{
-				this->_allocator_type.construct(ptr_pos + i, *ptr_pos + i + 1)); // put the right side of the array to the place pointed by the destroyed element;
+				this->_allocator_type.construct(ptr_pos + i, *(ptr_pos + i + 1)); // put the right side of the array to the place pointed by the destroyed element;
 				this->_allocator_type.destroy(ptr_pos + i + 1); // destroy the duplicate
 			}
 			this->_v_end--;
@@ -202,10 +202,26 @@ namespace ft
 
 		iterator erase(iterator first, iterator last)
 		{
+			pointer ptr_first = &(*first);
+			pointer ptr_last = &(*last);
+
+			while (&(*first) != &(*last))
+			{
+				this->_allocator_type.destroy(&(*first)); // delete the ranged elements
+				first++;	
+			}
+			for (int i = 0; i < this->_v_end - ptr_last; i++)
+			{
+				this->_allocator_type.construct(ptr_first + i, *(ptr_last + i)); // copy the contents of the array to the place of deleted elements
+				this->_allocator_type.destroy(ptr_last + i); // destroy the copied element
+			}
+			this->_v_end -= ptr_last - ptr_first;
+			return (iterator(ptr_first));
 		}
 
 		iterator insert(iterator position, const value_type &val)
 		{
+			
 		}
 
 		void insert(iterator position, size_type n, const value_type &val)

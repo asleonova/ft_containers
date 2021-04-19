@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 19:17:09 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/16 21:08:03 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/19 13:55:20 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,14 +126,129 @@ void	test2(void)
 	std::cout << "v0 size: " << v0.size();
    	std::cout << " | v0 capacity: " << v0.capacity() << std::endl;
 	std::cout << std::endl;
+
+	std::cout << "\x1B[33m";
+	std::cout << "Erase the range elements";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+	ft::vector<int>::iterator ch1;
+	ch1 = v0.erase (v0.begin() + 1,v0.begin()+3);
+	std::cout << "vector's value: "<<  *ch1 << std::endl;
+
+	
+	
+	it = v0.begin();
+	ite = v0.end();
+
+	while (it != ite)
+	{
+		std::cout << *it << " ";
+		it++;
+	}
+	std::cout << std::endl;
+
+	std::cout << "v0 size: " << v0.size();
+   	std::cout << " | v0 capacity: " << v0.capacity() << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "\x1B[91m";
+	std::cout << ">>>>>>>>> [ STD ] <<<<<<<<<";
+	std::cout << "\033[0m\t\t" << std::endl;
+	std::vector<int>		v1;
+
+	v1.push_back(1);
+	v1.push_back(2);
+	v1.push_back(3);
+	v1.push_back(4);
+	v1.push_back(5);
+	v1.push_back(6);
+	v1.push_back(7);
+	v1.push_back(8);
+	v1.push_back(9);
+	v1.push_back(10);
+
+	std::vector<int>::iterator	its = v1.begin();
+	std::vector<int>::iterator	ites = v1.end();
+
+	std::cout << "Initial array:" << std::endl;
+	while (its != ites)
+	{
+		std::cout << *its << " ";
+		its++;
+	}
+	std::cout << std::endl;
+	its = v1.begin();
+
+	std::cout << "\x1B[33m";
+	std::cout << "Erase element at 5th position";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+	v1.erase(its + 5);
+
+	its = v1.begin();
+	ites = v1.end();
+
+	while (its != ites)
+	{
+		std::cout << *its << " ";
+		its++;
+	}
+	std::cout << std::endl;
+
+	std::cout << "v1 size: " << v1.size();
+   	std::cout << " | v1 capacity: " << v1.capacity() << std::endl;
+
+	std::cout << "\x1B[33m";
+	std::cout << "Erase element at the last position";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+	v1.erase(ites - 1);
+
+	its = v1.begin();
+	ites = v1.end();
+
+	while (its != ites)
+	{
+		std::cout << *its << " ";
+		its++;
+	}
+	std::cout << std::endl;
+
+	std::cout << "v1 size: " << v1.size();
+   	std::cout << " | v1 capacity: " << v1.capacity() << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "\x1B[33m";
+	std::cout << "Erase the range elements";
+	std::cout << "\033[0m\t\t" << std::endl;
+	
+	std::vector<int>::iterator ch;
+	ch = v1.erase (v1.begin() + 1,v1.begin()+3);
+	std::cout << "vector's value: "<<  *ch << std::endl;
+	its = v1.begin();
+	ites = v1.end();
+
+	while (its != ites)
+	{
+		std::cout << *its << " ";
+		its++;
+	}
+	std::cout << std::endl;
+
+	std::cout << "v1 size: " << v1.size();
+   	std::cout << " | v1 capacity: " << v1.capacity() << std::endl;
+	std::cout << std::endl;
 }
 
 
 int main()
 {
     test1();
+	test2();
     std::vector<int>vec;
     ft::vector<int> v;
+
+	// TO DO:  test erase func with the range!!!!
     v.push_back(1);
     v.push_back(10);
     v.push_back(4);
