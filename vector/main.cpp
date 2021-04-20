@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 19:17:09 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/19 20:30:22 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/20 16:04:32 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,28 @@ void	test2(void)
 	std::cout << "\033[0m\t\t" << std::endl;
 	
 	//std::vector<int>::iterator inf;
-	v0.insert(v0.begin() + 1, 5, 2);
+	v0.insert(v0.begin() + 5, 20, 2);
+	//std::cout << "vector's value: "<<  *inf << std::endl;
+	it = v0.begin();
+	ite = v0.end();
+
+	while (it != ite)
+	{
+		std::cout << *it << " ";
+		it++;
+	}
+	std::cout << std::endl;
+
+	std::cout << "v0 size: " << v0.size();
+   	std::cout << " | v0 capacity: " << v0.capacity() << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "\x1B[33m";
+	std::cout << "Insert one element";
+	std::cout << "\033[0m\t\t" << std::endl;
+	
+	//std::vector<int>::iterator inf;
+	v0.insert(v0.begin() + 1, 15);
 	//std::cout << "vector's value: "<<  *inf << std::endl;
 	it = v0.begin();
 	ite = v0.end();
@@ -275,8 +296,29 @@ void	test2(void)
 	std::cout << "\033[0m\t\t" << std::endl;
 	
 	std::vector<int>::iterator in;
-	in = v1.insert(v1.begin() + 1, 5, 2);
+	in = v1.insert(v1.begin() + 5, 20, 2);
 	std::cout << "vector's value: "<<  *in << std::endl;
+	its = v1.begin();
+	ites = v1.end();
+
+	while (its != ites)
+	{
+		std::cout << *its << " ";
+		its++;
+	}
+	std::cout << std::endl;
+
+	std::cout << "v1 size: " << v1.size();
+   	std::cout << " | v1 capacity: " << v1.capacity() << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "\x1B[33m";
+	std::cout << "Insert one element: STD";
+	std::cout << "\033[0m\t\t" << std::endl;
+	
+	//std::vector<int>::iterator inf;
+	v1.insert(v1.begin() + 1, 15);
+	//std::cout << "vector's value: "<<  *inf << std::endl;
 	its = v1.begin();
 	ites = v1.end();
 
@@ -292,11 +334,350 @@ void	test2(void)
 	std::cout << std::endl;
 }
 
+void	test3(void)
+{
+	// Capacity
+	std::cout << "\x1B[91m";
+	std::cout << ">>>>>>>> [ Capacity member-functions of vector class] <<<<<<";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+	ft::vector<std::string>		vs0;
+
+	vs0.push_back("May");
+	vs0.push_back("the");
+	vs0.push_back("Force");
+	vs0.push_back("be");
+	vs0.push_back("with");
+	vs0.push_back("you!");
+
+	ft::vector<std::string>::iterator	it = vs0.begin();
+	ft::vector<std::string>::iterator	ite = vs0.end();
+
+	std::vector<std::string>		vs1;
+
+	vs1.push_back("May");
+	vs1.push_back("the");
+	vs1.push_back("Force");
+	vs1.push_back("be");
+	vs1.push_back("with");
+	vs1.push_back("you!");
+
+	std::vector<std::string>::iterator	its = vs1.begin();
+	std::vector<std::string>::iterator	ites = vs1.end();
+
+	std::cout << "\x1B[33m";
+	std::cout << "Initial vector content:";
+	std::cout << "\033[0m\t\t" << std::endl;
+	while (it != ite)
+	{
+		std::cout << *it << std::endl;
+		it++;
+	}
+	std::cout << "vector size(): " << vs0.size();
+	std::cout << ", vector capacity(): " << vs0.capacity() << std::endl;
+	std::cout << "vector max_size(): " << vs0.max_size() << std::endl;
+	std::cout << std::endl;
+
+	std::cout << "\x1B[33m";
+	std::cout << "STD::Initial vector content:";
+	std::cout << "\033[0m\t\t" << std::endl;
+	while (its != ites)
+	{
+		std::cout << *its << std::endl;
+		its++;
+	}
+	std::cout << "vector size(): " << vs1.size();
+	std::cout << ", vector capacity(): " << vs1.capacity() << std::endl;
+	std::cout << "vector max_size(): " << vs1.max_size() << std::endl;
+	std::cout << std::endl;
+
+	// Resize to 10
+	std::cout << "\x1B[33m";
+	std::cout << "Resize vector to 10 with \"!\" values";
+	std::cout << "\033[0m\t\t" << std::endl;
+	vs0.resize(10, "!");
+	std::cout << "vector size(): " << vs0.size();
+	std::cout << ", vector capacity(): " << vs0.capacity() << std::endl;
+	it = vs0.begin();
+	ite = vs0.end();
+	while (it != ite)
+	{
+		std::cout << *it << std::endl;
+		it++;
+	}
+
+	// Resize to 10 (std)
+	std::cout << "\x1B[33m";
+	std::cout << "Resize vector to 10 with \"!\" values";
+	std::cout << "\033[0m\t\t" << std::endl;
+	vs1.resize(10, "!");
+	std::cout << "vector size(): " << vs1.size();
+	std::cout << ", vector capacity(): " << vs1.capacity() << std::endl;
+	its = vs1.begin();
+	ites = vs1.end();
+	while (its != ites)
+	{
+		std::cout << *its << std::endl;
+		its++;
+	}
+
+	// // Resize to 12 by default
+	// std::cout << "\x1B[33m";
+	// std::cout << "Resize vector to 12 by default values";
+	// std::cout << "\033[0m\t\t" << std::endl;
+	// vs0.resize(12);
+	// std::cout << "vector size(): " << vs0.size();
+	// std::cout << ", vector capacity(): " << vs0.capacity() << std::endl;
+	// it = vs0.begin();
+	// ite = vs0.end();
+	// while (it != ite)
+	// {
+	// 	std::cout << *it << std::endl;
+	// 	it++;
+	// }
+
+	// // Resize to 12 by default
+	// std::cout << "\x1B[33m";
+	// std::cout << "Resize vector to 12 by default values";
+	// std::cout << "\033[0m\t\t" << std::endl;
+	// vs1.resize(12);
+	// std::cout << "vector size(): " << vs1.size();
+	// std::cout << ", vector capacity(): " << vs1.capacity() << std::endl;
+	// its = vs1.begin();
+	// ites = vs1.end();
+	// while (its != ites)
+	// {
+	// 	std::cout << *its << std::endl;
+	// 	its++;
+	// }
+
+	// // Resize to 5 by default
+	// std::cout << "\x1B[33m";
+	// std::cout << "Resize vector to 5 by default values";
+	// std::cout << "\033[0m\t\t" << std::endl;
+	// vs0.resize(5);
+	// std::cout << "vector size(): " << vs0.size();
+	// std::cout << ", vector capacity(): " << vs0.capacity() << std::endl;
+	// it = vs0.begin();
+	// ite = vs0.end();
+	// while (it != ite)
+	// {
+	// 	std::cout << *it << std::endl;
+	// 	it++;
+	// }
+
+	// 	// Resize to 5 by default
+	// std::cout << "\x1B[33m";
+	// std::cout << "Resize vector to 5 by default values";
+	// std::cout << "\033[0m\t\t" << std::endl;
+	// vs1.resize(5);
+	// std::cout << "vector size(): " << vs1.size();
+	// std::cout << ", vector capacity(): " << vs1.capacity() << std::endl;
+	// its = vs1.begin();
+	// ites = vs1.end();
+	// while (its != ites)
+	// {
+	// 	std::cout << *its << std::endl;
+	// 	its++;
+	// }
+
+	// // Resize to 3 with "!"
+	// std::cout << "\x1B[33m";
+	// std::cout << "Resize vector to 3 with \"!\" value";
+	// std::cout << "\033[0m\t\t" << std::endl;
+	// vs0.resize(3, "!");
+	// std::cout << "vector size(): " << vs0.size();
+	// std::cout << ", vector capacity(): " << vs0.capacity() << std::endl;
+	// it = vs0.begin();
+	// ite = vs0.end();
+	// while (it != ite)
+	// {
+	// 	std::cout << *it << std::endl;
+	// 	it++;
+	// }
+
+
+	// // Resize to 3 with "!"
+	// std::cout << "\x1B[33m";
+	// std::cout << "Resize vector to 3 with \"!\" value";
+	// std::cout << "\033[0m\t\t" << std::endl;
+	// vs1.resize(3, "!");
+	// std::cout << "vector size(): " << vs1.size();
+	// std::cout << ", vector capacity(): " << vs1.capacity() << std::endl;
+	// its = vs1.begin();
+	// ites = vs1.end();
+	// while (its != ites)
+	// {
+	// 	std::cout << *its << std::endl;
+	// 	its++;
+	// }
+
+
+	// // Reserve 50
+	// std::cout << "\x1B[33m";
+	// std::cout << "Reserve 50 for vector";
+	// std::cout << "\033[0m\t\t" << std::endl;
+	// vs0.reserve(50);
+	// std::cout << "vector size(): " << vs0.size();
+	// std::cout << ", vector capacity(): " << vs0.capacity() << std::endl;
+	// it = vs0.begin();
+	// ite = vs0.end();
+	// while (it != ite)
+	// {
+	// 	std::cout << *it << std::endl;
+	// 	it++;
+	// }
+
+	// if (vs0.empty())
+	// 	std::cout << "The vector is empty" << std::endl;
+	// std::cout << std::endl;
+
+	// 	// Reserve 50
+	// std::cout << "\x1B[33m";
+	// std::cout << "Reserve 50 for vector";
+	// std::cout << "\033[0m\t\t" << std::endl;
+	// vs1.reserve(50);
+	// std::cout << "vector size(): " << vs1.size();
+	// std::cout << ", vector capacity(): " << vs1.capacity() << std::endl;
+	// its = vs1.begin();
+	// ites = vs1.end();
+	// while (its != ites)
+	// {
+	// 	std::cout << *its << std::endl;
+	// 	its++;
+	// }
+
+	// if (vs1.empty())
+	// 	std::cout << "The vector is empty" << std::endl;
+	// std::cout << std::endl;
+}
+
+void	test4(void)
+{
+	// Erase (range)
+	std::cout << "\x1B[91m";
+	std::cout << ">>>>>>>>> [ Modifiers test: erase (range) ] <<<<<<<<<";
+	std::cout << "\033[0m\t\t" << std::endl;
+	ft::vector<int>		v0;
+
+	v0.push_back(1);
+	v0.push_back(2);
+	v0.push_back(3);
+	v0.push_back(4);
+	v0.push_back(5);
+	v0.push_back(6);
+	v0.push_back(7);
+	v0.push_back(8);
+	v0.push_back(9);
+	v0.push_back(10);
+
+	ft::vector<int>::iterator	it = v0.begin();
+	ft::vector<int>::iterator	ite = v0.end();
+
+	std::cout << "Initial array:" << std::endl;
+	while (it != ite)
+	{
+		std::cout << *it << " ";
+		it++;
+	}
+	std::cout << std::endl;
+	it = v0.begin();
+
+
+	std::vector<int>		v1;
+
+	v1.push_back(1);
+	v1.push_back(2);
+	v1.push_back(3);
+	v1.push_back(4);
+	v1.push_back(5);
+	v1.push_back(6);
+	v1.push_back(7);
+	v1.push_back(8);
+	v1.push_back(9);
+	v1.push_back(10);
+
+	std::vector<int>::iterator	its = v1.begin();
+	std::vector<int>::iterator	ites = v1.end();
+
+	std::cout << "Initial array:" << std::endl;
+	while (its != ites)
+	{
+		std::cout << *its << " ";
+		its++;
+	}
+	std::cout << std::endl;
+	its = v1.begin();
+
+	std::cout << "\x1B[33m";
+	std::cout << "Erase element from 1 to 4 position";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+	v0.erase(it + 1, it + 4);
+
+	it = v0.begin();
+	ite = v0.end();
+
+	while (it != ite)
+	{
+		std::cout << *it << " ";
+		it++;
+	}
+	std::cout << std::endl;
+
+	std::cout << "v0 size: " << v0.size();
+   	std::cout << " | v0 capacity: " << v0.capacity() << std::endl;
+
+	std::cout << "\x1B[33m";
+	std::cout << "STD:: Erase element from 1 to 4 position";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+	v1.erase(its + 1, its + 4);
+
+	its = v1.begin();
+	ites = v1.end();
+
+	while (its != ites)
+	{
+		std::cout << *its << " ";
+		its++;
+	}
+	std::cout << std::endl;
+
+	std::cout << "v1 size: " << v1.size();
+   	std::cout << " | v1 capacity: " << v1.capacity() << std::endl;
+
+
+
+	std::cout << "\x1B[33m";
+	std::cout << "Erase element with same iterators";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+	it = v0.begin();
+
+	ft::vector<int>::iterator	ret = v0.erase(it + 1, it + 1);
+	std::cout << "ret: " << *ret << std::endl;
+
+	std::cout << "\x1B[33m";
+	std::cout << "STD::Erase element with same iterators";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+	its = v1.begin();
+
+	std::vector<int>::iterator	rets = v1.erase(its + 1, its + 1);
+	std::cout << "ret: " << *rets << std::endl;
+
+	std::cout << std::endl;
+}
+
+
 
 int main()
 {
-    test1();
+    //test1();
 	test2();
+	test3();
+	//test4();
     std::vector<int>vec;
     ft::vector<int> v;
 

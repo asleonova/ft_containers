@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/19 22:18:48 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/20 16:08:17 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,14 +114,16 @@ namespace ft
 
 		void resize(size_type n, value_type val = value_type())
 		{
-			if (this->_v_size > n)
+			size_type v_size = size();
+			if (n < v_size)
 			{
+				std::cout << "LALALALALA" << std::endl;
 				erase(begin() + n, end());
 			}
-			if (this->_v_size < n)
+			else if (v_size < n)
 			{
 				size_type offset;
-				offset = n - this->_v_size;
+				offset = n - v_size;
 				insert(end(), offset, val);
 			}
 		}
@@ -220,71 +222,52 @@ namespace ft
 			return (iterator(ptr_first));
 		}
 
-		iterator insert(iterator position, const value_type &val)
-		{
-			// construct the element in the specified position
-			// increase size by one;
-			// вернуть указатель на inserted element
-		}
-
-
-				// void
-		// insert(iterator position, size_type n, const value_type &val)
-		// {
-		// 	if (n)
-		// 	{
-		// 		Vector v;
-		// 		v.reserve(size() + n);
-
-		// 		iterator it = begin();
-		// 		while (it != position)
-		// 			v.push_back(*(it++));
-		// 		while (n--)
-		// 			v.push_back(val);
-		// 		while (it != end())
-		// 			v.push_back(*(it++));
-
-		// 		swap(v);
-		// 	}}
-
 		void insert(iterator position, size_type n, const value_type &val)
 		{
 			if (position < this->begin() || position > this->end())
 				throw(std::out_of_range("Error: std::out_of_range"));
 
-			size_type len = &(*position) - this->_v_begin;
-			std::cout << "len value: " << len << std::endl;
+			size_type len = /*static_cast<size_type>*/ (&(*position)) - this->_v_begin;
+
 			if (capacity() >= n + size())
 			{
-				std::cout << "capacity value: " << capacity() << std::endl;
-				std::cout << "size() + n : " << size() + n << std::endl; 
 				for (size_type i = 0; i < size() - len; i++)
-					this->_allocator_type.construct(&(*position) + n + i, *(position + i));
+					this->_allocator_type.construct(this->_v_end - i + (n - 1), *(this->_v_end - i - 1));
+				//this->_allocator_type.construct(&(*position) + n + i, *(position + i)); // moving the rest of the array after 'n' to new positions
 				this->_v_end += n;
-				while(n != 0)
+				while (n != 0)
 				{
 					this->_allocator_type.construct(&(*position) + (n - 1), val); // filling from the "end"
 					n--;
 				}
 			}
-		// 	else
-		// 	{
-		// 	}
-		}
-		// 	size_type pos_len = &(*position) - _start;
-		// 	if (size_type(_end_capacity - _end) >= n)
-		// 	{
-		// 		for (size_type i = 0; i < this->size() - pos_len; i++)
-		// 			_alloc.construct(_end - i + (n - 1), *(_end - i - 1));
-		// 		_end += n;
-		// 		while (n)
-		// 		{
-		// 			_alloc.construct(&(*position) + (n - 1), val);
-		// 			n--;
-		// 		}
-		// 	}
-		// }
+			else
+			{
+				reserve(size() * 2 + n);					
+				for (size_type i = 0; i < this->size() - len; i++)
+					this->_allocator_type.construct(this->_v_end - i + (n - 1), *(this->_v_end - i - 1)); // creating elements followed after the inserted elements
+				this->_v_end += n;
+				//size_type i = 0;
 
+				// for (; i < len; ++i)
+				// {
+				// }
+				size_type i = len;
+				for (int j = 0; j < n; j++, i++)
+				{
+					this->_allocator_type.construct(this->_v_begin + i, val); // creating the inserted elements
+				}
+			}
+		}
+
+		iterator insert(iterator position, const value_type &val)
+		{
+			if (position < this->begin() || position > this->end())
+				throw(std::out_of_range("Error: std::out_of_range"));
+			difference_type offset = position - begin();
+			insert(position, 1, val);
+			return (iterator(begin() + offset));
+		}
 		// template <class InputIterator>
 		// void insert(iterator position, InputIterator first, InputIterator last)
 		// {
