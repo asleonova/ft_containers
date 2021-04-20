@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/20 16:08:17 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/20 18:07:33 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <vector>
 
 #include "Iterator.hpp"
+#include "Algorithm.hpp"
 #include "stddef.h"
 
 namespace ft
@@ -46,18 +47,31 @@ namespace ft
 
 		/* 4 CONSTRUCTORS: */
 		explicit vector(const allocator_type &alloc = allocator_type()) : _allocator_type(alloc), _capacity(NULL), _v_begin(NULL), _v_end(NULL) {} // #1: default constructor
+		
+		// #2: fill constructor: constructs a container with n elements. Each element is a copy of val.
 		explicit vector(size_type n, const value_type &val = value_type(),
-						const allocator_type &alloc = allocator_type()) {} // #2: fill constructor: constructs a container with n elements. Each element is a copy of val.
+						const allocator_type &alloc = allocator_type()) :
+						_allocator_type(alloc), _capacity(NULL), _v_begin(NULL), _v_end(NULL)
+						{
+							if (n)
+								assign(n, val);
+						} 
 		/* #3: Constructs a container with as many elements as the range [first,last), 
 			with each element constructed from its corresponding element in that range, in the same order. */
-		/*!!!!!!доделать*/
 
-		template <class InputIterator>
-		vector(InputIterator first, InputIterator last,
-			   const allocator_type &alloc = allocator_type()) {}
+// Это доделать!!!
+		// template <class InputIterator>
+		// vector(InputIterator first, InputIterator last,
+		// 	   const allocator_type &alloc = allocator_type()) 
+		// 	   {
+		// 		   assign(first, last);
+		// 	   }
 
 		/* #4: copy constructor: */
-		explicit vector(vector const &src);
+		explicit vector(vector const &src)
+		{
+			*this = src;
+		}
 
 		/* DESTRUCTOR */
 		~vector()
@@ -67,7 +81,47 @@ namespace ft
 
 		/*ASSIGNMENT OPERATOR*/
 
-		vector &operator=(vector const &rhs) {}
+		vector &operator=(vector const &rhs)
+		{
+			if (this != &rhs)
+			{
+				this->_allocator_type = rhs._allocator_type;
+				this->_capacity = rhs._capacity;
+				this->_v_begin = rhs._v_begin;
+				rthis->_v_end = rhs._v_end;
+			}
+			return (*this);
+
+		}
+
+		/* ELEMENT ACCESS */
+
+		reference operator[] (size_type n)
+		{
+			return this->_v_begin[n];
+		}
+
+		const_reference operator[] (size_type n) const
+		{
+			return this->_v_begin[n];	
+		}
+
+		reference at (size_type n)
+		{
+			if (n < 0 || n > size())
+				throw(std::out_of_range("error: std::out_of_range"));
+			return (this->_v_begin[n]);
+
+		}
+
+		const_reference at (size_type n) const
+		{
+			if (n < 0 || n > size())
+				throw(std::out_of_range("error: std::out_of_range"));
+			return this->_v_begin[n];
+		}
+
+		
 
 		/* ITERATORS */
 
@@ -117,7 +171,6 @@ namespace ft
 			size_type v_size = size();
 			if (n < v_size)
 			{
-				std::cout << "LALALALALA" << std::endl;
 				erase(begin() + n, end());
 			}
 			else if (v_size < n)
@@ -225,7 +278,7 @@ namespace ft
 		void insert(iterator position, size_type n, const value_type &val)
 		{
 			if (position < this->begin() || position > this->end())
-				throw(std::out_of_range("Error: std::out_of_range"));
+				throw(std::out_of_range("error: std::out_of_range"));
 
 			size_type len = /*static_cast<size_type>*/ (&(*position)) - this->_v_begin;
 
@@ -243,7 +296,7 @@ namespace ft
 			}
 			else
 			{
-				reserve(size() * 2 + n);					
+				reserve(size() * 2 + n);
 				for (size_type i = 0; i < this->size() - len; i++)
 					this->_allocator_type.construct(this->_v_end - i + (n - 1), *(this->_v_end - i - 1)); // creating elements followed after the inserted elements
 				this->_v_end += n;
@@ -273,6 +326,15 @@ namespace ft
 		// {
 		// }
 
+		void swap(vector &x)
+		{
+			if (this == &x)
+				return;
+			ft::swap(this->_v_begin, x._v_begin);
+			ft::swap(this->_v_end, x._v_end);
+			ft::swap(this->_capacity, x._capacity);
+		}
+
 		template <class InputIterator>
 		void assign(InputIterator first, InputIterator last)
 		{
@@ -280,6 +342,17 @@ namespace ft
 
 		void assign(size_type n, const value_type &val)
 		{
+			clear();
+			insert(begin(), n, val);
+		}
+
+		void clear()
+		{
+			size_type v_size = size();
+			for (size_type i = 0; i < v_size; i++)
+			{
+				this->_allocator_type.destroy(this->_v_end--);
+			}
 		}
 
 		size_type capacity() const

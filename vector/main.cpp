@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 19:17:09 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/20 16:04:32 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/20 17:18:03 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -670,14 +670,183 @@ void	test4(void)
 	std::cout << std::endl;
 }
 
+void	test_swap(void)
+{
+	// Swap
+	std::cout << "\x1B[91m";
+	std::cout << ">>>>>>>>> [ Modifiers test: swap ] <<<<<<<<<";
+	std::cout << "\033[0m\t\t" << std::endl;
+	ft::vector<int>		v0;
+	ft::vector<int>		v1(10, 42);
+
+	v0.push_back(1);
+	v0.push_back(2);
+	v0.push_back(3);
+	v0.push_back(4);
+	v0.push_back(5);
+	v0.push_back(6);
+	v0.push_back(7);
+	v0.push_back(8);
+	v0.push_back(9);
+	v0.push_back(10);
+
+	ft::vector<int>::iterator	it = v0.begin();
+	ft::vector<int>::iterator	ite = v0.end();
+
+	ft::vector<int>::iterator	it1 = v1.begin();
+	ft::vector<int>::iterator	ite1 = v1.end();
+
+	std::cout << "Initial array 1:" << std::endl;
+	while (it != ite)
+	{
+		std::cout << *it << " ";
+		it++;
+	}
+	std::cout << std::endl;
+	it = v0.begin();
+
+	std::cout << "Initial array 2:" << std::endl;
+	while (it1 != ite1)
+	{
+		std::cout << *it1 << " ";
+		it1++;
+	}
+	std::cout << std::endl;
+	it1 = v1.begin();
+
+	std::cout << "v1 size: " << v1.size();
+   	std::cout << " | v1 capacity: " << v1.capacity() << std::endl;
+
+	std::cout << "\x1B[33m";
+	std::cout << "Swap:";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+	v0.swap(v1);
+
+	it = v0.begin();
+	ite = v0.end();
+
+	it1 = v1.begin();
+	ite1 = v1.end();
+
+	std::cout << "Array 1 after swap:" << std::endl;
+	while (it != ite)
+	{
+		std::cout << *it << " ";
+		it++;
+	}
+	std::cout << std::endl;
+	it = v0.begin();
+
+	std::cout << "Array 2 after swap:" << std::endl;
+	while (it1 != ite1)
+	{
+		std::cout << *it1 << " ";
+		it1++;
+	}
+	std::cout << std::endl;
+	it1 = v1.begin();
+
+	std::cout << "v1 size: " << v1.size();
+   	std::cout << " | v1 capacity: " << v1.capacity() << std::endl;
+
+	std::cout << std::endl;
+	std::cout << "*****************STD***************************" << std::endl;
+
+}
+
+void test_swap_std()
+{
+
+	std::cout << "\x1B[91m";
+	std::cout << ">>>>>>>>> [ Modifiers test: swap ] <<<<<<<<<";
+	std::cout << "\033[0m\t\t" << std::endl;
+	std::vector<int>		v0;
+	std::vector<int>		v1(10, 42);
+
+	v0.push_back(1);
+	v0.push_back(2);
+	v0.push_back(3);
+	v0.push_back(4);
+	v0.push_back(5);
+	v0.push_back(6);
+	v0.push_back(7);
+	v0.push_back(8);
+	v0.push_back(9);
+	v0.push_back(10);
+
+	std::vector<int>::iterator	it = v0.begin();
+	std::vector<int>::iterator	ite = v0.end();
+
+	std::vector<int>::iterator	it1 = v1.begin();
+	std::vector<int>::iterator	ite1 = v1.end();
+
+	std::cout << "Initial array 1:" << std::endl;
+	while (it != ite)
+	{
+		std::cout << *it << " ";
+		it++;
+	}
+	std::cout << std::endl;
+	it = v0.begin();
+
+	std::cout << "Initial array 2:" << std::endl;
+	while (it1 != ite1)
+	{
+		std::cout << *it1 << " ";
+		it1++;
+	}
+	std::cout << std::endl;
+	it1 = v1.begin();
+
+	std::cout << "v1 size: " << v1.size();
+   	std::cout << " | v1 capacity: " << v1.capacity() << std::endl;
+
+	std::cout << "\x1B[33m";
+	std::cout << "Swap:";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+	v0.swap(v1);
+
+	it = v0.begin();
+	ite = v0.end();
+
+	it1 = v1.begin();
+	ite1 = v1.end();
+
+	std::cout << "Array 1 after swap:" << std::endl;
+	while (it != ite)
+	{
+		std::cout << *it << " ";
+		it++;
+	}
+	std::cout << std::endl;
+	it = v0.begin();
+
+	std::cout << "Array 2 after swap:" << std::endl;
+	while (it1 != ite1)
+	{
+		std::cout << *it1 << " ";
+		it1++;
+	}
+	std::cout << std::endl;
+	it1 = v1.begin();
+
+	std::cout << "v1 size: " << v1.size();
+   	std::cout << " | v1 capacity: " << v1.capacity() << std::endl;
+
+	std::cout << std::endl;
+}
 
 
 int main()
 {
     //test1();
-	test2();
-	test3();
+	//test2();
+	//test3();
 	//test4();
+	test_swap();
+	test_swap_std();
     std::vector<int>vec;
     ft::vector<int> v;
 
