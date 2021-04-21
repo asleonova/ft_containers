@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/21 19:15:54 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/21 19:47:38 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,27 +387,6 @@ namespace ft
 				return false;
 		}
 
-
-		/* NON-MEMBER FUNCTION OVERLOADS: */
-
-// 	template <class T, class Alloc>
-//  	 bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-
-// 	template <class T, class Alloc>
-//   	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);	
-	
-// 	template <class T, class Alloc>
-//  	 bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-	
-// 	template <class T, class Alloc>
-//   bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-
-// 	template <class T, class Alloc>
-//   bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-	
-// 	template <class T, class Alloc>
-//   bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-
 		/* */
 	private:
 		pointer _capacity;
@@ -415,6 +394,60 @@ namespace ft
 		pointer _v_end;
 		allocator_type _allocator_type;
 	};
+
+	/* NON-MEMBER FUNCTION OVERLOADS: */
+
+	/* RELATIONAL OPERATORS */
+
+	/* The equality comparison (operator==) is performed by first comparing sizes, and if they match,
+	** the elements are compared sequentially using operator==,
+	** stopping at the first mismatch (as if using algorithm equal).
+	*/
+
+	template <class T, class Alloc>
+	bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	}
+
+	template <class T, class Alloc>
+	bool operator!=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template <class T, class Alloc>
+	bool operator<(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	// a<=b	equivalent !(b<a)
+	template <class T, class Alloc>
+	bool operator<=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	// a>b	equivalent to b<a
+	template <class T, class Alloc>
+	bool operator>(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return (rhs < lhs);
+	}
+
+	// a>=b	equivalent !(a<b)
+	template <class T, class Alloc>
+	bool operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return !(lhs < rhs);
+	}
+	/* SWAP */
+	template <class T, class Alloc>
+	void swap(vector<T, Alloc> &x, vector<T, Alloc> &y)
+	{
+		x.ft::swap(y);
+	}
 }
 
 #endif /* ***************************************************** MUTANTSTACK_H */
