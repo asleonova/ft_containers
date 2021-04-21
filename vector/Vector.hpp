@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/21 16:54:24 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/21 19:15:54 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,14 +272,11 @@ namespace ft
 
 		void insert(iterator position, size_type n, const value_type &val)
 		{
-			if (position < this->begin() || position > this->end())
-				throw(std::out_of_range("error: std::out_of_range"));
-
 			size_type len = /*static_cast<size_type>*/ (&(*position)) - this->_v_begin;
 
 			if (capacity() >= n + size())
 			{
-				for (size_type i = 0; i < size() - len; i++)
+				for (size_type i = 0; i < size() - len; i++) // size - len it's the nums of elem aftern n to move
 					this->_allocator_type.construct(this->_v_end - i + (n - 1), *(this->_v_end - i - 1));
 				//this->_allocator_type.construct(&(*position) + n + i, *(position + i)); // moving the rest of the array after 'n' to new positions
 				this->_v_end += n;
@@ -310,16 +307,40 @@ namespace ft
 
 		iterator insert(iterator position, const value_type &val)
 		{
-			if (position < this->begin() || position > this->end())
-				throw(std::out_of_range("Error: std::out_of_range"));
 			difference_type offset = position - begin();
 			insert(position, 1, val);
 			return (iterator(begin() + offset));
 		}
+
 		template <class InputIterator>
-		void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value>* = NULL)
+		void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator>::type isIterator = InputIterator())
 		{
-			
+			(void)isIterator;
+			size_type len = /*static_cast<size_type>*/ (&(*position)) - this->_v_begin;
+			difference_type diff = ft::distance(first, last);
+			if (capacity() >= diff + size())
+			{
+				for (size_type i = 0; i < size() - len; i++)
+					this->_allocator_type.construct(this->_v_end - i + (diff - 1), *(this->_v_end - i - 1)); // moving the rest of the array after 'n' to new positions
+				this->_v_end += diff;
+				for (int i = 0; i < diff; ++i)
+				{
+					this->_allocator_type.construct(&(*position) + i, *first);
+					first++;
+				}
+			}
+			else
+			{
+				reserve(size() * 2 + diff);
+				for (size_type i = 0; i < this->size() - len; i++)
+					this->_allocator_type.construct(this->_v_end - i + (diff - 1), *(this->_v_end - i - 1)); // creating elements followed after the inserted elements
+				this->_v_end += diff;
+				size_type i = len;
+				for (int j = 0; j < diff; j++, i++, first++)
+				{
+					this->_allocator_type.construct(this->_v_begin + i, *first); // creating the inserted elements
+				}
+			}
 		}
 
 		void swap(vector &x)
@@ -332,7 +353,7 @@ namespace ft
 		}
 
 		template <class InputIterator>
-		void assign(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value>* = NULL)
+		void assign(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value> * = NULL)
 		{
 			clear();
 			insert(begin(), first, last);
@@ -366,6 +387,27 @@ namespace ft
 				return false;
 		}
 
+
+		/* NON-MEMBER FUNCTION OVERLOADS: */
+
+// 	template <class T, class Alloc>
+//  	 bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+
+// 	template <class T, class Alloc>
+//   	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);	
+	
+// 	template <class T, class Alloc>
+//  	 bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+	
+// 	template <class T, class Alloc>
+//   bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+
+// 	template <class T, class Alloc>
+//   bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+	
+// 	template <class T, class Alloc>
+//   bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+
 		/* */
 	private:
 		pointer _capacity;
@@ -373,7 +415,6 @@ namespace ft
 		pointer _v_end;
 		allocator_type _allocator_type;
 	};
-
 }
 
 #endif /* ***************************************************** MUTANTSTACK_H */
