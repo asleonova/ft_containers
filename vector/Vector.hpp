@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/20 18:07:33 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/21 16:54:24 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 #include "Iterator.hpp"
 #include "Algorithm.hpp"
+#include "Identifiers.hpp"
+
 #include "stddef.h"
 
 namespace ft
@@ -47,31 +49,28 @@ namespace ft
 
 		/* 4 CONSTRUCTORS: */
 		explicit vector(const allocator_type &alloc = allocator_type()) : _allocator_type(alloc), _capacity(NULL), _v_begin(NULL), _v_end(NULL) {} // #1: default constructor
-		
+
 		// #2: fill constructor: constructs a container with n elements. Each element is a copy of val.
 		explicit vector(size_type n, const value_type &val = value_type(),
-						const allocator_type &alloc = allocator_type()) :
-						_allocator_type(alloc), _capacity(NULL), _v_begin(NULL), _v_end(NULL)
-						{
-							if (n)
-								assign(n, val);
-						} 
+						const allocator_type &alloc = allocator_type()) : _allocator_type(alloc), _capacity(NULL), _v_begin(NULL), _v_end(NULL)
+		{
+			if (n)
+				assign(n, val);
+		}
 		/* #3: Constructs a container with as many elements as the range [first,last), 
 			with each element constructed from its corresponding element in that range, in the same order. */
 
-// Это доделать!!!
-		// template <class InputIterator>
-		// vector(InputIterator first, InputIterator last,
-		// 	   const allocator_type &alloc = allocator_type()) 
-		// 	   {
-		// 		   assign(first, last);
-		// 	   }
+		template <class InputIterator>
+		vector(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value> * = NULL, const allocator_type &alloc = allocator_type()) : _allocator_type(alloc), _capacity(NULL), _v_begin(NULL), _v_end(NULL)
+		{
+			assign(first, last);
+		}
 
 		/* #4: copy constructor: */
-		explicit vector(vector const &src)
-		{
-			*this = src;
-		}
+		// explicit vector(vector const &src)
+		// {
+		// 	*this = src;
+		// }
 
 		/* DESTRUCTOR */
 		~vector()
@@ -88,40 +87,36 @@ namespace ft
 				this->_allocator_type = rhs._allocator_type;
 				this->_capacity = rhs._capacity;
 				this->_v_begin = rhs._v_begin;
-				rthis->_v_end = rhs._v_end;
+				this->_v_end = rhs._v_end;
 			}
 			return (*this);
-
 		}
 
 		/* ELEMENT ACCESS */
 
-		reference operator[] (size_type n)
+		reference operator[](size_type n)
 		{
 			return this->_v_begin[n];
 		}
 
-		const_reference operator[] (size_type n) const
+		const_reference operator[](size_type n) const
 		{
-			return this->_v_begin[n];	
+			return this->_v_begin[n];
 		}
 
-		reference at (size_type n)
+		reference at(size_type n)
 		{
 			if (n < 0 || n > size())
 				throw(std::out_of_range("error: std::out_of_range"));
 			return (this->_v_begin[n]);
-
 		}
 
-		const_reference at (size_type n) const
+		const_reference at(size_type n) const
 		{
 			if (n < 0 || n > size())
 				throw(std::out_of_range("error: std::out_of_range"));
 			return this->_v_begin[n];
 		}
-
-		
 
 		/* ITERATORS */
 
@@ -321,10 +316,11 @@ namespace ft
 			insert(position, 1, val);
 			return (iterator(begin() + offset));
 		}
-		// template <class InputIterator>
-		// void insert(iterator position, InputIterator first, InputIterator last)
-		// {
-		// }
+		template <class InputIterator>
+		void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value>* = NULL)
+		{
+			
+		}
 
 		void swap(vector &x)
 		{
@@ -336,8 +332,10 @@ namespace ft
 		}
 
 		template <class InputIterator>
-		void assign(InputIterator first, InputIterator last)
+		void assign(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value>* = NULL)
 		{
+			clear();
+			insert(begin(), first, last);
 		}
 
 		void assign(size_type n, const value_type &val)

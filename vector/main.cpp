@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 19:17:09 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/20 17:18:03 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/21 16:51:52 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -677,6 +677,7 @@ void	test_swap(void)
 	std::cout << ">>>>>>>>> [ Modifiers test: swap ] <<<<<<<<<";
 	std::cout << "\033[0m\t\t" << std::endl;
 	ft::vector<int>		v0;
+	//ft::vector<int>		v1((size_t)10, (int)42);
 	ft::vector<int>		v1(10, 42);
 
 	v0.push_back(1);
@@ -838,6 +839,61 @@ void test_swap_std()
 	std::cout << std::endl;
 }
 
+void	range_constructors_test(void)
+{
+	// Range constructor
+	std::cout << "\x1B[91m";
+	std::cout << ">>>>>>>>>>>>>>>>>>> [ Range constructor ] <<<<<<<<<<<<<<<<<<";
+	std::cout << "\033[0m\t\t" << std::endl;
+	ft::vector<int>				v2;
+	v2.push_back(1);
+	v2.push_back(2);
+	v2.push_back(3);
+	v2.push_back(4);
+	v2.push_back(5);
+
+	ft::vector<int>::iterator	it2 = v2.begin();
+
+	ft::vector<int>				v3(it2, it2 + 3);
+	ft::vector<int>::iterator	it3 = v3.begin();
+	ft::vector<int>::iterator	ite3 = v3.end();
+
+	while (it3 != ite3)
+	{
+		std::cout << *it3 << " ";
+		it3++;
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
+
+void	range_constructors_std(void)
+{
+	// Range constructor
+	std::cout << "\x1B[91m";
+	std::cout << ">>>>>>>>>>>>>>>>>>> [ Range constructor ] <<<<<<<<<<<<<<<<<<";
+	std::cout << "\033[0m\t\t" << std::endl;
+	std::vector<int>				v2;
+	v2.push_back(1);
+	v2.push_back(2);
+	v2.push_back(3);
+	v2.push_back(4);
+	v2.push_back(5);
+
+	std::vector<int>::iterator	it2 = v2.begin();
+
+	std::vector<int>				v3(it2, it2 + 3);
+	std::vector<int>::iterator	it3 = v3.begin();
+	std::vector<int>::iterator	ite3 = v3.end();
+
+	while (it3 != ite3)
+	{
+		std::cout << *it3 << " ";
+		it3++;
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
 
 int main()
 {
@@ -845,8 +901,10 @@ int main()
 	//test2();
 	//test3();
 	//test4();
-	test_swap();
-	test_swap_std();
+	//test_swap();
+	//test_swap_std();
+	range_constructors_test();
+	range_constructors_std();
     std::vector<int>vec;
     ft::vector<int> v;
 
