@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 19:17:09 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/21 19:16:43 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/21 20:10:28 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -858,8 +858,8 @@ void	range_constructors_test(void)
 
 	int myarray [] = { 501,502,503 };
   	v3.insert (v3.begin(), myarray, myarray+3);
-	ft::vector<int>::iterator	it3 = v3.begin();
-	ft::vector<int>::iterator	ite3 = v3.end();
+	ft::vector<int>::reverse_iterator	it3 = v3.rbegin();
+	ft::vector<int>::reverse_iterator	ite3 = v3.rend();
 	std::cout << "capacity " << v2.capacity() << std::endl;
 	while (it3 != ite3)
 	{
@@ -889,8 +889,8 @@ void	range_constructors_std(void)
 	std::vector<int>				v3(it2, it2 + 3);
 	int myarray [] = { 501,502,503 };
   	v3.insert (v3.begin(), myarray, myarray+3);
-	std::vector<int>::iterator	it3 = v3.begin();
-	std::vector<int>::iterator	ite3 = v3.end();
+	std::vector<int>::reverse_iterator	it3 = v3.rbegin();
+	std::vector<int>::reverse_iterator	ite3 = v3.rend();
 	std::cout << "capacity " << v2.capacity() << std::endl;
 
 	while (it3 != ite3)
