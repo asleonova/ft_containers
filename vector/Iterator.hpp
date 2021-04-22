@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/19 13:57:56 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/22 16:36:02 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ namespace ft
         }
         myIterator operator--(int) // a--
         {
-            myIterator copy = *this;
+            myIterator copy(*this);
             this->_ptr--;
             return (copy);
         }
@@ -378,7 +378,7 @@ namespace ft
         myReverse_iterator operator--(int)
         {
             myReverse_iterator base_copy(*this);
-            this->type++;
+            this->_type++;
             return (base_copy);
         }
 

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/21 21:14:35 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/22 15:42:23 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ namespace ft
 			assign(first, last);
 		}
 
-		// #4: copy constructor: */
-		explicit vector(vector const &src)
+		//#4: copy constructor: */
+		vector(const vector &src) : _v_begin(NULL), _v_end(NULL), _capacity(NULL), _allocator_type(src._allocator_type)
 		{
-			*this = src;
+			assign(src.begin(), src.end());
+			//operator =(src);
 		}
 
 		/* DESTRUCTOR */
@@ -185,7 +186,6 @@ namespace ft
 				this->_v_begin = array;
 				this->_capacity = this->_v_begin + n; // extend the capacity ??? //check this
 			}
-
 		}
 
 		/* ELEMENT ACCESS */
@@ -222,12 +222,12 @@ namespace ft
 
 		const_reference back() const { return *(this->_v_end - 1); }
 
-
 		/* MODIFIERS */
 
 		template <class InputIterator>
-		void assign(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value> * = NULL)
+		void assign(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator>::type isIterator = InputIterator())
 		{
+			(void)isIterator;
 			clear();
 			insert(begin(), first, last);
 		}
@@ -238,7 +238,6 @@ namespace ft
 			insert(begin(), n, val);
 		}
 
-		
 		// Adds a new element at the end of the vector, after its current last element. The content of val is copied (or moved) to the new element.
 		// If size < capacity, a push_back simply puts the new element at the end and increments the size by 1.
 		void push_back(const value_type &val)
@@ -261,7 +260,6 @@ namespace ft
 			this->_allocator_type.destroy(&back());
 			this->_v_end--;
 		}
-
 
 		void insert(iterator position, size_type n, const value_type &val)
 		{
@@ -365,7 +363,6 @@ namespace ft
 			return (iterator(ptr_first));
 		}
 
-
 		void swap(vector &x)
 		{
 			if (this == &x)
@@ -374,7 +371,6 @@ namespace ft
 			ft::swap(this->_v_end, x._v_end);
 			ft::swap(this->_capacity, x._capacity);
 		}
-
 
 		void clear()
 		{
@@ -439,7 +435,6 @@ namespace ft
 	{
 		return !(lhs < rhs);
 	}
-
 
 	/* SWAP */
 	template <class T, class Alloc>
