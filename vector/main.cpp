@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 13:32:30 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/22 16:33:49 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/22 19:08:12 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,10 +161,57 @@ void iterator_test()
 	std::cout << "itr[0]: " << itr[0] << std::endl;
 }
 
+void const_iterator_test()
+{
+	std::cout << "I'll make tests, promise!" << std::endl;
+}
+
+void capacity_tests()
+{
+	std::cout << blue << "***************[ size() test (int) ]***************" << cend << std::endl;
+	ft::vector<int> myints;
+	std::cout << green << "Empty vector: " << cend << std::endl;
+  	std::cout << "0. size: " << myints.size() << '\n';
+
+  	for (int i=0; i<10; i++) myints.push_back(i);
+	std::cout << green << "After push_back 10 elements: " << cend << std::endl;
+  	std::cout << "1. size: " << myints.size() << '\n';
+
+  	myints.insert (myints.end(),10,100);
+	std::cout << green << "After inserting 10 elements: " << cend << std::endl;
+  	std::cout << "2. size: " << myints.size() << '\n';
+
+  	myints.pop_back();
+	std::cout << green << "After popback(): " << cend << std::endl;
+  	std::cout << "3. size: " << myints.size() << '\n' << '\n'; 
+
+
+	std::cout << blue << "***************[ max_size() test (int) ]***************" << cend << std::endl;
+	std::cout << green << "Taking the same vector: " << cend << std::endl;
+	std::cout << "size: " << myints.size() << "\n";
+  	std::cout << "capacity: " << myints.capacity() << "\n";
+  	std::cout << "max_size: " << myints.max_size() << "\n" << "\n";
+	
+	std::cout << blue << "***************[ resize() test (int) ]***************" << cend << std::endl;
+	myints.resize(5);
+	std::cout << green << "myints.resize(5): " << cend << std::endl;
+	print_int_array(myints);
+	std::cout << green << "myints.resize(8, 100): " << cend << std::endl;
+  	myints.resize(8,100);
+	print_int_array(myints);
+  	myints.resize(12);
+	std::cout << green << "myints.resize(12): " << cend << std::endl;
+	print_int_array(myints);
+  	std::cout << '\n';
+	
+}
+
 int main()
 {
 	constructor_test();
 	iterator_test();
+	const_iterator_test();
+	capacity_tests();
 
 	return 0;
 }
