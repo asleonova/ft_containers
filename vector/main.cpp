@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 13:32:30 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/22 19:08:12 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/23 14:27:53 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,20 @@ void print_int_array(ft::vector<int> &vec)
 	ft::vector<int>::iterator ite = vec.end();
 	while (it != ite)
 	{
-		std::cout << *it << " ";
+		std::cout << *it << " | ";
+		it++;
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
+
+void print_double_array(ft::vector<double> &vec)
+{
+	ft::vector<double>::iterator it = vec.begin();
+	ft::vector<double>::iterator ite = vec.end();
+	while (it != ite)
+	{
+		std::cout << *it << " | ";
 		it++;
 	}
 	std::cout << std::endl;
@@ -41,7 +54,7 @@ void print_char_array(ft::vector<char> &vec)
 	ft::vector<char>::iterator ite = vec.end();
 	while (it != ite)
 	{
-		std::cout << *it << " ";
+		std::cout << *it << " | ";
 		it++;
 	}
 	std::cout << std::endl;
@@ -171,39 +184,123 @@ void capacity_tests()
 	std::cout << blue << "***************[ size() test (int) ]***************" << cend << std::endl;
 	ft::vector<int> myints;
 	std::cout << green << "Empty vector: " << cend << std::endl;
-  	std::cout << "0. size: " << myints.size() << '\n';
+	std::cout << "0. size: " << myints.size() << '\n';
 
-  	for (int i=0; i<10; i++) myints.push_back(i);
+	for (int i = 0; i < 10; i++)
+		myints.push_back(i);
 	std::cout << green << "After push_back 10 elements: " << cend << std::endl;
-  	std::cout << "1. size: " << myints.size() << '\n';
+	std::cout << "1. size: " << myints.size() << '\n';
 
-  	myints.insert (myints.end(),10,100);
+	myints.insert(myints.end(), 10, 100);
 	std::cout << green << "After inserting 10 elements: " << cend << std::endl;
-  	std::cout << "2. size: " << myints.size() << '\n';
+	std::cout << "2. size: " << myints.size() << '\n';
 
-  	myints.pop_back();
+	myints.pop_back();
 	std::cout << green << "After popback(): " << cend << std::endl;
-  	std::cout << "3. size: " << myints.size() << '\n' << '\n'; 
-
+	std::cout << "3. size: " << myints.size() << '\n'
+			  << '\n';
 
 	std::cout << blue << "***************[ max_size() test (int) ]***************" << cend << std::endl;
 	std::cout << green << "Taking the same vector: " << cend << std::endl;
 	std::cout << "size: " << myints.size() << "\n";
-  	std::cout << "capacity: " << myints.capacity() << "\n";
-  	std::cout << "max_size: " << myints.max_size() << "\n" << "\n";
-	
+	std::cout << "capacity: " << myints.capacity() << "\n";
+	std::cout << "max_size: " << myints.max_size() << "\n"
+			  << "\n";
+
 	std::cout << blue << "***************[ resize() test (int) ]***************" << cend << std::endl;
 	myints.resize(5);
 	std::cout << green << "myints.resize(5): " << cend << std::endl;
 	print_int_array(myints);
 	std::cout << green << "myints.resize(8, 100): " << cend << std::endl;
-  	myints.resize(8,100);
+	myints.resize(8, 100);
 	print_int_array(myints);
-  	myints.resize(12);
+	myints.resize(12);
 	std::cout << green << "myints.resize(12): " << cend << std::endl;
 	print_int_array(myints);
-  	std::cout << '\n';
-	
+	std::cout << '\n';
+
+	std::cout << blue << "***************[ reserve() test (int) ]***************" << cend << std::endl;
+	ft::vector<int>::size_type sz;
+
+	ft::vector<int> foo;
+	sz = foo.capacity();
+	std::cout << green << "making foo grow: " << cend << "\n";
+	for (int i = 0; i < 100; ++i)
+	{
+		foo.push_back(i);
+		if (sz != foo.capacity())
+		{
+			sz = foo.capacity();
+			std::cout << "capacity changed: " << sz << '\n';
+		}
+	}
+	ft::vector<int> bar;
+	sz = bar.capacity();
+	bar.reserve(100);
+	std::cout << green << "making bar grow: " << cend << "\n";
+	for (int i = 0; i < 100; ++i)
+	{
+		bar.push_back(i);
+		if (sz != bar.capacity())
+		{
+			sz = bar.capacity();
+			std::cout << "capacity changed: " << sz << '\n' << '\n';
+		}
+	}
+
+	std::cout << blue << "***************[ empty() test (char) ]***************" << cend << std::endl;
+	ft::vector<char> vec;
+	std::cout << "empty vector: " << vec.empty() << std::endl;
+	vec.push_back(5);
+	std::cout << "vec not empty: " << vec.empty() << std::endl << std::endl;
+}
+
+void element_access_test()
+{
+	std::cout << blue << "***************[ operator[] test (string) ]***************" << cend << std::endl;
+	ft::vector<std::string> myvector(10); // 10 zero-initialized elements
+
+	myvector.push_back("have");
+	myvector.push_back("a");
+	myvector.push_back("good");
+	myvector.push_back("day");
+	myvector.push_back("!");
+
+	ft::vector<std::string>::size_type sz = myvector.size();	
+	std::cout << green << "reverse vector using operator[]: " << cend << "\n";
+	for (unsigned i = 0; i < sz / 2; i++)
+	{
+		std::string temp;
+		temp = myvector[sz - 1 - i];
+		myvector[sz - 1 - i] = myvector[i];
+		myvector[i] = temp;
+	}
+
+	std::cout << "myvector contains:";
+	for (unsigned i = 0; i < sz; i++)
+		std::cout << ' ' << myvector[i];
+	std::cout << '\n' << '\n';
+
+	std::cout << blue << "***************[ at function test (double) ]***************" << cend << std::endl;
+	ft::vector<double>		dvec;
+	int						i = 0;
+
+	dvec.push_back(6.025);
+	dvec.push_back(42.0);
+	dvec.push_back(6.669096);
+	dvec.push_back(9.5);
+	dvec.push_back(34.42);
+
+	std::cout << "Initial array contents: " << std::endl;
+	print_double_array(dvec);
+
+	std::cout << green << "using at func, at(3): " << cend << "\n";
+	std::cout << dvec.at(3) << std::endl;
+
+	std::cout << blue << "***************[ front() and back() function test (double) ]***************" << cend << std::endl;
+	std::cout << "front: " << dvec.front() << " | end: " << dvec.back() << std::endl;
+
+	std::cout << std::endl;
 }
 
 int main()
@@ -212,6 +309,7 @@ int main()
 	iterator_test();
 	const_iterator_test();
 	capacity_tests();
+	element_access_test();
 
 	return 0;
 }
