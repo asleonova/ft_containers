@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 13:32:30 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/23 16:28:24 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/23 19:17:52 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,10 @@ void constructor_test()
 	//ft::vector<int>				vec4(vec1);
 	//print_int_array(vec4);
 
-	std::cout << blue << "***************[ Copy constructor test ]***************" << cend << std::endl;
+	std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
+	std::cout << green << "Making vector<int> vec5 = vec1: " << cend << std::endl;
+	ft::vector<int>				vec5 = vec1;
+	print_int_array(vec5);
 	std::cout << std::endl;
 }
 
@@ -466,7 +469,7 @@ void modifiers_test()
 	std::cout << std::endl;
 }
 
-void non_member_functions()
+	void non_member_functions()
 {
 	std::cout << blue << "***************[ creating 3 vectors to test non-member functions overloads: ]***************" << cend << std::endl;
 	ft::vector<int>		v0(6, 42);
@@ -482,71 +485,66 @@ void non_member_functions()
 	print_int_array(v2);
 
 	std::cout << blue << "***************[ operator == ]***************" << cend << std::endl;
-	//if (v0 == v1)
+	if (v0 == v1)
 		std::cout << "v0 is equal to v1" << std::endl;
-	//else
+	else
 		std::cout << "v0 is NOT equal to v1" << std::endl;
 
-	ft::vector<int> foo (3,100);   // three ints with a value of 100
-  ft::vector<int> bar (2,200);   // two ints with a value of 200
+	std::cout << blue << "***************[ operator != ]***************" << cend << std::endl;
+	if (v0 != v1)
+		std::cout << "v0 is NOT equal to v1" << std::endl;
+	else
+		std::cout << "v0 is equal to v1" << std::endl;
 
-  if (foo==bar) std::cout << "foo and bar are equal\n";
-	// std::cout << blue << "***************[ operator != ]***************" << cend << std::endl;
-	// if (v0 != v1)
-	// 	std::cout << "v0 is NOT equal to v1" << std::endl;
-	// else
-	// 	std::cout << "v0 is equal to v1" << std::endl;
+	std::cout << blue << "***************[ operator < ]***************" << cend << std::endl;
+	if (v0 < v1)
+		std::cout << "v0 is less than v1" << std::endl;
+	else
+		std::cout << "v0 is NOT less than v1" << std::endl;
 
-	// std::cout << blue << "***************[ operator < ]***************" << cend << std::endl;
-	// if (v0 < v1)
-	// 	std::cout << "v0 is less than v1" << std::endl;
-	// else
-	// 	std::cout << "v0 is NOT less than v1" << std::endl;
+	std::cout << blue << "***************[ operator <= ]***************" << cend << std::endl;
+	if (v0 <= v1)
+		std::cout << "v0 is less than or equal to v1" << std::endl;
+	else
+		std::cout << "v0 is NOT less than or equal to v1" << std::endl;
 
-	// std::cout << blue << "***************[ operator <= ]***************" << cend << std::endl;
-	// if (v0 <= v1)
-	// 	std::cout << "v0 is less than or equal to v1" << std::endl;
-	// else
-	// 	std::cout << "v0 is NOT less than or equal to v1" << std::endl;
+	std::cout << blue << "***************[ operator > ]***************" << cend << std::endl;
+	if (v0 > v1)
+		std::cout << "v0 is greater than v1" << std::endl;
+	else
+		std::cout << "v0 is NOT greater than v1" << std::endl;
 
-	// std::cout << blue << "***************[ operator > ]***************" << cend << std::endl;
-	// if (v0 > v1)
-	// 	std::cout << "v0 is greater than v1" << std::endl;
-	// else
-	// 	std::cout << "v0 is NOT greater than v1" << std::endl;
+	std::cout << blue << "***************[ operator >= ]***************" << cend << std::endl;
 
-	// std::cout << blue << "***************[ operator >= ]***************" << cend << std::endl;
+	if (v1 >= v2)
+		std::cout << "v1 is greater than or equal to v2" << std::endl;
+	else
+		std::cout << "v1 is NOT greater than or equal to v2" << std::endl;
 
-	// if (v1 >= v2)
-	// 	std::cout << "v1 is greater than or equal to v2" << std::endl;
-	// else
-	// 	std::cout << "v1 is NOT greater than or equal to v2" << std::endl;
+	std::cout << blue << "***************[ swap fucntion ]***************" << cend << std::endl;
 
-	// std::cout << blue << "***************[ swap fucntion ]***************" << cend << std::endl;
-
-	// std::cout << "vector v0 contents before swap: " << std::endl;
-	// print_int_array(v0);
-	// std::cout << "vector v1 contents before swap: " << std::endl;
-	// print_int_array(v1);
+	std::cout << "vector v0 contents before swap: " << std::endl;
+	print_int_array(v0);
+	std::cout << "vector v1 contents before swap: " << std::endl;
+	print_int_array(v1);
 	
-	// std::cout << green << "after swapping values : " << cend << "\n";
-	// swap(v0, v1);
-	// std::cout << "vector v0 contents: " << std::endl;
-	// print_int_array(v0);
-	// std::cout << "vector v1 contents: " << std::endl;
-	// print_int_array(v1);
+	std::cout << green << "after swapping values : " << cend << "\n";
+	swap(v0, v1);
+	std::cout << "vector v0 contents: " << std::endl;
+	print_int_array(v0);
+	std::cout << "vector v1 contents: " << std::endl;
+	print_int_array(v1);
 
 }
 
-
 int main()
 {
-	constructor_test();
-	iterator_test();
-	const_iterator_test();
-	capacity_tests();
-	element_access_test();
-	modifiers_test();
+	//constructor_test();
+	// iterator_test();
+	// const_iterator_test();
+	// capacity_tests();
+	// element_access_test();
+	// modifiers_test();
 	non_member_functions();
 	sleep(50);
 

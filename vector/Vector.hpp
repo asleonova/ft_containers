@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/23 16:25:01 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/23 17:3 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ namespace ft
 		//#4: copy constructor: */
 		vector(const vector &src) : _v_begin(NULL), _v_end(NULL), _capacity(NULL), _allocator_type(src._allocator_type)
 		{
-			assign(src.begin(), src.end());
+			//assign(src.begin(), src.end());
 			//operator =(src);
 		}
 
@@ -401,7 +401,7 @@ namespace ft
 	template <class T, class Alloc>
 	bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
 	{
-		return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+		return (lhs.size() == rhs.size() && equal(lhs.begin(), lhs.end(), rhs.begin()));
 	}
 
 	template <class T, class Alloc>
@@ -413,7 +413,7 @@ namespace ft
 	template <class T, class Alloc>
 	bool operator<(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
 	{
-		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	}
 
 	// a<=b	equivalent !(b<a)
@@ -441,7 +441,7 @@ namespace ft
 	template <class T, class Alloc>
 	void swap(vector<T, Alloc> &x, vector<T, Alloc> &y)
 	{
-		x.ft::swap(y);
+		x.swap(y);
 	}
 }
 
