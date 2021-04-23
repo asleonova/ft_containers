@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 13:32:30 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/23 19:17:52 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/23 22:24:00 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void constructor_test()
 
 	std::cout << green << "Testing empty vector int: " << cend << std::endl;
 	ft::vector<int> vec;
-	std::cout << "Vector size is: " << vec.size() << std::endl
+	std::cout << "vector size is: " << vec.size() << std::endl
 			  << std::endl;
 
 	std::cout << blue << "***************[ Fill constructor test ]***************" << cend << std::endl;
@@ -115,15 +115,17 @@ void constructor_test()
 
 	std::cout << blue << "***************[ Copy constructor test ]***************" << cend << std::endl;
 	std::cout << green << "Making copy vector<int> vec4(vec1): " << cend << std::endl;
-	//ft::vector<int>				vec4(vec1);
-	//print_int_array(vec4);
+	ft::vector<int>				vec4(vec1);
+	print_int_array(vec4);
 
 	std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
 	std::cout << green << "Making vector<int> vec5 = vec1: " << cend << std::endl;
-	ft::vector<int>				vec5 = vec1;
-	print_int_array(vec5);
+	ft::vector<int>				vec5(10, 4);
+	vec1 = vec5;
+	print_int_array(vec1);
 	std::cout << std::endl;
 }
+
 
 void iterator_test()
 {
@@ -134,9 +136,9 @@ void iterator_test()
 	{
 		vec.push_back(i);
 	}
-	std::cout << green << "Vector contents, using iterator: " << cend << std::endl;
+	std::cout << green << "vector contents, using iterator: " << cend << std::endl;
 	print_int_array(vec);
-	std::cout << green << "Vector contents in reverse, using the reverse iterator: " << cend << std::endl;
+	std::cout << green << "vector contents in reverse, using the reverse iterator: " << cend << std::endl;
 
 	ft::vector<int>::reverse_iterator rit = vec.rbegin();
 	ft::vector<int>::reverse_iterator rite = vec.rend();
@@ -461,7 +463,7 @@ void modifiers_test()
 	std::cout << " | vector capacity: " << vs1.capacity() << std::endl;
 	std::cout << std::endl;
 
-	std::cout << green << "Vector contents after clear() : " << cend << "\n";
+	std::cout << green << "vector contents after clear() : " << cend << "\n";
 	vs1.clear();
 	print_string_array(vs1);
 	std::cout << "vector size: " << vs1.size();
@@ -485,43 +487,42 @@ void modifiers_test()
 	print_int_array(v2);
 
 	std::cout << blue << "***************[ operator == ]***************" << cend << std::endl;
-	if (v0 == v1)
-		std::cout << "v0 is equal to v1" << std::endl;
-	else
-		std::cout << "v0 is NOT equal to v1" << std::endl;
+	bool i = v0 == v1;
+	bool j = v1 == v2;
+	std::cout << "v0 == v1 : " << std::boolalpha << i << std::endl;
+	std::cout << "v1 == v2 : " << std::boolalpha << j << std::endl;
 
 	std::cout << blue << "***************[ operator != ]***************" << cend << std::endl;
-	if (v0 != v1)
-		std::cout << "v0 is NOT equal to v1" << std::endl;
-	else
-		std::cout << "v0 is equal to v1" << std::endl;
+	i = v0 != v1;
+	j = v1 != v2;
+	std::cout << "v0 != v1 : " << i << std::endl;
+	std::cout << "v1 != v2 : " << j << std::endl;
 
 	std::cout << blue << "***************[ operator < ]***************" << cend << std::endl;
-	if (v0 < v1)
-		std::cout << "v0 is less than v1" << std::endl;
-	else
-		std::cout << "v0 is NOT less than v1" << std::endl;
+	i =  v0 < v1;
+	j = v1 < v2;
+	std::cout << "v0 < v1 : " << i << std::endl;
+	std::cout << "v1 < v2 : " << j << std::endl;
 
 	std::cout << blue << "***************[ operator <= ]***************" << cend << std::endl;
-	if (v0 <= v1)
-		std::cout << "v0 is less than or equal to v1" << std::endl;
-	else
-		std::cout << "v0 is NOT less than or equal to v1" << std::endl;
+	i = v0 <= v1;
+	j = v1 <= v2;
+	std::cout << "v0 <= v1 : " << i << std::endl;
+	std::cout << "v1 <= v2 : " << j << std::endl;
 
 	std::cout << blue << "***************[ operator > ]***************" << cend << std::endl;
-	if (v0 > v1)
-		std::cout << "v0 is greater than v1" << std::endl;
-	else
-		std::cout << "v0 is NOT greater than v1" << std::endl;
+	i = v0 > v1;
+	j = v1 > v2;
+	std::cout << "v0 > v1 : " << i << std::endl;
+	std::cout << "v1 > v2 : " << j << std::endl;
 
 	std::cout << blue << "***************[ operator >= ]***************" << cend << std::endl;
+	i = v0 >= v1;
+	j = v1 >= v2;
+	std::cout << "v0 >= v1 : " << i << std::endl;
+	std::cout << "v1 >= v2 : " << j << std::endl;
 
-	if (v1 >= v2)
-		std::cout << "v1 is greater than or equal to v2" << std::endl;
-	else
-		std::cout << "v1 is NOT greater than or equal to v2" << std::endl;
-
-	std::cout << blue << "***************[ swap fucntion ]***************" << cend << std::endl;
+	std::cout << blue << "***************[ swap function ]***************" << cend << std::endl;
 
 	std::cout << "vector v0 contents before swap: " << std::endl;
 	print_int_array(v0);
@@ -539,14 +540,13 @@ void modifiers_test()
 
 int main()
 {
-	//constructor_test();
-	// iterator_test();
-	// const_iterator_test();
-	// capacity_tests();
-	// element_access_test();
-	// modifiers_test();
+	constructor_test();
+	iterator_test();
+	const_iterator_test();
+	capacity_tests();
+	element_access_test();
+	modifiers_test();
 	non_member_functions();
-	sleep(50);
 
 	return 0;
 }

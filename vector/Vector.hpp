@@ -30,18 +30,18 @@ namespace ft
 	class vector
 	{
 	public:
-		typedef T value_type;
-		typedef Alloc allocator_type;
-		typedef typename Alloc::reference reference;
-		typedef typename Alloc::const_reference const_reference;
-		typedef typename Alloc::pointer pointer;
-		typedef typename Alloc::const_pointer const_pointer;
-		typedef ft::myIterator<pointer> iterator;
-		typedef ft::myIterator<const_pointer> const_iterator;
-		typedef ft::myReverse_iterator<iterator> reverse_iterator;
-		typedef ft::myReverse_iterator<const_iterator> const_reverse_iterator;
-		typedef ptrdiff_t difference_type;
-		typedef size_t size_type;
+				typedef T value_type;
+				typedef Alloc allocator_type;
+				typedef typename Alloc::reference reference;
+				typedef typename Alloc::const_reference const_reference;
+				typedef typename Alloc::pointer pointer;
+				typedef typename Alloc::const_pointer const_pointer;
+				typedef ft::myIterator<pointer> iterator;
+				typedef ft::myIterator<const_pointer> const_iterator;
+				typedef ft::myReverse_iterator<iterator> reverse_iterator;
+				typedef ft::myReverse_iterator<const_iterator> const_reverse_iterator;
+				typedef ptrdiff_t difference_type;
+				typedef size_t size_type;
 
 		/* 4 CONSTRUCTORS: */
 
@@ -68,8 +68,7 @@ namespace ft
 		//#4: copy constructor: */
 		vector(const vector &src) : _v_begin(NULL), _v_end(NULL), _capacity(NULL), _allocator_type(src._allocator_type)
 		{
-			//assign(src.begin(), src.end());
-			//operator =(src);
+			*this = src;
 		}
 
 		/* DESTRUCTOR */
@@ -401,7 +400,7 @@ namespace ft
 	template <class T, class Alloc>
 	bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
 	{
-		return (lhs.size() == rhs.size() && equal(lhs.begin(), lhs.end(), rhs.begin()));
+		return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 	}
 
 	template <class T, class Alloc>
@@ -413,7 +412,7 @@ namespace ft
 	template <class T, class Alloc>
 	bool operator<(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
 	{
-		return lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	}
 
 	// a<=b	equivalent !(b<a)

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/23 19:17:17 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/23 22:01:26 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ namespace ft
     {
         typedef ptrdiff_t difference_type;
         typedef T value_type;
-        typedef T *pointer;
-        typedef T &reference;
+        typedef const T *pointer;
+        typedef const T &reference;
         typedef myIterator_tag iterator_category;
     };
 
@@ -136,7 +136,7 @@ namespace ft
     template <class T>
     class myIterator : public ft::iterator<ft::myIterator_tag, T> // нужно конечно же будет изменить для каждого типа!!! когда сделаю assign
     {
-    protected:
+    private:
         T _ptr;
 
     public:
@@ -148,19 +148,14 @@ namespace ft
 
         myIterator() : _ptr(NULL) {} // default
 
-        explicit myIterator(const T &ptr) : _ptr(ptr) {} // initialization constructor
+        explicit myIterator(const T &it) : _ptr(it) {} // initialization constructor
 
-        template <typename Y>
-        myIterator(const myIterator<Y> &rhs) : _ptr(rhs._ptr) {} // copy constructor
-
-        // myIterator(myIterator const &src) // copy constructor (classical variant - not sure it'll work!!!)
-        // {
-        //     *this = src;
-        // }
+        template <class Iter>
+        myIterator(const myIterator<Iter> &my_it) : _ptr(my_it.base()) {} // copy constructor
 
         myIterator &operator=(myIterator const &rhs) // asignment operator
         {
-            this->_ptr = rhs._ptr;
+            this->_ptr = rhs.base();
             return (*this);
         }
 
