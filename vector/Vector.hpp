@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 19:04:34 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/22 15:42:23 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/23 16:25:01 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <iostream>
 #include <memory>
+#include <algorithm>
 
 #include "Iterator.hpp"
 #include "Algorithm.hpp"

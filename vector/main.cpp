@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 13:32:30 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/23 14:27:53 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/04/23 16:28:24 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ void print_int_array(ft::vector<int> &vec)
 	std::cout << std::endl;
 }
 
+void print_float_array(ft::vector<float> &vec)
+{
+	ft::vector<float>::iterator it = vec.begin();
+	ft::vector<float>::iterator ite = vec.end();
+	while (it != ite)
+	{
+		std::cout << *it << " | ";
+		it++;
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
+
 void print_double_array(ft::vector<double> &vec)
 {
 	ft::vector<double>::iterator it = vec.begin();
@@ -52,6 +65,19 @@ void print_char_array(ft::vector<char> &vec)
 {
 	ft::vector<char>::iterator it = vec.begin();
 	ft::vector<char>::iterator ite = vec.end();
+	while (it != ite)
+	{
+		std::cout << *it << " | ";
+		it++;
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
+
+void print_string_array(ft::vector<std::string> &vec)
+{
+	ft::vector<std::string>::iterator it = vec.begin();
+	ft::vector<std::string>::iterator ite = vec.end();
 	while (it != ite)
 	{
 		std::cout << *it << " | ";
@@ -244,7 +270,8 @@ void capacity_tests()
 		if (sz != bar.capacity())
 		{
 			sz = bar.capacity();
-			std::cout << "capacity changed: " << sz << '\n' << '\n';
+			std::cout << "capacity changed: " << sz << '\n'
+					  << '\n';
 		}
 	}
 
@@ -252,7 +279,8 @@ void capacity_tests()
 	ft::vector<char> vec;
 	std::cout << "empty vector: " << vec.empty() << std::endl;
 	vec.push_back(5);
-	std::cout << "vec not empty: " << vec.empty() << std::endl << std::endl;
+	std::cout << "vec not empty: " << vec.empty() << std::endl
+			  << std::endl;
 }
 
 void element_access_test()
@@ -266,7 +294,7 @@ void element_access_test()
 	myvector.push_back("day");
 	myvector.push_back("!");
 
-	ft::vector<std::string>::size_type sz = myvector.size();	
+	ft::vector<std::string>::size_type sz = myvector.size();
 	std::cout << green << "reverse vector using operator[]: " << cend << "\n";
 	for (unsigned i = 0; i < sz / 2; i++)
 	{
@@ -279,11 +307,12 @@ void element_access_test()
 	std::cout << "myvector contains:";
 	for (unsigned i = 0; i < sz; i++)
 		std::cout << ' ' << myvector[i];
-	std::cout << '\n' << '\n';
+	std::cout << '\n'
+			  << '\n';
 
 	std::cout << blue << "***************[ at function test (double) ]***************" << cend << std::endl;
-	ft::vector<double>		dvec;
-	int						i = 0;
+	ft::vector<double> dvec;
+	int i = 0;
 
 	dvec.push_back(6.025);
 	dvec.push_back(42.0);
@@ -303,6 +332,213 @@ void element_access_test()
 	std::cout << std::endl;
 }
 
+void modifiers_test()
+{
+	std::cout << blue << "***************[ assign() test (int) ]***************" << cend << std::endl;
+	ft::vector<int> first;
+	ft::vector<int> second;
+	ft::vector<int> third;
+
+	std::cout << green << "assign 7 ints with the value of 100 " << cend << "\n";
+	first.assign(7, 100); // 7 ints with a value of 100
+	std::cout << "vector contents: " << std::endl;
+	print_int_array(first);
+
+	ft::vector<int>::iterator it;
+	it = first.begin() + 1;
+	std::cout << green << "assign 5 central values of first" << cend << "\n";
+	second.assign(it, first.end() - 1); // the 5 central values of first
+	std::cout << "vector contents: " << std::endl;
+	print_int_array(second);
+
+	std::cout << green << "creating array of ints {1776, 7, 4} and assigning from it: " << cend << "\n";
+	int myints[] = {1776, 7, 4};
+	third.assign(myints, myints + 3); // assigning from array.
+	std::cout << "vector contents: " << std::endl;
+	print_int_array(third);
+
+	std::cout << "Size of first: " << int(first.size()) << '\n';
+	std::cout << "Size of second: " << int(second.size()) << '\n';
+	std::cout << "Size of third: " << int(third.size()) << '\n'
+			  << '\n';
+
+	std::cout << blue << "***************[ push_back() and pop_back() test (float) ]***************" << cend << std::endl;
+	ft::vector<float> vf;
+	vf.push_back(1.23f);
+	vf.push_back(2.34f);
+	vf.push_back(3.45f);
+	vf.push_back(4.55f);
+	vf.push_back(5.56f);
+	std::cout << "vector contents: " << std::endl;
+	print_float_array(vf);
+
+	std::cout << green << "calling pop_back() 2 times: " << cend << "\n";
+	vf.pop_back();
+	vf.pop_back();
+
+	std::cout << "vector contents: " << std::endl;
+	print_float_array(vf);
+
+	std::cout << blue << "***************[ insert test (int) ]***************" << cend << std::endl;
+	ft::vector<int> vi;
+	for (int i = 0; i < 10; ++i)
+		vi.push_back(i);
+	std::cout << "vector contents: " << std::endl;
+	print_int_array(vi);
+	std::cout << green << "insert 1 element at 2nd position with the value of 666 " << cend << "\n";
+	it = vi.begin();
+	vi.insert(it + 2, 666);
+	std::cout << "vector contents: " << std::endl;
+	print_int_array(vi);
+	std::cout << "vector size: " << vi.size();
+	std::cout << " | vector capacity: " << vi.capacity() << std::endl;
+	std::cout << std::endl;
+
+	std::cout << green << "insert 5 element at 5th position with the value of 55 " << cend << "\n";
+
+	vi.insert(it + 5, 5, 55);
+	std::cout << "vector contents: " << std::endl;
+	print_int_array(vi);
+	std::cout << "vector size: " << vi.size();
+	std::cout << " | vector capacity: " << vi.capacity() << std::endl;
+	std::cout << std::endl;
+
+	std::cout << green << "insert range of elements int arr[] = {501,502,503} at the begin() + 1" << cend << "\n";
+	int myarray[] = {501, 502, 503};
+	vi.insert(vi.begin() + 1, myarray, myarray + 3);
+	print_int_array(vi);
+	std::cout << "vector size: " << vi.size();
+	std::cout << " | vector capacity: " << vi.capacity() << std::endl;
+	std::cout << std::endl;
+
+	std::cout << blue << "***************[ erase test (int) ]***************" << cend << std::endl;
+	std::cout << green << "erase the 6th element: " << cend << "\n";
+	vi.erase(vi.begin() + 5);
+	print_int_array(vi);
+	std::cout << "vector size: " << vi.size();
+	std::cout << " | vector capacity: " << vi.capacity() << std::endl;
+	std::cout << std::endl;
+	std::cout << green << "erase the first 3 elements: " << cend << "\n";
+	vi.erase(vi.begin(), vi.begin() + 3);
+	print_int_array(vi);
+	std::cout << "vector size: " << vi.size();
+	std::cout << " | vector capacity: " << vi.capacity() << std::endl;
+	std::cout << std::endl;
+
+	std::cout << blue << "***************[ swap() test (string) ]***************" << cend << std::endl;
+	ft::vector<std::string> vs1;
+	ft::vector<std::string> vs2;
+	vs1.push_back("chto");
+	vs1.push_back("kak");
+	vs1.push_back("sunshine");
+	vs1.push_back("?");
+
+	vs2.push_back("prosto");
+	vs2.push_back("sdelai");
+	vs2.push_back("it");
+
+	std::cout << "vector vs1 contents: " << std::endl;
+	print_string_array(vs1);
+	std::cout << "vector vs2 contents: " << std::endl;
+	print_string_array(vs2);
+	
+	std::cout << green << "after swapping values : " << cend << "\n";
+	
+	vs1.swap(vs2);
+	
+	std::cout << "vector vs1 contents: " << std::endl;
+	print_string_array(vs1);
+	std::cout << "vector vs2 contents: " << std::endl;
+	print_string_array(vs2);
+
+	std::cout << blue << "***************[ clear() test (string) ]***************" << cend << std::endl;
+	std::cout << green << "Initial vector contents : " << cend << "\n";
+	print_string_array(vs1);
+	std::cout << "vector size: " << vs1.size();
+	std::cout << " | vector capacity: " << vs1.capacity() << std::endl;
+	std::cout << std::endl;
+
+	std::cout << green << "Vector contents after clear() : " << cend << "\n";
+	vs1.clear();
+	print_string_array(vs1);
+	std::cout << "vector size: " << vs1.size();
+	std::cout << " | vector capacity: " << vs1.capacity() << std::endl;
+	std::cout << std::endl;
+}
+
+void non_member_functions()
+{
+	std::cout << blue << "***************[ creating 3 vectors to test non-member functions overloads: ]***************" << cend << std::endl;
+	ft::vector<int>		v0(6, 42);
+	ft::vector<int>		v1(9, 21);
+	ft::vector<int>		v2(9, 21);
+	//ft::vector<int>		v2(v1);
+
+	std::cout << "1st array contents: " << std::endl;
+	print_int_array(v0);
+	std::cout << "2nd array contents: " << std::endl;
+	print_int_array(v1);
+	std::cout << "3rd array contents: " << std::endl;
+	print_int_array(v2);
+
+	std::cout << blue << "***************[ operator == ]***************" << cend << std::endl;
+	//if (v0 == v1)
+		std::cout << "v0 is equal to v1" << std::endl;
+	//else
+		std::cout << "v0 is NOT equal to v1" << std::endl;
+
+	ft::vector<int> foo (3,100);   // three ints with a value of 100
+  ft::vector<int> bar (2,200);   // two ints with a value of 200
+
+  if (foo==bar) std::cout << "foo and bar are equal\n";
+	// std::cout << blue << "***************[ operator != ]***************" << cend << std::endl;
+	// if (v0 != v1)
+	// 	std::cout << "v0 is NOT equal to v1" << std::endl;
+	// else
+	// 	std::cout << "v0 is equal to v1" << std::endl;
+
+	// std::cout << blue << "***************[ operator < ]***************" << cend << std::endl;
+	// if (v0 < v1)
+	// 	std::cout << "v0 is less than v1" << std::endl;
+	// else
+	// 	std::cout << "v0 is NOT less than v1" << std::endl;
+
+	// std::cout << blue << "***************[ operator <= ]***************" << cend << std::endl;
+	// if (v0 <= v1)
+	// 	std::cout << "v0 is less than or equal to v1" << std::endl;
+	// else
+	// 	std::cout << "v0 is NOT less than or equal to v1" << std::endl;
+
+	// std::cout << blue << "***************[ operator > ]***************" << cend << std::endl;
+	// if (v0 > v1)
+	// 	std::cout << "v0 is greater than v1" << std::endl;
+	// else
+	// 	std::cout << "v0 is NOT greater than v1" << std::endl;
+
+	// std::cout << blue << "***************[ operator >= ]***************" << cend << std::endl;
+
+	// if (v1 >= v2)
+	// 	std::cout << "v1 is greater than or equal to v2" << std::endl;
+	// else
+	// 	std::cout << "v1 is NOT greater than or equal to v2" << std::endl;
+
+	// std::cout << blue << "***************[ swap fucntion ]***************" << cend << std::endl;
+
+	// std::cout << "vector v0 contents before swap: " << std::endl;
+	// print_int_array(v0);
+	// std::cout << "vector v1 contents before swap: " << std::endl;
+	// print_int_array(v1);
+	
+	// std::cout << green << "after swapping values : " << cend << "\n";
+	// swap(v0, v1);
+	// std::cout << "vector v0 contents: " << std::endl;
+	// print_int_array(v0);
+	// std::cout << "vector v1 contents: " << std::endl;
+	// print_int_array(v1);
+
+}
+
+
 int main()
 {
 	constructor_test();
@@ -310,6 +546,9 @@ int main()
 	const_iterator_test();
 	capacity_tests();
 	element_access_test();
+	modifiers_test();
+	non_member_functions();
+	sleep(50);
 
 	return 0;
 }
