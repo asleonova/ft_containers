@@ -1,0 +1,237 @@
+[34m***************[ Default constructor test ]***************[0m
+[32mTesting empty vector int: [0m
+vector size is: 0
+
+[34m***************[ Fill constructor test ]***************[0m
+[32mTesting vector<int> vec1(10, 42): [0m
+42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 
+
+
+[34m***************[ Range constructor test ]***************[0m
+0 | 1 | 
+
+
+[34m***************[ Copy constructor test ]***************[0m
+[32mMaking copy vector<int> vec4(vec1): [0m
+42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 
+
+[34m***************[ Operator = test ]***************[0m
+[32mMaking vector<int> vec5 = vec1: [0m
+4 | 4 | 4 | 4 | 4 | 4 | 4 | 4 | 4 | 4 | 
+
+
+[34m***************[ Iterators test (char) ]***************[0m
+[32mvector contents, using iterator: [0m
+0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+[32mvector contents in reverse, using the reverse iterator: [0m
+9 8 7 6 5 4 3 2 1 0 
+[32mTesting arithmetic operations on iterator: [0m
+it value: 0
+it++ value: 1
+it-- value: 0
+++it value: 1
+--it value: 0
+it = it + 5: 5
+it = it - 2: 3
+it += 3: 6
+it -= 3: 3
+it == it + 1: 0
+it != it + 1: 1
+it > it + 1: 0
+it >= it: 1
+it < it: 0
+it <= it + 1: 1
+it[0]: 3
+[32mTesting arithmetic operations on reverse iterator: [0m
+itr value: 9
+itr++ value: 8
+itr-- value: 9
+++itr value: 8
+--itr value: 9
+itr = itr + 5: 4
+itr = itr - 2: 6
+itr += 3: 3
+itr -= 3: 6
+itr[0]: 6
+I'll make tests, promise!
+[34m***************[ size() test (int) ]***************[0m
+[32mEmpty vector: [0m
+0. size: 0
+[32mAfter push_back 10 elements: [0m
+1. size: 10
+[32mAfter inserting 10 elements: [0m
+2. size: 20
+[32mAfter popback(): [0m
+3. size: 19
+
+[34m***************[ max_size() test (int) ]***************[0m
+[32mTaking the same vector: [0m
+size: 19
+capacity: 30
+max_size: 4611686018427387903
+
+[34m***************[ resize() test (int) ]***************[0m
+[32mmyints.resize(5): [0m
+0 | 1 | 2 | 3 | 4 | 
+
+[32mmyints.resize(8, 100): [0m
+0 | 1 | 2 | 3 | 4 | 100 | 100 | 100 | 
+
+[32mmyints.resize(12): [0m
+0 | 1 | 2 | 3 | 4 | 100 | 100 | 100 | 0 | 0 | 0 | 0 | 
+
+
+[34m***************[ reserve() test (int) ]***************[0m
+[32mmaking foo grow: [0m
+capacity changed: 1
+capacity changed: 3
+capacity changed: 7
+capacity changed: 15
+capacity changed: 31
+capacity changed: 63
+capacity changed: 127
+[32mmaking bar grow: [0m
+capacity changed: 100
+
+[34m***************[ empty() test (char) ]***************[0m
+empty vector: 1
+vec not empty: 0
+
+[34m***************[ operator[] test (string) ]***************[0m
+[32mreverse vector using operator[]: [0m
+myvector contains: ! day good a have          
+
+[34m***************[ at function test (double) ]***************[0m
+Initial array contents: 
+6.025 | 42 | 6.6691 | 9.5 | 34.42 | 
+
+[32musing at func, at(3): [0m
+9.5
+[34m***************[ front() and back() function test (double) ]***************[0m
+front: 6.025 | end: 34.42
+
+[34m***************[ assign() test (int) ]***************[0m
+[32massign 7 ints with the value of 100 [0m
+vector contents: 
+100 | 100 | 100 | 100 | 100 | 100 | 100 | 
+
+[32massign 5 central values of first[0m
+vector contents: 
+100 | 100 | 100 | 100 | 100 | 
+
+[32mcreating array of ints {1776, 7, 4} and assigning from it: [0m
+vector contents: 
+1776 | 7 | 4 | 
+
+Size of first: 7
+Size of second: 5
+Size of third: 3
+
+[34m***************[ push_back() and pop_back() test (float) ]***************[0m
+vector contents: 
+1.23 | 2.34 | 3.45 | 4.55 | 5.56 | 
+
+[32mcalling pop_back() 2 times: [0m
+vector contents: 
+1.23 | 2.34 | 3.45 | 
+
+[34m***************[ insert test (int) ]***************[0m
+vector contents: 
+0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+[32minsert 1 element at 2nd position with the value of 666 [0m
+vector contents: 
+0 | 1 | 666 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+vector size: 11 | vector capacity: 15
+
+[32minsert 5 element at 5th position with the value of 55 [0m
+vector contents: 
+0 | 1 | 666 | 2 | 3 | 55 | 55 | 55 | 55 | 55 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+vector size: 16 | vector capacity: 27
+
+[32minsert range of elements int arr[] = {501,502,503} at the begin() + 1[0m
+0 | 501 | 502 | 503 | 1 | 666 | 2 | 3 | 55 | 55 | 55 | 55 | 55 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+vector size: 19 | vector capacity: 27
+
+[34m***************[ erase test (int) ]***************[0m
+[32merase the 6th element: [0m
+0 | 501 | 502 | 503 | 1 | 2 | 3 | 55 | 55 | 55 | 55 | 55 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+vector size: 18 | vector capacity: 27
+
+[32merase the first 3 elements: [0m
+503 | 1 | 2 | 3 | 55 | 55 | 55 | 55 | 55 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+vector size: 15 | vector capacity: 27
+
+[34m***************[ swap() test (string) ]***************[0m
+vector vs1 contents: 
+chto | kak | sunshine | ? | 
+
+vector vs2 contents: 
+prosto | sdelai | it | 
+
+[32mafter swapping values : [0m
+vector vs1 contents: 
+prosto | sdelai | it | 
+
+vector vs2 contents: 
+chto | kak | sunshine | ? | 
+
+[34m***************[ clear() test (string) ]***************[0m
+[32mInitial vector contents : [0m
+prosto | sdelai | it | 
+
+vector size: 3 | vector capacity: 3
+
+[32mvector contents after clear() : [0m
+
+
+vector size: 0 | vector capacity: 3
+
+[34m***************[ creating 3 vectors to test non-member functions overloads: ]***************[0m
+1st array contents: 
+42 | 42 | 42 | 42 | 42 | 42 | 
+
+2nd array contents: 
+21 | 21 | 21 | 21 | 21 | 21 | 21 | 21 | 21 | 
+
+3rd array contents: 
+21 | 21 | 21 | 21 | 21 | 21 | 21 | 21 | 21 | 
+
+[34m***************[ operator == ]***************[0m
+v0 == v1 : false
+v1 == v2 : true
+[34m***************[ operator != ]***************[0m
+v0 != v1 : true
+v1 != v2 : false
+[34m***************[ operator < ]***************[0m
+v0 < v1 : false
+v1 < v2 : false
+[34m***************[ operator <= ]***************[0m
+v0 <= v1 : false
+v1 <= v2 : true
+[34m***************[ operator > ]***************[0m
+v0 > v1 : true
+v1 > v2 : false
+[34m***************[ operator >= ]***************[0m
+v0 >= v1 : true
+v1 >= v2 : true
+[34m***************[ swap function ]***************[0m
+vector v0 contents before swap: 
+42 | 42 | 42 | 42 | 42 | 42 | 
+
+vector v1 contents before swap: 
+21 | 21 | 21 | 21 | 21 | 21 | 21 | 21 | 21 | 
+
+[32mafter swapping values : [0m
+vector v0 contents: 
+21 | 21 | 21 | 21 | 21 | 21 | 21 | 21 | 21 | 
+
+vector v1 contents: 
+42 | 42 | 42 | 42 | 42 | 42 | 
+
