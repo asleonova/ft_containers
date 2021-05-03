@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/26 16:47:50 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/03 20:21:47 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ namespace ft
         // input_iterator_tag; output_iterator_tag; forward_iterator_tag; bidireational_iterator_tag; myIterator_tag; myIterator_tag;
     };
 
-    template <class Iterator>
-    struct iterator_traits
-    {
-        typedef typename Iterator::difference_type difference_type;
-        typedef typename Iterator::value_type value_type;
-        typedef typename Iterator::pointer pointer;
-        typedef typename Iterator::reference reference;
-        typedef typename Iterator::iterator_category iterator_category;
-    };
+    // template <class Iterator>
+    // struct iterator_traits
+    // {
+    //     typedef typename Iterator::difference_type difference_type;
+    //     typedef typename Iterator::value_type value_type;
+    //     typedef typename Iterator::pointer pointer;
+    //     typedef typename Iterator::reference reference;
+    //     typedef typename Iterator::iterator_category iterator_category;
+    // };
 
     template <class T>
-    struct iterator_traits<T *>
+    struct iterator_traits
     {
         typedef ptrdiff_t difference_type;
         typedef T value_type;
@@ -65,7 +65,7 @@ namespace ft
     };
 
     template <class T>
-    struct iterator_traits<const T *>
+    struct iterator_traits<const T>
     {
         typedef ptrdiff_t difference_type;
         typedef T value_type;
@@ -84,7 +84,7 @@ namespace ft
         return ret;
     }
 
-    template <class T>
+    template <class T, class Node>
     class myIterator : public ft::iterator<ft::bidirectional_iterator_tag, T>
     {
     private:
@@ -97,22 +97,39 @@ namespace ft
         typedef typename ft::iterator_traits<T>::reference reference;
         typedef typename ft::iterator_traits<T>::pointer pointer;
 
-        myIterator() : _node(NULL) {} // default
+        myIterator(Node *node = 0) : _node(NULL) {} // default
 
         explicit myIterator(const T &it) : _node(it) {} // initialization constructor
 
-        template <class Iter>
-        myIterator(const myIterator<Iter> &my_it) : _node(my_it.base()) {} // copy constructor
+        // template <class Iter>
+        // myIterator(const myIterator<Iter> &my_it) : _node(my_it.base()) {} // copy constructor
 
-        myIterator &operator=(myIterator const &rhs) // asignment operator
-        {
-            this->_ptr = rhs.base();
-            return (*this);
-        }
+        // myIterator &operator=(myIterator const &rhs) // asignment operator
+        // {
+        //     this->_ptr = rhs.base();
+        //     return (*this);
+        // }
 
         ~myIterator() {} // destructor
 
-        const T &base() const // returns a copy of the base iterator
+        const Node *base() const // returns a copy of the base iterator
+        {
+            return (_node);
+        }
+
+        Node *
+        node() const
+        {
+            return (static_cast<Node *>(_node));
+        }
+
+        // const Node *
+        // node()
+        // {
+        //     return (static_cast<const Node *>(_node));
+        // }
+
+        Node *base() // returns a copy of the base iterator
         {
             return (_node);
         }
@@ -142,10 +159,16 @@ namespace ft
             return (copy);
         }
 
-        myIterator &operator*(void)
-        {
+        // myIterator &operator*(void)
+        // {
 
-            return (this->_node->val);
+        //     return (this->_node->val);
+        // }
+
+        reference
+        operator*() const
+        {
+            return (node()->val);
         }
 
         myIterator *operator->(void)
@@ -154,25 +177,40 @@ namespace ft
             return (this->_node);
         }
 
-        // Relational operators:
+        //template <typename T, class Node>
+        // bool
+        // operator==(const myIterator &lhs, const myIterator &rhs)
+        // {
+        //     return (lhs._node == rhs._node);
+        // }
 
-        template <typename T, typename Y>
-        bool operator==(const myIterator<T> &lhs,
-                        const myIterator<Y> &rhs)
-        {
-            return lhs.base() == rhs.base();
-        }
+        // //template <typename T, class Node>
+        // bool
+        // operator!=(const myIterator&lhs, const myIterator &rhs)
+        // {
+        //     return (lhs._node != rhs._node);
+        // }
+    };
 
-        template <typename T, typename Y>
-        bool operator!=(const myIterator<T> &lhs,
-                        const myIterator<Y> &rhs)
-        {
-            return lhs.base() != rhs.base();
-        }
+    // Relational operators:
 
-        /* REVERSE ITERATOR FUNCTIONS*/
+    template <typename T, class Node>
+    bool
+    operator==(const myIterator<T, Node> &lhs, const myIterator<T, Node> &rhs)
+    {
+        return (lhs.base() == rhs.base());
+    }
 
-        template <class Iterator>
+    template <typename T, class Node>
+    bool
+    operator!=(const myIterator<T, Node> &lhs, const myIterator<T, Node> &rhs)
+    {
+        return (lhs.base() != rhs.base());
+    }
+
+    /* REVERSE ITERATOR FUNCTIONS*/
+
+    /*template <class Iterator>
         class myReverseIterator : public ft::iterator<typename ft::iterator_traits<Iterator>::iterator_category,
                                                       typename ft::iterator_traits<Iterator>::value_type, typename ft::iterator_traits<Iterator>::difference_type,
                                                       typename ft::iterator_traits<Iterator>::pointer, typename ft::iterator_traits<Iterator>::reference>
@@ -326,7 +364,7 @@ namespace ft
         {
             return rhs.base() - lhs.base();
         }
-    };
+        */
 }
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/27 20:51:33 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/03 20:24:23 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,15 @@
 
 #include <iostream>
 #include <memory>
+#include "Iterator.hpp"
 
 namespace ft
 {
+
     template <class T, class Alloc = std::allocator<T> >
     class list
     {
+
         struct Node
         {
             T val;
@@ -35,14 +38,14 @@ namespace ft
         typedef typename Alloc::const_reference const_reference;
         typedef typename Alloc::pointer pointer;
         typedef typename Alloc::const_pointer const_pointer;
-        //  typedef typename ft::myIterator<value_type> iterator;
-        //typedef typename ft::myIterator<const value_type> const_iterator;
+        typedef typename ft::myIterator<value_type, Node> iterator;
+        typedef typename ft::myIterator<const value_type, Node> const_iterator;
         // typedef typename ft::myReverseIterator<iterator> reverse_iterator;
-        //typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
+        // typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
         typedef ptrdiff_t difference_type;
         typedef size_t size_type;
-        
-        typedef typename allocator_type::template rebind<Node>::other node_allocator_type; // мб это не нужно, так как указала в приватных по=другому
+
+        typedef typename Alloc::template rebind<Node>::other node_allocator_type; // мб это не нужно, так как указала в приватных по=другому
 
         /*================================ 4 CONSTRUCTORS: ================================*/
 
@@ -85,6 +88,26 @@ namespace ft
 
         /*================================ ITERATORS: ================================*/
 
+        iterator begin()
+        {
+            return iterator(this->_node->next);
+        }
+
+        const_iterator begin() const
+        {
+            return const_iterator(this->_node->next);
+        }
+
+        iterator end()
+        {
+            return iterator(this->_node);
+        }
+
+        const_iterator end() const
+        {
+            return const_iterator(this->_node);
+        }
+
         /*================================ CAPACITY: ================================*/
 
         /*================================ ELEMENT ACCESS: ================================*/
@@ -113,14 +136,10 @@ namespace ft
         void push_back(const value_type &val)
         {
             this->_node = allocate_node();
+            insert_end(val);
         }
 
         /*================================ OPERATIONS: ================================*/
-
-    private:
-        allocator_type _allocator_type;
-        node_allocator_type _alloc_node;
-        Node *_node;
 
         /*================================ PRIVATE FUNCS: ================================*/
 
@@ -137,7 +156,7 @@ namespace ft
         Node *construct_node(const_reference val)
         {
             Node *node = allocate_node();
-            this->_alloc_node.construct(&node->val, val);
+            this->_allocator_type.construct(&node->val, val);
             return (node);
         }
 
@@ -162,6 +181,11 @@ namespace ft
             // make new node next of old start
             this->_node->next = new_node;
         }
+
+    private:
+        allocator_type _allocator_type;
+        node_allocator_type _alloc_node;
+        Node *_node;
     };
 
     /*================================ NON-MEMBER FUNCITON OVERLOADS: ================================*/
