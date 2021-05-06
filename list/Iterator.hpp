@@ -97,7 +97,7 @@ namespace ft
         typedef typename ft::iterator_traits<T>::reference reference;
         typedef typename ft::iterator_traits<T>::pointer pointer;
 
-        myIterator(Node *node = 0) : _node(NULL) {} // default
+        myIterator(Node *node = 0) : _node(node) {} // default
 
         explicit myIterator(const T &it) : _node(it) {} // initialization constructor
 
@@ -132,6 +132,11 @@ namespace ft
         Node *base() // returns a copy of the base iterator
         {
             return (_node);
+        }
+
+        Node *get_node() const
+        {
+            return this->_node;
         }
 
         myIterator &operator++()

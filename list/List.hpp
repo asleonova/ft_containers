@@ -52,7 +52,7 @@ namespace ft
         // #1 : DEFAULT:
         explicit list(const allocator_type &alloc = allocator_type())
         {
-            allocate_node();
+            this->_node = allocate_node();
         }
 
         // #2: FILL:
@@ -135,8 +135,8 @@ namespace ft
 
         void push_back(const value_type &val)
         {
-            this->_node = allocate_node();
-            insert_end(val);
+           // this->insert(this->end(), val);
+           insert_end(val);
         }
 
         /*================================ OPERATIONS: ================================*/
@@ -155,10 +155,23 @@ namespace ft
 
         Node *construct_node(const_reference val)
         {
-            Node *node = allocate_node();
+            Node *node;
+            node = allocate_node();
             this->_allocator_type.construct(&node->val, val);
             return (node);
         }
+
+        iterator insert(iterator position, const value_type & val) {
+		
+        Node* new_node = construct_node(val);
+
+		new_node->next                  = position.get_node();
+		new_node->prev                  = position.get_node()->prev;
+		position.get_node()->prev->next = new_node;
+		position.get_node()->prev       = new_node;
+		return iterator(new_node);
+		}
+
 
         void insert_end(const_reference val)
         {
