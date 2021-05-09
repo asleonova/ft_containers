@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/09 17:49:31 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/09 20:50:39 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ namespace ft
     class myIterator : public ft::iterator<ft::bidirectional_iterator_tag, T>
     {
     private:
-        Node *_node;
+       const Node *_node;
 
     public:
         typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
@@ -97,24 +97,31 @@ namespace ft
         typedef typename ft::iterator_traits<T>::reference reference;
         typedef typename ft::iterator_traits<T>::pointer pointer;
 
+        /*================================ CONSTRUCTORS: ================================*/
+        
         myIterator(Node *node = 0) : _node(node) {} // default
 
-        explicit myIterator(const T &it) : _node(it) {} // initialization constructor
+        //explicit myIterator(const T &it) : _node(it) {} // initialization constructor
 
-        // template <class Iter>
-        // myIterator(const myIterator<Iter> &my_it) : _node(my_it.base()) {} // copy constructor
+        template <class Iter>
+        myIterator(myIterator<Iter, Node> const &my_it) : _node(my_it.base()) {} // copy constructor
 
-        // myIterator &operator=(myIterator const &rhs) // asignment operator
-        // {
-        //     this->_ptr = rhs.base();
-        //     return (*this);
-        // }
+        myIterator &operator=(myIterator const &rhs) // asignment operator
+        {
+            this->_node = rhs.base();
+            return (*this);
+        }
+
+        /*================================ DESTRUCTOR: ================================*/
 
         ~myIterator() {} // destructor
 
-        const Node *base() const // returns a copy of the base iterator
+
+        /*================================ HELPING FUNCTIONS: ================================*/
+
+        const Node *base() const // returns the node
         {
-            return (_node);
+            return this->_node;
         }
 
         // I used this in referenced operator. but probably I don't need it!!!
@@ -124,21 +131,18 @@ namespace ft
         //     return (static_cast<Node *>(_node));
         // }
 
-        // const Node *
-        // node()
+        // Node *base() // returns a copy of the base iterator
         // {
-        //     return (static_cast<const Node *>(_node));
+        //     return (_node);
         // }
 
-        Node *base() // returns a copy of the base iterator
-        {
-            return (_node);
-        }
-
-        Node *get_node() const
+        Node *get_node() const // and seems like I'm not using this func at all!!!
         {
             return this->_node;
         }
+
+        
+        /*================================ INCREMENTS: ================================*/
 
         myIterator &operator++()
         {
@@ -153,6 +157,8 @@ namespace ft
             return (copy);
         }
 
+        /*================================ DECREMENT: ================================*/
+        
         myIterator &operator--() //--a
         {
             this->_node = this->_node->prev;
@@ -165,33 +171,23 @@ namespace ft
             return (copy);
         }
 
+
+        /*================================ DEREFERENCE: ================================*/
+        
         reference operator*() const
         {
             return (this->_node->val);
         }
 
-        myIterator *operator->(void)
+        pointer operator->(void) const
         {
 
             return (this->_node);
         }
 
-        //template <typename T, class Node>
-        // bool
-        // operator==(const myIterator &lhs, const myIterator &rhs)
-        // {
-        //     return (lhs._node == rhs._node);
-        // }
-
-        // //template <typename T, class Node>
-        // bool
-        // operator!=(const myIterator&lhs, const myIterator &rhs)
-        // {
-        //     return (lhs._node != rhs._node);
-        // }
     };
 
-    // Relational operators:
+    /*================================ EQUALITY / INEQUALITY COMPARISONS: ================================*/
 
     template <typename T, class Node>
     bool
