@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 13:32:30 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/03 18:17:06 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/09 20:54:44 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,21 @@ void iterator_test()
 
 void const_iterator_test()
 {
+	std::cout << blue << "***************[ Const iterators test (int) ]***************" << cend << std::endl;
+
+	ft::vector<int> vec;
+	for (int i = 0; i < 10; ++i)
+	{
+		vec.push_back(i);
+	}
+	std::cout << green << "vector contents, using iterator: " << cend << std::endl;
+	ft::vector<int>::const_iterator cit = vec.begin();
+	ft::vector<int>::const_iterator cite = vec.end();
+	while (cit != cite)
+	{
+		std::cout << *cit << std::endl;
+		cit++;
+	}
 	std::cout << "I'll make tests, promise!" << std::endl;
 }
 

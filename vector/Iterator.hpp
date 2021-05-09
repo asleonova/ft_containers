@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/26 14:03:29 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/09 19:25:53 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ namespace ft
 
         myIterator() : _ptr(NULL) {} // default
 
+        // PROBABLY DON'T NEED THIS
         explicit myIterator(const T &it) : _ptr(it) {} // initialization constructor
 
         template <class Iter>
@@ -255,6 +256,8 @@ namespace ft
     {
     public:
         typedef Iterator iterator_type;
+
+        // try to comment this things
         typedef typename ft::iterator_traits<Iterator>::iterator_category iterator_category;
         typedef typename ft::iterator_traits<Iterator>::value_type value_type;
         typedef typename ft::iterator_traits<Iterator>::difference_type difference_type;
