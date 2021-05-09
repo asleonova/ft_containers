@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/03 20:21:47 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/09 17:49:31 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,12 @@ namespace ft
             return (_node);
         }
 
-        Node *
-        node() const
-        {
-            return (static_cast<Node *>(_node));
-        }
+        // I used this in referenced operator. but probably I don't need it!!!
+        // Node *
+        // node() const
+        // {
+        //     return (static_cast<Node *>(_node));
+        // }
 
         // const Node *
         // node()
@@ -164,16 +165,9 @@ namespace ft
             return (copy);
         }
 
-        // myIterator &operator*(void)
-        // {
-
-        //     return (this->_node->val);
-        // }
-
-        reference
-        operator*() const
+        reference operator*() const
         {
-            return (node()->val);
+            return (this->_node->val);
         }
 
         myIterator *operator->(void)

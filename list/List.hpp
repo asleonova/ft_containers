@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/03 21:27:49 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/09 17:48:49 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ namespace ft
     template <class T, class Alloc = std::allocator<T> >
     class list
     {
+    private:
 
         struct Node
         {
@@ -30,7 +31,6 @@ namespace ft
             Node *next;
             Node *prev;
         };
-
     public:
         typedef T value_type;
         typedef Alloc allocator_type;
@@ -135,7 +135,6 @@ namespace ft
 
         void push_back(const value_type &val)
         {
-           // this->insert(this->end(), val);
            insert_end(val);
         }
 
@@ -150,6 +149,7 @@ namespace ft
             node = this->_alloc_node.allocate(1);
             node->next = node;
             node->prev = node;
+            std::memset(&node->val, 0, sizeof(node->val));
             return node;
         }
 
@@ -161,25 +161,14 @@ namespace ft
             return (node);
         }
 
-        iterator insert(iterator position, const value_type & val) {
-		
-        Node* new_node = construct_node(val);
-
-		new_node->next                  = position.get_node();
-		new_node->prev                  = position.get_node()->prev;
-		position.get_node()->prev->next = new_node;
-		position.get_node()->prev       = new_node;
-		return iterator(new_node);
-		}
-
-
         void insert_end(const_reference val)
         {
             // find last node
             Node *last = this->_node->prev;
 
             // create new node
-            Node *new_node = allocate_node();
+            Node *new_node;
+           // Node *new_node = allocate_node();
             new_node = construct_node(val);
 
             // start is going to be next of new_node
@@ -192,7 +181,7 @@ namespace ft
             new_node->prev = last;
 
             // make new node next of old start
-            this->_node->next = new_node;
+            last->next = new_node;
         }
 
     private:
