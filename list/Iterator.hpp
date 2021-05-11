@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/11 20:56:13 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/11 21:32:29 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ namespace ft
 
     /* REVERSE ITERATOR FUNCTIONS*/
 
-    /*template <class Iterator>
+    template <class Iterator>
         class myReverseIterator : public ft::iterator<typename ft::iterator_traits<Iterator>::iterator_category,
                                                       typename ft::iterator_traits<Iterator>::value_type, typename ft::iterator_traits<Iterator>::difference_type,
                                                       typename ft::iterator_traits<Iterator>::pointer, typename ft::iterator_traits<Iterator>::reference>
@@ -333,7 +333,6 @@ namespace ft
         {
             return rhs.base() - lhs.base();
         }
-        */
 }
 
 #endif

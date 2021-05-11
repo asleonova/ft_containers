@@ -1,7 +1,7 @@
+#include <iostream>
 #include <memory>
 #include <list>
 #include <unistd.h>
-#include <iostream>
 
 #define red "\x1b[31m"
 #define green "\x1b[32m"
@@ -92,7 +92,7 @@ void iterator_test()
 	print_list(lst);
 	std::cout << green << "list contents in reverse, using the reverse iterator: " << cend << std::endl;
 
-	/*std::list<int>::reverse_iterator rit = lst.rbegin();
+	std::list<int>::reverse_iterator rit = lst.rbegin();
 	std::list<int>::reverse_iterator rite = lst.rend();
 
 	while (rit != rite)
@@ -101,7 +101,6 @@ void iterator_test()
 		rit++;
 	}
 	std::cout << std::endl;
-*/
 	std::cout << green << "Testing arithmetic operations on iterator: " << cend << std::endl;
 	std::list<int>::iterator it = lst.begin();
 	std::list<int>::iterator ite = lst.end();
@@ -115,7 +114,7 @@ void iterator_test()
 	--it;
 	std::cout << "--it value: " << *it << std::endl;
 
-	/*std::cout << green << "Testing arithmetic operations on reverse iterator: " << cend << std::endl;
+	std::cout << green << "Testing arithmetic operations on reverse iterator: " << cend << std::endl;
 	std::list<int>::reverse_iterator itr = lst.rbegin();
 	std::cout << "itr value: " << *itr << std::endl;
 	itr++;
@@ -126,16 +125,6 @@ void iterator_test()
 	std::cout << "++itr value: " << *itr << std::endl;
 	--itr;
 	std::cout << "--itr value: " << *itr << std::endl;
-	itr = itr + 5;
-	std::cout << "itr = itr + 5: " << *itr << std::endl;
-	itr = itr - 2;
-	std::cout << "itr = itr - 2: " << *itr << std::endl;
-	itr += 3;
-	std::cout << "itr += 3: " << *itr << std::endl;
-	itr -= 3;
-	std::cout << "itr -= 3: " << *itr << std::endl;
-	std::cout << "itr[0]: " << itr[0] << std::endl;
-	*/
 
 	std::cout << green << "Testing iterator comparison: " << cend << std::endl;
 	bool b = it == ite;
@@ -147,7 +136,6 @@ void iterator_test()
 	b = ite != ite;
 	std::cout << "ite != ite: " << b << std::endl;
 
-	/*
 	std::cout << green << "Testing reverse iterator comparison: " << cend << std::endl;
 	bool r = rit == rite;
 	std::cout << "rit == rite: " << r << std::endl;
@@ -157,7 +145,6 @@ void iterator_test()
 	std::cout << "rit != rite: " << r << std::endl;
 	r = rite != rite;
 	std::cout << "rite != rite: " << r << std::endl;
-*/
 	std::cout << std::endl;
 }
 
@@ -210,7 +197,7 @@ int main()
     }
 
     std::list<std::string>::iterator it2 = a.begin();
-    std::cout << "astder ints: " << *it2 << std::endl;
+    std::cout << "after ints: " << *it2 << std::endl;
 
     return 0;
 }

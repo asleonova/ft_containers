@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/11 19:48:20 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/11 21:28:40 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ namespace ft
         typedef typename Alloc::const_pointer const_pointer;
         typedef typename ft::myIterator<pointer, Node> iterator;
         typedef typename ft::myIterator<const_pointer, Node> const_iterator;
-        // typedef typename ft::myReverseIterator<iterator> reverse_iterator;
-        // typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
+        typedef typename ft::myReverseIterator<iterator> reverse_iterator;
+        typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
         typedef ptrdiff_t difference_type;
         typedef size_t size_type;
 
@@ -106,6 +106,26 @@ namespace ft
         const_iterator end() const
         {
             return const_iterator(this->_node);
+        }
+
+        reverse_iterator rbegin()
+        {
+            return reverse_iterator(end());
+        }
+
+        const_reverse_iterator rbegin() const
+        {
+            return const_reverse_iterator(end());
+        }
+
+        reverse_iterator rend()
+        {
+            return reverse_iterator(begin());
+        }
+
+        const_reverse_iterator rend() const
+        {
+            return const_reverse_iterator(begin());
         }
 
         /*================================ CAPACITY: ================================*/

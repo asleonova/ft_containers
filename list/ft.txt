@@ -1,0 +1,51 @@
+[34m***************[ Default constructor test ]***************[0m
+[32mTesting empty list int: [0m
+[34m***************[ Fill constructor test ]***************[0m
+[32mTesting list<int> lst1(10, 42): [0m
+42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 
+
+
+[34m***************[ Iterators test (char) ]***************[0m
+[32mlist contents, using iterator: [0m
+0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+[32mlist contents in reverse, using the reverse iterator: [0m
+9 8 7 6 5 4 3 2 1 0 
+[32mTesting arithmetic operations on iterator: [0m
+it value: 0
+it++ value: 1
+it-- value: 0
+++it value: 1
+--it value: 0
+[32mTesting arithmetic operations on reverse iterator: [0m
+itr value: 9
+itr++ value: 8
+itr-- value: 9
+++itr value: 8
+--itr value: 9
+[32mTesting iterator comparison: [0m
+it == ite: 0
+it == it: 1
+it != ite: 1
+ite != ite: 0
+[32mTesting reverse iterator comparison: [0m
+rit == rite: 1
+rit == rit: 1
+rit != rite: 0
+rite != rite: 0
+
+[34m***************[ Const iterators test (char) ]***************[0m
+[32mlist contents, using iterator: [0m
+0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+[32mTesting iterator comparison: [0m
+it == ite: 0
+it == it: 1
+it != ite: 1
+ite != ite: 0
+beg before: 
+std:: 
+fas
+t
+kfddffjd
+after ints: fas
