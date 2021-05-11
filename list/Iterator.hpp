@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/09 20:50:39 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/11 16:08:02 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,29 +84,39 @@ namespace ft
         return ret;
     }
 
-    template <class T, class Node>
-    class myIterator : public ft::iterator<ft::bidirectional_iterator_tag, T>
+    template <class T, class Pointer, class Reference, class Node>
+    class myIterator/* : public ft::iterator<ft::bidirectional_iterator_tag, T>*/
     {
     private:
-       const Node *_node;
+        Node *_node;
 
     public:
-        typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
-        typedef typename ft::iterator_traits<T>::value_type value_type;
-        typedef typename ft::iterator_traits<T>::difference_type difference_type;
-        typedef typename ft::iterator_traits<T>::reference reference;
-        typedef typename ft::iterator_traits<T>::pointer pointer;
+        // typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
+        // typedef typename ft::iterator_traits<T>::value_type value_type;
+        // typedef typename ft::iterator_traits<T>::difference_type difference_type;
+        // typedef typename ft::iterator_traits<T&>::reference reference;
+        // typedef typename ft::iterator_traits<T*>::pointer pointer;
+
+        		// Typedef -------------------------------------------------------------
+
+		typedef ptrdiff_t                       difference_type;
+		typedef T                               value_type;
+		typedef Pointer                               pointer;
+		typedef Reference                               reference;
+		typedef std::bidirectional_iterator_tag iterator_category;
 
         /*================================ CONSTRUCTORS: ================================*/
         
         myIterator(Node *node = 0) : _node(node) {} // default
 
+        myIterator(const myIterator<T, T*, T&, Node> & it) : _node(it.get_node()) {} // Copy constructor
+        
         //explicit myIterator(const T &it) : _node(it) {} // initialization constructor
 
-        template <class Iter>
-        myIterator(myIterator<Iter, Node> const &my_it) : _node(my_it.base()) {} // copy constructor
+        // template <class Iter>
+        // myIterator(myIterator<Iter, Node> const &my_it) : _node(my_it.base()) {} // copy constructor
 
-        myIterator &operator=(myIterator const &rhs) // asignment operator
+        myIterator &operator=(myIterator<T, T*, T&, Node> const &rhs) // asignment operator
         {
             this->_node = rhs.base();
             return (*this);
@@ -114,7 +124,7 @@ namespace ft
 
         /*================================ DESTRUCTOR: ================================*/
 
-        ~myIterator() {} // destructor
+        virtual ~myIterator() {}; // destructor
 
 
         /*================================ HELPING FUNCTIONS: ================================*/
@@ -123,6 +133,7 @@ namespace ft
         {
             return this->_node;
         }
+        
 
         // I used this in referenced operator. but probably I don't need it!!!
         // Node *
@@ -174,34 +185,52 @@ namespace ft
 
         /*================================ DEREFERENCE: ================================*/
         
-        reference operator*() const
+        reference operator*()
         {
             return (this->_node->val);
         }
 
-        pointer operator->(void) const
+        pointer operator->(void)
         {
 
-            return (this->_node);
+            return &(this->_node->val);
         }
+
+        		// '=='
+		bool                        operator==
+		(
+		 const myIterator & x
+		)
+		{
+			return _node == x._node;
+		}
+
+		// '!='
+		bool                        operator!=
+		(
+		 const myIterator & x
+		)
+		{
+			return _node != x._node;
+		}
 
     };
 
     /*================================ EQUALITY / INEQUALITY COMPARISONS: ================================*/
 
-    template <typename T, class Node>
-    bool
-    operator==(const myIterator<T, Node> &lhs, const myIterator<T, Node> &rhs)
-    {
-        return (lhs.base() == rhs.base());
-    }
+    // template <typename T, class Node>
+    // bool
+    // operator==(const myIterator<T, T*, T&, Node> &lhs, const myIterator<T, T*, T&, Node> &rhs)
+    // {
+    //     return (lhs.base() == rhs.base());
+    // }
 
-    template <typename T, class Node>
-    bool
-    operator!=(const myIterator<T, Node> &lhs, const myIterator<T, Node> &rhs)
-    {
-        return (lhs.base() != rhs.base());
-    }
+    // template <typename T, class Node>
+    // bool
+    // operator!=(const myIterator<T, T*, T&,  Node> &lhs, const myIterator<T, T*, T&, Node> &rhs)
+    // {
+    //     return (lhs.base() != rhs.base());
+    // }
 
     /* REVERSE ITERATOR FUNCTIONS*/
 

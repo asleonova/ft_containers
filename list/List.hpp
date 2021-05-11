@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/09 20:43:20 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/11 15:45:08 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ namespace ft
         typedef typename Alloc::const_reference const_reference;
         typedef typename Alloc::pointer pointer;
         typedef typename Alloc::const_pointer const_pointer;
-        typedef typename ft::myIterator<value_type, Node> iterator;
-        typedef typename ft::myIterator<const value_type, Node> const_iterator;
+        typedef typename ft::myIterator<T, T*, T&, Node> iterator;
+        typedef typename ft::myIterator<T, const T*, const T&, Node> const_iterator;
         // typedef typename ft::myReverseIterator<iterator> reverse_iterator;
         // typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
         typedef ptrdiff_t difference_type;
