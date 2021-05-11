@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/11 19:51:11 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/11 20:56:13 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ namespace ft
     };
 
     template <class T>
-    struct iterator_traits<const T*>
+    struct iterator_traits<const T *>
     {
         typedef ptrdiff_t difference_type;
         typedef T value_type;
@@ -85,7 +85,7 @@ namespace ft
     }
 
     template <class T, class Node>
-    class myIterator/* : public ft::iterator<ft::bidirectional_iterator_tag, T>*/
+    class myIterator : public ft::iterator<ft::bidirectional_iterator_tag, T>
     {
     private:
         Node *_node;
@@ -97,24 +97,12 @@ namespace ft
         typedef typename ft::iterator_traits<T>::reference reference;
         typedef typename ft::iterator_traits<T>::pointer pointer;
 
-        		// Typedef -------------------------------------------------------------
-
-		// typedef ptrdiff_t                       difference_type;
-		// typedef T                               value_type;
-		// typedef Pointer                               pointer;
-		// typedef Reference                               reference;
-		// typedef std::bidirectional_iterator_tag iterator_category;
-
         /*================================ CONSTRUCTORS: ================================*/
-        
+
         myIterator(Node *node = 0) : _node(node) {} // default
 
-        myIterator(const myIterator<T, Node> & it) : _node(it.get_node()) {} // Copy constructor
-        
-        explicit myIterator(const T &it) : _node(it) {} // initialization constructor
-
         template <class Iter>
-        myIterator(myIterator<Iter, Node> const &my_it) : _node(my_it.get_node()) {} // copy constructor
+        myIterator(myIterator<Iter, Node> const &my_it) : _node(my_it.get_node()) {} // Copy constructor
 
         myIterator &operator=(myIterator<T, Node> const &rhs) // asignment operator
         {
@@ -124,38 +112,18 @@ namespace ft
 
         /*================================ DESTRUCTOR: ================================*/
 
-        virtual ~myIterator() {}; // destructor
-
+        virtual ~myIterator(){};
 
         /*================================ HELPING FUNCTIONS: ================================*/
 
-        const Node *base() const // returns the node
-        {
-            return this->_node;
-        }
-        
-
-        // I used this in referenced operator. but probably I don't need it!!!
-        // Node *
-        // node() const
-        // {
-        //     return (static_cast<Node *>(_node));
-        // }
-
-        // Node *base() // returns a copy of the base iterator
-        // {
-        //     return (_node);
-        // }
-
-        Node *get_node() const // and seems like I'm not using this func at all!!!
+        Node *get_node() const
         {
             return this->_node;
         }
 
-        
         /*================================ INCREMENTS: ================================*/
 
-        myIterator &operator++()
+        myIterator &operator++() // ++a
         {
             this->_node = this->_node->next;
             return (*this);
@@ -169,7 +137,7 @@ namespace ft
         }
 
         /*================================ DECREMENT: ================================*/
-        
+
         myIterator &operator--() //--a
         {
             this->_node = this->_node->prev;
@@ -182,9 +150,8 @@ namespace ft
             return (copy);
         }
 
-
         /*================================ DEREFERENCE: ================================*/
-        
+
         reference operator*()
         {
             return (this->_node->val);
@@ -196,41 +163,19 @@ namespace ft
             return &(this->_node->val);
         }
 
-        		// '=='
-		bool                        operator==
-		(
-		 const myIterator & x
-		)
-		{
-			return _node == x._node;
-		}
+        /*================================ EQUALITY / INEQUALITY COMPARISONS: ================================*/
 
-		// '!='
-		bool                        operator!=
-		(
-		 const myIterator & x
-		)
-		{
-			return _node != x._node;
-		}
+        bool operator==(const myIterator &rhs)
+        {
+            return this->_node == rhs._node;
+        }
 
+        bool operator!=(const myIterator &rhs)
+        {
+            return this->_node != rhs._node;
+        }
     };
 
-    /*================================ EQUALITY / INEQUALITY COMPARISONS: ================================*/
-
-    // template <typename T, class Node>
-    // bool
-    // operator==(const myIterator<T, T*, T&, Node> &lhs, const myIterator<T, T*, T&, Node> &rhs)
-    // {
-    //     return (lhs.base() == rhs.base());
-    // }
-
-    // template <typename T, class Node>
-    // bool
-    // operator!=(const myIterator<T, T*, T&,  Node> &lhs, const myIterator<T, T*, T&, Node> &rhs)
-    // {
-    //     return (lhs.base() != rhs.base());
-    // }
 
     /* REVERSE ITERATOR FUNCTIONS*/
 
