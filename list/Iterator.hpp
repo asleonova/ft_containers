@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/11 16:08:02 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/11 19:51:11 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,18 @@ namespace ft
         // input_iterator_tag; output_iterator_tag; forward_iterator_tag; bidireational_iterator_tag; myIterator_tag; myIterator_tag;
     };
 
-    // template <class Iterator>
-    // struct iterator_traits
-    // {
-    //     typedef typename Iterator::difference_type difference_type;
-    //     typedef typename Iterator::value_type value_type;
-    //     typedef typename Iterator::pointer pointer;
-    //     typedef typename Iterator::reference reference;
-    //     typedef typename Iterator::iterator_category iterator_category;
-    // };
+    template <class Iterator>
+    struct iterator_traits
+    {
+        typedef typename Iterator::difference_type difference_type;
+        typedef typename Iterator::value_type value_type;
+        typedef typename Iterator::pointer pointer;
+        typedef typename Iterator::reference reference;
+        typedef typename Iterator::iterator_category iterator_category;
+    };
 
     template <class T>
-    struct iterator_traits
+    struct iterator_traits<T *>
     {
         typedef ptrdiff_t difference_type;
         typedef T value_type;
@@ -65,7 +65,7 @@ namespace ft
     };
 
     template <class T>
-    struct iterator_traits<const T>
+    struct iterator_traits<const T*>
     {
         typedef ptrdiff_t difference_type;
         typedef T value_type;
@@ -84,39 +84,39 @@ namespace ft
         return ret;
     }
 
-    template <class T, class Pointer, class Reference, class Node>
+    template <class T, class Node>
     class myIterator/* : public ft::iterator<ft::bidirectional_iterator_tag, T>*/
     {
     private:
         Node *_node;
 
     public:
-        // typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
-        // typedef typename ft::iterator_traits<T>::value_type value_type;
-        // typedef typename ft::iterator_traits<T>::difference_type difference_type;
-        // typedef typename ft::iterator_traits<T&>::reference reference;
-        // typedef typename ft::iterator_traits<T*>::pointer pointer;
+        typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
+        typedef typename ft::iterator_traits<T>::value_type value_type;
+        typedef typename ft::iterator_traits<T>::difference_type difference_type;
+        typedef typename ft::iterator_traits<T>::reference reference;
+        typedef typename ft::iterator_traits<T>::pointer pointer;
 
         		// Typedef -------------------------------------------------------------
 
-		typedef ptrdiff_t                       difference_type;
-		typedef T                               value_type;
-		typedef Pointer                               pointer;
-		typedef Reference                               reference;
-		typedef std::bidirectional_iterator_tag iterator_category;
+		// typedef ptrdiff_t                       difference_type;
+		// typedef T                               value_type;
+		// typedef Pointer                               pointer;
+		// typedef Reference                               reference;
+		// typedef std::bidirectional_iterator_tag iterator_category;
 
         /*================================ CONSTRUCTORS: ================================*/
         
         myIterator(Node *node = 0) : _node(node) {} // default
 
-        myIterator(const myIterator<T, T*, T&, Node> & it) : _node(it.get_node()) {} // Copy constructor
+        myIterator(const myIterator<T, Node> & it) : _node(it.get_node()) {} // Copy constructor
         
-        //explicit myIterator(const T &it) : _node(it) {} // initialization constructor
+        explicit myIterator(const T &it) : _node(it) {} // initialization constructor
 
-        // template <class Iter>
-        // myIterator(myIterator<Iter, Node> const &my_it) : _node(my_it.base()) {} // copy constructor
+        template <class Iter>
+        myIterator(myIterator<Iter, Node> const &my_it) : _node(my_it.get_node()) {} // copy constructor
 
-        myIterator &operator=(myIterator<T, T*, T&, Node> const &rhs) // asignment operator
+        myIterator &operator=(myIterator<T, Node> const &rhs) // asignment operator
         {
             this->_node = rhs.base();
             return (*this);
