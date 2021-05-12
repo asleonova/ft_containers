@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/11 21:28:40 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/12 21:59:49 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ namespace ft
     class list
     {
     private:
-
         struct Node
         {
             T val;
             Node *next;
             Node *prev;
         };
+
     public:
         typedef T value_type;
         typedef Alloc allocator_type;
@@ -52,6 +52,7 @@ namespace ft
         // #1 : DEFAULT:
         explicit list(const allocator_type &alloc = allocator_type())
         {
+            this->_size = 0;
             this->_node = allocate_node();
         }
 
@@ -61,7 +62,10 @@ namespace ft
         {
             this->_node = allocate_node();
             for (int i = 0; i < n; ++i)
+            {
                 insert_end(val);
+                this->_size++;
+            }
         }
 
         // #3: RANGE:
@@ -74,7 +78,7 @@ namespace ft
 
         /*================================ DESTRUCTOR: ================================*/
 
-        ~list() {}
+        virtual ~list() {}
 
         /*================================ OPERATOR=: ================================*/
         list &operator=(const list &x)
@@ -130,6 +134,21 @@ namespace ft
 
         /*================================ CAPACITY: ================================*/
 
+        bool empty() const
+        {
+            return this->_node->next == this->_node;
+        }
+
+        size_type size() const
+        {
+            return this->_size;
+        }
+
+        size_type max_size() const
+        {
+            return this->_alloc_node.max_size();
+        }
+
         /*================================ ELEMENT ACCESS: ================================*/
         reference front()
         {
@@ -155,8 +174,57 @@ namespace ft
 
         void push_back(const value_type &val)
         {
-           insert_end(val);
+            insert_end(val);
         }
+
+        /* Removes the last element in the list container, effectively reducing the container size by one. 
+        This destroys the removed element. */
+        void pop_back()
+        {
+            erase(end());
+            // use allocator destroy
+        }
+
+        /* Removes from the list container a single element (position). 
+        This effectively reduces the container size by the number of elements removed, which are destroyed.*/
+        iterator erase(iterator position)
+        {
+
+            Node *next;
+
+            next = position.get_node()->next;
+            delete_node(position.get_node());
+            return iterator(next);
+        }
+
+        /* Removes from the list container a range of elements ([first,last)).
+        This effectively reduces the container size by the number of elements removed, which are destroyed.*/
+
+        iterator erase(iterator first, iterator last)
+        {
+            Node *begin;
+            Node *end;
+
+            begin = first.get_node()->prev;
+            end = last.get_node();
+            begin->next = end;
+            end->prev = begin;
+            while (first != last)
+            {
+                this->_alloc_node.destroy(first.get_node());
+                this->_alloc_node.deallocate(first.get_node(), 1);
+                this->_size--;
+                first++;
+            }
+
+            
+            return (last);
+            
+            
+        }
+
+        /* Removes all elements from the list container (which are destroyed), and leaving the container with a size of 0. */
+        void clear();
 
         /*================================ OPERATIONS: ================================*/
 
@@ -188,7 +256,7 @@ namespace ft
 
             // create new node
             Node *new_node;
-           // Node *new_node = allocate_node();
+            // Node *new_node = allocate_node();
             new_node = construct_node(val);
 
             // start is going to be next of new_node
@@ -202,11 +270,22 @@ namespace ft
 
             // make new node next of old start
             last->next = new_node;
+            this->_size += 1;
+        }
+
+        void delete_node(Node *node)
+        {
+            this->_alloc_node.destroy(node);
+            node->prev->next = node->next;
+            node->next->prev = node->prev;
+            this->_alloc_node.deallocate(node, 1);
+            this->_size -= 1;
         }
 
     private:
         allocator_type _allocator_type;
         node_allocator_type _alloc_node;
+        size_type _size;
         Node *_node;
     };
 
