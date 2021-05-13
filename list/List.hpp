@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/12 21:59:49 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/13 12:44:16 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,13 @@ namespace ft
 
         /*================================ DESTRUCTOR: ================================*/
 
-        virtual ~list() {}
+        virtual ~list()
+        {
+            erase(begin(), end());
+            _node->prev->next = _node->next;
+			_node->next->prev = _node->prev;
+			_alloc_node.deallocate(_node, 1);
+        }
 
         /*================================ OPERATOR=: ================================*/
         list &operator=(const list &x)
@@ -181,7 +187,7 @@ namespace ft
         This destroys the removed element. */
         void pop_back()
         {
-            erase(end());
+            erase(--end());
             // use allocator destroy
         }
 
@@ -224,7 +230,10 @@ namespace ft
         }
 
         /* Removes all elements from the list container (which are destroyed), and leaving the container with a size of 0. */
-        void clear();
+        void clear()
+        {
+            erase(begin(), end());
+        }
 
         /*================================ OPERATIONS: ================================*/
 

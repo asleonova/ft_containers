@@ -205,9 +205,9 @@ void capacity_tests()
 
 	std::cout << blue << "***************[ erase test (int) ]***************" << cend << std::endl;
 	std::cout << green << "erase the first element: " << cend << "\n";
-	//myints.erase(myints.begin());
-	//print_list(myints);
-//	std::cout << "list size: " << myints.size() << std::endl;
+	myints.erase(myints.begin());
+	print_list(myints);
+	std::cout << "list size: " << myints.size() << std::endl;
 	//std::cout << " | vector capacity: " << vi.capacity() << std::endl;
 	std::cout << std::endl;
 	std::cout << green << "erase the first 3 elements: " << cend << "\n";
@@ -219,10 +219,13 @@ void capacity_tests()
 	std::cout << *it << std::endl;
 	std::cout << *ite << std::endl;
 	myints.erase(myints.begin(), ite);
-	//print_list(myints);
+	print_list(myints);
 	std::cout << "list size: " << myints.size();
 	//std::cout << " | vector capacity: " << vi.capacity() << std::endl;
 	std::cout << std::endl;
+	myints.clear();
+	std::cout << "size: " << myints.size() << std::endl;
+	std::cout << "is_empty: " << myints.empty() << std::endl;
 
 	
 }
