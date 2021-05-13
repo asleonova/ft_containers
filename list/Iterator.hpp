@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/11 21:32:29 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/13 19:17:28 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ namespace ft
 
         myIterator &operator=(myIterator<T, Node> const &rhs) // asignment operator
         {
-            this->_node = rhs.base();
+            this->_node = rhs.get_node();
             return (*this);
         }
 

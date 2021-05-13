@@ -14,10 +14,10 @@ void print_list(ft::list<T> &lst)
 {
 	typename ft::list<T>::iterator it = lst.begin();
 	typename ft::list<T>::iterator ite = lst.end();
-	while (it != ite)
+	while (ite != it)
 	{
-		std::cout << *it << " | ";
-		it++;
+		std::cout << *ite << " | ";
+		ite--;
 	}
 	std::cout << std::endl;
 	std::cout << std::endl;
@@ -178,29 +178,31 @@ void capacity_tests()
 {
 	std::cout << blue << "***************[ empty() test (int) ]***************" << cend << std::endl;
 	ft::list<int> myints;
-	std::cout << green << "Empty list: " << cend << std::endl;
-	std::cout << "is_empty: " << myints.empty() << '\n';
-	std::cout << "size: " << myints.size() << std::endl;
+	// std::cout << green << "Empty list: " << cend << std::endl;
+	// std::cout << "is_empty: " << myints.empty() << '\n';
+	// std::cout << "size: " << myints.size() << std::endl;
 
-	for (int i = 0; i < 10; i++)
-		myints.push_back(i);
-	std::cout << green << "After push_back 10 elements: " << cend << std::endl;
-	std::cout << "is_empty: " << myints.empty() << '\n';
-	std::cout << "size: " << myints.size() << std::endl;
-	print_list(myints);
-	/* myints.insert(myints.end(), 10, 100);
-	std::cout << green << "After inserting 10 elements: " << cend << std::endl;
-	std::cout << "2. size: " << myints.size() << '\n';
-	*/
-	myints.pop_back();
-	std::cout << green << "After popback(): " << cend << std::endl;
-	std::cout << "3. size: " << myints.size() << '\n' << '\n';
-	print_list(myints);
+	// for (int i = 0; i < 10; i++)
+	// 	myints.push_back(i);
+	// std::cout << green << "After push_back 10 elements: " << cend << std::endl;
+	// std::cout << "is_empty: " << myints.empty() << '\n';
+	// std::cout << "size: " << myints.size() << std::endl;
+	// print_list(myints);
+	// /* myints.insert(myints.end(), 10, 100);
+	// std::cout << green << "After inserting 10 elements: " << cend << std::endl;
+	// std::cout << "2. size: " << myints.size() << '\n';
+	// */
+	// myints.pop_back();
+	// std::cout << green << "After popback(): " << cend << std::endl;
+	// std::cout << "3. size: " << myints.size() << '\n' << '\n';
+	// print_list(myints);
 
-	myints.push_front(8);
+	myints.push_front(666);
 	std::cout << green << "After push_front(666): " << cend << std::endl;
 	std::cout << "size: " << myints.size() << '\n' << '\n';
 	std::cout << "list contents: " << std::endl;
+	for (int i = 0; i < 5; ++i)
+		myints.push_front(i);
 	print_list(myints);
 	
 	myints.pop_front();
