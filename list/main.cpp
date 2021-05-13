@@ -195,8 +195,15 @@ void capacity_tests()
 	myints.pop_back();
 	std::cout << green << "After popback(): " << cend << std::endl;
 	std::cout << "3. size: " << myints.size() << '\n' << '\n';
-
 	print_list(myints);
+	
+	myints.pop_front();
+	std::cout << green << "After popfront(): " << cend << std::endl;
+	std::cout << "4. size: " << myints.size() << std::endl;
+	std::cout << "list contents: " << std::endl;
+	print_list(myints);
+
+
 	std::cout << blue << "***************[ max_size() and size() test (int) ]***************" << cend << std::endl;
 	std::cout << green << "Taking the same vector: " << cend << std::endl;
 	std::cout << "size: " << myints.size() << "\n";

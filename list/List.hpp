@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/13 12:44:16 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/13 14:45:15 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ namespace ft
         {
             erase(begin(), end());
             _node->prev->next = _node->next;
-			_node->next->prev = _node->prev;
-			_alloc_node.deallocate(_node, 1);
+            _node->next->prev = _node->prev;
+            _alloc_node.deallocate(_node, 1);
         }
 
         /*================================ OPERATOR=: ================================*/
@@ -178,6 +178,25 @@ namespace ft
 
         /*================================ MODIFIERS: ================================*/
 
+        template <class InputIterator>
+        void assign(InputIterator first, InputIterator last);
+
+
+
+        void assign (size_type n, const value_type& val)
+        {
+            
+        }
+
+        void push_front (const value_type& val);
+
+        /* Removes the first element in the list container, effectively reducing its size by one. */
+        void pop_front()
+        {
+            erase(begin());
+        }
+
+
         void push_back(const value_type &val)
         {
             insert_end(val);
@@ -187,9 +206,17 @@ namespace ft
         This destroys the removed element. */
         void pop_back()
         {
-            erase(--end());
-            // use allocator destroy
+            erase(--end()); 
+            // --end because the result of end an iterator to the element past the end of the sequence.
         }
+
+        iterator insert (iterator position, const value_type& val);
+
+        void insert (iterator position, size_type n, const value_type& val);
+
+        template <class InputIterator>
+        void insert (iterator position, InputIterator first, InputIterator last);
+
 
         /* Removes from the list container a single element (position). 
         This effectively reduces the container size by the number of elements removed, which are destroyed.*/
@@ -223,11 +250,14 @@ namespace ft
                 first++;
             }
 
-            
             return (last);
-            
-            
         }
+
+        void swap (list& x);
+
+        void resize (size_type n, value_type val = value_type());
+
+        
 
         /* Removes all elements from the list container (which are destroyed), and leaving the container with a size of 0. */
         void clear()
@@ -236,6 +266,42 @@ namespace ft
         }
 
         /*================================ OPERATIONS: ================================*/
+
+        /* SPLICE */
+
+        void splice (iterator position, list& x);
+        void splice (iterator position, list& x, iterator i);
+        void splice (iterator position, list& x, iterator first, iterator last);
+
+        /* REMOVE */
+
+        void remove (const value_type& val);
+        
+        /* REMOVE IF */
+
+        template <class Predicate>
+        void remove_if (Predicate pred);
+
+        /* UNIQUE */
+        void unique();
+
+        template <class BinaryPredicate>
+        void unique (BinaryPredicate binary_pred);
+
+        /* MERGE */
+        void merge (list& x);
+
+        template <class Compare>
+        void merge (list& x, Compare comp);
+
+        /* SORT */
+        void sort();
+        
+        template <class Compare>
+        void sort (Compare comp);
+
+        /* REVERSE */
+        void reverse();
 
         /*================================ PRIVATE FUNCS: ================================*/
 
