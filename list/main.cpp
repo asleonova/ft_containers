@@ -196,6 +196,12 @@ void capacity_tests()
 	std::cout << green << "After popback(): " << cend << std::endl;
 	std::cout << "3. size: " << myints.size() << '\n' << '\n';
 	print_list(myints);
+
+	myints.push_front(8);
+	std::cout << green << "After push_front(666): " << cend << std::endl;
+	std::cout << "size: " << myints.size() << '\n' << '\n';
+	std::cout << "list contents: " << std::endl;
+	print_list(myints);
 	
 	myints.pop_front();
 	std::cout << green << "After popfront(): " << cend << std::endl;
@@ -208,6 +214,18 @@ void capacity_tests()
 	std::cout << green << "Taking the same vector: " << cend << std::endl;
 	std::cout << "size: " << myints.size() << "\n";
 	std::cout << "max_size: " << myints.max_size() << "\n" << "\n";
+
+
+	std::cout << green << "insert range of elements int arr[] = {501,502,503} at the begin() + 1" << cend << "\n";
+	int myarray[] = {501, 502, 503};
+	ft::list<int>::iterator it2 = myints.begin();
+	it2++;
+	it2++;
+	myints.insert(it2, myarray, myarray + 3);
+	print_list(myints);
+	std::cout << "list size: " << myints.size();
+	std::cout << std::endl;
+
 
 
 	std::cout << blue << "***************[ erase test (int) ]***************" << cend << std::endl;

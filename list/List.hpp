@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/13 14:45:15 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/13 16:14:14 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <memory>
 #include "Iterator.hpp"
+#include "Identifiers.hpp"
 
 namespace ft
 {
@@ -81,9 +82,10 @@ namespace ft
         virtual ~list()
         {
             erase(begin(), end());
-            _node->prev->next = _node->next;
-            _node->next->prev = _node->prev;
-            _alloc_node.deallocate(_node, 1);
+            // The next steps we nee to do for allocated node in the constructor.
+            this->_node->prev->next = this->_node->next;
+            this->_node->next->prev = this->_node->prev;
+            this->_alloc_node.deallocate(this->_node, 1);
         }
 
         /*================================ OPERATOR=: ================================*/
@@ -178,17 +180,33 @@ namespace ft
 
         /*================================ MODIFIERS: ================================*/
 
+        /* ASSIGN */
+        /* Assigns new contents to the list container, replacing its current contents, and modifying its size accordingly. */
+
+        /* In the range version (1), the new contents are elements constructed 
+        from each of the elements in the range between first and last, in the same order.*/
         template <class InputIterator>
-        void assign(InputIterator first, InputIterator last);
-
-
-
-        void assign (size_type n, const value_type& val)
+        void assign(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator>::type isIterator = InputIterator())
         {
-            
+            (void)isIterator;
+            clear();
+            insert(begin(), first, last);
         }
 
-        void push_front (const value_type& val);
+
+        /* In the fill version (2), the new contents are n elements,
+            each initialized to a copy of val.*/
+        void assign (size_type n, const value_type& val)
+        {
+            clear();
+            insert(begin(), n, val);
+        }
+
+        /* Insert element at the beginning */
+        void push_front (const value_type& val)
+        {
+            insert_begin(val);
+        }
 
         /* Removes the first element in the list container, effectively reducing its size by one. */
         void pop_front()
@@ -210,12 +228,45 @@ namespace ft
             // --end because the result of end an iterator to the element past the end of the sequence.
         }
 
-        iterator insert (iterator position, const value_type& val);
+        /* INSERT */
+        /* The container is extended by inserting new elements before 
+            the element at the specified position. */
 
-        void insert (iterator position, size_type n, const value_type& val);
+        iterator insert (iterator position, const value_type& val)
+        {
+            Node* new_node = construct_node(val);
+
+            // Inderting new node before the position
+			new_node->next = position.get_node();
+			new_node->prev = position.get_node()->prev;
+			position.get_node()->prev->next = new_node;
+			position.get_node()->prev = new_node;
+
+            this->_size++;
+			return iterator(new_node);
+        }
+
+        void insert (iterator position, size_type n, const value_type& val)
+        {
+            for (int i = 0; i < n; ++i)
+            {
+                insert(position, val);
+            }
+
+        }
 
         template <class InputIterator>
-        void insert (iterator position, InputIterator first, InputIterator last);
+        void insert (iterator position, InputIterator first, InputIterator last,  typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator>::type isIterator = InputIterator())
+        {
+            (void)isIterator;
+            while (first != last)
+            {
+				position = insert(position, *first);
+				++position;
+				++first;
+			}
+            
+        }
 
 
         /* Removes from the list container a single element (position). 
@@ -331,7 +382,6 @@ namespace ft
 
             // create new node
             Node *new_node;
-            // Node *new_node = allocate_node();
             new_node = construct_node(val);
 
             // start is going to be next of new_node
@@ -345,6 +395,43 @@ namespace ft
 
             // make new node next of old start
             last->next = new_node;
+            this->_size += 1;
+        }
+
+        void insert_between(const_reference val1, const_reference val2)
+        {
+            Node *new_node = construct_node(val1);
+            
+            Node *tmp = this->_node;
+            while (tmp->val != val2)
+                tmp = tmp->next;
+            Node *next = tmp->next;
+
+            //insert new node between tmp and next
+            tmp->next = new_node;
+            new_node->prev = tmp;
+            new_node->next = next;
+            next->prev = new_node;
+
+        }
+
+        void insert_begin(const_reference val)
+        {
+            // Pointer points to the last Node
+            Node *last = this->_node->prev;
+
+            Node *new_node;
+            new_node = construct_node(val); // Inserting the data
+
+            // Setting up previous and next of new node
+            new_node->next = this->_node;
+            new_node->prev = last;
+
+            // Update next and previous pointers of start and last
+            last->next = this->_node->prev = new_node;
+
+            // Update start pointer
+            this->_node = new_node;
             this->_size += 1;
         }
 
