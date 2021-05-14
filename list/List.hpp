@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/13 19:57:09 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/14 17:59:23 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <memory>
 #include "Iterator.hpp"
+#include "Algorithm.hpp"
 #include "Identifiers.hpp"
 
 namespace ft
@@ -205,8 +206,8 @@ namespace ft
         /* Insert element at the beginning */
         void push_front (const value_type& val) // Переделать!!!!!!!!!
         {
-            //insert(begin(), val);
-            insert_begin(val);
+            insert(begin(), val);
+            //insert_begin(val);
         }
 
         /* Removes the first element in the list container, effectively reducing its size by one. */
@@ -237,13 +238,15 @@ namespace ft
         {
             Node* new_node = construct_node(val);
 
-            // Inderting new node before the position
+            // setting up previous and next of new node
 			new_node->next = position.get_node();
 			new_node->prev = position.get_node()->prev;
+
+            // // Update next and previous pointers of the prev node
 			position.get_node()->prev->next = new_node;
 			position.get_node()->prev = new_node;
 
-            this->_size++;
+            ++this->_size;
 			return iterator(new_node);
         }
 
@@ -305,12 +308,33 @@ namespace ft
             return (last);
         }
 
-        void swap (list& x);
+        void swap (list& x)
+        {
+            if (this == &x)
+                return ;
+            ft::swap(this->_node, x._node);
+            ft::swap(this->_size, x.size);
+            ft::swap(this->_allocator_type, x._allocator_type);
+            ft::swap(this->_alloc_node, x._alloc_node);
+        }
 
-        void resize (size_type n, value_type val = value_type());
 
+        void resize (size_type n, value_type val = value_type())
+        {
+            iterator pos = begin();
+            size_type n_copy = n;
+            while (n_copy--)
+                pos++;
+            if (n < this->_size)
+                erase(pos, end());
+            else if (this->_size < n)
+            {
+                size_type offset;
+                offset = n - this->_size;
+                insert(end(), offset, val);
+            }
+        }
         
-
         /* Removes all elements from the list container (which are destroyed), and leaving the container with a size of 0. */
         void clear()
         {
@@ -399,45 +423,27 @@ namespace ft
             this->_size += 1;
         }
 
-        void insert_between(const_reference val1, const_reference val2)
-        {
-            Node *new_node = construct_node(val1);
-            
-            Node *tmp = this->_node;
-            while (tmp->val != val2)
-                tmp = tmp->next;
-            Node *next = tmp->next;
-
-            //insert new node between tmp and next
-            tmp->next = new_node;
-            new_node->prev = tmp;
-            new_node->next = next;
-            next->prev = new_node;
-
-        }
-
         void insert_begin(const_reference val)
         {
-            Node *new_node = construct_node(val); // Inserting the data
+            // Pointer points to last Node
+            Node *last = this->_node->prev;
 
-            // Setting up previous and next of new node
+            Node *new_node = construct_node(val); // Inserting data
+
+            // setting up previous and next of new node
             new_node->next = this->_node;
-            new_node->prev = this->_node->prev;
+            new_node->prev = last;
 
-            // Update next and previous pointers of start and last
+            // Update next and previous pointers of start
+            // and last.
+            last->next = this->_node->prev = new_node;
+
+            // Update start pointer
             this->_node = new_node;
-            this->_node->prev = new_node;
-            
 
-            this->_size += 1;
+            // Increment size + 1;
+            ++this->_size;
 
-            //             Node* new_node = construct_node(val);
-
-            // Inderting new node before the position
-			// new_node->next = position.get_node();
-			// new_node->prev = position.get_node()->prev;
-			// position.get_node()->prev->next = new_node;
-			// position.get_node()->prev = new_node;
         }
 
         void delete_node(Node *node)

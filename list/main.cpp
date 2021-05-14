@@ -14,14 +14,29 @@ void print_list(ft::list<T> &lst)
 {
 	typename ft::list<T>::iterator it = lst.begin();
 	typename ft::list<T>::iterator ite = lst.end();
-	while (ite != it)
+	while (it != ite)
 	{
-		std::cout << *ite << " | ";
-		ite--;
+		std::cout << *it << " | ";
+		it++;
 	}
 	std::cout << std::endl;
 	std::cout << std::endl;
 }
+
+// template <typename T>
+// void print_list_reverse(ft::list<T> &lst)
+// {
+// 	typename ft::list<T>::reverse_iterator rit = lst.begin();
+// 	typename ft::list<T>::reverse_iterator rite = lst.end();
+// 	while (rit != rite)
+// 	{
+// 		std::cout << *rit << " | ";
+// 		rit++;
+// 	}
+// 	std::cout << std::endl;
+// 	std::cout << std::endl;
+// }
+
 
 template <typename T>
 void print_list_const(ft::list<T> &lst)
@@ -178,24 +193,24 @@ void capacity_tests()
 {
 	std::cout << blue << "***************[ empty() test (int) ]***************" << cend << std::endl;
 	ft::list<int> myints;
-	// std::cout << green << "Empty list: " << cend << std::endl;
-	// std::cout << "is_empty: " << myints.empty() << '\n';
-	// std::cout << "size: " << myints.size() << std::endl;
+	std::cout << green << "Empty list: " << cend << std::endl;
+	std::cout << "is_empty: " << myints.empty() << '\n';
+	std::cout << "size: " << myints.size() << std::endl;
 
-	// for (int i = 0; i < 10; i++)
-	// 	myints.push_back(i);
-	// std::cout << green << "After push_back 10 elements: " << cend << std::endl;
-	// std::cout << "is_empty: " << myints.empty() << '\n';
-	// std::cout << "size: " << myints.size() << std::endl;
-	// print_list(myints);
-	// /* myints.insert(myints.end(), 10, 100);
-	// std::cout << green << "After inserting 10 elements: " << cend << std::endl;
-	// std::cout << "2. size: " << myints.size() << '\n';
-	// */
-	// myints.pop_back();
-	// std::cout << green << "After popback(): " << cend << std::endl;
-	// std::cout << "3. size: " << myints.size() << '\n' << '\n';
-	// print_list(myints);
+	for (int i = 0; i < 10; i++)
+		myints.push_back(i);
+	std::cout << green << "After push_back 10 elements: " << cend << std::endl;
+	std::cout << "is_empty: " << myints.empty() << '\n';
+	std::cout << "size: " << myints.size() << std::endl;
+	print_list(myints);
+	/* myints.insert(myints.end(), 10, 100);
+	std::cout << green << "After inserting 10 elements: " << cend << std::endl;
+	std::cout << "2. size: " << myints.size() << '\n';
+	*/
+	myints.pop_back();
+	std::cout << green << "After popback(): " << cend << std::endl;
+	std::cout << "3. size: " << myints.size() << '\n' << '\n';
+	print_list(myints);
 
 	myints.push_front(666);
 	std::cout << green << "After push_front(666): " << cend << std::endl;
@@ -203,7 +218,15 @@ void capacity_tests()
 	std::cout << "list contents: " << std::endl;
 	for (int i = 0; i < 5; ++i)
 		myints.push_front(i);
-	print_list(myints);
+
+	ft::list<int>::reverse_iterator rit = myints.rbegin();
+	ft::list<int>::reverse_iterator rite = myints.rend();
+
+	while (rit != rite)
+	{
+		std::cout << *rit << " ";
+		rit++;
+	}
 	
 	myints.pop_front();
 	std::cout << green << "After popfront(): " << cend << std::endl;
@@ -228,7 +251,17 @@ void capacity_tests()
 	std::cout << "list size: " << myints.size();
 	std::cout << std::endl;
 
-
+	std::cout << blue << "***************[ resize() test (int) ]***************" << cend << std::endl;
+	myints.resize(5);
+	std::cout << green << "myints.resize(5): " << cend << std::endl;
+	print_list(myints);
+	std::cout << green << "myints.resize(8, 100): " << cend << std::endl;
+	myints.resize(8, 100);
+	print_list(myints);
+	myints.resize(12);
+	std::cout << green << "myints.resize(12): " << cend << std::endl;
+	print_list(myints);
+	std::cout << '\n';
 
 	std::cout << blue << "***************[ erase test (int) ]***************" << cend << std::endl;
 	std::cout << green << "erase the first element: " << cend << "\n";
@@ -253,6 +286,8 @@ void capacity_tests()
 	myints.clear();
 	std::cout << "size: " << myints.size() << std::endl;
 	std::cout << "is_empty: " << myints.empty() << std::endl;
+
+	
 
 	
 }

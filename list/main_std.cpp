@@ -1,7 +1,7 @@
-#include <iostream>
 #include <memory>
 #include <list>
 #include <unistd.h>
+#include <iostream>
 
 #define red "\x1b[31m"
 #define green "\x1b[32m"
@@ -22,6 +22,21 @@ void print_list(std::list<T> &lst)
 	std::cout << std::endl;
 	std::cout << std::endl;
 }
+
+// template <typename T>
+// void print_list_reverse(std::list<T> &lst)
+// {
+// 	typename std::list<T>::reverse_iterator rit = lst.begin();
+// 	typename std::list<T>::reverse_iterator rite = lst.end();
+// 	while (rit != rite)
+// 	{
+// 		std::cout << *rit << " | ";
+// 		rit++;
+// 	}
+// 	std::cout << std::endl;
+// 	std::cout << std::endl;
+// }
+
 
 template <typename T>
 void print_list_const(std::list<T> &lst)
@@ -174,11 +189,115 @@ void const_iterator_test()
 	std::cout << "ite != ite: " << b << std::endl;
 }
 
+void capacity_tests()
+{
+	std::cout << blue << "***************[ empty() test (int) ]***************" << cend << std::endl;
+	std::list<int> myints;
+	std::cout << green << "Empty list: " << cend << std::endl;
+	std::cout << "is_empty: " << myints.empty() << '\n';
+	std::cout << "size: " << myints.size() << std::endl;
+
+	for (int i = 0; i < 10; i++)
+		myints.push_back(i);
+	std::cout << green << "After push_back 10 elements: " << cend << std::endl;
+	std::cout << "is_empty: " << myints.empty() << '\n';
+	std::cout << "size: " << myints.size() << std::endl;
+	print_list(myints);
+	/* myints.insert(myints.end(), 10, 100);
+	std::cout << green << "After inserting 10 elements: " << cend << std::endl;
+	std::cout << "2. size: " << myints.size() << '\n';
+	*/
+	myints.pop_back();
+	std::cout << green << "After popback(): " << cend << std::endl;
+	std::cout << "3. size: " << myints.size() << '\n' << '\n';
+	print_list(myints);
+
+	myints.push_front(666);
+	std::cout << green << "After push_front(666): " << cend << std::endl;
+	std::cout << "size: " << myints.size() << '\n' << '\n';
+	std::cout << "list contents: " << std::endl;
+	for (int i = 0; i < 5; ++i)
+		myints.push_front(i);
+
+	std::list<int>::reverse_iterator rit = myints.rbegin();
+	std::list<int>::reverse_iterator rite = myints.rend();
+
+	while (rit != rite)
+	{
+		std::cout << *rit << " ";
+		rit++;
+	}
+	
+	myints.pop_front();
+	std::cout << green << "After popfront(): " << cend << std::endl;
+	std::cout << "4. size: " << myints.size() << std::endl;
+	std::cout << "list contents: " << std::endl;
+	print_list(myints);
+
+
+	std::cout << blue << "***************[ max_size() and size() test (int) ]***************" << cend << std::endl;
+	std::cout << green << "Taking the same vector: " << cend << std::endl;
+	std::cout << "size: " << myints.size() << "\n";
+	std::cout << "max_size: " << myints.max_size() << "\n" << "\n";
+
+
+	std::cout << green << "insert range of elements int arr[] = {501,502,503} at the begin() + 1" << cend << "\n";
+	int myarray[] = {501, 502, 503};
+	std::list<int>::iterator it2 = myints.begin();
+	it2++;
+	it2++;
+	myints.insert(it2, myarray, myarray + 3);
+	print_list(myints);
+	std::cout << "list size: " << myints.size();
+	std::cout << std::endl;
+
+	std::cout << blue << "***************[ resize() test (int) ]***************" << cend << std::endl;
+	myints.resize(5);
+	std::cout << green << "myints.resize(5): " << cend << std::endl;
+	print_list(myints);
+	std::cout << green << "myints.resize(8, 100): " << cend << std::endl;
+	myints.resize(8, 100);
+	print_list(myints);
+	myints.resize(12);
+	std::cout << green << "myints.resize(12): " << cend << std::endl;
+	print_list(myints);
+	std::cout << '\n';
+
+	std::cout << blue << "***************[ erase test (int) ]***************" << cend << std::endl;
+	std::cout << green << "erase the first element: " << cend << "\n";
+	myints.erase(myints.begin());
+	print_list(myints);
+	std::cout << "list size: " << myints.size() << std::endl;
+	//std::cout << " | vector capacity: " << vi.capacity() << std::endl;
+	std::cout << std::endl;
+	std::cout << green << "erase the first 3 elements: " << cend << "\n";
+	std::list<int>::iterator it = myints.begin();
+	std::list<int>::iterator ite = myints.begin()++;
+	ite++;
+	ite++;
+	ite++;
+	std::cout << *it << std::endl;
+	std::cout << *ite << std::endl;
+	myints.erase(myints.begin(), ite);
+	print_list(myints);
+	std::cout << "list size: " << myints.size();
+	//std::cout << " | vector capacity: " << vi.capacity() << std::endl;
+	std::cout << std::endl;
+	myints.clear();
+	std::cout << "size: " << myints.size() << std::endl;
+	std::cout << "is_empty: " << myints.empty() << std::endl;
+
+	
+
+	
+}
+
 int main()
 {
 	constructor_test();
 	iterator_test();
 	const_iterator_test();
+	capacity_tests();
     std::list<std::string> a;
     std::list<std::string> a1;
     std::list<std::string>::iterator it1 = a.begin();
@@ -198,6 +317,7 @@ int main()
 
     std::list<std::string>::iterator it2 = a.begin();
     std::cout << "after ints: " << *it2 << std::endl;
+	sleep(50);
 
     return 0;
 }
