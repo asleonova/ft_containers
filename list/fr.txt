@@ -67,7 +67,7 @@ list contents:
 3 | 2 | 1 | 0 | 666 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 
 
 [34m***************[ max_size() and size() test (int) ]***************[0m
-[32mTaking the same vector: [0m
+[32mTaking the same list: [0m
 size: 14
 max_size: 768614336404564650
 
@@ -100,6 +100,81 @@ list size: 11
 list size: 8
 size: 0
 is_empty: 1
+[34m***************[ assign() test (int) ]***************[0m
+[32massign 7 ints with the value of 100 [0m
+list contents: 
+100 | 100 | 100 | 100 | 100 | 100 | 100 | 
+
+[32massign 5 central values of first[0m
+list contents: 
+100 | 100 | 100 | 100 | 100 | 100 | 100 | 
+
+[32mcreating array of ints {1776, 7, 4} and assigning from it: [0m
+list contents: 
+1776 | 7 | 4 | 
+
+Size of first: 7
+Size of second: 7
+Size of third: 3
+
+[34m***************[ push_back() and pop_back() test (float) ]***************[0m
+list contents: 
+1.23 | 2.34 | 3.45 | 4.55 | 5.56 | 
+
+[32mcalling pop_back() 2 times: [0m
+list contents: 
+1.23 | 2.34 | 3.45 | 
+
+[34m***************[ insert test (int) ]***************[0m
+list contents: 
+0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+[32minsert 1 element at 2nd position with the value of 666 [0m
+list contents: 
+0 | 1 | 666 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+list size: 11
+[32minsert 5 element at 5th position with the value of 55 [0m
+list contents: 
+0 | 1 | 666 | 55 | 55 | 55 | 55 | 55 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+list size: 16
+[32minsert range of elements int arr[] = {501,502,503} at the begin() + 1[0m
+501 | 502 | 503 | 0 | 1 | 666 | 55 | 55 | 55 | 55 | 55 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+list size: 19
+[34m***************[ erase test (int) ]***************[0m
+[32merase the 6th element: [0m
+502 | 503 | 0 | 1 | 666 | 55 | 55 | 55 | 55 | 55 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+list size: 18
+[32merase the first 3 elements: [0m
+502 | 503 | 0 | 1 | 666 | 55 | 55 | 55 | 55 | 55 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+
+list size: 18
+[34m***************[ swap() test (string) ]***************[0m
+list vs1 contents: 
+chto | kak | sunshine | ? | 
+
+list vs2 contents: 
+prosto | sdelai | it | 
+
+[32mafter swapping values : [0m
+list vs1 contents: 
+prosto | sdelai | it | 
+
+list vs2 contents: 
+chto | kak | sunshine | ? | 
+
+[34m***************[ clear() test (string) ]***************[0m
+[32mInitial list contents : [0m
+prosto | sdelai | it | 
+
+list size: 3
+[32mlist contents after clear() : [0m
+
+
+list size: 0
 beg before: 
 std:: 
 fas

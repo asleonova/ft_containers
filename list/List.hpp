@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/14 17:59:23 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/14 20:34:34 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,25 @@ namespace ft
 
         // #2: FILL:
         explicit list(size_type n, const value_type &val = value_type(),
-                      const allocator_type &alloc = allocator_type())
-        {
+                      const allocator_type &alloc = allocator_type()) : _size(0), _allocator_type(alloc)
+            {
+        //     if (n)
+        //         assign(n, val);
             this->_node = allocate_node();
             for (int i = 0; i < n; ++i)
             {
-                insert_end(val);
-                this->_size++;
-            }
+                push_back(val);
+                // insert_end(val);
+             }
         }
 
         // #3: RANGE:
         // template <class InputIterator>
-        // list(InputIterator first, InputIterator last,
-        //      const allocator_type &alloc = allocator_type()) {}
+        // list(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value>* = NULL,
+        //      const allocator_type &alloc = allocator_type())
+        //      {
+        //          assign(first, last);
+        //      }
 
         // #4 COPY:
         list(const list &x) { *this = x; }
@@ -194,17 +199,16 @@ namespace ft
             insert(begin(), first, last);
         }
 
-
         /* In the fill version (2), the new contents are n elements,
             each initialized to a copy of val.*/
-        void assign (size_type n, const value_type& val)
+        void assign(size_type n, const value_type &val)
         {
             clear();
             insert(begin(), n, val);
         }
 
         /* Insert element at the beginning */
-        void push_front (const value_type& val) // Переделать!!!!!!!!!
+        void push_front(const value_type &val) // Переделать!!!!!!!!!
         {
             insert(begin(), val);
             //insert_begin(val);
@@ -216,7 +220,6 @@ namespace ft
             erase(begin());
         }
 
-
         void push_back(const value_type &val)
         {
             insert_end(val);
@@ -226,7 +229,7 @@ namespace ft
         This destroys the removed element. */
         void pop_back()
         {
-            erase(--end()); 
+            erase(--end());
             // --end because the result of end an iterator to the element past the end of the sequence.
         }
 
@@ -234,44 +237,41 @@ namespace ft
         /* The container is extended by inserting new elements before 
             the element at the specified position. */
 
-        iterator insert (iterator position, const value_type& val)
+        iterator insert(iterator position, const value_type &val)
         {
-            Node* new_node = construct_node(val);
+            Node *new_node = construct_node(val);
 
             // setting up previous and next of new node
-			new_node->next = position.get_node();
-			new_node->prev = position.get_node()->prev;
+            new_node->next = position.get_node();
+            new_node->prev = position.get_node()->prev;
 
             // // Update next and previous pointers of the prev node
-			position.get_node()->prev->next = new_node;
-			position.get_node()->prev = new_node;
+            position.get_node()->prev->next = new_node;
+            position.get_node()->prev = new_node;
 
             ++this->_size;
-			return iterator(new_node);
+            return iterator(new_node);
         }
 
-        void insert (iterator position, size_type n, const value_type& val)
+        void insert(iterator position, size_type n, const value_type &val)
         {
             for (int i = 0; i < n; ++i)
             {
                 insert(position, val);
             }
-
         }
 
         template <class InputIterator>
-        void insert (iterator position, InputIterator first, InputIterator last,  typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator>::type isIterator = InputIterator())
+        void insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator>::type isIterator = InputIterator())
         {
             (void)isIterator;
             while (first != last)
             {
-				position = insert(position, *first);
-				++position;
-				++first;
-			}
-            
+                position = insert(position, *first);
+                ++position;
+                ++first;
+            }
         }
-
 
         /* Removes from the list container a single element (position). 
         This effectively reduces the container size by the number of elements removed, which are destroyed.*/
@@ -308,18 +308,17 @@ namespace ft
             return (last);
         }
 
-        void swap (list& x)
+        void swap(list &x)
         {
             if (this == &x)
-                return ;
+                return;
             ft::swap(this->_node, x._node);
-            ft::swap(this->_size, x.size);
+            ft::swap(this->_size, x._size);
             ft::swap(this->_allocator_type, x._allocator_type);
             ft::swap(this->_alloc_node, x._alloc_node);
         }
 
-
-        void resize (size_type n, value_type val = value_type())
+        void resize(size_type n, value_type val = value_type())
         {
             iterator pos = begin();
             size_type n_copy = n;
@@ -334,7 +333,7 @@ namespace ft
                 insert(end(), offset, val);
             }
         }
-        
+
         /* Removes all elements from the list container (which are destroyed), and leaving the container with a size of 0. */
         void clear()
         {
@@ -345,36 +344,36 @@ namespace ft
 
         /* SPLICE */
 
-        void splice (iterator position, list& x);
-        void splice (iterator position, list& x, iterator i);
-        void splice (iterator position, list& x, iterator first, iterator last);
+        void splice(iterator position, list &x);
+        void splice(iterator position, list &x, iterator i);
+        void splice(iterator position, list &x, iterator first, iterator last);
 
         /* REMOVE */
 
-        void remove (const value_type& val);
-        
+        void remove(const value_type &val);
+
         /* REMOVE IF */
 
         template <class Predicate>
-        void remove_if (Predicate pred);
+        void remove_if(Predicate pred);
 
         /* UNIQUE */
         void unique();
 
         template <class BinaryPredicate>
-        void unique (BinaryPredicate binary_pred);
+        void unique(BinaryPredicate binary_pred);
 
         /* MERGE */
-        void merge (list& x);
+        void merge(list &x);
 
         template <class Compare>
-        void merge (list& x, Compare comp);
+        void merge(list &x, Compare comp);
 
         /* SORT */
         void sort();
-        
+
         template <class Compare>
-        void sort (Compare comp);
+        void sort(Compare comp);
 
         /* REVERSE */
         void reverse();
@@ -443,7 +442,6 @@ namespace ft
 
             // Increment size + 1;
             ++this->_size;
-
         }
 
         void delete_node(Node *node)
@@ -463,6 +461,59 @@ namespace ft
     };
 
     /*================================ NON-MEMBER FUNCITON OVERLOADS: ================================*/
+
+    /* RELATIONAL OPERATORS */
+
+	/* The equality comparison (operator==) is performed by first comparing sizes, and if they match,
+	** the elements are compared sequentially using operator==,
+	** stopping at the first mismatch (as if using algorithm equal).
+	*/
+
+    template <class T, class Alloc>
+    bool operator==(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs)
+    {
+        return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+    }
+
+    template <class T, class Alloc>
+    bool operator!=(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+    template <class T, class Alloc>
+    bool operator<(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs)
+    {
+        return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+    }
+
+    // a<=b	equivalent !(b<a)
+    template <class T, class Alloc>
+    bool operator<=(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs)
+    {
+		return !(rhs < lhs);
+    }
+
+    // a>b	equivalent to b<a
+    template <class T, class Alloc>
+    bool operator>(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs)
+    {
+        return (rhs < lhs);
+    }
+
+    // a>=b	equivalent !(a<b)
+    template <class T, class Alloc>
+    bool operator>=(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs)
+    {
+        return !(lhs < rhs);
+    }
+
+	/* SWAP */
+    template <class T, class Alloc>
+    void swap(list<T, Alloc> &x, list<T, Alloc> &y)
+    {
+        x.swap(y);
+    }
 
 }
 #endif

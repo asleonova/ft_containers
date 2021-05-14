@@ -23,19 +23,19 @@ void print_list(ft::list<T> &lst)
 	std::cout << std::endl;
 }
 
-// template <typename T>
-// void print_list_reverse(ft::list<T> &lst)
-// {
-// 	typename ft::list<T>::reverse_iterator rit = lst.begin();
-// 	typename ft::list<T>::reverse_iterator rite = lst.end();
-// 	while (rit != rite)
-// 	{
-// 		std::cout << *rit << " | ";
-// 		rit++;
-// 	}
-// 	std::cout << std::endl;
-// 	std::cout << std::endl;
-// }
+template <typename T>
+void print_list_reverse(ft::list<T> &lst)
+{
+	typename ft::list<T>::reverse_iterator rit = lst.begin();
+	typename ft::list<T>::reverse_iterator rite = lst.end();
+	while (rit != rite)
+	{
+		std::cout << *rit << " | ";
+		rit++;
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
 
 
 template <typename T>
@@ -61,37 +61,49 @@ void constructor_test()
 	//std::cout << "list size is: " << lst.size() << std::endl
 			//  << std::endl;
 
-	std::cout << blue << "***************[ Fill constructor test ]***************" << cend << std::endl;
-	std::cout << green << "Testing list<int> lst1(10, 42): " << cend << std::endl;
-	ft::list<int> lst1(10, 42);
-	print_list(lst1);
-	std::cout << std::endl;
+  // constructors used in the same order as described above:
+  ft::list<int> first;                                // empty list of ints
+  ft::list<int> second (4,100);                       // four ints with value 100
+//   ft::list<int> third (second.begin(),second.end());  // iterating through second
+  ft::list<int> fourth (second);                       // a copy of third
 
-	/*std::cout << blue << "***************[ Range constructor test ]***************" << cend << std::endl;
-	ft::list<int> lst2;
-	for (int i = 0; i < 10; ++i)
-	{
-		lst2.push_back(i);
-	}
-	ft::list<int>::iterator it = lst2.begin();
-	ft::list<int>::iterator ite = lst2.end();
-	ft::list<int> lst3(it, ite);
-	print_list(lst3);
-	std::cout << std::endl;
+//   // the iterator constructor can also be used to construct from arrays:
+//   int myints[] = {16,2,77,29};
+//   ft::list<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
 
-	std::cout << blue << "***************[ Copy constructor test ]***************" << cend << std::endl;
-	std::cout << green << "Making copy list<int> lst4(lst1): " << cend << std::endl;
-	ft::list<int>				lst4(lst1);
-	print_list(lst4);
+  std::cout << "The contents of fifth are: ";
+  for (ft::list<int>::iterator it = fourth.begin(); it != fourth.end(); it++)
+    std::cout << *it << ' ';
+	// std::cout << blue << "***************[ Fill constructor test ]***************" << cend << std::endl;
+	// std::cout << green << "Testing list<int> lst1(10, 42): " << cend << std::endl;
+	// ft::list<int> lst1(10, 42);
+	// print_list(lst1);
+	// std::cout << std::endl;
+
+	// std::cout << blue << "***************[ Range constructor test ]***************" << cend << std::endl;
+	// ft::list<int> lst2;
+	// for (int i = 0; i < 10; ++i)
+	// {
+	// 	lst2.push_back(i);
+	// }
+	// ft::list<int>::iterator it = lst2.begin();
+	// ft::list<int>::iterator ite = lst2.end();
+	// ft::list<int> lst3(it, ite);
+	// print_list(lst3);
+	// std::cout << std::endl;
+
+	// std::cout << blue << "***************[ Copy constructor test ]***************" << cend << std::endl;
+	// std::cout << green << "Making copy list<int> lst4(lst1): " << cend << std::endl;
+	// ft::list<int>				lst4(lst1);
+	// print_list(lst4);
 
 
-	std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
-	std::cout << green << "Making list<int> lst5 = lst1: " << cend << std::endl;
-	ft::list<int>				lst5(10, 4);
-	lst1 = lst5;
-	print_list(lst1);
-	std::cout << std::endl;
-	*/
+	// std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
+	// std::cout << green << "Making list<int> lst5 = lst1: " << cend << std::endl;
+	// ft::list<int>				lst5(10, 4);
+	// lst1 = lst5;
+	// print_list(lst1);
+	// std::cout << std::endl;
 }
 
 void iterator_test()
@@ -221,7 +233,7 @@ void capacity_tests()
 
 	ft::list<int>::reverse_iterator rit = myints.rbegin();
 	ft::list<int>::reverse_iterator rite = myints.rend();
-
+	std::cout << "Printing in reverse order: " << std::endl;
 	while (rit != rite)
 	{
 		std::cout << *rit << " ";
@@ -236,7 +248,7 @@ void capacity_tests()
 
 
 	std::cout << blue << "***************[ max_size() and size() test (int) ]***************" << cend << std::endl;
-	std::cout << green << "Taking the same vector: " << cend << std::endl;
+	std::cout << green << "Taking the same list: " << cend << std::endl;
 	std::cout << "size: " << myints.size() << "\n";
 	std::cout << "max_size: " << myints.max_size() << "\n" << "\n";
 
@@ -268,7 +280,7 @@ void capacity_tests()
 	myints.erase(myints.begin());
 	print_list(myints);
 	std::cout << "list size: " << myints.size() << std::endl;
-	//std::cout << " | vector capacity: " << vi.capacity() << std::endl;
+	//std::cout << " | list capacity: " << vi.capacity() << std::endl;
 	std::cout << std::endl;
 	std::cout << green << "erase the first 3 elements: " << cend << "\n";
 	ft::list<int>::iterator it = myints.begin();
@@ -281,15 +293,141 @@ void capacity_tests()
 	myints.erase(myints.begin(), ite);
 	print_list(myints);
 	std::cout << "list size: " << myints.size();
-	//std::cout << " | vector capacity: " << vi.capacity() << std::endl;
+	//std::cout << " | list capacity: " << vi.capacity() << std::endl;
 	std::cout << std::endl;
 	myints.clear();
 	std::cout << "size: " << myints.size() << std::endl;
 	std::cout << "is_empty: " << myints.empty() << std::endl;
 
-	
+}
 
+void modifiers_test()
+{
+	std::cout << blue << "***************[ assign() test (int) ]***************" << cend << std::endl;
+	ft::list<int> first;
+	ft::list<int> second;
+	ft::list<int> third;
+
+	std::cout << green << "assign 7 ints with the value of 100 " << cend << "\n";
+	first.assign(7, 100); // 7 ints with a value of 100
+	std::cout << "list contents: " << std::endl;
+	print_list(first);
+
+	ft::list<int>::iterator it;
+	it = first.begin()++;
+	std::cout << green << "assign 5 central values of first" << cend << "\n";
+	second.assign(it, first.end()--); // the 5 central values of first
+	std::cout << "list contents: " << std::endl;
+	print_list(second);
+
+	std::cout << green << "creating array of ints {1776, 7, 4} and assigning from it: " << cend << "\n";
+	int myints[] = {1776, 7, 4};
+	third.assign(myints, myints + 3); // assigning from array.
+	std::cout << "list contents: " << std::endl;
+	print_list(third);
+
+	std::cout << "Size of first: " << int(first.size()) << '\n';
+	std::cout << "Size of second: " << int(second.size()) << '\n';
+	std::cout << "Size of third: " << int(third.size()) << '\n'
+			  << '\n';
+
+	std::cout << blue << "***************[ push_back() and pop_back() test (float) ]***************" << cend << std::endl;
+	ft::list<float> vf;
+	vf.push_back(1.23f);
+	vf.push_back(2.34f);
+	vf.push_back(3.45f);
+	vf.push_back(4.55f);
+	vf.push_back(5.56f);
+	std::cout << "list contents: " << std::endl;
+	print_list(vf);
+
+	std::cout << green << "calling pop_back() 2 times: " << cend << "\n";
+	vf.pop_back();
+	vf.pop_back();
+
+	std::cout << "list contents: " << std::endl;
+	print_list(vf);
+
+	std::cout << blue << "***************[ insert test (int) ]***************" << cend << std::endl;
+	ft::list<int> vi;
+	for (int i = 0; i < 10; ++i)
+		vi.push_back(i);
+	std::cout << "list contents: " << std::endl;
+	print_list(vi);
+	std::cout << green << "insert 1 element at 2nd position with the value of 666 " << cend << "\n";
+	it = vi.begin();
+	it++;
+	it++;
+	vi.insert(it, 666);
+	std::cout << "list contents: " << std::endl;
+	print_list(vi);
+	std::cout << "list size: " << vi.size();
+	std::cout << std::endl;
+
+	std::cout << green << "insert 5 element at 5th position with the value of 55 " << cend << "\n";
+
+	vi.insert(it, 5, 55);
+	std::cout << "list contents: " << std::endl;
+	print_list(vi);
+	std::cout << "list size: " << vi.size();
+	std::cout << std::endl;
+
+	std::cout << green << "insert range of elements int arr[] = {501,502,503} at the begin() + 1" << cend << "\n";
+	int myarray[] = {501, 502, 503};
+	vi.insert(vi.begin()++, myarray, myarray + 3);
+	print_list(vi);
+	std::cout << "list size: " << vi.size();
+	std::cout << std::endl;
+
+	std::cout << blue << "***************[ erase test (int) ]***************" << cend << std::endl;
+	std::cout << green << "erase the 6th element: " << cend << "\n";
+	vi.erase(vi.begin()++);
+	print_list(vi);
+	std::cout << "list size: " << vi.size();
+	std::cout << std::endl;
+	std::cout << green << "erase the first 3 elements: " << cend << "\n";
+	vi.erase(vi.begin(), vi.begin()++);
+	print_list(vi);
+	std::cout << "list size: " << vi.size();
+	std::cout << std::endl;
+
+	std::cout << blue << "***************[ swap() test (string) ]***************" << cend << std::endl;
+	ft::list<std::string> vs1;
+	ft::list<std::string> vs2;
+	vs1.push_back("chto");
+	vs1.push_back("kak");
+	vs1.push_back("sunshine");
+	vs1.push_back("?");
+
+	vs2.push_back("prosto");
+	vs2.push_back("sdelai");
+	vs2.push_back("it");
+
+	std::cout << "list vs1 contents: " << std::endl;
+	print_list(vs1);
+	std::cout << "list vs2 contents: " << std::endl;
+	print_list(vs2);
 	
+	std::cout << green << "after swapping values : " << cend << "\n";
+	
+	vs1.swap(vs2);
+	
+	std::cout << "list vs1 contents: " << std::endl;
+	print_list(vs1);
+	std::cout << "list vs2 contents: " << std::endl;
+	print_list(vs2);
+
+	std::cout << blue << "***************[ clear() test (string) ]***************" << cend << std::endl;
+	std::cout << green << "Initial list contents : " << cend << "\n";
+	print_list(vs1);
+	std::cout << "list size: " << vs1.size();
+	std::cout << std::endl;
+
+	std::cout << green << "list contents after clear() : " << cend << "\n";
+	vs1.clear();
+	print_list(vs1);
+	std::cout << "list size: " << vs1.size();
+	std::cout << std::endl;
 }
 
 int main()
@@ -298,6 +436,7 @@ int main()
 	iterator_test();
 	const_iterator_test();
 	capacity_tests();
+	modifiers_test();
     ft::list<std::string> a;
     std::list<std::string> a1;
     ft::list<std::string>::iterator it1 = a.begin();
@@ -317,7 +456,7 @@ int main()
 
     ft::list<std::string>::iterator it2 = a.begin();
     std::cout << "after ints: " << *it2 << std::endl;
-	sleep(50);
+	//sleep(50);
 
     return 0;
 }
