@@ -501,6 +501,28 @@ void splice_test()
     print_list(mylist2);
     std::cout << "mylist2 size: " << mylist2.size() << std::endl;
 
+	it = mylist1.begin();
+	it++;
+	it++;
+	it++;							// 'it' points now to 30
+	std::cout << "IT: " << *it << std::endl; // test
+
+	std::cout << "\x1b[32m";
+	std::cout << "SPLICE (elem range) mylist1 3 last elements to the begining:";
+	std::cout << "\033[0m\t\t" << std::endl;
+	mylist1.splice(mylist1.begin(), mylist1, it, mylist1.end());
+									// mylist1: 30 3 4 1 10 20
+	
+	std::cout << "mylist1 contains: ";
+    print_list(mylist1);
+    std::cout << "mylist1 size: " << mylist1.size() << std::endl;
+
+	std::cout << "mylist2 contains: ";
+    print_list(mylist2);
+    std::cout << "mylist2 size: " << mylist2.size() << std::endl;
+
+	std::cout << std::endl;
+
 }
 
 int main()

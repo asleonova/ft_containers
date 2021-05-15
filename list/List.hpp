@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/15 14:23:52 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/15 15:06:44 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,13 +369,23 @@ namespace ft
         {
             iterator tmp = x.begin();
             while (tmp != i)
-                tmp++;
+                tmp++; // get the iterator to the element in x in order to delete it lately
             insert(position, i.get_node()->val);
             x.erase(tmp);
         }
 
-        /*The third version (3) transfers the range [first,last) from x into the container.*/
-        void splice(iterator position, list &x, iterator first, iterator last);
+        /*The third version (3) transfers the range [first,last] from x into the container.*/
+        void splice(iterator position, list &x, iterator first, iterator last)
+        {
+            iterator x_first = first; // save the iterator position for x
+            while (first != last)
+            {
+                insert(position, first.get_node()->val);
+                first++;
+                x.erase(x_first);
+                x_first++;
+            }
+        }
 
         /* REMOVE */
 
