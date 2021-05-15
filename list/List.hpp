@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/15 16:30:21 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/15 16:39:56 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -436,7 +436,26 @@ namespace ft
         }
 
         /* UNIQUE */
-        void unique();
+
+        /*removes all but the first element from every consecutive
+            group of equal elements in the container.*/
+        void unique()
+        {
+            Node *save;
+            save = this->_node->next; // 1st element
+
+            size_type i = 0;
+            size_type save_size = this->_size;
+            while (i < save_size)
+            {
+                save = save->next;
+                if (save->prev->val == save->val)
+                {
+                    delete_node(save->prev); // delete_node func reduces the container size itself!
+                }
+                --save_size;
+            }
+        }
 
         template <class BinaryPredicate>
         void unique(BinaryPredicate binary_pred);

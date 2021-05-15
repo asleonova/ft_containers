@@ -2,12 +2,28 @@
 #include <memory>
 #include <list>
 #include <unistd.h>
+#include <cmath>
 
 #define red "\x1b[31m"
 #define green "\x1b[32m"
 #define yellow "\x1b[33m"
 #define blue "\x1b[34m"
 #define cend "\x1b[0m"
+
+// a binary predicate implemented as a function:
+bool same_integral_part(double first, double second)
+{
+	return (int(first) == int(second));
+}
+
+// a binary predicate implemented as a class:
+struct is_near
+{
+	bool operator()(double first, double second)
+	{
+		return (fabs(first - second) < 5.0);
+	}
+};
 
 // a predicate implemented as a function:
 bool single_digit(const int &value) { return (value < 10); }
@@ -532,6 +548,7 @@ void splice_test()
 void remove_test()
 {
 	std::cout << blue << "***************[ remove() test (int) ]***************" << cend << std::endl;
+	std::cout << blue << "***************[ remove() test (int) ]***************" << cend << std::endl;
 	int myints[] = {17, 89, 7, 14};
 	ft::list<int> mylist(myints, myints + 4);
 	std::cout << "mylist contents before removing: " << std::endl;
@@ -546,13 +563,36 @@ void remove_test()
 
 void remove_if_test()
 {
-
+	std::cout << blue << "***************[ remove_if() test (int) ]***************" << cend << std::endl;
 	int myints[] = {15, 36, 7, 17, 20, 39, 4, 1};
 	ft::list<int> mylist(myints, myints + 8); // 15 36 7 17 20 39 4 1
 
 	mylist.remove_if(single_digit); // 15 36 17 20 39
 
 	mylist.remove_if(is_odd()); // 36 20
+
+	std::cout << "mylist contains: ";
+	print_list(mylist);
+}
+
+void unique_test()
+{
+	std::cout << blue << "***************[ unique() test (int) ]***************" << cend << std::endl;
+	double mydoubles[] = {12.15, 2.72, 73.0, 12.77, 3.14,
+						  12.77, 73.35, 72.25, 15.3, 72.25};
+	ft::list<double> mylist(mydoubles, mydoubles + 10);
+	std::cout << "list before unique func: " << std::endl;
+	print_list(mylist);
+	//mylist.sort(); //  2.72,  3.14, 12.15, 12.77, 12.77,
+				   // 15.3,  72.25, 72.25, 73.0,  73.35
+
+	mylist.unique(); //  2.72,  3.14, 12.15, 12.77
+					 // 15.3,  72.25, 73.0,  73.35
+
+	//mylist.unique(same_integral_part); //  2.72,  3.14, 12.15
+									   // 15.3,  72.25, 73.0
+
+//	mylist.unique(is_near()); //  2.72, 12.15, 72.25
 
 	std::cout << "mylist contains: ";
 	print_list(mylist);
@@ -569,6 +609,7 @@ int main()
 	splice_test();
 	remove_test();
 	remove_if_test();
+	unique_test();
 	ft::list<std::string> a;
 	std::list<std::string> a1;
 	ft::list<std::string>::iterator it1 = a.begin();
