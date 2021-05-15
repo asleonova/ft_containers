@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/14 20:34:34 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/15 11:41:49 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,30 @@ namespace ft
         /*================================ 4 CONSTRUCTORS: ================================*/
 
         // #1 : DEFAULT:
-        explicit list(const allocator_type &alloc = allocator_type())
+        explicit list(const allocator_type &alloc = allocator_type()) : _size(0), _allocator_type(alloc)
         {
-            this->_size = 0;
             this->_node = allocate_node();
         }
 
         // #2: FILL:
         explicit list(size_type n, const value_type &val = value_type(),
                       const allocator_type &alloc = allocator_type()) : _size(0), _allocator_type(alloc)
-            {
-        //     if (n)
-        //         assign(n, val);
+        {
             this->_node = allocate_node();
             for (int i = 0; i < n; ++i)
             {
-                push_back(val);
-                // insert_end(val);
-             }
+                insert_end(val);
+            }
         }
 
-        // #3: RANGE:
-        // template <class InputIterator>
-        // list(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value>* = NULL,
-        //      const allocator_type &alloc = allocator_type())
-        //      {
-        //          assign(first, last);
-        //      }
+        //#3: RANGE:
+        template <class InputIterator>
+        list(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value> * = NULL,
+             const allocator_type &alloc = allocator_type()) : _size(0), _allocator_type(alloc)
+        {
+            this->_node = allocate_node();
+            assign(first, last);
+        }
 
         // #4 COPY:
         list(const list &x) { *this = x; }
@@ -88,7 +85,7 @@ namespace ft
         virtual ~list()
         {
             erase(begin(), end());
-            // The next steps we nee to do for allocated node in the constructor.
+            // The next steps we need to do for allocated node in the constructor.
             this->_node->prev->next = this->_node->next;
             this->_node->next->prev = this->_node->prev;
             this->_alloc_node.deallocate(this->_node, 1);
@@ -99,6 +96,7 @@ namespace ft
         {
             if (this != &x)
             {
+                this->_node = allocate_node();
                 assign(x.begin(), x.end());
             }
             return (*this);
@@ -334,7 +332,8 @@ namespace ft
             }
         }
 
-        /* Removes all elements from the list container (which are destroyed), and leaving the container with a size of 0. */
+        /* Removes all elements from the list container (which are destroyed),
+            and leaving the container with a size of 0. */
         void clear()
         {
             erase(begin(), end());
@@ -342,10 +341,31 @@ namespace ft
 
         /*================================ OPERATIONS: ================================*/
 
-        /* SPLICE */
+        /* SPLICE
+            Transfers elements from x into the container, inserting them at position.
+            This effectively inserts those elements into the container and removes them from x,
+            altering the sizes of both containers. The operation does not involve
+            the construction or destruction of any element. They are transferred,
+            no matter whether x is an lvalue or an rvalue, or whether the value_type supports
+            move-construction or not.*/
 
-        void splice(iterator position, list &x);
+        /*The first version (1) transfers all the elements of x into the container.*/
+        void splice(iterator position, list &x)
+        {
+            iterator it = x.begin();
+            size_type i = 0;
+            while (i < x.size())
+            {
+                insert(position, it.get_node()->val);
+                i++;
+                it++;
+            }
+        }
+
+        /*The second version (2) transfers only the element pointed by i from x into the container.*/
         void splice(iterator position, list &x, iterator i);
+
+        /*The third version (3) transfers the range [first,last) from x into the container.*/
         void splice(iterator position, list &x, iterator first, iterator last);
 
         /* REMOVE */
@@ -464,7 +484,7 @@ namespace ft
 
     /* RELATIONAL OPERATORS */
 
-	/* The equality comparison (operator==) is performed by first comparing sizes, and if they match,
+    /* The equality comparison (operator==) is performed by first comparing sizes, and if they match,
 	** the elements are compared sequentially using operator==,
 	** stopping at the first mismatch (as if using algorithm equal).
 	*/
@@ -491,7 +511,7 @@ namespace ft
     template <class T, class Alloc>
     bool operator<=(const list<T, Alloc> &lhs, const list<T, Alloc> &rhs)
     {
-		return !(rhs < lhs);
+        return !(rhs < lhs);
     }
 
     // a>b	equivalent to b<a
@@ -508,12 +528,11 @@ namespace ft
         return !(lhs < rhs);
     }
 
-	/* SWAP */
+    /* SWAP */
     template <class T, class Alloc>
     void swap(list<T, Alloc> &x, list<T, Alloc> &y)
     {
         x.swap(y);
     }
-
 }
 #endif

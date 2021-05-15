@@ -58,53 +58,40 @@ void constructor_test()
 
 	std::cout << green << "Testing empty list int: " << cend << std::endl;
 	ft::list<int> lst;
-	//std::cout << "list size is: " << lst.size() << std::endl
-			//  << std::endl;
+	std::cout << "list size is: " << lst.size() << std::endl
+			 << std::endl;
 
-  // constructors used in the same order as described above:
-  ft::list<int> first;                                // empty list of ints
-  ft::list<int> second (4,100);                       // four ints with value 100
-//   ft::list<int> third (second.begin(),second.end());  // iterating through second
-  ft::list<int> fourth (second);                       // a copy of third
+	std::cout << blue << "***************[ Fill constructor test ]***************" << cend << std::endl;
+	std::cout << green << "Testing list<int> lst1(10, 42): " << cend << std::endl;
+	ft::list<int> lst1(10, 42);
+	print_list(lst1);
+	std::cout << std::endl;
 
-//   // the iterator constructor can also be used to construct from arrays:
-//   int myints[] = {16,2,77,29};
-//   ft::list<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
+	std::cout << blue << "***************[ Range constructor test ]***************" << cend << std::endl;
+	ft::list<int> lst2;
+	for (int i = 0; i < 10; ++i)
+	{
+		lst2.push_back(i);
+	}
+	ft::list<int>::iterator it = lst2.begin();
+	ft::list<int>::iterator ite = lst2.end();
+	ft::list<int> lst3(it, ite);
+	print_list(lst3);
+	std::cout << std::endl;
 
-  std::cout << "The contents of fifth are: ";
-  for (ft::list<int>::iterator it = fourth.begin(); it != fourth.end(); it++)
-    std::cout << *it << ' ';
-	// std::cout << blue << "***************[ Fill constructor test ]***************" << cend << std::endl;
-	// std::cout << green << "Testing list<int> lst1(10, 42): " << cend << std::endl;
-	// ft::list<int> lst1(10, 42);
-	// print_list(lst1);
-	// std::cout << std::endl;
-
-	// std::cout << blue << "***************[ Range constructor test ]***************" << cend << std::endl;
-	// ft::list<int> lst2;
-	// for (int i = 0; i < 10; ++i)
-	// {
-	// 	lst2.push_back(i);
-	// }
-	// ft::list<int>::iterator it = lst2.begin();
-	// ft::list<int>::iterator ite = lst2.end();
-	// ft::list<int> lst3(it, ite);
-	// print_list(lst3);
-	// std::cout << std::endl;
-
-	// std::cout << blue << "***************[ Copy constructor test ]***************" << cend << std::endl;
-	// std::cout << green << "Making copy list<int> lst4(lst1): " << cend << std::endl;
-	// ft::list<int>				lst4(lst1);
-	// print_list(lst4);
+	std::cout << blue << "***************[ Copy constructor test ]***************" << cend << std::endl;
+	std::cout << green << "Making copy list<int> lst4(lst1): " << cend << std::endl;
+	ft::list<int>				lst4(lst1);
+	print_list(lst4);
 
 
-	// std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
-	// std::cout << green << "Making list<int> lst5 = lst1: " << cend << std::endl;
-	// ft::list<int>				lst5(10, 4);
-	// lst1 = lst5;
-	// print_list(lst1);
-	// std::cout << std::endl;
-}
+// 	std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
+// 	std::cout << green << "Making list<int> lst5 = lst1: " << cend << std::endl;
+// 	ft::list<int>				lst5(10, 4);
+// 	lst1 = lst5;
+// 	print_list(lst1);
+// 	std::cout << std::endl;
+ }
 
 void iterator_test()
 {
@@ -430,6 +417,33 @@ void modifiers_test()
 	std::cout << std::endl;
 }
 
+void splice_test()
+{
+	std::cout << blue << "***************[ splice() test (int) ]***************" << cend << std::endl;
+	ft::list<int> mylist1, mylist2;
+    ft::list<int>::iterator it;
+
+    // set some initial values:
+    for (int i = 1; i <= 4; ++i)
+        mylist1.push_back(i); // mylist1: 1 2 3 4
+
+    for (int i = 1; i <= 3; ++i)
+        mylist2.push_back(i * 10); // mylist2: 10 20 30
+
+    it = mylist1.begin();
+    ++it; // points to 2
+
+    mylist1.splice(it, mylist2); // mylist1: 1 10 20 30 2 3 4
+                                 // mylist2 (empty)
+       
+                              // "it" still points to 2 (the 5th element)
+    std::cout << "After 1st splice: " << std::endl;
+    std::cout << "mylist1 contains:";
+    for (it = mylist1.begin(); it != mylist1.end(); ++it)
+        std::cout << ' ' << *it;
+    std::cout << '\n';
+}
+
 int main()
 {
 	constructor_test();
@@ -437,6 +451,7 @@ int main()
 	const_iterator_test();
 	capacity_tests();
 	modifiers_test();
+	splice_test();
     ft::list<std::string> a;
     std::list<std::string> a1;
     ft::list<std::string>::iterator it1 = a.begin();
@@ -456,7 +471,7 @@ int main()
 
     ft::list<std::string>::iterator it2 = a.begin();
     std::cout << "after ints: " << *it2 << std::endl;
-	//sleep(50);
+	sleep(50);
 
     return 0;
 }
