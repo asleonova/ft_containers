@@ -10,6 +10,11 @@
 #define blue "\x1b[34m"
 #define cend "\x1b[0m"
 
+
+// compare only integral part:
+bool mycomparison (double first, double second)
+{ return ( int(first)<int(second) ); }
+
 // a binary predicate implemented as a function:
 bool same_integral_part(double first, double second)
 {

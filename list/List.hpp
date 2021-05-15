@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/15 20:47:52 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/15 20:48:29 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,7 +486,10 @@ namespace ft
 
         /* Merges x into the list by transferring all of its elements at their respective ordered positions 
             into the container (both containers shall already be ordered).*/
-        void merge(list &x);
+        void merge(list &x)
+        {
+            
+        }
 
         template <class Compare>
         void merge(list &x, Compare comp);
