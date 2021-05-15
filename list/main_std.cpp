@@ -67,7 +67,7 @@ void constructor_test()
 	print_list(lst1);
 	std::cout << std::endl;
 
-	/*std::cout << blue << "***************[ Range constructor test ]***************" << cend << std::endl;
+	std::cout << blue << "***************[ Range constructor test ]***************" << cend << std::endl;
 	std::list<int> lst2;
 	for (int i = 0; i < 10; ++i)
 	{
@@ -91,7 +91,6 @@ void constructor_test()
 	lst1 = lst5;
 	print_list(lst1);
 	std::cout << std::endl;
-	*/
 }
 
 void iterator_test()

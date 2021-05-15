@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/15 11:41:49 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/15 14:23:52 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ namespace ft
                 this->_node = allocate_node();
                 assign(x.begin(), x.end());
             }
+        
             return (*this);
         }
 
@@ -360,10 +361,18 @@ namespace ft
                 i++;
                 it++;
             }
+            x.clear();
         }
 
         /*The second version (2) transfers only the element pointed by i from x into the container.*/
-        void splice(iterator position, list &x, iterator i);
+        void splice(iterator position, list &x, iterator i)
+        {
+            iterator tmp = x.begin();
+            while (tmp != i)
+                tmp++;
+            insert(position, i.get_node()->val);
+            x.erase(tmp);
+        }
 
         /*The third version (3) transfers the range [first,last) from x into the container.*/
         void splice(iterator position, list &x, iterator first, iterator last);

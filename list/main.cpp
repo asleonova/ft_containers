@@ -85,12 +85,12 @@ void constructor_test()
 	print_list(lst4);
 
 
-// 	std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
-// 	std::cout << green << "Making list<int> lst5 = lst1: " << cend << std::endl;
-// 	ft::list<int>				lst5(10, 4);
-// 	lst1 = lst5;
-// 	print_list(lst1);
-// 	std::cout << std::endl;
+	// std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
+	// std::cout << green << "Making list<int> lst5 = lst1: " << cend << std::endl;
+	// ft::list<int>				lst5(10, 4);
+	// lst1 = lst5;
+	// print_list(lst1);
+	// std::cout << std::endl;
  }
 
 void iterator_test()
@@ -420,28 +420,87 @@ void modifiers_test()
 void splice_test()
 {
 	std::cout << blue << "***************[ splice() test (int) ]***************" << cend << std::endl;
-	ft::list<int> mylist1, mylist2;
-    ft::list<int>::iterator it;
+	ft::list<int>				mylist1, mylist2;
+	ft::list<int>::iterator		it;
+	ft::list<int>::iterator		tmp;
 
-    // set some initial values:
-    for (int i = 1; i <= 4; ++i)
-        mylist1.push_back(i); // mylist1: 1 2 3 4
+	// Set some initial values
+	for (int i = 1; i <= 4; ++i) 	// mylist1: 1 2 3 4
+		mylist1.push_back(i);
 
-    for (int i = 1; i <= 3; ++i)
-        mylist2.push_back(i * 10); // mylist2: 10 20 30
+	for (int i = 1; i <= 3; ++i)
+		mylist2.push_back(i * 10);	// mylist2: 10 20 30
 
-    it = mylist1.begin();
-    ++it; // points to 2
+	// Print initial lists
+    std::cout << "mylist1 contents: " << std::endl;
+	print_list(mylist1);
+    std::cout << "mylist1 size: " << mylist1.size() << std::endl;
 
-    mylist1.splice(it, mylist2); // mylist1: 1 10 20 30 2 3 4
-                                 // mylist2 (empty)
-       
-                              // "it" still points to 2 (the 5th element)
-    std::cout << "After 1st splice: " << std::endl;
-    std::cout << "mylist1 contains:";
-    for (it = mylist1.begin(); it != mylist1.end(); ++it)
-        std::cout << ' ' << *it;
-    std::cout << '\n';
+    std::cout << "mylist2 contents: " << std::endl;
+    print_list(mylist2);
+    std::cout << "mylist2 size: " << mylist2.size() << std::endl;
+
+	it = mylist1.begin();
+	++it;							// points to 2
+
+
+	std::cout << "\x1b[32m";
+	std::cout << "SPLICE (entire list) mylist2 to mylist1 at the 1st position:";
+	std::cout << "\033[0m\t\t" << std::endl;
+	mylist1.splice(it, mylist2);	// mylist1: 1 10 20 30 2 3 4
+									// mylist2 (empty)
+									// 'it' still points to 2 (the 5th element)
+	// Print lists after splicing
+	std::cout << "\x1b[33m";
+	std::cout << "'it' still points to: ";
+	std::cout << "\033[0m\t\t" << std::endl;
+	std::cout << *it << std::endl;
+
+	tmp = it; // Save it
+	std::cout << "\x1b[33m";
+	std::cout << "mylist1 after splicing mylist2 to it at 1st position:";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+    print_list(mylist1);
+    std::cout << "mylist1 size: " << mylist1.size() << std::endl;
+
+	std::cout << "\x1b[33m";
+	std::cout << "mylist2 after being spliced to mylist1 at 1st position:";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+    print_list(mylist2);
+    std::cout << "mylist2 size: " << mylist2.size() << std::endl;
+
+
+    it = tmp; // Recover it
+
+	std::cout << "\x1b[32m";
+	std::cout << "SPLICE (single) mylist2 to mylist1 at the 1st position:";
+	std::cout << "\033[0m\t\t" << std::endl;
+	mylist2.splice(mylist2.begin(), mylist1, it);
+									// mylist1: 1 10 20 30 3 4
+									// mylist2: 2
+									// 'it' is now invalid.
+	// Print lists after splicing
+	std::cout << "\x1b[33m";
+	std::cout << "'it' is invalid now"; // TEST in ORIGINAL!!!
+	std::cout << "\033[0m\t\t" << std::endl;
+	std::cout << *it << std::endl;
+
+	std::cout << "\x1b[33m";
+	std::cout << "mylist1 after splicing";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+    print_list(mylist1);
+    std::cout << "mylist1 size: " << mylist1.size() << std::endl;
+
+	std::cout << "\x1b[33m";
+	std::cout << "mylist2 after splicing";
+	std::cout << "\033[0m\t\t" << std::endl;
+
+    print_list(mylist2);
+    std::cout << "mylist2 size: " << mylist2.size() << std::endl;
+
 }
 
 int main()
