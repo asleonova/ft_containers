@@ -1,6 +1,22 @@
 // splicing lists
 #include <iostream>
 #include <list>
+#include <cmath>
+
+// a binary predicate implemented as a function:
+bool same_integral_part(double first, double second)
+{
+	return (int(first) == int(second));
+}
+
+// a binary predicate implemented as a class:
+struct is_near
+{
+	bool operator()(double first, double second)
+	{
+		return (fabs(first - second) < 5.0);
+	}
+};
 
 template <typename T>
 void print_list(std::list<T> &lst)
@@ -120,6 +136,32 @@ int main()
     std::cout << "mylist2 size: " << mylist2.size() << std::endl;
 
 	std::cout << std::endl;
+
+
+	std::cout << "***************[ unique() test (int) ]***************"  << std::endl;
+	double mydoubles[] = { 0.0, 2.72,  3.14, 12.15, 12.77, 12.77,
+						  15.3,  72.25, 72.25, 73.0,  73.35};
+	std::list<double> mylist(mydoubles, mydoubles + 10);
+	std::cout << "list before unique func: " << std::endl;
+	print_list(mylist);
+	//mylist.sort(); //  2.72,  3.14, 12.15, 12.77, 12.77,
+				   // 15.3,  72.25, 72.25, 73.0,  73.35
+
+	mylist.unique(); //  2.72,  3.14, 12.15, 12.77
+					 // 15.3,  72.25, 73.0,  73.35
+	std::cout << "mylist contains: ";
+	print_list(mylist);
+
+	mylist.unique(same_integral_part); //  2.72,  3.14, 12.15
+									   // 15.3,  72.25, 73.0
+
+	std::cout << "mylist contains: ";
+	print_list(mylist);
+
+	mylist.unique(is_near()); //  2.72, 12.15, 72.25
+
+	std::cout << "mylist contains: ";
+	print_list(mylist);
 
     return 0;
 }

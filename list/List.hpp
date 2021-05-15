@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/15 16:39:56 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/15 20:47:52 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,6 +414,7 @@ namespace ft
             }
         }
 
+
         /* REMOVE IF */
 
         template <class Predicate>
@@ -442,25 +443,49 @@ namespace ft
         void unique()
         {
             Node *save;
-            save = this->_node->next; // 1st element
-
+            save = this->_node->next->next; // 2nd element
             size_type i = 0;
             size_type save_size = this->_size;
             while (i < save_size)
             {
-                save = save->next;
                 if (save->prev->val == save->val)
                 {
+                    save = save->next;
                     delete_node(save->prev); // delete_node func reduces the container size itself!
+                   
                 }
+                else
+                    save = save->next;
                 --save_size;
             }
         }
 
+
         template <class BinaryPredicate>
-        void unique(BinaryPredicate binary_pred);
+        void unique(BinaryPredicate binary_pred)
+        {
+            Node *save;
+            save = this->_node->next->next; // 2nd element
+            size_type i = 0;
+            size_type save_size = this->_size;
+            while (i < save_size)
+            {
+                if (binary_pred(save->prev->val, save->val))
+                {
+                    save = save->next;
+                    delete_node(save->prev); // delete_node func reduces the container size itself!
+                    
+                }
+                else
+                    save = save->next;
+                --save_size;
+            }
+        }
 
         /* MERGE */
+
+        /* Merges x into the list by transferring all of its elements at their respective ordered positions 
+            into the container (both containers shall already be ordered).*/
         void merge(list &x);
 
         template <class Compare>

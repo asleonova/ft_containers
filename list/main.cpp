@@ -578,8 +578,8 @@ void remove_if_test()
 void unique_test()
 {
 	std::cout << blue << "***************[ unique() test (int) ]***************" << cend << std::endl;
-	double mydoubles[] = {12.15, 2.72, 73.0, 12.77, 3.14,
-						  12.77, 73.35, 72.25, 15.3, 72.25};
+	double mydoubles[] = { 0.0, 2.72,  3.14, 12.15, 12.77, 12.77,
+						  15.3,  72.25, 72.25, 73.0,  73.35};
 	ft::list<double> mylist(mydoubles, mydoubles + 10);
 	std::cout << "list before unique func: " << std::endl;
 	print_list(mylist);
@@ -588,11 +588,16 @@ void unique_test()
 
 	mylist.unique(); //  2.72,  3.14, 12.15, 12.77
 					 // 15.3,  72.25, 73.0,  73.35
+	std::cout << "mylist contains: ";
+	print_list(mylist);
 
-	//mylist.unique(same_integral_part); //  2.72,  3.14, 12.15
+	mylist.unique(same_integral_part); //  2.72,  3.14, 12.15
 									   // 15.3,  72.25, 73.0
 
-//	mylist.unique(is_near()); //  2.72, 12.15, 72.25
+	std::cout << "mylist contains: ";
+	print_list(mylist);
+
+	mylist.unique(is_near()); //  2.72, 12.15, 72.25
 
 	std::cout << "mylist contains: ";
 	print_list(mylist);
