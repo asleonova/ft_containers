@@ -9,6 +9,15 @@
 #define blue "\x1b[34m"
 #define cend "\x1b[0m"
 
+// a predicate implemented as a function:
+bool single_digit(const int &value) { return (value < 10); }
+
+// a predicate implemented as a class:
+struct is_odd
+{
+	bool operator()(const int &value) { return (value % 2) == 1; }
+};
+
 template <typename T>
 void print_list(ft::list<T> &lst)
 {
@@ -535,8 +544,23 @@ void remove_test()
 	std::cout << "list size: " << mylist.size() << std::endl;
 }
 
+void remove_if_test()
+{
+
+	int myints[] = {15, 36, 7, 17, 20, 39, 4, 1};
+	ft::list<int> mylist(myints, myints + 8); // 15 36 7 17 20 39 4 1
+
+	mylist.remove_if(single_digit); // 15 36 17 20 39
+
+	mylist.remove_if(is_odd()); // 36 20
+
+	std::cout << "mylist contains: ";
+	print_list(mylist);
+}
+
 int main()
 {
+
 	constructor_test();
 	iterator_test();
 	const_iterator_test();
@@ -544,6 +568,7 @@ int main()
 	modifiers_test();
 	splice_test();
 	remove_test();
+	remove_if_test();
 	ft::list<std::string> a;
 	std::list<std::string> a1;
 	ft::list<std::string>::iterator it1 = a.begin();
@@ -560,7 +585,6 @@ int main()
 		std::cout << *it << std::endl;
 		it++;
 	}
-
 	ft::list<std::string>::iterator it2 = a.begin();
 	std::cout << "after ints: " << *it2 << std::endl;
 	sleep(50);
