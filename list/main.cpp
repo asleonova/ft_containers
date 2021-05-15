@@ -37,7 +37,6 @@ void print_list_reverse(ft::list<T> &lst)
 	std::cout << std::endl;
 }
 
-
 template <typename T>
 void print_list_const(ft::list<T> &lst)
 {
@@ -59,7 +58,7 @@ void constructor_test()
 	std::cout << green << "Testing empty list int: " << cend << std::endl;
 	ft::list<int> lst;
 	std::cout << "list size is: " << lst.size() << std::endl
-			 << std::endl;
+			  << std::endl;
 
 	std::cout << blue << "***************[ Fill constructor test ]***************" << cend << std::endl;
 	std::cout << green << "Testing list<int> lst1(10, 42): " << cend << std::endl;
@@ -81,9 +80,8 @@ void constructor_test()
 
 	std::cout << blue << "***************[ Copy constructor test ]***************" << cend << std::endl;
 	std::cout << green << "Making copy list<int> lst4(lst1): " << cend << std::endl;
-	ft::list<int>				lst4(lst1);
+	ft::list<int> lst4(lst1);
 	print_list(lst4);
-
 
 	// std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
 	// std::cout << green << "Making list<int> lst5 = lst1: " << cend << std::endl;
@@ -91,7 +89,7 @@ void constructor_test()
 	// lst1 = lst5;
 	// print_list(lst1);
 	// std::cout << std::endl;
- }
+}
 
 void iterator_test()
 {
@@ -177,7 +175,7 @@ void const_iterator_test()
 	std::cout << green << "Testing iterator comparison: " << cend << std::endl;
 	ft::list<int>::const_iterator it = lst.begin();
 	ft::list<int>::const_iterator ite = lst.end();
-	
+
 	bool b = it == ite;
 	std::cout << "it == ite: " << b << std::endl;
 	b = it == it;
@@ -208,12 +206,14 @@ void capacity_tests()
 	*/
 	myints.pop_back();
 	std::cout << green << "After popback(): " << cend << std::endl;
-	std::cout << "3. size: " << myints.size() << '\n' << '\n';
+	std::cout << "3. size: " << myints.size() << '\n'
+			  << '\n';
 	print_list(myints);
 
 	myints.push_front(666);
 	std::cout << green << "After push_front(666): " << cend << std::endl;
-	std::cout << "size: " << myints.size() << '\n' << '\n';
+	std::cout << "size: " << myints.size() << '\n'
+			  << '\n';
 	std::cout << "list contents: " << std::endl;
 	for (int i = 0; i < 5; ++i)
 		myints.push_front(i);
@@ -226,19 +226,18 @@ void capacity_tests()
 		std::cout << *rit << " ";
 		rit++;
 	}
-	
+
 	myints.pop_front();
 	std::cout << green << "After popfront(): " << cend << std::endl;
 	std::cout << "4. size: " << myints.size() << std::endl;
 	std::cout << "list contents: " << std::endl;
 	print_list(myints);
 
-
 	std::cout << blue << "***************[ max_size() and size() test (int) ]***************" << cend << std::endl;
 	std::cout << green << "Taking the same list: " << cend << std::endl;
 	std::cout << "size: " << myints.size() << "\n";
-	std::cout << "max_size: " << myints.max_size() << "\n" << "\n";
-
+	std::cout << "max_size: " << myints.max_size() << "\n"
+			  << "\n";
 
 	std::cout << green << "insert range of elements int arr[] = {501,502,503} at the begin() + 1" << cend << "\n";
 	int myarray[] = {501, 502, 503};
@@ -285,7 +284,6 @@ void capacity_tests()
 	myints.clear();
 	std::cout << "size: " << myints.size() << std::endl;
 	std::cout << "is_empty: " << myints.empty() << std::endl;
-
 }
 
 void modifiers_test()
@@ -394,11 +392,11 @@ void modifiers_test()
 	print_list(vs1);
 	std::cout << "list vs2 contents: " << std::endl;
 	print_list(vs2);
-	
+
 	std::cout << green << "after swapping values : " << cend << "\n";
-	
+
 	vs1.swap(vs2);
-	
+
 	std::cout << "list vs1 contents: " << std::endl;
 	print_list(vs1);
 	std::cout << "list vs2 contents: " << std::endl;
@@ -420,36 +418,35 @@ void modifiers_test()
 void splice_test()
 {
 	std::cout << blue << "***************[ splice() test (int) ]***************" << cend << std::endl;
-	ft::list<int>				mylist1, mylist2;
-	ft::list<int>::iterator		it;
-	ft::list<int>::iterator		tmp;
+	ft::list<int> mylist1, mylist2;
+	ft::list<int>::iterator it;
+	ft::list<int>::iterator tmp;
 
 	// Set some initial values
-	for (int i = 1; i <= 4; ++i) 	// mylist1: 1 2 3 4
+	for (int i = 1; i <= 4; ++i) // mylist1: 1 2 3 4
 		mylist1.push_back(i);
 
 	for (int i = 1; i <= 3; ++i)
-		mylist2.push_back(i * 10);	// mylist2: 10 20 30
+		mylist2.push_back(i * 10); // mylist2: 10 20 30
 
 	// Print initial lists
-    std::cout << "mylist1 contents: " << std::endl;
+	std::cout << "mylist1 contents: " << std::endl;
 	print_list(mylist1);
-    std::cout << "mylist1 size: " << mylist1.size() << std::endl;
+	std::cout << "mylist1 size: " << mylist1.size() << std::endl;
 
-    std::cout << "mylist2 contents: " << std::endl;
-    print_list(mylist2);
-    std::cout << "mylist2 size: " << mylist2.size() << std::endl;
+	std::cout << "mylist2 contents: " << std::endl;
+	print_list(mylist2);
+	std::cout << "mylist2 size: " << mylist2.size() << std::endl;
 
 	it = mylist1.begin();
-	++it;							// points to 2
-
+	++it; // points to 2
 
 	std::cout << "\x1b[32m";
 	std::cout << "SPLICE (entire list) mylist2 to mylist1 at the 1st position:";
 	std::cout << "\033[0m\t\t" << std::endl;
-	mylist1.splice(it, mylist2);	// mylist1: 1 10 20 30 2 3 4
-									// mylist2 (empty)
-									// 'it' still points to 2 (the 5th element)
+	mylist1.splice(it, mylist2); // mylist1: 1 10 20 30 2 3 4
+								 // mylist2 (empty)
+								 // 'it' still points to 2 (the 5th element)
 	// Print lists after splicing
 	std::cout << "\x1b[33m";
 	std::cout << "'it' still points to: ";
@@ -461,26 +458,25 @@ void splice_test()
 	std::cout << "mylist1 after splicing mylist2 to it at 1st position:";
 	std::cout << "\033[0m\t\t" << std::endl;
 
-    print_list(mylist1);
-    std::cout << "mylist1 size: " << mylist1.size() << std::endl;
+	print_list(mylist1);
+	std::cout << "mylist1 size: " << mylist1.size() << std::endl;
 
 	std::cout << "\x1b[33m";
 	std::cout << "mylist2 after being spliced to mylist1 at 1st position:";
 	std::cout << "\033[0m\t\t" << std::endl;
 
-    print_list(mylist2);
-    std::cout << "mylist2 size: " << mylist2.size() << std::endl;
+	print_list(mylist2);
+	std::cout << "mylist2 size: " << mylist2.size() << std::endl;
 
-
-    it = tmp; // Recover it
+	it = tmp; // Recover it
 
 	std::cout << "\x1b[32m";
 	std::cout << "SPLICE (single) mylist2 to mylist1 at the 1st position:";
 	std::cout << "\033[0m\t\t" << std::endl;
 	mylist2.splice(mylist2.begin(), mylist1, it);
-									// mylist1: 1 10 20 30 3 4
-									// mylist2: 2
-									// 'it' is now invalid.
+	// mylist1: 1 10 20 30 3 4
+	// mylist2: 2
+	// 'it' is now invalid.
 	// Print lists after splicing
 	std::cout << "\x1b[33m";
 	std::cout << "'it' is invalid now"; // TEST in ORIGINAL!!!
@@ -491,38 +487,52 @@ void splice_test()
 	std::cout << "mylist1 after splicing";
 	std::cout << "\033[0m\t\t" << std::endl;
 
-    print_list(mylist1);
-    std::cout << "mylist1 size: " << mylist1.size() << std::endl;
+	print_list(mylist1);
+	std::cout << "mylist1 size: " << mylist1.size() << std::endl;
 
 	std::cout << "\x1b[33m";
 	std::cout << "mylist2 after splicing";
 	std::cout << "\033[0m\t\t" << std::endl;
 
-    print_list(mylist2);
-    std::cout << "mylist2 size: " << mylist2.size() << std::endl;
+	print_list(mylist2);
+	std::cout << "mylist2 size: " << mylist2.size() << std::endl;
 
 	it = mylist1.begin();
 	it++;
 	it++;
-	it++;							// 'it' points now to 30
+	it++;									 // 'it' points now to 30
 	std::cout << "IT: " << *it << std::endl; // test
 
 	std::cout << "\x1b[32m";
 	std::cout << "SPLICE (elem range) mylist1 3 last elements to the begining:";
 	std::cout << "\033[0m\t\t" << std::endl;
 	mylist1.splice(mylist1.begin(), mylist1, it, mylist1.end());
-									// mylist1: 30 3 4 1 10 20
-	
+	// mylist1: 30 3 4 1 10 20
+
 	std::cout << "mylist1 contains: ";
-    print_list(mylist1);
-    std::cout << "mylist1 size: " << mylist1.size() << std::endl;
+	print_list(mylist1);
+	std::cout << "mylist1 size: " << mylist1.size() << std::endl;
 
 	std::cout << "mylist2 contains: ";
-    print_list(mylist2);
-    std::cout << "mylist2 size: " << mylist2.size() << std::endl;
+	print_list(mylist2);
+	std::cout << "mylist2 size: " << mylist2.size() << std::endl;
 
 	std::cout << std::endl;
+}
 
+void remove_test()
+{
+	std::cout << blue << "***************[ remove() test (int) ]***************" << cend << std::endl;
+	int myints[] = {17, 89, 7, 14};
+	ft::list<int> mylist(myints, myints + 4);
+	std::cout << "mylist contents before removing: " << std::endl;
+	print_list(mylist);
+	std::cout << "list size before removing: " << mylist.size() << std::endl;
+	mylist.remove(89);
+
+	std::cout << "mylist contains: " << std::endl;
+	print_list(mylist);
+	std::cout << "list size: " << mylist.size() << std::endl;
 }
 
 int main()
@@ -533,26 +543,27 @@ int main()
 	capacity_tests();
 	modifiers_test();
 	splice_test();
-    ft::list<std::string> a;
-    std::list<std::string> a1;
-    ft::list<std::string>::iterator it1 = a.begin();
-    std::list<std::string>::iterator it3 = a1.begin();
-    std::cout << "beg before: " << *it1 << std::endl;
-    std::cout << "std:: " << *it3 << std::endl;
-    a.push_back("fas");
-    a.push_back("t");
-    a.push_back("kfddffjd");
-    ft::list<std::string>::iterator it = a.begin();
-    ft::list<std::string>::iterator ite = a.end();
-    while (it != ite)
-    {
-       std::cout << *it << std::endl;
-        it++;
-    }
+	remove_test();
+	ft::list<std::string> a;
+	std::list<std::string> a1;
+	ft::list<std::string>::iterator it1 = a.begin();
+	std::list<std::string>::iterator it3 = a1.begin();
+	std::cout << "beg before: " << *it1 << std::endl;
+	std::cout << "std:: " << *it3 << std::endl;
+	a.push_back("fas");
+	a.push_back("t");
+	a.push_back("kfddffjd");
+	ft::list<std::string>::iterator it = a.begin();
+	ft::list<std::string>::iterator ite = a.end();
+	while (it != ite)
+	{
+		std::cout << *it << std::endl;
+		it++;
+	}
 
-    ft::list<std::string>::iterator it2 = a.begin();
-    std::cout << "after ints: " << *it2 << std::endl;
+	ft::list<std::string>::iterator it2 = a.begin();
+	std::cout << "after ints: " << *it2 << std::endl;
 	sleep(50);
 
-    return 0;
+	return 0;
 }

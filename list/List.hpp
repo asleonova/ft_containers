@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/15 15:06:44 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/15 15:52:03 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,10 +207,10 @@ namespace ft
         }
 
         /* Insert element at the beginning */
-        void push_front(const value_type &val) // Переделать!!!!!!!!!
+        void push_front(const value_type &val)
         {
-            insert(begin(), val);
-            //insert_begin(val);
+           // insert(begin(), val);
+            insert_begin(val);
         }
 
         /* Removes the first element in the list container, effectively reducing its size by one. */
@@ -389,7 +389,32 @@ namespace ft
 
         /* REMOVE */
 
-        void remove(const value_type &val);
+
+        /*Removes from the container all the elements that compare equal to val.
+        This calls the destructor of these objects and reduces the container size
+        by the number of elements removed.
+
+        Unlike member function list::erase, which erases elements by their position
+        (using an iterator), this function (list::remove) removes elements by their value. */
+        
+                
+        void remove(const value_type &val)
+        {
+            Node *save;
+            save = this->_node->next; // 1st element
+            
+            size_type i = 0;
+            size_type save_size = this->_size;
+            while (i < save_size)
+            {
+                save = save->next;
+                if (save->prev->val == val)
+                {
+                    delete_node(save->prev); // delete_node func reduces the container size itself!
+                }
+                --save_size;
+            }
+        }
 
         /* REMOVE IF */
 
