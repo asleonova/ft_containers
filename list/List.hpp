@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/16 20:49:39 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/16 20:56:36 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -503,28 +503,31 @@ namespace ft
         {
             if (&x == this)
                 return;
+            this->_node->next = _merge(this->_node, x, comp);
+        }
 
-            size_type i = 0;
-            iterator it = this->begin();
-            iterator x_it = x.begin();
-            Node *first = this->_node->next;
-            Node *first_x = x._node->next;
-            while (x_it != x.end())
+        template <class Compare>
+        Node* _merge(Node &save, list &x, Compare comp)
+        {
+            
+            
+            // Pick the smaller value and adjust the links
+            if (comp(save->val, x._node->val)) // if first < second
             {
-                // Pick the smaller value and adjust the links
-                if (comp(it.get_node()->val, x_it.get_node()->val)) // if this < x
-                {
-                    first = it.get_node();
-                }
-                else
-                {
-                    insert(it, x_it.get_node()->val);
-                    first = x_it.get_node();
-                }
-                x_it++;
-                it++;
+                save->next = _merge(save->next, x._node, comp);
+                save->next->prev = save;
+                save->prev = this->_node;
+                return (first);
+            }
+            else
+            {
+                x._node->next = _merge(save, x._node->next, comp);
+                x._node->next->prev = x._node;
+                x._node->prev = this->_node;
+                return (second);
             }
         }
+
 
 
         /* SORT */
