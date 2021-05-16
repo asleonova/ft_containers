@@ -572,6 +572,10 @@ void remove_if_test()
 	int myints[] = {15, 36, 7, 17, 20, 39, 4, 1};
 	ft::list<int> mylist(myints, myints + 8); // 15 36 7 17 20 39 4 1
 
+	std::cout << "SORT ::: " << std::endl;
+	mylist.sort();
+	print_list(mylist);
+	
 	mylist.remove_if(single_digit); // 15 36 17 20 39
 
 	mylist.remove_if(is_odd()); // 36 20

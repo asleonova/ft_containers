@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:59:09 by dbliss            #+#    #+#             */
-/*   Updated: 2021/04/23 17:36:37 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/16 17:42:49 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ namespace ft
         }
         return true;
     }
-    
 
     template <class InputIterator1, class InputIterator2>
     bool lexicographical_compare(InputIterator1 first1, InputIterator1 last1,
@@ -55,6 +54,17 @@ namespace ft
         }
         return (first2 != last2);
     }
+
+    template <class T>
+    struct less
+    {
+    public:
+        bool
+        operator()(const T &lhs, const T &rhs) const
+        {
+            return (lhs < rhs);
+        }
+    };
 }
 
 #endif

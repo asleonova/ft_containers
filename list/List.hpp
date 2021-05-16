@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/15 20:48:29 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/16 17:43:29 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -414,7 +414,6 @@ namespace ft
             }
         }
 
-
         /* REMOVE IF */
 
         template <class Predicate>
@@ -452,14 +451,12 @@ namespace ft
                 {
                     save = save->next;
                     delete_node(save->prev); // delete_node func reduces the container size itself!
-                   
                 }
                 else
                     save = save->next;
                 --save_size;
             }
         }
-
 
         template <class BinaryPredicate>
         void unique(BinaryPredicate binary_pred)
@@ -474,7 +471,6 @@ namespace ft
                 {
                     save = save->next;
                     delete_node(save->prev); // delete_node func reduces the container size itself!
-                    
                 }
                 else
                     save = save->next;
@@ -486,16 +482,31 @@ namespace ft
 
         /* Merges x into the list by transferring all of its elements at their respective ordered positions 
             into the container (both containers shall already be ordered).*/
+
         void merge(list &x)
         {
-            
         }
 
         template <class Compare>
         void merge(list &x, Compare comp);
 
         /* SORT */
-        void sort();
+        void sort()
+        {
+
+            this->_node->next = _mergeSort(this->_node->next, ft::less<T>());
+
+            Node *tmp = this->_node->next;
+            Node *prev_last;
+
+            while (tmp != this->_node)
+            {
+                prev_last = tmp;
+                tmp = tmp->next;
+            }
+
+            this->_node->prev = prev_last;
+        }
 
         template <class Compare>
         void sort(Compare comp);
@@ -576,6 +587,60 @@ namespace ft
             node->next->prev = node->prev;
             this->_alloc_node.deallocate(node, 1);
             this->_size -= 1;
+        }
+
+        Node* _split(Node *head)
+        {
+            Node* fast = head;
+            Node* slow = head;
+
+            while (fast->next != this->_node && fast->next->next != this->_node)
+            {
+                fast = fast->next->next;
+                slow = slow->next;
+            }
+
+            Node* tmp = slow->next;
+            slow->next = this->_node;
+            return (tmp);
+        }
+
+        template <class Compare>
+        Node *_merge(Node *first, Node *second, Compare comp)
+        {
+            if (first == this->_node)
+                return (second);
+            if (second == this->_node)
+                return (first);
+
+            if (comp(first->val, second->val))
+            {
+                first->next = _merge(first->next, second, comp);
+                first->next->prev = first;
+                first->prev = this->_node;
+                return (first);
+            }
+            else
+            {
+                second->next = _merge(first, second->next, comp);
+                second->next->prev = second;
+                second->prev = this->_node;
+                return (second);
+            }
+        }
+
+        template <class Compare>
+        Node *_mergeSort(Node *head, Compare comp)
+        {
+            if (head == this->_node || head->next == this->_node)
+                return (head);
+
+            Node *second = _split(head);
+
+            head = _mergeSort(head, comp);
+            second = _mergeSort(second, comp);
+
+            return (_merge(head, second, comp));
         }
 
     private:
