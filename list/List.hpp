@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/16 17:43:29 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/16 20:02:21 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -485,31 +485,53 @@ namespace ft
 
         void merge(list &x)
         {
+            mergeSortedLists(x, ft::less<value_type>());
         }
 
         template <class Compare>
-        void merge(list &x, Compare comp);
+        void merge(list &x, Compare comp)
+        {
+            mergeSortedLists(x, comp);
+        }
 
         /* SORT */
         void sort()
         {
 
-            this->_node->next = _mergeSort(this->_node->next, ft::less<T>());
+            this->_node->next = mergeSort(this->_node->next, ft::less<value_type>());
 
-            Node *tmp = this->_node->next;
-            Node *prev_last;
+            // These code we need to get the last of our node;
+            Node *head = this->_node->next;
+            Node *last;
 
-            while (tmp != this->_node)
+            while (head != this->_node)
             {
-                prev_last = tmp;
-                tmp = tmp->next;
+                last = head;
+                head = head->next;
             }
 
-            this->_node->prev = prev_last;
+            this->_node->prev = last;
         }
 
         template <class Compare>
-        void sort(Compare comp);
+        void sort(Compare comp)
+        {
+            this->_node->next = mergeSort(this->_node->next, comp);
+
+            Node *head = this->_node->next;
+
+            // get pointer to the node which will be the
+            // last node of the final list
+            Node *last;
+
+            while (head != this->_node)
+            {
+                last = head;
+                head = head->next;
+            }
+
+            this->_node->prev = last;
+        }
 
         /* REVERSE */
         void reverse();
@@ -589,40 +611,45 @@ namespace ft
             this->_size -= 1;
         }
 
-        Node* _split(Node *head)
+        Node *splitList(Node *src)
         {
-            Node* fast = head;
-            Node* slow = head;
+            Node *fast = src->next;
+            Node *slow = src;
 
-            while (fast->next != this->_node && fast->next->next != this->_node)
+            while (fast != this->_node)
             {
-                fast = fast->next->next;
-                slow = slow->next;
+                fast = fast->next;
+                if (fast != this->_node)
+                {
+                    fast = fast->next;
+                    slow = slow->next;
+                }
             }
 
-            Node* tmp = slow->next;
+            Node *splitted = slow->next;
             slow->next = this->_node;
-            return (tmp);
+            return (splitted);
         }
 
         template <class Compare>
-        Node *_merge(Node *first, Node *second, Compare comp)
+        Node *mergeSortedLists(Node *first, Node *second, Compare comp)
         {
-            if (first == this->_node)
+            if (first == this->_node) // if the first list is empty
                 return (second);
-            if (second == this->_node)
+            if (second == this->_node) // if the second list is empty
                 return (first);
 
-            if (comp(first->val, second->val))
+            // Pick the smaller value and adjust the links
+            if (comp(first->val, second->val)) // if first < second
             {
-                first->next = _merge(first->next, second, comp);
+                first->next = mergeSortedLists(first->next, second, comp);
                 first->next->prev = first;
                 first->prev = this->_node;
                 return (first);
             }
             else
             {
-                second->next = _merge(first, second->next, comp);
+                second->next = mergeSortedLists(first, second->next, comp);
                 second->next->prev = second;
                 second->prev = this->_node;
                 return (second);
@@ -630,17 +657,17 @@ namespace ft
         }
 
         template <class Compare>
-        Node *_mergeSort(Node *head, Compare comp)
+        Node *mergeSort(Node *first, Compare comp)
         {
-            if (head == this->_node || head->next == this->_node)
-                return (head);
+            if (first == this->_node || first->next == this->_node)
+                return (first); // if there is only one element in our list
 
-            Node *second = _split(head);
+            Node *second = splitList(first); // returns the pointer to the 2nd splitted part
 
-            head = _mergeSort(head, comp);
-            second = _mergeSort(second, comp);
+            first = mergeSort(first, comp);
+            second = mergeSort(second, comp);
 
-            return (_merge(head, second, comp));
+            return (mergeSortedLists(first, second, comp));
         }
 
     private:

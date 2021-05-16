@@ -10,10 +10,31 @@
 #define blue "\x1b[34m"
 #define cend "\x1b[0m"
 
+// compare only integral part:
+bool mycomparison(double first, double second)
+{
+	return (int(first) < int(second));
+}
+
+bool compare_nocase(const std::string &first, const std::string &second)
+{
+	unsigned int i = 0;
+	while ((i < first.length()) && (i < second.length()))
+	{
+		if (tolower(first[i]) < tolower(second[i]))
+			return true;
+		else if (tolower(first[i]) > tolower(second[i]))
+			return false;
+		++i;
+	}
+	return (first.length() < second.length());
+}
 
 // compare only integral part:
-bool mycomparison (double first, double second)
-{ return ( int(first)<int(second) ); }
+bool mycomparison(double first, double second)
+{
+	return (int(first) < int(second));
+}
 
 // a binary predicate implemented as a function:
 bool same_integral_part(double first, double second)
@@ -575,7 +596,7 @@ void remove_if_test()
 	std::cout << "SORT ::: " << std::endl;
 	mylist.sort();
 	print_list(mylist);
-	
+
 	mylist.remove_if(single_digit); // 15 36 17 20 39
 
 	mylist.remove_if(is_odd()); // 36 20
@@ -587,13 +608,13 @@ void remove_if_test()
 void unique_test()
 {
 	std::cout << blue << "***************[ unique() test (int) ]***************" << cend << std::endl;
-	double mydoubles[] = { 0.0, 2.72,  3.14, 12.15, 12.77, 12.77,
-						  15.3,  72.25, 72.25, 73.0,  73.35};
+	double mydoubles[] = {0.0, 2.72, 3.14, 12.15, 12.77, 12.77,
+						  15.3, 72.25, 72.25, 73.0, 73.35};
 	ft::list<double> mylist(mydoubles, mydoubles + 10);
 	std::cout << "list before unique func: " << std::endl;
 	print_list(mylist);
 	//mylist.sort(); //  2.72,  3.14, 12.15, 12.77, 12.77,
-				   // 15.3,  72.25, 72.25, 73.0,  73.35
+	// 15.3,  72.25, 72.25, 73.0,  73.35
 
 	mylist.unique(); //  2.72,  3.14, 12.15, 12.77
 					 // 15.3,  72.25, 73.0,  73.35
@@ -612,6 +633,53 @@ void unique_test()
 	print_list(mylist);
 }
 
+void sort_test()
+{
+	ft::list<std::string> mylist;
+	ft::list<std::string>::iterator it;
+	mylist.push_back("p");
+	mylist.push_back("g");
+	mylist.push_back("a");
+
+	mylist.sort();
+
+	std::cout << "mylist contains: ";
+	print_list(mylist);
+	mylist.sort(compare_nocase);
+
+	std::cout << "mylist contains: ";
+	print_list(mylist);
+}
+
+void merge_test()
+{
+	ft::list<double> first, second;
+
+	first.push_back(3.1);
+	first.push_back(2.2);
+	first.push_back(2.9);
+
+	second.push_back(3.7);
+	second.push_back(7.1);
+	second.push_back(1.4);
+
+	first.sort();
+	second.sort();
+
+	first.merge(second);
+
+	// (second is now empty)
+
+	second.push_back(2.1);
+
+	first.merge(second, mycomparison);
+
+	std::cout << "first contains: ";
+	print_list(first);
+	std::cout << "secont contains: ";
+	print_list(second);
+}
+
 int main()
 {
 
@@ -624,6 +692,7 @@ int main()
 	remove_test();
 	remove_if_test();
 	unique_test();
+	sort_test();
 	ft::list<std::string> a;
 	std::list<std::string> a1;
 	ft::list<std::string>::iterator it1 = a.begin();
