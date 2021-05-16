@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/16 20:02:21 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/16 20:49:39 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -480,19 +480,52 @@ namespace ft
 
         /* MERGE */
 
+        // iterator it = x.begin();
+        //     size_type i = 0;
+        //     while (i < x.size())
+        //     {
+        //         insert(position, it.get_node()->val);
+        //         i++;
+        //         it++;
+        //     }
+        //     x.clear();
+
         /* Merges x into the list by transferring all of its elements at their respective ordered positions 
             into the container (both containers shall already be ordered).*/
 
         void merge(list &x)
         {
-            mergeSortedLists(x, ft::less<value_type>());
+            merge(x, ft::less<value_type>());
         }
 
         template <class Compare>
         void merge(list &x, Compare comp)
         {
-            mergeSortedLists(x, comp);
+            if (&x == this)
+                return;
+
+            size_type i = 0;
+            iterator it = this->begin();
+            iterator x_it = x.begin();
+            Node *first = this->_node->next;
+            Node *first_x = x._node->next;
+            while (x_it != x.end())
+            {
+                // Pick the smaller value and adjust the links
+                if (comp(it.get_node()->val, x_it.get_node()->val)) // if this < x
+                {
+                    first = it.get_node();
+                }
+                else
+                {
+                    insert(it, x_it.get_node()->val);
+                    first = x_it.get_node();
+                }
+                x_it++;
+                it++;
+            }
         }
+
 
         /* SORT */
         void sort()

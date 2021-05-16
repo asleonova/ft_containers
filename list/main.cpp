@@ -10,11 +10,6 @@
 #define blue "\x1b[34m"
 #define cend "\x1b[0m"
 
-// compare only integral part:
-bool mycomparison(double first, double second)
-{
-	return (int(first) < int(second));
-}
 
 bool compare_nocase(const std::string &first, const std::string &second)
 {
@@ -693,6 +688,7 @@ int main()
 	remove_if_test();
 	unique_test();
 	sort_test();
+	merge_test();
 	ft::list<std::string> a;
 	std::list<std::string> a1;
 	ft::list<std::string>::iterator it1 = a.begin();
