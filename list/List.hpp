@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/16 20:56:36 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/17 14:17:43 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -480,15 +480,6 @@ namespace ft
 
         /* MERGE */
 
-        // iterator it = x.begin();
-        //     size_type i = 0;
-        //     while (i < x.size())
-        //     {
-        //         insert(position, it.get_node()->val);
-        //         i++;
-        //         it++;
-        //     }
-        //     x.clear();
 
         /* Merges x into the list by transferring all of its elements at their respective ordered positions 
             into the container (both containers shall already be ordered).*/
@@ -503,30 +494,42 @@ namespace ft
         {
             if (&x == this)
                 return;
-            this->_node->next = _merge(this->_node, x, comp);
+            size_type i = 0;
+            Node* first = this->_node->next;
+            Node* second = x._node->next;
+            iterator position = this->begin();
+            while (first != this->_node && second != x._node)
+            {
+                if(comp(first->val, second->val)) // if first < x
+                {
+                    first = first->next;
+                }
+                else
+                {
+                    insert(position, second->val);
+                    second = second->next;
+                }
+                position++;
+            }
+            while (second != x._node)
+            {
+                this->push_back(second->val);
+                second = second->next;
+            }
+            x.clear();
         }
 
-        template <class Compare>
-        Node* _merge(Node &save, list &x, Compare comp)
-        {
-            
-            
-            // Pick the smaller value and adjust the links
-            if (comp(save->val, x._node->val)) // if first < second
-            {
-                save->next = _merge(save->next, x._node, comp);
-                save->next->prev = save;
-                save->prev = this->_node;
-                return (first);
-            }
-            else
-            {
-                x._node->next = _merge(save, x._node->next, comp);
-                x._node->next->prev = x._node;
-                x._node->prev = this->_node;
-                return (second);
-            }
-        }
+        
+        // iterator it = x.begin();
+        //     size_type i = 0;
+        //     while (i < x.size())
+        //     {
+        //         insert(position, it.get_node()->val);
+        //         i++;
+        //         it++;
+        //     }
+        //     x.clear();
+
 
 
 
