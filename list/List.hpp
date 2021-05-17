@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/17 14:17:43 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/17 16:24:13 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ namespace ft
         }
 
         // #4 COPY:
-        list(const list &x) { *this = x; }
+        list(const list &x) {               this->_node = allocate_node();
+                assign(x.begin(), x.end()); }
 
         /*================================ DESTRUCTOR: ================================*/
 
@@ -96,7 +97,7 @@ namespace ft
         {
             if (this != &x)
             {
-                this->_node = allocate_node();
+                //this->_node = allocate_node();
                 assign(x.begin(), x.end());
             }
 
@@ -519,20 +520,6 @@ namespace ft
             x.clear();
         }
 
-        
-        // iterator it = x.begin();
-        //     size_type i = 0;
-        //     while (i < x.size())
-        //     {
-        //         insert(position, it.get_node()->val);
-        //         i++;
-        //         it++;
-        //     }
-        //     x.clear();
-
-
-
-
         /* SORT */
         void sort()
         {
@@ -573,7 +560,20 @@ namespace ft
         }
 
         /* REVERSE */
-        void reverse();
+        void reverse()
+        {
+            Node *tmp_first = this->_node->next;
+            Node *tmp_last = this->_node->prev;
+            
+            while (tmp_first != tmp_last)
+            {
+                ft::swap(tmp_first->val, tmp_last->val);
+                tmp_first = tmp_first->next;
+                tmp_last = tmp_last->prev;
+            }
+        }
+
+
 
         /*================================ PRIVATE FUNCS: ================================*/
 

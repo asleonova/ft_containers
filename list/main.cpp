@@ -129,12 +129,12 @@ void constructor_test()
 	ft::list<int> lst4(lst1);
 	print_list(lst4);
 
-	// std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
-	// std::cout << green << "Making list<int> lst5 = lst1: " << cend << std::endl;
-	// ft::list<int>				lst5(10, 4);
-	// lst1 = lst5;
-	// print_list(lst1);
-	// std::cout << std::endl;
+	std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
+	std::cout << green << "Making list<int> lst5 = lst1: " << cend << std::endl;
+	ft::list<int>				lst5(10, 4);
+	lst1 = lst5;
+	print_list(lst1);
+	std::cout << std::endl;
 }
 
 void iterator_test()
@@ -675,19 +675,20 @@ void merge_test()
 	print_list(second);
 }
 
-// void reverse_test()
-// {
-// 	ft::list<int> mylist;
+void reverse_test()
+{
+	std::cout << blue << "***************[ reverse() test (int) ]***************" << cend << std::endl;
+	ft::list<int> mylist;
 
-//   	for (int i=1; i<10; ++i) mylist.push_back(i);
+  	for (int i=1; i<10; ++i) mylist.push_back(i);
 
-//   	mylist.reverse();
+  	mylist.reverse();
 
-//   	std::cout << "mylist contains: ";
-// 	print_list(mylist);
+  	std::cout << "mylist contains: ";
+	print_list(mylist);
 
-//   	std::cout << '\n';
-// }
+  	std::cout << '\n';
+}
 
 int main()
 {
@@ -703,7 +704,7 @@ int main()
 	unique_test();
 	sort_test();
 	merge_test();
-	//reverse_test();
+	reverse_test();
 	ft::list<std::string> a;
 	std::list<std::string> a1;
 	ft::list<std::string>::iterator it1 = a.begin();
