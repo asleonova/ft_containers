@@ -690,6 +690,17 @@ void reverse_test()
   	std::cout << '\n';
 }
 
+void last_test()
+{
+	std::cout << blue << "***************[ last test (int) ]***************" << cend << std::endl;
+	ft::list<int> mylist;
+
+  	for (int i=1; i<10; ++i) mylist.push_back(i);
+	mylist.erase(--mylist.end());
+	print_list(mylist);
+
+}
+
 int main()
 {
 
@@ -705,6 +716,7 @@ int main()
 	sort_test();
 	merge_test();
 	reverse_test();
+	last_test();
 	ft::list<std::string> a;
 	std::list<std::string> a1;
 	ft::list<std::string>::iterator it1 = a.begin();

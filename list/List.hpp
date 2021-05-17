@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/17 16:24:13 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/17 18:40:00 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 #include <iostream>
 #include <memory>
-#include "Iterator.hpp"
+#include "Iterators.hpp"
 #include "Algorithm.hpp"
 #include "Identifiers.hpp"
 
@@ -40,8 +40,8 @@ namespace ft
         typedef typename Alloc::const_reference const_reference;
         typedef typename Alloc::pointer pointer;
         typedef typename Alloc::const_pointer const_pointer;
-        typedef typename ft::myIterator<pointer, Node> iterator;
-        typedef typename ft::myIterator<const_pointer, Node> const_iterator;
+        typedef typename ft::ListIterator<pointer, Node> iterator;
+        typedef typename ft::ListIterator<const_pointer, Node> const_iterator;
         typedef typename ft::myReverseIterator<iterator> reverse_iterator;
         typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
         typedef ptrdiff_t difference_type;
@@ -78,8 +78,9 @@ namespace ft
         }
 
         // #4 COPY:
-        list(const list &x) {               this->_node = allocate_node();
-                assign(x.begin(), x.end()); }
+        list(const list &x) {
+            this->_node = allocate_node();
+           assign(x.begin(), x.end()); }
 
         /*================================ DESTRUCTOR: ================================*/
 
@@ -97,7 +98,6 @@ namespace ft
         {
             if (this != &x)
             {
-                //this->_node = allocate_node();
                 assign(x.begin(), x.end());
             }
 
@@ -147,7 +147,7 @@ namespace ft
         }
 
         /*================================ CAPACITY: ================================*/
-
+        
         bool empty() const
         {
             return this->_node->next == this->_node;
@@ -164,6 +164,7 @@ namespace ft
         }
 
         /*================================ ELEMENT ACCESS: ================================*/
+
         reference front()
         {
             return this->_node->next->val;
