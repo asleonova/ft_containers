@@ -703,6 +703,7 @@ void last_test()
 
 int main()
 {
+
 	constructor_test();
 	iterator_test();
 	const_iterator_test();
@@ -736,5 +737,5 @@ int main()
 	std::cout << "after ints: " << *it2 << std::endl;
 	sleep(50);
 
-	return (0);
+	return 0;
 }

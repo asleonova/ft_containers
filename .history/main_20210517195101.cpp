@@ -736,5 +736,5 @@ int main()
 	std::cout << "after ints: " << *it2 << std::endl;
 	sleep(50);
 
-	return (0);
+	return 0;
 }

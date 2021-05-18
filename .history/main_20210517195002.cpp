@@ -3,6 +3,7 @@
 #include <list>
 #include <unistd.h>
 #include <cmath>
+#include <iterator>
 
 #define red "\x1b[31m"
 #define green "\x1b[32m"
@@ -703,6 +704,9 @@ void last_test()
 
 int main()
 {
+
+	std::vector<int>::iterator f;
+
 	constructor_test();
 	iterator_test();
 	const_iterator_test();
@@ -736,5 +740,5 @@ int main()
 	std::cout << "after ints: " << *it2 << std::endl;
 	sleep(50);
 
-	return (0);
+	return 0;
 }
