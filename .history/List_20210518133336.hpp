@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/18 13:47:17 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/18 13:33:36 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,8 +211,8 @@ namespace ft
         /* Insert element at the beginning */
         void push_front(const value_type &val)
         {
-            insert(begin(), val);
-            //insert_begin(val);
+            // insert(begin(), val);
+            insert_begin(val);
         }
 
         /* Removes the first element in the list container, effectively reducing its size by one. */
@@ -640,15 +640,14 @@ namespace ft
 
             // Increment size + 1;
             Node *new_node = construct_node(val);
-            Node *current = this->_node->next;
 
             // setting up previous and next of new node
-            new_node->next = current->next;
-            new_node->prev = current->prev;
+            new_node->next = this->_node;
+            new_node->prev = this->_node->prev;
 
             // // Update next and previous pointers of the prev node
-            current->prev->next = new_node;
-            current->prev = new_node;
+            this->_node->prev->next = new_node;
+            this->_node->prev = new_node;
             ++this->_size;
         }
 

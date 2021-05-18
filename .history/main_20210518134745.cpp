@@ -810,22 +810,22 @@ void overloads_test()
 
 int main()
 {
-	constructor_test();
-	iterator_test();
-	const_iterator_test();
-	capacity_tests();
-	element_access_test();
+	//constructor_test();
+	//iterator_test();
+	//const_iterator_test();
+	//capacity_tests();
+	//element_access_test();
 	modifiers_test();
 	// Operations tests:
-	splice_test();
-	remove_test();
-	remove_if_test();
-	unique_test();
-	sort_test();
-	merge_test();
-	reverse_test();
-	//Overloads tests:
-	overloads_test();
+	//splice_test();
+	//remove_test();
+	//remove_if_test();
+	//unique_test();
+	//sort_test();
+	//merge_test();
+	//reverse_test();
+	// Overloads tests:
+	//overloads_test();
 	sleep(50);
 
 	return (0);

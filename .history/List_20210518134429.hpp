@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/18 13:47:17 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/18 13:44:29 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,8 +211,8 @@ namespace ft
         /* Insert element at the beginning */
         void push_front(const value_type &val)
         {
-            insert(begin(), val);
-            //insert_begin(val);
+            // insert(begin(), val);
+            insert_begin(val);
         }
 
         /* Removes the first element in the list container, effectively reducing its size by one. */

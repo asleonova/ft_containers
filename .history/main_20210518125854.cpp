@@ -3,8 +3,6 @@
 #include <list>
 #include <unistd.h>
 #include <cmath>
-#include <list>
-#include <iterator>
 
 #define red "\x1b[31m"
 #define green "\x1b[32m"
@@ -61,20 +59,6 @@ void print_list(ft::list<T> &lst)
 {
 	typename ft::list<T>::iterator it = lst.begin();
 	typename ft::list<T>::iterator ite = lst.end();
-	while (it != ite)
-	{
-		std::cout << *it << " | ";
-		it++;
-	}
-	std::cout << std::endl;
-	std::cout << std::endl;
-}
-
-template <typename T>
-void print_list1(std::list<T> &lst)
-{
-	typename std::list<T>::iterator it = lst.begin();
-	typename std::list<T>::iterator ite = lst.end();
 	while (it != ite)
 	{
 		std::cout << *it << " | ";
@@ -380,27 +364,6 @@ void modifiers_test()
 	std::cout << "list contents: " << std::endl;
 	print_list(myints);
 
-	// std::cout << blue << "***************[ push_front() and pop_front() test (int) ]***************" << cend << std::endl;
-	// std::list<int> myints1;
-	// for (int i = 0; i < 10; ++i)
-	// 	myints1.push_back(i);
-
-	// myints1.push_front(666);
-	// std::cout << green << "After push_front(666): " << cend << std::endl;
-	// std::cout << "size: " << myints1.size() << std::endl
-	// 		  << std::endl;
-	// std::cout << "list contents: " << std::endl;
-	// print_list1(myints1);
-	// for (int i = 0; i < 5; ++i)
-	// 	myints1.push_front(i);
-	// std::cout << "list contents: " << std::endl;
-	// print_list1(myints1);
-	// myints1.pop_front();
-	// std::cout << green << "After popfront(): " << cend << std::endl;
-	// std::cout << "size: " << myints.size() << std::endl;
-	// std::cout << "list contents: " << std::endl;
-	// print_list1(myints1);
-
 	std::cout << blue << "***************[ push_back() and pop_back() test (float) ]***************" << cend << std::endl;
 	ft::list<float> vf;
 	vf.push_back(1.23f);
@@ -506,14 +469,14 @@ void modifiers_test()
 	std::cout << "list size: " << myints.size() << std::endl;
 	std::cout << std::endl;
 	std::cout << green << "erase the first 3 elements: " << cend << std::endl;
-	ft::list<int>::iterator it1 = myints.begin();
-	ft::list<int>::iterator ite1 = myints.begin()++;
-	ite1++;
-	ite1++;
-	ite1++;
-	std::cout << *it1 << std::endl;
-	std::cout << *ite1 << std::endl;
-	myints.erase(myints.begin(), ite1);
+	ft::list<int>::iterator it = myints.begin();
+	ft::list<int>::iterator ite = myints.begin()++;
+	ite++;
+	ite++;
+	ite++;
+	std::cout << *it << std::endl;
+	std::cout << *ite << std::endl;
+	myints.erase(myints.begin(), ite);
 	print_list(myints);
 	std::cout << "list size: " << myints.size();
 	std::cout << std::endl;
@@ -768,9 +731,9 @@ void reverse_test()
 
 void overloads_test()
 {
-	ft::list<int> a;
-	ft::list<int> b;
-	ft::list<int> c;
+	std::list<int> a;
+	std::list<int> b;
+	std::list<int> c;
 
 	a.push_back(10);
 	a.push_back(20);
@@ -785,27 +748,17 @@ void overloads_test()
 	c.push_back(10);
 
 	if (a == b)
-		std::cout << "a and b are equal" << std::endl;
+		std::cout << "a and b are equal" << std::endl;;
 	if (b != c)
 		std::cout << "b and c are not equal" << std::endl;
 	if (b < c)
-		std::cout << "b is less than c" << std::endl;
+		std::cout << "b is less than c" << std::endl;;
 	if (c > b)
 		std::cout << "c is greater than b" << std::endl;
 	if (a <= b)
 		std::cout << "a is less than or equal to b" << std::endl;
 	if (a >= b)
 		std::cout << "a is greater than or equal to b" << std::endl;
-
-	ft::list<int> foo(3, 100); // three ints with a value of 100
-	ft::list<int> bar(5, 200); // five ints with a value of 200
-
-	ft::swap(foo, bar);
-
-	std::cout << "foo contains: ";
-	print_list(foo);
-	std::cout << "bar contains:";
-	print_list(bar);	
 }
 
 int main()
@@ -824,7 +777,7 @@ int main()
 	sort_test();
 	merge_test();
 	reverse_test();
-	//Overloads tests:
+	// Overloads tests:
 	overloads_test();
 	sleep(50);
 

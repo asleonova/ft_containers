@@ -3,8 +3,6 @@
 #include <list>
 #include <unistd.h>
 #include <cmath>
-#include <list>
-#include <iterator>
 
 #define red "\x1b[31m"
 #define green "\x1b[32m"
@@ -71,24 +69,10 @@ void print_list(ft::list<T> &lst)
 }
 
 template <typename T>
-void print_list1(std::list<T> &lst)
-{
-	typename std::list<T>::iterator it = lst.begin();
-	typename std::list<T>::iterator ite = lst.end();
-	while (it != ite)
-	{
-		std::cout << *it << " | ";
-		it++;
-	}
-	std::cout << std::endl;
-	std::cout << std::endl;
-}
-
-template <typename T>
 void print_list_reverse(ft::list<T> &lst)
 {
-	typename ft::list<T>::reverse_iterator rit = lst.begin();
-	typename ft::list<T>::reverse_iterator rite = lst.end();
+	typename std::list<T>::reverse_iterator rit = lst.begin();
+	typename std::list<T>::reverse_iterator rite = lst.end();
 	while (rit != rite)
 	{
 		std::cout << *rit << " | ";
@@ -99,10 +83,10 @@ void print_list_reverse(ft::list<T> &lst)
 }
 
 template <typename T>
-void print_list_const(ft::list<T> &lst)
+void print_list_const(std::list<T> &lst)
 {
-	typename ft::list<T>::const_iterator it = lst.begin();
-	typename ft::list<T>::const_iterator ite = lst.end();
+	typename std::list<T>::const_iterator it = lst.begin();
+	typename std::list<T>::const_iterator ite = lst.end();
 	while (it != ite)
 	{
 		std::cout << *it << " | ";
@@ -117,36 +101,36 @@ void constructor_test()
 	std::cout << blue << "***************[ Default constructor test ]***************" << cend << std::endl;
 
 	std::cout << green << "Testing empty list int: " << cend << std::endl;
-	ft::list<int> lst;
+	std::list<int> lst;
 	std::cout << "list size is: " << lst.size() << std::endl
 			  << std::endl;
 
 	std::cout << blue << "***************[ Fill constructor test ]***************" << cend << std::endl;
 	std::cout << green << "Testing list<int> lst1(10, 42): " << cend << std::endl;
-	ft::list<int> lst1(10, 42);
+	std::list<int> lst1(10, 42);
 	print_list(lst1);
 	std::cout << std::endl;
 
 	std::cout << blue << "***************[ Range constructor test ]***************" << cend << std::endl;
-	ft::list<int> lst2;
+	std::list<int> lst2;
 	for (int i = 0; i < 10; ++i)
 	{
 		lst2.push_back(i);
 	}
-	ft::list<int>::iterator it = lst2.begin();
-	ft::list<int>::iterator ite = lst2.end();
-	ft::list<int> lst3(it, ite);
+	std::list<int>::iterator it = lst2.begin();
+	std::list<int>::iterator ite = lst2.end();
+	std::list<int> lst3(it, ite);
 	print_list(lst3);
 	std::cout << std::endl;
 
 	std::cout << blue << "***************[ Copy constructor test ]***************" << cend << std::endl;
 	std::cout << green << "Making copy list<int> lst4(lst1): " << cend << std::endl;
-	ft::list<int> lst4(lst1);
+	std::list<int> lst4(lst1);
 	print_list(lst4);
 
 	std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
 	std::cout << green << "Making list<int> lst5 = lst1: " << cend << std::endl;
-	ft::list<int> lst5(10, 4);
+	std::list<int> lst5(10, 4);
 	lst1 = lst5;
 	print_list(lst1);
 	std::cout << std::endl;
@@ -379,27 +363,6 @@ void modifiers_test()
 	std::cout << "size: " << myints.size() << std::endl;
 	std::cout << "list contents: " << std::endl;
 	print_list(myints);
-
-	// std::cout << blue << "***************[ push_front() and pop_front() test (int) ]***************" << cend << std::endl;
-	// std::list<int> myints1;
-	// for (int i = 0; i < 10; ++i)
-	// 	myints1.push_back(i);
-
-	// myints1.push_front(666);
-	// std::cout << green << "After push_front(666): " << cend << std::endl;
-	// std::cout << "size: " << myints1.size() << std::endl
-	// 		  << std::endl;
-	// std::cout << "list contents: " << std::endl;
-	// print_list1(myints1);
-	// for (int i = 0; i < 5; ++i)
-	// 	myints1.push_front(i);
-	// std::cout << "list contents: " << std::endl;
-	// print_list1(myints1);
-	// myints1.pop_front();
-	// std::cout << green << "After popfront(): " << cend << std::endl;
-	// std::cout << "size: " << myints.size() << std::endl;
-	// std::cout << "list contents: " << std::endl;
-	// print_list1(myints1);
 
 	std::cout << blue << "***************[ push_back() and pop_back() test (float) ]***************" << cend << std::endl;
 	ft::list<float> vf;
@@ -804,7 +767,7 @@ void overloads_test()
 
 	std::cout << "foo contains: ";
 	print_list(foo);
-	std::cout << "bar contains:";
+	std::cout << "bar contains: ";
 	print_list(bar);	
 }
 
@@ -824,7 +787,7 @@ int main()
 	sort_test();
 	merge_test();
 	reverse_test();
-	//Overloads tests:
+	// Overloads tests:
 	overloads_test();
 	sleep(50);
 

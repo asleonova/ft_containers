@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include <cmath>
 #include <list>
-#include <iterator>
 
 #define red "\x1b[31m"
 #define green "\x1b[32m"
@@ -380,26 +379,26 @@ void modifiers_test()
 	std::cout << "list contents: " << std::endl;
 	print_list(myints);
 
-	// std::cout << blue << "***************[ push_front() and pop_front() test (int) ]***************" << cend << std::endl;
-	// std::list<int> myints1;
-	// for (int i = 0; i < 10; ++i)
-	// 	myints1.push_back(i);
+	std::cout << blue << "***************[ push_front() and pop_front() test (int) ]***************" << cend << std::endl;
+	std::list<int> myints1;
+	for (int i = 0; i < 10; ++i)
+		myints1.push_back(i);
 
-	// myints1.push_front(666);
-	// std::cout << green << "After push_front(666): " << cend << std::endl;
-	// std::cout << "size: " << myints1.size() << std::endl
-	// 		  << std::endl;
-	// std::cout << "list contents: " << std::endl;
-	// print_list1(myints1);
-	// for (int i = 0; i < 5; ++i)
-	// 	myints1.push_front(i);
-	// std::cout << "list contents: " << std::endl;
-	// print_list1(myints1);
-	// myints1.pop_front();
-	// std::cout << green << "After popfront(): " << cend << std::endl;
-	// std::cout << "size: " << myints.size() << std::endl;
-	// std::cout << "list contents: " << std::endl;
-	// print_list1(myints1);
+	myints1.push_front(666);
+	std::cout << green << "After push_front(666): " << cend << std::endl;
+	std::cout << "size: " << myints1.size() << std::endl
+			  << std::endl;
+	std::cout << "list contents: " << std::endl;
+	print_list1(myints1);
+	for (int i = 0; i < 5; ++i)
+		myints1.push_front(i);
+	std::cout << "list contents: " << std::endl;
+	print_list(myints1);
+	myints1.pop_front();
+	std::cout << green << "After popfront(): " << cend << std::endl;
+	std::cout << "size: " << myints.size() << std::endl;
+	std::cout << "list contents: " << std::endl;
+	print_list1(myints1);
 
 	std::cout << blue << "***************[ push_back() and pop_back() test (float) ]***************" << cend << std::endl;
 	ft::list<float> vf;
@@ -810,22 +809,22 @@ void overloads_test()
 
 int main()
 {
-	constructor_test();
-	iterator_test();
-	const_iterator_test();
-	capacity_tests();
-	element_access_test();
+	//constructor_test();
+	//iterator_test();
+	//const_iterator_test();
+	//capacity_tests();
+	//element_access_test();
 	modifiers_test();
 	// Operations tests:
-	splice_test();
-	remove_test();
-	remove_if_test();
-	unique_test();
-	sort_test();
-	merge_test();
-	reverse_test();
-	//Overloads tests:
-	overloads_test();
+	//splice_test();
+	//remove_test();
+	//remove_if_test();
+	//unique_test();
+	//sort_test();
+	//merge_test();
+	//reverse_test();
+	// Overloads tests:
+	//overloads_test();
 	sleep(50);
 
 	return (0);

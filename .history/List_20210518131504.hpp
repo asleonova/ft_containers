@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/18 13:47:17 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/18 13:15:04 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,8 +211,8 @@ namespace ft
         /* Insert element at the beginning */
         void push_front(const value_type &val)
         {
-            insert(begin(), val);
-            //insert_begin(val);
+            // insert(begin(), val);
+            insert_begin(val);
         }
 
         /* Removes the first element in the list container, effectively reducing its size by one. */
@@ -623,48 +623,24 @@ namespace ft
         void insert_begin(const_reference val)
         {
             // Pointer points to last Node
-            // Node *last = this->_node->prev;
+            Node *last = this->_node->prev;
 
-            // Node *new_node = construct_node(val); // Inserting data
-
-            // // setting up previous and next of new node
-            // new_node->next = this->_node;
-            // new_node->prev = last;
-
-            // // Update next and previous pointers of start
-            // // and last.
-            // last->next = this->_node->prev = new_node;
-
-            // // Update start pointer
-            // this->_node = new_node;
-
-            // Increment size + 1;
-            Node *new_node = construct_node(val);
-            Node *current = this->_node->next;
+            Node *new_node = construct_node(val); // Inserting data
 
             // setting up previous and next of new node
-            new_node->next = current->next;
-            new_node->prev = current->prev;
+            new_node->next = this->_node;
+            new_node->prev = last;
 
-            // // Update next and previous pointers of the prev node
-            current->prev->next = new_node;
-            current->prev = new_node;
+            // Update next and previous pointers of start
+            // and last.
+            last->next = this->_node->prev = new_node;
+
+            // Update start pointer
+            this->_node = new_node;
+
+            // Increment size + 1;
             ++this->_size;
         }
-
-            //         Node *new_node = construct_node(val);
-
-            // // setting up previous and next of new node
-            // new_node->next = position.get_node();
-            // new_node->prev = position.get_node()->prev;
-
-            // // // Update next and previous pointers of the prev node
-            // position.get_node()->prev->next = new_node;
-            // position.get_node()->prev = new_node;
-
-            // ++this->_size;
-            // return iterator(new_node);
-
 
         void delete_node(Node *node)
         {
