@@ -25,4 +25,3 @@ else
    echo -e "${RED}Poor you, some std funcs are not identical to yours, here is the diff: ${ENDCOLOR}"
    cat diff.txt
 fi
-rm std_list_test.cpp

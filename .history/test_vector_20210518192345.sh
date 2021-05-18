@@ -8,13 +8,13 @@ rm logs/std.output
 rm -rf logs
 mkdir logs
 
-clang++ -Wall -Wextra -Werror ft_list_test.cpp -o logs/ft_list && 
-./logs/ft_list > logs/user.output
+clang++ -Wall -Wextra -Werror ft_vector_test.cpp -o logs/ft_list && 
+./logs/ft_vector > logs/user.output
 echo -e "${GREEN}ft_tests successfully complied! Log file has been created.${ENDCOLOR}"
-cp ft_list_test.cpp std_list_test.cpp
-sed 's/ft::list/std::list/g' std_list_test.cpp > output.file; mv output.file std_list_test.cpp
-clang++ -Wall -Wextra -Werror std_list_test.cpp -o logs/std_list &&
-./logs/std_list > logs/std.output
+cp ft_vector_test.cpp std_vector_test.cpp
+sed 's/ft::list/std::list/g' std_vector_test.cpp > output.file; mv output.file std_vector_test.cpp
+clang++ -Wall -Wextra -Werror std_list_test.cpp -o logs/std_vector &&
+./logs/std_vector > logs/std.output
 echo -e "${GREEN}std_tests successfully complied! Log file has been created.${ENDCOLOR}"
 diff logs/user.output logs/std.output > diff.txt
 
@@ -25,4 +25,4 @@ else
    echo -e "${RED}Poor you, some std funcs are not identical to yours, here is the diff: ${ENDCOLOR}"
    cat diff.txt
 fi
-rm std_list_test.cpp
+rm std_vector_test.cpp

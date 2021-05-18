@@ -1,7 +1,9 @@
 #! /bin/sh
+
 RED="\x1b[31m"
 GREEN="\x1b[32m"
 ENDCOLOR="\x1b[0m"
+
 
 rm logs/user.output
 rm logs/std.output
@@ -25,4 +27,3 @@ else
    echo -e "${RED}Poor you, some std funcs are not identical to yours, here is the diff: ${ENDCOLOR}"
    cat diff.txt
 fi
-rm std_list_test.cpp

@@ -15,7 +15,7 @@
 
 #include <iostream>
 #include <memory>
-#include "VectorIterator.hpp"
+#include "Iterators.hpp"
 #include "Algorithm.hpp"
 #include "Identifiers.hpp"
 
@@ -37,7 +37,7 @@ namespace ft
 				typedef ft::myIterator<pointer> iterator;
 				typedef ft::myIterator<const_pointer> const_iterator;
 				typedef ft::myReverseIterator<iterator> reverse_iterator;
-				typedef ft::myReverseIterator<const_iterator> const_reverse_iterator;
+				typedef ft::myReverseIteratorr<const_iterator> const_reverse_iterator;
 				typedef ptrdiff_t difference_type;
 				typedef size_t size_type;
 
