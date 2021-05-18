@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/18 15:24:38 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/18 15:24:27 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -502,6 +502,8 @@ namespace ft
             iterator position = this->begin();
             while (first != this->_node && second != x._node)
             {
+                // std::cout << "first->val: " << first->val << std::endl;
+                // std::cout << "second->val: " << second->val << std::endl << std::endl;
                 if (comp(second->val, first->val))
                 {
                     insert(position, second->val);

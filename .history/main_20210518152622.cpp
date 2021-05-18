@@ -72,8 +72,8 @@ void print_list(ft::list<T> &lst)
 template <typename T>
 void print_list_reverse(ft::list<T> &lst)
 {
-	typename ft::list<T>::reverse_iterator rit = lst.rbegin();
-	typename ft::list<T>::reverse_iterator rite = lst.rend();
+	typename ft::list<T>::reverse_iterator rit = lst.begin();
+	typename ft::list<T>::reverse_iterator rite = lst.end();
 	while (rit != rite)
 	{
 		std::cout << *rit << " | ";

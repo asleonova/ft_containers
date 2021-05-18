@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/18 15:24:38 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/18 14:38:42 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,9 @@ namespace ft
         }
 
         // #4 COPY:
-        list(const list &x)
-        {
+        list(const list &x) {
             this->_node = allocate_node();
-            assign(x.begin(), x.end());
-        }
+           assign(x.begin(), x.end()); }
 
         /*================================ DESTRUCTOR: ================================*/
 
@@ -149,7 +147,7 @@ namespace ft
         }
 
         /*================================ CAPACITY: ================================*/
-
+        
         bool empty() const
         {
             return this->_node->next == this->_node;
@@ -213,7 +211,8 @@ namespace ft
         /* Insert element at the beginning */
         void push_front(const value_type &val)
         {
-            insert_begin(val);
+            insert(begin(), val);
+            //insert_begin(val);
         }
 
         /* Removes the first element in the list container, effectively reducing its size by one. */
@@ -483,6 +482,7 @@ namespace ft
 
         /* MERGE */
 
+
         /* Merges x into the list by transferring all of its elements at their respective ordered positions 
             into the container (both containers shall already be ordered).*/
 
@@ -497,19 +497,22 @@ namespace ft
             if (&x == this)
                 return;
             size_type i = 0;
-            Node *first = this->_node->next;
-            Node *second = x._node->next;
+            Node* first = this->_node->next;
+            Node* second = x._node->next;
             iterator position = this->begin();
             while (first != this->_node && second != x._node)
             {
-                if (comp(second->val, first->val))
+                std::cout << "first->val: " << first->val << std::endl;
+                std::cout << "second->val: " << second->val << std::endl << std::endl;
+                if(comp(first->val, second->val)) // if first < x
                 {
-                    insert(position, second->val);
-                    second = second->next;
+                    std::cout << "FIRST < X!!!" << std::endl;
+                    first = first->next;
                 }
                 else
                 {
-                    first = first->next;
+                    insert(position, second->val);
+                    second = second->next;
                 }
                 position++;
             }
@@ -519,6 +522,7 @@ namespace ft
                 second = second->next;
             }
             x.clear();
+            		
         }
 
         /* SORT */
@@ -565,7 +569,7 @@ namespace ft
         {
             Node *tmp_first = this->_node->next;
             Node *tmp_last = this->_node->prev;
-
+            
             while (tmp_first != tmp_last)
             {
                 ft::swap(tmp_first->val, tmp_last->val);
@@ -574,10 +578,10 @@ namespace ft
             }
         }
 
-        /*================================ PRIVATE HELPER FUNCS: ================================*/
 
-    private:
-    
+
+        /*================================ PRIVATE FUNCS: ================================*/
+
         Node *allocate_node()
         {
             Node *node;
@@ -621,21 +625,50 @@ namespace ft
         }
 
         void insert_begin(const_reference val)
-        {           
-            Node *new_node = construct_node(val); // Inserting data
-           //POinter to the beggining of the node
-            Node *begin = this->_node->next;
+        {
+            // Pointer points to last Node
+            // Node *last = this->_node->prev;
 
-             // setting up previous and next of new node
-            new_node->next = begin;
-            new_node->prev = begin->prev;
+            // Node *new_node = construct_node(val); // Inserting data
 
-            // Update next and previous pointers of the prev node
-            begin->prev->next = new_node;
-            begin->prev = new_node;
+            // // setting up previous and next of new node
+            // new_node->next = this->_node;
+            // new_node->prev = last;
 
+            // // Update next and previous pointers of start
+            // // and last.
+            // last->next = this->_node->prev = new_node;
+
+            // // Update start pointer
+            // this->_node = new_node;
+
+            // Increment size + 1;
+            Node *new_node = construct_node(val);
+            Node *current = this->_node->next;
+
+            // setting up previous and next of new node
+            new_node->next = current->next;
+            new_node->prev = current->prev;
+
+            // // Update next and previous pointers of the prev node
+            current->prev->next = new_node;
+            current->prev = new_node;
             ++this->_size;
         }
+
+            //         Node *new_node = construct_node(val);
+
+            // // setting up previous and next of new node
+            // new_node->next = position.get_node();
+            // new_node->prev = position.get_node()->prev;
+
+            // // // Update next and previous pointers of the prev node
+            // position.get_node()->prev->next = new_node;
+            // position.get_node()->prev = new_node;
+
+            // ++this->_size;
+            // return iterator(new_node);
+
 
         void delete_node(Node *node)
         {

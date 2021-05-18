@@ -3,6 +3,7 @@
 #include <list>
 #include <unistd.h>
 #include <cmath>
+#include <list>
 #include <iterator>
 
 #define red "\x1b[31m"
@@ -70,10 +71,24 @@ void print_list(ft::list<T> &lst)
 }
 
 template <typename T>
+void print_list1(std::list<T> &lst)
+{
+	typename std::list<T>::iterator it = lst.begin();
+	typename std::list<T>::iterator ite = lst.end();
+	while (it != ite)
+	{
+		std::cout << *it << " | ";
+		it++;
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
+
+template <typename T>
 void print_list_reverse(ft::list<T> &lst)
 {
-	typename ft::list<T>::reverse_iterator rit = lst.rbegin();
-	typename ft::list<T>::reverse_iterator rite = lst.rend();
+	typename ft::list<T>::reverse_iterator rit = lst.begin();
+	typename ft::list<T>::reverse_iterator rite = lst.end();
 	while (rit != rite)
 	{
 		std::cout << *rit << " | ";

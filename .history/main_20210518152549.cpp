@@ -3,6 +3,7 @@
 #include <list>
 #include <unistd.h>
 #include <cmath>
+#include <list>
 #include <iterator>
 
 #define red "\x1b[31m"
@@ -70,10 +71,24 @@ void print_list(ft::list<T> &lst)
 }
 
 template <typename T>
+void print_list1(std::list<T> &lst)
+{
+	typename std::list<T>::iterator it = lst.begin();
+	typename std::list<T>::iterator ite = lst.end();
+	while (it != ite)
+	{
+		std::cout << *it << " | ";
+		it++;
+	}
+	std::cout << std::endl;
+	std::cout << std::endl;
+}
+
+template <typename T>
 void print_list_reverse(ft::list<T> &lst)
 {
-	typename ft::list<T>::reverse_iterator rit = lst.rbegin();
-	typename ft::list<T>::reverse_iterator rite = lst.rend();
+	typename ft::list<T>::reverse_iterator rit = lst.begin();
+	typename ft::list<T>::reverse_iterator rite = lst.end();
 	while (rit != rite)
 	{
 		std::cout << *rit << " | ";
@@ -364,6 +379,27 @@ void modifiers_test()
 	std::cout << "size: " << myints.size() << std::endl;
 	std::cout << "list contents: " << std::endl;
 	print_list(myints);
+
+	// std::cout << blue << "***************[ push_front() and pop_front() test (int) ]***************" << cend << std::endl;
+	// std::list<int> myints1;
+	// for (int i = 0; i < 10; ++i)
+	// 	myints1.push_back(i);
+
+	// myints1.push_front(666);
+	// std::cout << green << "After push_front(666): " << cend << std::endl;
+	// std::cout << "size: " << myints1.size() << std::endl
+	// 		  << std::endl;
+	// std::cout << "list contents: " << std::endl;
+	// print_list1(myints1);
+	// for (int i = 0; i < 5; ++i)
+	// 	myints1.push_front(i);
+	// std::cout << "list contents: " << std::endl;
+	// print_list1(myints1);
+	// myints1.pop_front();
+	// std::cout << green << "After popfront(): " << cend << std::endl;
+	// std::cout << "size: " << myints.size() << std::endl;
+	// std::cout << "list contents: " << std::endl;
+	// print_list1(myints1);
 
 	std::cout << blue << "***************[ push_back() and pop_back() test (float) ]***************" << cend << std::endl;
 	ft::list<float> vf;

@@ -3,7 +3,6 @@
 #include <list>
 #include <unistd.h>
 #include <cmath>
-#include <list>
 #include <iterator>
 
 #define red "\x1b[31m"
@@ -57,10 +56,10 @@ struct is_odd
 };
 
 template <typename T>
-void print_list(std::list<T> &lst)
+void print_list(ft::list<T> &lst)
 {
-	typename std::list<T>::iterator it = lst.begin();
-	typename std::list<T>::iterator ite = lst.end();
+	typename ft::list<T>::iterator it = lst.begin();
+	typename ft::list<T>::iterator ite = lst.end();
 	while (it != ite)
 	{
 		std::cout << *it << " | ";
@@ -71,24 +70,10 @@ void print_list(std::list<T> &lst)
 }
 
 template <typename T>
-void print_list1(std::list<T> &lst)
+void print_list_reverse(ft::list<T> &lst)
 {
-	typename std::list<T>::iterator it = lst.begin();
-	typename std::list<T>::iterator ite = lst.end();
-	while (it != ite)
-	{
-		std::cout << *it << " | ";
-		it++;
-	}
-	std::cout << std::endl;
-	std::cout << std::endl;
-}
-
-template <typename T>
-void print_list_reverse(std::list<T> &lst)
-{
-	typename std::list<T>::reverse_iterator rit = lst.begin();
-	typename std::list<T>::reverse_iterator rite = lst.end();
+	typename ft::list<T>::reverse_iterator rit = lst.rbegin();
+	typename ft::list<T>::reverse_iterator rite = lst.rend();
 	while (rit != rite)
 	{
 		std::cout << *rit << " | ";
@@ -99,10 +84,10 @@ void print_list_reverse(std::list<T> &lst)
 }
 
 template <typename T>
-void print_list_const(std::list<T> &lst)
+void print_list_const(ft::list<T> &lst)
 {
-	typename std::list<T>::const_iterator it = lst.begin();
-	typename std::list<T>::const_iterator ite = lst.end();
+	typename ft::list<T>::const_iterator it = lst.begin();
+	typename ft::list<T>::const_iterator ite = lst.end();
 	while (it != ite)
 	{
 		std::cout << *it << " | ";
@@ -117,36 +102,36 @@ void constructor_test()
 	std::cout << blue << "***************[ Default constructor test ]***************" << cend << std::endl;
 
 	std::cout << green << "Testing empty list int: " << cend << std::endl;
-	std::list<int> lst;
+	ft::list<int> lst;
 	std::cout << "list size is: " << lst.size() << std::endl
 			  << std::endl;
 
 	std::cout << blue << "***************[ Fill constructor test ]***************" << cend << std::endl;
 	std::cout << green << "Testing list<int> lst1(10, 42): " << cend << std::endl;
-	std::list<int> lst1(10, 42);
+	ft::list<int> lst1(10, 42);
 	print_list(lst1);
 	std::cout << std::endl;
 
 	std::cout << blue << "***************[ Range constructor test ]***************" << cend << std::endl;
-	std::list<int> lst2;
+	ft::list<int> lst2;
 	for (int i = 0; i < 10; ++i)
 	{
 		lst2.push_back(i);
 	}
-	std::list<int>::iterator it = lst2.begin();
-	std::list<int>::iterator ite = lst2.end();
-	std::list<int> lst3(it, ite);
+	ft::list<int>::iterator it = lst2.begin();
+	ft::list<int>::iterator ite = lst2.end();
+	ft::list<int> lst3(it, ite);
 	print_list(lst3);
 	std::cout << std::endl;
 
 	std::cout << blue << "***************[ Copy constructor test ]***************" << cend << std::endl;
 	std::cout << green << "Making copy list<int> lst4(lst1): " << cend << std::endl;
-	std::list<int> lst4(lst1);
+	ft::list<int> lst4(lst1);
 	print_list(lst4);
 
 	std::cout << blue << "***************[ Operator = test ]***************" << cend << std::endl;
 	std::cout << green << "Making list<int> lst5 = lst1: " << cend << std::endl;
-	std::list<int> lst5(10, 4);
+	ft::list<int> lst5(10, 4);
 	lst1 = lst5;
 	print_list(lst1);
 	std::cout << std::endl;
@@ -156,7 +141,7 @@ void iterator_test()
 {
 	std::cout << blue << "***************[ Iterators test (char) ]***************" << cend << std::endl;
 
-	std::list<int> lst;
+	ft::list<int> lst;
 	for (int i = 0; i < 10; ++i)
 	{
 		lst.push_back(i);
@@ -165,8 +150,8 @@ void iterator_test()
 	print_list(lst);
 	std::cout << green << "list contents in reverse, using the reverse iterator: " << cend << std::endl;
 
-	std::list<int>::reverse_iterator rit = lst.rbegin();
-	std::list<int>::reverse_iterator rite = lst.rend();
+	ft::list<int>::reverse_iterator rit = lst.rbegin();
+	ft::list<int>::reverse_iterator rite = lst.rend();
 
 	while (rit != rite)
 	{
@@ -175,8 +160,8 @@ void iterator_test()
 	}
 	std::cout << std::endl;
 	std::cout << green << "Testing arithmetic operations on iterator: " << cend << std::endl;
-	std::list<int>::iterator it = lst.begin();
-	std::list<int>::iterator ite = lst.end();
+	ft::list<int>::iterator it = lst.begin();
+	ft::list<int>::iterator ite = lst.end();
 	std::cout << "it value: " << *it << std::endl;
 	it++;
 	std::cout << "it++ value: " << *it << std::endl;
@@ -188,7 +173,7 @@ void iterator_test()
 	std::cout << "--it value: " << *it << std::endl;
 
 	std::cout << green << "Testing arithmetic operations on reverse iterator: " << cend << std::endl;
-	std::list<int>::reverse_iterator itr = lst.rbegin();
+	ft::list<int>::reverse_iterator itr = lst.rbegin();
 	std::cout << "itr value: " << *itr << std::endl;
 	itr++;
 	std::cout << "itr++ value: " << *itr << std::endl;
@@ -225,7 +210,7 @@ void const_iterator_test()
 {
 	std::cout << blue << "***************[ Const iterators test (char) ]***************" << cend << std::endl;
 
-	std::list<int> lst;
+	ft::list<int> lst;
 	for (int i = 0; i < 10; ++i)
 	{
 		lst.push_back(i);
@@ -234,8 +219,8 @@ void const_iterator_test()
 	print_list_const(lst);
 
 	std::cout << green << "Testing iterator comparison: " << cend << std::endl;
-	std::list<int>::const_iterator it = lst.begin();
-	std::list<int>::const_iterator ite = lst.end();
+	ft::list<int>::const_iterator it = lst.begin();
+	ft::list<int>::const_iterator ite = lst.end();
 
 	bool b = it == ite;
 	std::cout << "it == ite: " << b << std::endl;
@@ -250,7 +235,7 @@ void const_iterator_test()
 void capacity_tests()
 {
 	std::cout << blue << "***************[ empty() test (int) ]***************" << cend << std::endl;
-	std::list<int> myints;
+	ft::list<int> myints;
 	std::cout << green << "Empty list: " << cend << std::endl;
 	std::cout << "is_empty: " << myints.empty() << std::endl;
 	std::cout << "size: " << myints.size() << std::endl;
@@ -279,8 +264,8 @@ void capacity_tests()
 	for (int i = 0; i < 5; ++i)
 		myints.push_front(i);
 
-	std::list<int>::reverse_iterator rit = myints.rbegin();
-	std::list<int>::reverse_iterator rite = myints.rend();
+	ft::list<int>::reverse_iterator rit = myints.rbegin();
+	ft::list<int>::reverse_iterator rite = myints.rend();
 	std::cout << "Printing in reverse order: " << std::endl;
 	while (rit != rite)
 	{
@@ -304,7 +289,7 @@ void capacity_tests()
 void element_access_test()
 {
 	std::cout << blue << "***************[ front() function (int) ]***************" << cend << std::endl;
-	std::list<int> mylist;
+	ft::list<int> mylist;
 
 	mylist.push_back(77);
 	mylist.push_back(22);
@@ -316,7 +301,7 @@ void element_access_test()
 	std::cout << "mylist.front() is now " << mylist.front() << std::endl;
 
 	std::cout << blue << "***************[ back() function (int) ]***************" << cend << std::endl;
-	std::list<int> mylist1;
+	ft::list<int> mylist1;
 
 	mylist1.push_back(10);
 
@@ -332,16 +317,16 @@ void modifiers_test()
 {
 
 	std::cout << blue << "***************[ assign() test (int) ]***************" << cend << std::endl;
-	std::list<int> first;
-	std::list<int> second;
-	std::list<int> third;
+	ft::list<int> first;
+	ft::list<int> second;
+	ft::list<int> third;
 
 	std::cout << green << "assign 7 ints with the value of 100 " << cend << std::endl;
 	first.assign(7, 100); // 7 ints with a value of 100
 	std::cout << "list contents: " << std::endl;
 	print_list(first);
 
-	std::list<int>::iterator it;
+	ft::list<int>::iterator it;
 	it = first.begin()++;
 	std::cout << green << "assign 5 central values of first" << cend << std::endl;
 	second.assign(it, first.end()--); // the 5 central values of first
@@ -360,7 +345,7 @@ void modifiers_test()
 			  << std::endl;
 
 	std::cout << blue << "***************[ push_front() and pop_front() test (int) ]***************" << cend << std::endl;
-	std::list<int> myints;
+	ft::list<int> myints;
 	for (int i = 0; i < 10; ++i)
 		myints.push_back(i);
 
@@ -380,29 +365,8 @@ void modifiers_test()
 	std::cout << "list contents: " << std::endl;
 	print_list(myints);
 
-	// std::cout << blue << "***************[ push_front() and pop_front() test (int) ]***************" << cend << std::endl;
-	// std::list<int> myints1;
-	// for (int i = 0; i < 10; ++i)
-	// 	myints1.push_back(i);
-
-	// myints1.push_front(666);
-	// std::cout << green << "After push_front(666): " << cend << std::endl;
-	// std::cout << "size: " << myints1.size() << std::endl
-	// 		  << std::endl;
-	// std::cout << "list contents: " << std::endl;
-	// print_list1(myints1);
-	// for (int i = 0; i < 5; ++i)
-	// 	myints1.push_front(i);
-	// std::cout << "list contents: " << std::endl;
-	// print_list1(myints1);
-	// myints1.pop_front();
-	// std::cout << green << "After popfront(): " << cend << std::endl;
-	// std::cout << "size: " << myints.size() << std::endl;
-	// std::cout << "list contents: " << std::endl;
-	// print_list1(myints1);
-
 	std::cout << blue << "***************[ push_back() and pop_back() test (float) ]***************" << cend << std::endl;
-	std::list<float> vf;
+	ft::list<float> vf;
 	vf.push_back(1.23f);
 	vf.push_back(2.34f);
 	vf.push_back(3.45f);
@@ -417,9 +381,11 @@ void modifiers_test()
 
 	std::cout << "list contents: " << std::endl;
 	print_list(vf);
+	std::cout << "list in reverse: " << std::endl;
+	print_list_reverse(vf);
 
 	std::cout << blue << "***************[ insert test (int) ]***************" << cend << std::endl;
-	std::list<int> vi;
+	ft::list<int> vi;
 	for (int i = 0; i < 10; ++i)
 		vi.push_back(i);
 	std::cout << "list contents: " << std::endl;
@@ -446,6 +412,8 @@ void modifiers_test()
 	int myarray[] = {501, 502, 503};
 	vi.insert(vi.begin()++, myarray, myarray + 3);
 	print_list(vi);
+	std::cout << "list in reverse: " << std::endl;
+	print_list_reverse(vi);
 	std::cout << "list size: " << vi.size();
 	std::cout << std::endl;
 
@@ -462,8 +430,8 @@ void modifiers_test()
 	std::cout << std::endl;
 
 	std::cout << blue << "***************[ swap() test (string) ]***************" << cend << std::endl;
-	std::list<std::string> vs1;
-	std::list<std::string> vs2;
+	ft::list<std::string> vs1;
+	ft::list<std::string> vs2;
 	vs1.push_back("chto");
 	vs1.push_back("kak");
 	vs1.push_back("sunshine");
@@ -506,8 +474,8 @@ void modifiers_test()
 	std::cout << "list size: " << myints.size() << std::endl;
 	std::cout << std::endl;
 	std::cout << green << "erase the first 3 elements: " << cend << std::endl;
-	std::list<int>::iterator it1 = myints.begin();
-	std::list<int>::iterator ite1 = myints.begin()++;
+	ft::list<int>::iterator it1 = myints.begin();
+	ft::list<int>::iterator ite1 = myints.begin()++;
 	ite1++;
 	ite1++;
 	ite1++;
@@ -539,9 +507,9 @@ void modifiers_test()
 void splice_test()
 {
 	std::cout << blue << "***************[ splice() test (int) ]***************" << cend << std::endl;
-	std::list<int> mylist1, mylist2;
-	std::list<int>::iterator it;
-	std::list<int>::iterator tmp;
+	ft::list<int> mylist1, mylist2;
+	ft::list<int>::iterator it;
+	ft::list<int>::iterator tmp;
 
 	// Set some initial values
 	for (int i = 1; i <= 4; ++i) // mylist1: 1 2 3 4
@@ -646,7 +614,7 @@ void remove_test()
 	std::cout << blue << "***************[ remove() test (int) ]***************" << cend << std::endl;
 	std::cout << blue << "***************[ remove() test (int) ]***************" << cend << std::endl;
 	int myints[] = {17, 89, 7, 14};
-	std::list<int> mylist(myints, myints + 4);
+	ft::list<int> mylist(myints, myints + 4);
 	std::cout << "mylist contents before removing: " << std::endl;
 	print_list(mylist);
 	std::cout << "list size before removing: " << mylist.size() << std::endl;
@@ -661,7 +629,7 @@ void remove_if_test()
 {
 	std::cout << blue << "***************[ remove_if() test (int) ]***************" << cend << std::endl;
 	int myints[] = {15, 36, 7, 17, 20, 39, 4, 1};
-	std::list<int> mylist(myints, myints + 8); // 15 36 7 17 20 39 4 1
+	ft::list<int> mylist(myints, myints + 8); // 15 36 7 17 20 39 4 1
 
 	std::cout << "SORT ::: " << std::endl;
 	mylist.sort();
@@ -680,7 +648,7 @@ void unique_test()
 	std::cout << blue << "***************[ unique() test (int) ]***************" << cend << std::endl;
 	double mydoubles[] = {0.0, 2.72, 3.14, 12.15, 12.77, 12.77,
 						  15.3, 72.25, 72.25, 73.0, 73.35};
-	std::list<double> mylist(mydoubles, mydoubles + 10);
+	ft::list<double> mylist(mydoubles, mydoubles + 10);
 	std::cout << "list before unique func: " << std::endl;
 	print_list(mylist);
 	//mylist.sort(); //  2.72,  3.14, 12.15, 12.77, 12.77,
@@ -705,8 +673,8 @@ void unique_test()
 
 void sort_test()
 {
-	std::list<std::string> mylist;
-	std::list<std::string>::iterator it;
+	ft::list<std::string> mylist;
+	ft::list<std::string>::iterator it;
 	mylist.push_back("p");
 	mylist.push_back("g");
 	mylist.push_back("a");
@@ -723,7 +691,7 @@ void sort_test()
 
 void merge_test()
 {
-	std::list<double> first, second;
+	ft::list<double> first, second;
 
 	first.push_back(3.1);
 	first.push_back(2.2);
@@ -739,7 +707,6 @@ void merge_test()
 	first.merge(second);
 
 	// (second is now empty)
-
 	second.push_back(2.1);
 
 	first.merge(second, mycomparison);
@@ -753,7 +720,7 @@ void merge_test()
 void reverse_test()
 {
 	std::cout << blue << "***************[ reverse() test (int) ]***************" << cend << std::endl;
-	std::list<int> mylist;
+	ft::list<int> mylist;
 
 	for (int i = 1; i < 10; ++i)
 		mylist.push_back(i);
@@ -768,9 +735,9 @@ void reverse_test()
 
 void overloads_test()
 {
-	std::list<int> a;
-	std::list<int> b;
-	std::list<int> c;
+	ft::list<int> a;
+	ft::list<int> b;
+	ft::list<int> c;
 
 	a.push_back(10);
 	a.push_back(20);
@@ -797,8 +764,8 @@ void overloads_test()
 	if (a >= b)
 		std::cout << "a is greater than or equal to b" << std::endl;
 
-	std::list<int> foo(3, 100); // three ints with a value of 100
-	std::list<int> bar(5, 200); // five ints with a value of 200
+	ft::list<int> foo(3, 100); // three ints with a value of 100
+	ft::list<int> bar(5, 200); // five ints with a value of 200
 
 	ft::swap(foo, bar);
 
