@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/18 15:47:44 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/18 15:47:12 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,7 @@ namespace ft
 
         void insert(iterator position, size_type n, const value_type &val)
         {
-            for (size_type i = 0; i < n; ++i)
+            for (int i = 0; i < n; ++i)
             {
                 insert(position, val);
             }

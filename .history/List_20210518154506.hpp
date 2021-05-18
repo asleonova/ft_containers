@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/18 15:47:44 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/18 15:45:06 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,14 @@ namespace ft
         /*================================ 4 CONSTRUCTORS: ================================*/
 
         // #1 : DEFAULT:
-        explicit list(const allocator_type &alloc = allocator_type()) : _allocator_type(alloc), _size(0)
+        explicit list(const allocator_type &alloc = allocator_type()) : _size(0), _allocator_type(alloc)
         {
             this->_node = allocate_node();
         }
 
         // #2: FILL:
         explicit list(size_type n, const value_type &val = value_type(),
-                      const allocator_type &alloc = allocator_type()) : _allocator_type(alloc), _size(0)
+                      const allocator_type &alloc = allocator_type()) : _size(0), _allocator_type(alloc)
         {
             this->_node = allocate_node();
             for (int i = 0; i < n; ++i)
@@ -71,7 +71,7 @@ namespace ft
         //#3: RANGE:
         template <class InputIterator>
         list(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value> * = NULL,
-             const allocator_type &alloc = allocator_type()) : _allocator_type(alloc), _size(0)
+             const allocator_type &alloc = allocator_type()) : _size(0), _allocator_type(alloc)
         {
             this->_node = allocate_node();
             assign(first, last);
@@ -257,7 +257,7 @@ namespace ft
 
         void insert(iterator position, size_type n, const value_type &val)
         {
-            for (size_type i = 0; i < n; ++i)
+            for (int i = 0; i < n; ++i)
             {
                 insert(position, val);
             }
