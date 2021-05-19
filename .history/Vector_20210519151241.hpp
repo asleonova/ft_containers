@@ -252,6 +252,18 @@ namespace ft
 			this->_v_end++;
 		}
 
+		size_type
+		recommend(size_type new_size) const
+		{
+			const size_type max = max_size();
+
+			const size_type capacity = this->capacity();
+
+			if (capacity >= max / 2)
+				return (max);
+
+			return ft::max<size_type>(2 * capacity, new_size);
+		}
 
 		// Removes the last element in the vector, effectively reducing the container size by one.
 		// If the container is not empty, the function never throws exceptions (no-throw guarantee).
@@ -265,7 +277,7 @@ namespace ft
 
 		void insert(iterator position, size_type n, const value_type &val)
 		{
-			size_type len = (&(*position)) - this->_v_begin;
+			size_type len = /*static_cast<size_type>*/ (&(*position)) - this->_v_begin;
 
 			if (capacity() > n + size() - 1)
 			{
@@ -281,6 +293,10 @@ namespace ft
 			}
 			else
 			{
+				// if (size() < n)
+				// 	reserve(size() + n);
+				// else
+				// 	reserve(size() * 2);
 				reserve(size() * 2 + n);
 				for (size_type i = 0; i < this->size() - len; i++)
 					this->_allocator_type.construct(this->_v_end - i + (n - 1), *(this->_v_end - i - 1)); // creating elements followed after the inserted elements

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/20 16:59:09 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/19 15:20:55 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/19 14:57:54 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ namespace ft
         a = b;
         b = tmp;
     }
+
+    	template<class T>
+		inline const T&
+		max(const T &a, const T &b)
+		{
+			return (a > b ? a : b);
+		}
 
     template <class InputIterator1, class InputIterator2>
     bool equal(InputIterator1 first1, InputIterator1 last1, InputIterator2 first2)

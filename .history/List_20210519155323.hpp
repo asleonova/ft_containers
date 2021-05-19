@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/19 15:54:24 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/19 15:53:23 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -616,7 +616,7 @@ namespace ft
 
             // make new node next of old start
             last->next = new_node;
-            this->_size += 1;
+            this->_size += 2;
         }
 
         void insert_begin(const_reference val)

@@ -28,18 +28,18 @@ namespace ft
 	class vector
 	{
 	public:
-		typedef T value_type;
-		typedef Alloc allocator_type;
-		typedef typename Alloc::reference reference;
-		typedef typename Alloc::const_reference const_reference;
-		typedef typename Alloc::pointer pointer;
-		typedef typename Alloc::const_pointer const_pointer;
-		typedef ft::myIterator<pointer> iterator;
-		typedef ft::myIterator<const_pointer> const_iterator;
-		typedef ft::myReverseIterator<iterator> reverse_iterator;
-		typedef ft::myReverseIterator<const_iterator> const_reverse_iterator;
-		typedef ptrdiff_t difference_type;
-		typedef size_t size_type;
+				typedef T value_type;
+				typedef Alloc allocator_type;
+				typedef typename Alloc::reference reference;
+				typedef typename Alloc::const_reference const_reference;
+				typedef typename Alloc::pointer pointer;
+				typedef typename Alloc::const_pointer const_pointer;
+				typedef ft::myIterator<pointer> iterator;
+				typedef ft::myIterator<const_pointer> const_iterator;
+				typedef ft::myReverseIterator<iterator> reverse_iterator;
+				typedef ft::myReverseIterator<const_iterator> const_reverse_iterator;
+				typedef ptrdiff_t difference_type;
+				typedef size_t size_type;
 
 		/* 4 CONSTRUCTORS: */
 
@@ -164,7 +164,7 @@ namespace ft
 		{
 			// If n is greater than the current vector capacity,
 			// the function causes the container to reallocate its storage increasing its capacity to n (or greater).
-			if (n <= capacity())
+			if (n < capacity())
 				return;
 			if (n > capacity())
 			{
@@ -243,15 +243,11 @@ namespace ft
 			if (this->_v_end == this->_capacity)
 			{
 				size_type reserve_cap = capacity();
-				if (reserve_cap == 0)
-					reserve(1);
-				else
-					reserve(2 * reserve_cap);
+				reserve(2 * reserve_cap + 1);
 			}
 			_allocator_type.construct(this->_v_end, val);
 			this->_v_end++;
 		}
-
 
 		// Removes the last element in the vector, effectively reducing the container size by one.
 		// If the container is not empty, the function never throws exceptions (no-throw guarantee).
@@ -265,9 +261,9 @@ namespace ft
 
 		void insert(iterator position, size_type n, const value_type &val)
 		{
-			size_type len = (&(*position)) - this->_v_begin;
+			size_type len = /*static_cast<size_type>*/ (&(*position)) - this->_v_begin;
 
-			if (capacity() > n + size() - 1)
+			if (capacity() >= n + size())
 			{
 				for (size_type i = 0; i < size() - len; i++) // size - len it's the nums of elem aftern n to move
 					this->_allocator_type.construct(this->_v_end - i + (n - 1), *(this->_v_end - i - 1));
@@ -281,7 +277,11 @@ namespace ft
 			}
 			else
 			{
-				reserve(size() * 2 + n);
+				// if (size() < n)
+				// 	reserve(size() + n);
+				// else
+				// 	reserve(size() * 2);
+				reserve(size() * 2 + n)
 				for (size_type i = 0; i < this->size() - len; i++)
 					this->_allocator_type.construct(this->_v_end - i + (n - 1), *(this->_v_end - i - 1)); // creating elements followed after the inserted elements
 				this->_v_end += n;

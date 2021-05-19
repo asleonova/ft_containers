@@ -252,6 +252,18 @@ namespace ft
 			this->_v_end++;
 		}
 
+		size_type
+		recommend(size_type new_size) const
+		{
+			const size_type max = max_size();
+
+			const size_type capacity = this->capacity();
+
+			if (capacity >= max / 2)
+				return (max);
+
+			return ft::max<size_type>(2 * capacity, new_size);
+		}
 
 		// Removes the last element in the vector, effectively reducing the container size by one.
 		// If the container is not empty, the function never throws exceptions (no-throw guarantee).

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 13:32:30 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/19 15:20:14 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/19 15:17:44 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ void const_iterator_test()
 	{
 		vec.push_back(i);
 	}
-	std::cout << green << "vector contents, using const iterator: " << cend << std::endl;
+	std::cout << green << "vector contents, using iterator: " << cend << std::endl;
 	ft::vector<int>::const_iterator cit = vec.begin();
 	ft::vector<int>::const_iterator cite = vec.end();
 	while (cit != cite)
@@ -221,15 +221,7 @@ void const_iterator_test()
 		std::cout << *cit << std::endl;
 		cit++;
 	}
-	std::cout << green << "Testing iterator comparison: " << cend << std::endl;
-	bool b = cit == cite;
-	std::cout << "it == ite: " << b << std::endl;
-	b = cit == cit;
-	std::cout << "it == it: " << b << std::endl;
-	b = cit != cite;
-	std::cout << "it != ite: " << b << std::endl;
-	b = cite != cite;
-	std::cout << "ite != ite: " << b << std::endl;
+	std::cout << "I'll make tests, promise!" << std::endl;
 }
 
 void capacity_tests()
