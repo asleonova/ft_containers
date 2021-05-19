@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/19 18:07:56 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/19 18:06:29 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ namespace ft
     {
     };
 
-    template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T *, class Reference = T &>
-    struct iterator
-    {
-        typedef T value_type;               // Type of elements pointed by the iterator.
-        typedef Distance difference_type;   // Type to represent the difference between two iterators.
-        typedef Pointer pointer;            // Type to represent a pointer to an element pointed by the iterator.
-        typedef Reference reference;        // Type to represent a reference to an element pointed by the iterator.
-        typedef Category iterator_category; // Category to which the iterator belongs to. It must be one of the following iterator tags:
-        // input_iterator_tag; output_iterator_tag; forward_iterator_tag; bidireational_iterator_tag; ListIterator_tag; ListIterator_tag;
-    };
+    // template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T *, class Reference = T &>
+    // struct iterator
+    // {
+    //     typedef T value_type;               // Type of elements pointed by the iterator.
+    //     typedef Distance difference_type;   // Type to represent the difference between two iterators.
+    //     typedef Pointer pointer;            // Type to represent a pointer to an element pointed by the iterator.
+    //     typedef Reference reference;        // Type to represent a reference to an element pointed by the iterator.
+    //     typedef Category iterator_category; // Category to which the iterator belongs to. It must be one of the following iterator tags:
+    //     // input_iterator_tag; output_iterator_tag; forward_iterator_tag; bidireational_iterator_tag; ListIterator_tag; ListIterator_tag;
+    // };
 
     template <class Iterator>
     struct iterator_traits

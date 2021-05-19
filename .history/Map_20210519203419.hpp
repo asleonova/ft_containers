@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/19 20:38:31 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/19 20:34:19 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,10 @@ namespace ft
               class Alloc = std::allocator<std::pair<const Key, T> > >
     class map
     {
-
-    private:
-        struct TreeNode
-        {
-            T val;
-            TreeNode *left;
-            TreeNode *right;
-            TreeNode *parent;
-        };
-
     public:
         typedef Key key_type;
         typedef T mapped_type;
-        typedef std::pair<const key_type, mapped_type> value_type;
+        typedef ft::pair<const key_type, mapped_type> value_type;
         typedef Alloc allocator_type;
         typedef typename Alloc::reference reference;
         typedef typename Alloc::const_reference const_reference;
@@ -48,7 +38,6 @@ namespace ft
         //typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
         typedef ptrdiff_t difference_type;
         typedef size_t size_type;
-        typedef typename Alloc::template rebind<TreeNode>::other node_allocator_type;
 
         /*================================ 4 CONSTRUCTORS: ================================*/
 
@@ -64,7 +53,7 @@ namespace ft
             const allocator_type &alloc = allocator_type());
 
         /*COPY*/
-        map(const map &x);
+        map (const map& x);
 
         /*================================ DESTRUCTOR: ================================*/
 
@@ -72,7 +61,7 @@ namespace ft
 
         /*================================ OPERATOR=: ================================*/
 
-        map &operator=(const map &x);
+        map& operator= (const map& x);
 
         /*================================ ITERATORS: ================================*/
 
@@ -93,16 +82,17 @@ namespace ft
         const_reverse_iterator rend() const;
 
         /*================================ CAPACITY: ================================*/
-
+        
         bool empty() const;
 
         size_type size() const;
 
         size_type max_size() const;
 
+        
         /*================================ ELEMENT ACCESS: ================================*/
 
-        mapped_type &operator[](const key_type &k)
+        mapped_type& operator[] (const key_type& k)
         {
             //return (*((this->insert(make_pair(k,mapped_type()))).first)).second);
         }
@@ -111,28 +101,32 @@ namespace ft
 
         /* INSERT */
 
-        pair<iterator, bool> insert(const value_type &val);
+        pair<iterator,bool> insert (const value_type& val);
 
-        iterator insert(iterator position, const value_type &val);
+        iterator insert (iterator position, const value_type& val);
 
         template <class InputIterator>
-        void insert(InputIterator first, InputIterator last);
+        void insert (InputIterator first, InputIterator last);
 
         /* ERASE */
 
-        void erase(iterator position);
+        void erase (iterator position);
 
-        size_type erase(const key_type &k);
+        size_type erase (const key_type& k);
+        
+        void erase (iterator first, iterator last);
 
-        void erase(iterator first, iterator last);
 
         /* SWAP */
 
-        void swap(map &x);
+        void swap (map& x);
 
         /* CLEAR */
 
         void clear();
+
+        
+        
 
         /*================================ OBSERVERS: ================================*/
 
@@ -140,31 +134,31 @@ namespace ft
 
         value_compare value_comp() const;
 
+        
+
         /*================================ OPERATIONS: ================================*/
 
-        iterator find(const key_type &k);
+        iterator find (const key_type& k);
 
-        const_iterator find(const key_type &k) const;
+        const_iterator find (const key_type& k) const;
 
-        size_type count(const key_type &k) const;
+        size_type count (const key_type& k) const;
 
-        iterator lower_bound(const key_type &k);
+        iterator lower_bound (const key_type& k);
 
-        const_iterator lower_bound(const key_type &k) const;
+        const_iterator lower_bound (const key_type& k) const;
 
-        iterator upper_bound(const key_type &k);
+        iterator upper_bound (const key_type& k);
 
-        const_iterator upper_bound(const key_type &k) const;
+        const_iterator upper_bound (const key_type& k) const;
 
-        pair<const_iterator, const_iterator> equal_range(const key_type &k) const;
+        pair<const_iterator,const_iterator> equal_range (const key_type& k) const;
 
-        pair<iterator, iterator> equal_range(const key_type &k);
+        pair<iterator,iterator>             equal_range (const key_type& k);
 
-    private:
-        TreeNode *_node;
-        allocator_type _allocator_type;
-        node_allocator_type _alloc_node;
+        
 
+        
     };
 
 }

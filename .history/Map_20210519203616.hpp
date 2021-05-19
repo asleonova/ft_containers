@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/19 20:38:31 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/19 20:36:16 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,8 @@ namespace ft
         struct TreeNode
         {
             T val;
-            TreeNode *left;
-            TreeNode *right;
-            TreeNode *parent;
+            Node *next;
+            Node *prev;
         };
 
     public:
@@ -48,7 +47,6 @@ namespace ft
         //typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
         typedef ptrdiff_t difference_type;
         typedef size_t size_type;
-        typedef typename Alloc::template rebind<TreeNode>::other node_allocator_type;
 
         /*================================ 4 CONSTRUCTORS: ================================*/
 
@@ -162,8 +160,6 @@ namespace ft
 
     private:
         TreeNode *_node;
-        allocator_type _allocator_type;
-        node_allocator_type _alloc_node;
 
     };
 
