@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/20 16:54:42 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/20 13:38:55 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,9 @@ namespace ft
     {
 
     private:
-
-        template <class T>
         struct TreeNode
         {
-            std::pair<const Key, T> val;
+            T val;
             TreeNode *left;
             TreeNode *right;
             TreeNode *parent;
@@ -45,10 +43,10 @@ namespace ft
         typedef typename Alloc::const_reference const_reference;
         typedef typename Alloc::pointer pointer;
         typedef typename Alloc::const_pointer const_pointer;
-        typedef typename ft::MapIteraror<T, TreeNode<value_type> > iterator;
-        typedef typename ft::MapIterator<T, TreeNode<value_type> > const_iterator;
-        typedef typename ft::myReverseIterator<iterator> reverse_iterator;
-        typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
+        //typedef typename ft::ListIterator<pointer, Node> iterator;
+        //typedef typename ft::ListIterator<const_pointer, Node> const_iterator;
+        //typedef typename ft::myReverseIterator<iterator> reverse_iterator;
+        //typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
         typedef ptrdiff_t difference_type;
         typedef size_t size_type;
         typedef typename Alloc::template rebind<TreeNode>::other node_allocator_type;
@@ -206,8 +204,8 @@ namespace ft
         }
 
     private:
-        TreeNode <value_type> _node;
-        TreeNode <value_type> _last_node;
+        TreeNode *_node;
+        TreeNode *_last;
         Compare _comp;
         allocator_type _allocator_type;
         node_allocator_type _alloc_node;

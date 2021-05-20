@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/20 16:54:42 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/20 16:52:29 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ namespace ft
         }
 
     private:
-        TreeNode <value_type> _node;
+        TreeNode <value_type> _root_node;
         TreeNode <value_type> _last_node;
         Compare _comp;
         allocator_type _allocator_type;

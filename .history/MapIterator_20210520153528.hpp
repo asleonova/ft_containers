@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ListIterator.hpp                                   :+:      :+:    :+:   */
+/*   MapIterator.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/20 16:02:24 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/20 15:35:28 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIST_ITERATOR_HPP
-#define LIST_ITERATOR_HPP
+#ifndef MAP_ITERATOR_HPP
+#define MAP_ITERATOR_HPP
 
 #include "Iterators.hpp"
 
@@ -38,11 +38,11 @@ namespace ft
         typedef bidirectional_iterator_tag iterator_category;
     };
 
-    template <class T, class Node>
-    class ListIterator
+    template <class T, class TreeNode>
+    class MapIterator
     {
     private:
-        Node *_node;
+        TreeNode *_node;
 
     public:
         typedef typename ft::iterator_traits<T>::iterator_category iterator_category;

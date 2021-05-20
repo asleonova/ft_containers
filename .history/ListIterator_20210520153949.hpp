@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/20 16:02:24 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/20 15:39:48 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ namespace ft
 
         /*================================ CONSTRUCTORS: ================================*/
 
-        ListIterator(Node *node = 0) : _node(node) {} // default
+        ListIterator(TreeNode *node = 0) : _node(node) {} // default
 
         template <class Iter>
         ListIterator(ListIterator<Iter, Node> const &my_it) : _node(my_it.get_node()) {} // Copy constructor

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ListIterator.hpp                                   :+:      :+:    :+:   */
+/*   MapIterator.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/20 16:02:24 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/20 17:11:36 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIST_ITERATOR_HPP
-#define LIST_ITERATOR_HPP
+#ifndef MAP_ITERATOR_HPP
+#define MAP_ITERATOR_HPP
 
 #include "Iterators.hpp"
 
@@ -38,11 +38,12 @@ namespace ft
         typedef bidirectional_iterator_tag iterator_category;
     };
 
-    template <class T, class Node>
-    class ListIterator
+    template <class T, class TreeNode>
+    class MapIterator
     {
     private:
-        Node *_node;
+        TreeNode  *_node;
+        TreeNode  *_last_node;
 
     public:
         typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
@@ -53,12 +54,12 @@ namespace ft
 
         /*================================ CONSTRUCTORS: ================================*/
 
-        ListIterator(Node *node = 0) : _node(node) {} // default
+        MapIterator(TreeNode *node = 0) : _node(node) {} // default
 
         template <class Iter>
-        ListIterator(ListIterator<Iter, Node> const &my_it) : _node(my_it.get_node()) {} // Copy constructor
+        MapIterator(MapIterator<Iter, TreeNode> const &my_it) : _node(my_it.get_node()) {} // Copy constructor
 
-        ListIterator &operator=(ListIterator<T, Node> const &rhs) // asignment operator
+        MapIterator &operator=(MapIterator<T, TreeNode> const &rhs) // asignment operator
         {
             this->_node = rhs.get_node();
             return (*this);
@@ -66,40 +67,53 @@ namespace ft
 
         /*================================ DESTRUCTOR: ================================*/
 
-        virtual ~ListIterator(){};
+        virtual ~MapIterator(){};
 
         /*================================ HELPING FUNCTIONS: ================================*/
 
-        Node *get_node() const
+        TreeNode *get_node() const
         {
             return this->_node;
         }
 
         /*================================ INCREMENTS: ================================*/
 
-        ListIterator &operator++() // ++a
+        MapIterator &operator++() // ++a
         {
-            this->_node = this->_node->next;
-            return (*this);
+            if (this->_node->right)
+            {
+                this->_node = this->_node->right;
+                while (this->_node->left)
+                    this->_node = this->_node->left;
+            }
+            // else if (this->_node == this->_last_node)
+            // {
+            //     this->_node = this->_node->right;
+            // }
+            else if (this->_node->parent->left == this->_node)
+            {
+                
+            }
+
         }
 
-        ListIterator operator++(int) //a++
+        MapIterator operator++(int) //a++
         {
-            ListIterator copy(*this);
+            MapIterator copy(*this);
             this->_node = this->_node->next;
             return (copy);
         }
 
         /*================================ DECREMENT: ================================*/
 
-        ListIterator &operator--() //--a
+        MapIterator &operator--() //--a
         {
             this->_node = this->_node->prev;
             return (*this);
         }
-        ListIterator operator--(int) // a--
+        MapIterator operator--(int) // a--
         {
-            ListIterator copy(*this);
+            MapIterator copy(*this);
             this->_node = this->_node->prev;
             return (copy);
         }
@@ -119,12 +133,12 @@ namespace ft
 
         /*================================ EQUALITY / INEQUALITY COMPARISONS: ================================*/
 
-        bool operator==(const ListIterator &rhs)
+        bool operator==(const MapIterator &rhs)
         {
             return this->_node == rhs._node;
         }
 
-        bool operator!=(const ListIterator &rhs)
+        bool operator!=(const MapIterator &rhs)
         {
             return this->_node != rhs._node;
         }
