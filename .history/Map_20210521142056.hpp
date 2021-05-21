@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/21 14:35:47 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/21 14:20:56 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 #include "Algorithm.hpp"
 #include "Identifiers.hpp"
-#include "MapIterator.hpp"
 
 namespace ft
 {
@@ -41,13 +40,12 @@ namespace ft
         typedef Key key_type;
         typedef T mapped_type;
         typedef std::pair<const key_type, mapped_type> value_type;
-        typedef less<key_type> key_compare;
         typedef Alloc allocator_type;
         typedef typename Alloc::reference reference;
         typedef typename Alloc::const_reference const_reference;
         typedef typename Alloc::pointer pointer;
         typedef typename Alloc::const_pointer const_pointer;
-        typedef typename ft::MapIterator<T, TreeNode> iterator;
+        typedef typename ft::MapIteraror<T, TreeNode> iterator;
         typedef typename ft::MapIterator<T, TreeNode> const_iterator;
         typedef typename ft::myReverseIterator<iterator> reverse_iterator;
         typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
@@ -61,7 +59,7 @@ namespace ft
         explicit map(const key_compare &comp = key_compare(),
                      const allocator_type &alloc = allocator_type()) : _node(NULL), _comp(comp), _allocator_type(alloc)
         {
-            this->_last_node = allocate_last_node();
+            this->_node = allocate_tree_node();
         }
 
         /*RANGE*/
@@ -119,7 +117,7 @@ namespace ft
 
         /* INSERT */
 
-        std::pair<iterator, bool> insert(const value_type &val);
+        pair<iterator, bool> insert(const value_type &val);
 
         iterator insert(iterator position, const value_type &val);
 
@@ -146,7 +144,7 @@ namespace ft
 
         key_compare key_comp() const;
 
-      //  value_compare value_comp() const;
+        value_compare value_comp() const;
 
         /*================================ OPERATIONS: ================================*/
 
@@ -164,21 +162,20 @@ namespace ft
 
         const_iterator upper_bound(const key_type &k) const;
 
-        std::pair<const_iterator, const_iterator> equal_range(const key_type &k) const;
+        pair<const_iterator, const_iterator> equal_range(const key_type &k) const;
 
-        std::pair<iterator, iterator> equal_range(const key_type &k);
+        pair<iterator, iterator> equal_range(const key_type &k);
 
         /*================================ HELPING FUNCTIONS : ================================*/
 
 
-        TreeNode *allocate_last_node()
+        TreeNode *allocate_node()
         {
-            TreeNode *node;
+            Node *node;
 
             node = this->_alloc_node.allocate(1);
-            node->right = NULL;
-            node->left = NULL;
-            node->parent = NULL;
+            node->next = node;
+            node->prev = node;
             std::memset(&node->val, 0, sizeof(node->val));
             return node;
         }
@@ -224,8 +221,8 @@ namespace ft
         }
 
     private:
-        TreeNode *_node;
-        TreeNode *_last_node;
+        TreeNode <value_type> _node;
+        TreeNode <value_type> _last_node;
         Compare _comp;
         allocator_type _allocator_type;
         node_allocator_type _alloc_node;

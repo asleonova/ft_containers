@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/21 14:35:47 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/21 14:35:24 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,8 @@ namespace ft
             TreeNode *node;
 
             node = this->_alloc_node.allocate(1);
-            node->right = NULL;
-            node->left = NULL;
+            node->next = NULL;
+            node->prev = NULL;
             node->parent = NULL;
             std::memset(&node->val, 0, sizeof(node->val));
             return node;
