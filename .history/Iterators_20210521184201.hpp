@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/21 18:42:12 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/21 18:42:01 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ namespace ft
         // input_iterator_tag; output_iterator_tag; forward_iterator_tag; bidireational_iterator_tag; ListIterator_tag; ListIterator_tag;
     };
 
-    template <class Iterator>
-    struct iterator_traits
-    {
-        typedef typename Iterator::difference_type difference_type;
-        typedef typename Iterator::value_type value_type;
-        typedef typename Iterator::pointer pointer;
-        typedef typename Iterator::reference reference;
-        typedef typename Iterator::iterator_category iterator_category;
-    };
+    // template <class Iterator>
+    // struct iterator_traits
+    // {
+    //     typedef typename Iterator::difference_type difference_type;
+    //     typedef typename Iterator::value_type value_type;
+    //     typedef typename Iterator::pointer pointer;
+    //     typedef typename Iterator::reference reference;
+    //     typedef typename Iterator::iterator_category iterator_category;
+    // };
 
 
     template <class InputIterator>

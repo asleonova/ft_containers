@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/21 19:29:07 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/21 19:07:10 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ namespace ft
     {
 
     private:
-
+        template <class T>
         struct TreeNode
         {
-            std::pair<const Key, T> val;
+            T val;
             TreeNode *left;
             TreeNode *right;
             TreeNode *parent;
@@ -47,8 +47,8 @@ namespace ft
         typedef typename Alloc::const_reference const_reference;
         typedef typename Alloc::pointer pointer;
         typedef typename Alloc::const_pointer const_pointer;
-        typedef typename ft::MapIterator<pointer, TreeNode> iterator;
-        typedef typename ft::MapIterator<const pointer, TreeNode> const_iterator;
+        typedef typename ft::MapIterator<T, TreeNode <value_type> > iterator;
+        typedef typename ft::MapIterator<T, TreeNode <value_type> > const_iterator;
         typedef typename ft::myReverseIterator<iterator> reverse_iterator;
         typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
         typedef ptrdiff_t difference_type;
@@ -84,10 +84,7 @@ namespace ft
 
         /*================================ ITERATORS: ================================*/
 
-        iterator begin()
-        {
-            return (iterator(this->_node));
-        }
+        iterator begin();
 
         const_iterator begin() const;
 
@@ -133,13 +130,13 @@ namespace ft
             if (!this->_node) // Insert the first node, if root is NULL.
             {
                 this->_node = allocate_tree_node();
-                this->_allocator_type.construct(&_node->val, val); 
+                this->_allocator_type.construct(&this->_node->val, val); 
                 this->_last_node->parent = this->_node;
                 this->_node->right = this->_last_node;
                 iter = this->_node;
 
             }
-            return make_pair(iter, true);
+            return std::make_pair(iter, true);
                 
 
         }
@@ -194,7 +191,7 @@ namespace ft
         /*================================ HELPING FUNCTIONS : ================================*/
 
 
-        TreeNode *allocate_tree_node()
+        TreeNode<value_type> *allocate_tree_node()
         {
             TreeNode *node;
 
@@ -206,7 +203,7 @@ namespace ft
             return node;
         }
 
-        TreeNode *construct_node(const_reference val)
+        TreeNode<value_type> *construct_node(const_reference val)
         {
             TreeNode *node;
             node = allocate_tree_node();
@@ -215,52 +212,52 @@ namespace ft
         }
 
 
-        unsigned char height(TreeNode *p)
-        {
-            if (p)
-                return p->height;
-            else
-                return 0;
-        }
+        // unsigned char height(TreeNode *p)
+        // {
+        //     if (p)
+        //         return p->height;
+        //     else
+        //         return 0;
+        // }
 
-        int balanceFactor(TreeNode *p)
-        {
-            return height(p->right) - height(p->left);
-        }
+        // int balanceFactor(TreeNode *p)
+        // {
+        //     return height(p->right) - height(p->left);
+        // }
 
-        void fixHeight(TreeNode *p)
-        {
-            unsigned char hl = height(p->left);
-            unsigned char hr = height(p->right);
-            p->height = (hl > hr ? hl : hr) + 1; // +1 for root
-        }
+        // void fixHeight(TreeNode *p)
+        // {
+        //     unsigned char hl = height(p->left);
+        //     unsigned char hr = height(p->right);
+        //     p->height = (hl > hr ? hl : hr) + 1; // +1 for root
+        // }
 
-        TreeNode *rotateright(TreeNode *p) // правый поворот вокруг p
-        {
-            TreeNode *q = p->left;
-            p->left = q->right;
-            q->right = p;
-            fixheight(p);
-            fixheight(q);
-            return q;
-        }
+        // TreeNode *rotateright(TreeNode *p) // правый поворот вокруг p
+        // {
+        //     TreeNode *q = p->left;
+        //     p->left = q->right;
+        //     q->right = p;
+        //     fixheight(p);
+        //     fixheight(q);
+        //     return q;
+        // }
 
-        TreeNode *rotateleft(TreeNode *q) // левый поворот вокруг q
-        {
-            TreeNode *p = q->right;
-            q->right = p->left;
-            p->left = q;
-            fixheight(q);
-            fixheight(p);
-            return p;
-        }
+        // TreeNode *rotateleft(TreeNode *q) // левый поворот вокруг q
+        // {
+        //     TreeNode *p = q->right;
+        //     q->right = p->left;
+        //     p->left = q;
+        //     fixheight(q);
+        //     fixheight(p);
+        //     return p;
+        // }
 
 
 
 
     private:
-        TreeNode *_node;
-        TreeNode *_last_node;
+        TreeNode<value_type> _node;
+        TreeNode<value_type> _last_node;
         Compare _comp;
         allocator_type _allocator_type;
         node_allocator_type _alloc_node;

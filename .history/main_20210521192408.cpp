@@ -25,19 +25,13 @@ void constructor_test()
 	std_map[1] = 100;
   	std_map[2] = 200;
   	std_map[3] = 300;
-	std_map[4] = 400;
-	std_map[5] = 500;
-	std_map[10] = 600;
 
 	std::map<int, int>::iterator its;
 	its = std_map.begin();
 	std::cout << "begin is: " << its->first << ", "<< its->second << std::endl;
 
-  // first insert function version (single parameter)
-	
+  // first insert function version (single parameter):
  	 mymap.insert ( std::pair<char,int>('a',100) );
-	 it = mymap.begin();
-std::cout << "begin of my map is: " << it->first << ", "<< it->second << std::endl;
 //	std::cout << "list size is: " << lst.size() << std::endl
 //			  << std::endl;
 

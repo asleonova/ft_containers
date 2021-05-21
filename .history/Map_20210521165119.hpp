@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/21 19:29:07 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/21 16:51:19 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "Algorithm.hpp"
 #include "Identifiers.hpp"
 #include "MapIterator.hpp"
-#include <utility>
 
 namespace ft
 {
@@ -47,8 +46,8 @@ namespace ft
         typedef typename Alloc::const_reference const_reference;
         typedef typename Alloc::pointer pointer;
         typedef typename Alloc::const_pointer const_pointer;
-        typedef typename ft::MapIterator<pointer, TreeNode> iterator;
-        typedef typename ft::MapIterator<const pointer, TreeNode> const_iterator;
+        typedef typename ft::MapIterator<T, TreeNode> iterator;
+        typedef typename ft::MapIterator<T, TreeNode> const_iterator;
         typedef typename ft::myReverseIterator<iterator> reverse_iterator;
         typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
         typedef ptrdiff_t difference_type;
@@ -61,7 +60,7 @@ namespace ft
         explicit map(const key_compare &comp = key_compare(),
                      const allocator_type &alloc = allocator_type()) : _node(NULL), _comp(comp), _allocator_type(alloc)
         {
-            this->_last_node = allocate_tree_node();
+            this->_last_node = allocate_last_node();
         }
 
         /*RANGE*/
@@ -84,10 +83,7 @@ namespace ft
 
         /*================================ ITERATORS: ================================*/
 
-        iterator begin()
-        {
-            return (iterator(this->_node));
-        }
+        iterator begin();
 
         const_iterator begin() const;
 
@@ -129,18 +125,8 @@ namespace ft
         
         std::pair<iterator, bool> insert(const value_type &val)
         {
-            iterator iter;
             if (!this->_node) // Insert the first node, if root is NULL.
-            {
-                this->_node = allocate_tree_node();
-                this->_allocator_type.construct(&_node->val, val); 
-                this->_last_node->parent = this->_node;
-                this->_node->right = this->_last_node;
-                iter = this->_node;
-
-            }
-            return make_pair(iter, true);
-                
+            
 
         }
 
@@ -194,7 +180,7 @@ namespace ft
         /*================================ HELPING FUNCTIONS : ================================*/
 
 
-        TreeNode *allocate_tree_node()
+        TreeNode *allocate_last_node()
         {
             TreeNode *node;
 
@@ -205,15 +191,6 @@ namespace ft
             std::memset(&node->val, 0, sizeof(node->val));
             return node;
         }
-
-        TreeNode *construct_node(const_reference val)
-        {
-            TreeNode *node;
-            node = allocate_tree_node();
-            this->_allocator_type.construct(&node->val, val);
-            return (node);
-        }
-
 
         unsigned char height(TreeNode *p)
         {
@@ -254,9 +231,6 @@ namespace ft
             fixheight(p);
             return p;
         }
-
-
-
 
     private:
         TreeNode *_node;

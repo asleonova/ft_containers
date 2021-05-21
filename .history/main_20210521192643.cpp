@@ -33,11 +33,8 @@ void constructor_test()
 	its = std_map.begin();
 	std::cout << "begin is: " << its->first << ", "<< its->second << std::endl;
 
-  // first insert function version (single parameter)
-	
+  // first insert function version (single parameter):
  	 mymap.insert ( std::pair<char,int>('a',100) );
-	 it = mymap.begin();
-std::cout << "begin of my map is: " << it->first << ", "<< it->second << std::endl;
 //	std::cout << "list size is: " << lst.size() << std::endl
 //			  << std::endl;
 
