@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/21 14:12:53 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/21 13:50:43 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,7 @@ namespace ft
                 while (this->_node->left)
                     this->_node = this->_node->left;
             }
-            else
-                this->_node = this->_node->parent;
-            return (*this);
+            else if  
 
         }
 

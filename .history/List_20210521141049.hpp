@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/21 14:11:24 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/21 14:10:48 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ namespace ft
         /*================================ 4 CONSTRUCTORS: ================================*/
 
         // #1 : DEFAULT:
-        explicit list(const allocator_type &alloc = allocator_type()) : _allocator_type(alloc), _size(0)
+        explicit list(const allocator_type &alloc = allocator_type()) : _allocator_type(alloc), _size(1)
         {
             this->_node = allocate_node();
         }
