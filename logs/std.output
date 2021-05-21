@@ -285,6 +285,10 @@ mylist contains: a | g | p |
 
 mylist contains: a | g | p | 
 
+first contains: 1.4 | 2.2 | 2.9 | 3.1 | 3.7 | 7.1 | 
+
+secont contains: 
+
 first contains: 1.4 | 2.2 | 2.9 | 2.1 | 3.1 | 3.7 | 7.1 | 
 
 secont contains: 

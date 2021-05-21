@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/21 21:12:19 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/21 20:50:51 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -523,45 +523,46 @@ namespace ft
         /* SORT */
         void sort()
         {
-           Node *last_node = NULL;
+            Node *last_node = NULL;
             this->_node->next = mergeSort(this->_node->next, ft::less<value_type>(), &last_node);
+            Node *next_node = this->_node->next;
             // These code we need to get the last of our node;
-            Node *head = this->_node->next;
-            Node *last;
+            // Node *head = this->_node->next;
+            // Node *last;
 
-            while (head != this->_node)
-            {
-                last = head;
-                head = head->next;
-            }
+            // while (head != this->_node)
+            // {
+            //     last = head;
+            //     head = head->next;
+            // }
 
-            this->_node->prev = last;
-            // std::cout << "this->_node->prev: " << this->_node->prev->val << std::endl;
-            //  std::cout << "this->_node->next: " << this->_node->next->val << std::endl;
-            //   std::cout << "this->_node: " << this->_node->val << std::endl;
-           // this->_node->prev = last_node;
+            // this->_node->prev = last;
+            this->_node->prev = last_node;
+            this->_node->next = next_node;
         }
 
         template <class Compare>
         void sort(Compare comp)
         {
             Node *last_node = NULL;
+            Node *next_node = this->_node->next;
             this->_node->next = mergeSort(this->_node->next, comp, &last_node);
 
-            Node *head = this->_node->next;
+            //Node *head = this->_node->next;
 
             // get pointer to the node which will be the
             // last node of the final list
-            Node *last;
+            // Node *last;
 
-            while (head != this->_node)
-            {
-                last = head;
-                head = head->next;
-            }
+            // while (head != this->_node)
+            // {
+            //     last = head;
+            //     head = head->next;
+            // }
 
-            this->_node->prev = last;
-          // this->_node->prev = last_node;
+            // this->_node->prev = last;
+            this->_node->prev = last_node;
+            this->_node->next = next_node;
         }
 
         /* REVERSE */

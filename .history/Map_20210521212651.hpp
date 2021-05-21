@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/21 21:34:29 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/21 21:26:51 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ namespace ft
     {
 
     private:
+
         struct TreeNode
         {
             std::pair<const Key, T> val;
@@ -85,7 +86,7 @@ namespace ft
 
         iterator begin()
         {
-            return (iterator(min_node(this->_node)));
+            return (iterator(this->_node));
         }
 
         const_iterator begin() const;
@@ -143,19 +144,22 @@ namespace ft
         with its member pair::first set to an iterator pointing to either the newly inserted element
         or to the element with an equivalent key in the map. The pair::second element in the pair 
         is set to true if a new element was inserted or false if an equivalent key already existed. */
-
+        
         std::pair<iterator, bool> insert(const value_type &val)
         {
             iterator iter;
             if (!this->_node) // Insert the first node, if root is NULL.
             {
                 this->_node = allocate_tree_node();
-                this->_allocator_type.construct(&_node->val, val);
+                this->_allocator_type.construct(&_node->val, val); 
                 this->_last_node->parent = this->_node;
                 this->_node->right = this->_last_node;
                 iter = this->_node;
+
             }
             return make_pair(iter, true);
+                
+
         }
 
         iterator insert(iterator position, const value_type &val);
@@ -183,7 +187,7 @@ namespace ft
 
         key_compare key_comp() const;
 
-        //  value_compare value_comp() const;
+      //  value_compare value_comp() const;
 
         /*================================ OPERATIONS: ================================*/
 
@@ -207,6 +211,7 @@ namespace ft
 
         /*================================ HELPING FUNCTIONS : ================================*/
 
+
         TreeNode *allocate_tree_node()
         {
             TreeNode *node;
@@ -226,6 +231,7 @@ namespace ft
             this->_allocator_type.construct(&node->val, val);
             return (node);
         }
+
 
         unsigned char height(TreeNode *p)
         {
@@ -267,15 +273,8 @@ namespace ft
             return p;
         }
 
-        TreeNode *min_node(TreeNode *node)
-        {
-            if (node)
-            {
-                while (node->left)
-                    node = node->left;
-            }
-            return (node);
-        }
+
+
 
     private:
         TreeNode *_node;

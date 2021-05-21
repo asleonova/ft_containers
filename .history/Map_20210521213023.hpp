@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/21 21:34:29 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/21 21:30:23 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ namespace ft
 
         iterator begin()
         {
-            return (iterator(min_node(this->_node)));
+            return (iterator(this->_node));
         }
 
         const_iterator begin() const;

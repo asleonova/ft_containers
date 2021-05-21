@@ -704,13 +704,7 @@ void merge_test()
 	first.sort();
 	second.sort();
 
-
-
 	first.merge(second);
-		std::cout << "first contains: ";
-	print_list(first);
-	std::cout << "secont contains: ";
-	print_list(second);
 
 	// (second is now empty)
 	second.push_back(2.1);

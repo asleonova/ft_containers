@@ -20,7 +20,7 @@ void constructor_test()
 	std::cout << green << "Testing empty map int: " << cend << std::endl;
 	ft::map<char, int> mymap;
 	ft::map<char, int>::iterator it;
-	ft::map<char, int>::iterator ite;
+	ft::map<char, int>:iterator ite;
 	std::map<int,int> std_map;
 	
 	std_map[1] = 100;
@@ -43,8 +43,8 @@ void constructor_test()
  	 mymap.insert ( std::pair<char,int>('a',100) );
 	 it = mymap.begin();
 	std::cout << "begin of my map is: " << it->first << ", "<< it->second << std::endl;
-	ite = mymap.end();
-	//ite--;
+	ite = std_map.end();
+	ite--;
 	std::cout << "end is: " << ite->first << ", "<< ite->second << std::endl;
 //	std::cout << "list size is: " << lst.size() << std::endl
 //			  << std::endl;
