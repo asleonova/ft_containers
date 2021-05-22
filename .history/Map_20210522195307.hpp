@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 19:55:39 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 19:53:07 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,10 +168,7 @@ namespace ft
                     {
                         key = root->val.first;
                         if (key == val.first)
-                        {
-                            iter = root;
                             return (make_pair(iter, false));
-                        }
                         root = root->left;
                     }
                     root->left = new_node;
@@ -183,15 +180,7 @@ namespace ft
                 else
                 {
                     while (root->right != _last_node)
-                    {
-                        key = root->val.first;
-                        if (key == val.first)
-                        {
-                            iter = root;
-                            return (make_pair(iter, false));
-                        }
                         root = root->right;
-                    }
                     root->right = new_node;
                     new_node->left = NULL;
                     new_node->right = _last_node;
@@ -202,6 +191,11 @@ namespace ft
                 return make_pair(iter, true);
             }
         }
+// add functionality when it returns false!!!
+
+int curkey = start_node->value.first;
+					if (curkey == to_insert.first)
+						return (ft::make_pair(iterator(start_node, _last_node), false));
 
 // then add balancing function ! 
 

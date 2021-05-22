@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 19:57:45 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 19:57:38 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ namespace ft
         MapIterator operator--(int) // a--
         {
             MapIterator copy(*this);
-            this->_node = this->_node->parent;
+            this->_node = this->_node->prev;
             return (copy);
         }
 

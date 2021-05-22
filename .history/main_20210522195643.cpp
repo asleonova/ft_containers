@@ -26,7 +26,6 @@ void constructor_test()
 	std_map[2] = 200;
   	std_map[3] = 300;
 	std_map[1] = 200;
-	std_map[3] = 500;
 
 	// std_map[4] = 400;
 	// std_map[5] = 500;
@@ -37,15 +36,13 @@ void constructor_test()
 	its = std_map.begin();
 	std::cout << "begin is: " << its->first << ", "<< its->second << std::endl;
 	itse = std_map.end();
-	itse--;
-	std::cout << "end-- is: " << itse->first << ", "<< itse->second << std::endl;
-	itse--;
-	std::cout << "end-- is: " << itse->first << ", "<< itse->second << std::endl;
+	//itse--;
+	std::cout << "end is: " << itse->first << ", "<< itse->second << std::endl;
 
   // first insert function version (single parameter)
 	
  	 mymap.insert ( std::pair<int,int>(5, 200) );
-	 mymap.insert(std::pair<int, int>(4, 400));
+	  mymap.insert(std::pair<int, int>(4, 400));
 	 mymap.insert(std::pair<int, int>(6, 100));
 	 mymap.insert(std::pair<int, int>(3, 400));
 	 mymap.insert(std::pair<int, int>(2, 400));
@@ -60,12 +57,6 @@ void constructor_test()
 	it++;
 	std::cout << "end is: " << ite->first << ", "<< ite->second << std::endl;
 	std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
-	ite--;
-	std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
-	ite--;
-	std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
-	ite--;
-	std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;		
 //	std::cout << "list size is: " << lst.size() << std::endl
 //			  << std::endl;
 

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:06:11 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 19:34:48 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 19:33:53 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ namespace ft
             Node *new_node = construct_node(val);
 
             // setting up previous and next of new node
-            new_node->next = position.get_node();
+            new_node->next = position._node;
             new_node->prev = position.get_node()->prev;
 
             // // Update next and previous pointers of the prev node

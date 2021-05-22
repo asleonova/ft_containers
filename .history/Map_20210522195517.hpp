@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 19:55:39 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 19:55:17 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,11 @@ namespace ft
                 return make_pair(iter, true);
             }
         }
+// add functionality when it returns false!!!
+
+int curkey = start_node->value.first;
+					if (curkey == to_insert.first)
+						return (ft::make_pair(iterator(start_node, _last_node), false));
 
 // then add balancing function ! 
 

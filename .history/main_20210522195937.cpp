@@ -39,8 +39,6 @@ void constructor_test()
 	itse = std_map.end();
 	itse--;
 	std::cout << "end-- is: " << itse->first << ", "<< itse->second << std::endl;
-	itse--;
-	std::cout << "end-- is: " << itse->first << ", "<< itse->second << std::endl;
 
   // first insert function version (single parameter)
 	
