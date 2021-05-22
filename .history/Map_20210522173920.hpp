@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 17:41:41 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 17:39:20 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,14 +181,12 @@ namespace ft
                     _last_node->parent = new_node;
                     new_node->parent = root;
                     iter = _last_node;
-                }
+              l j
                 return make_pair(iter, true);
             }
         }
-// add functionality when it returns false!!!
 
-// then add balancing function ! 
-
+        // теперь нужно добавить вариант, когда возвращает false при добавлении того же ключа! 
 
         iterator insert(iterator position, const value_type &val);
 

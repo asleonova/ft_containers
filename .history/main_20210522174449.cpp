@@ -55,7 +55,6 @@ void constructor_test()
 	ite = mymap.end();
 	it++;
 	std::cout << "end is: " << ite->first << ", "<< ite->second << std::endl;
-	std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
 //	std::cout << "list size is: " << lst.size() << std::endl
 //			  << std::endl;
 

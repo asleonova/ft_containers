@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 17:41:41 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 17:40:27 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,9 +159,9 @@ namespace ft
             else
             {
                 TreeNode *new_node = construct_tree_node(val);
-                TreeNode *root = _node;
+                TreeNode *root = this->_node;
 
-                if (val.first <= _node->val.first)
+                if (val.first <= this->_node->val.first)
                 {
                     while (root->left)
                         root = root->left;
@@ -185,10 +185,6 @@ namespace ft
                 return make_pair(iter, true);
             }
         }
-// add functionality when it returns false!!!
-
-// then add balancing function ! 
-
 
         iterator insert(iterator position, const value_type &val);
 
