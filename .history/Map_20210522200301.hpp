@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 20:31:34 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 20:03:01 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,11 +160,20 @@ namespace ft
             {
                 TreeNode *new_node = construct_tree_node(val);
                 TreeNode *root = _node;
+                key_type key;
 
                 if (val.first <= _node->val.first)
                 {
                     while (root->left)
                     {
+                        std::cout << "key value is: " << key << std::endl;
+                        std::cout << "val value is: " << val.first << std::endl;
+                        key = root->val.first;
+                        if (key == val.first)
+                        {
+                            iter = root;
+                            return (make_pair(iter, false));
+                        }
                         root = root->left;
                     }
                     root->left = new_node;
@@ -177,11 +186,14 @@ namespace ft
                 {
                     while (root->right != _last_node)
                     {
+                        key = root->val.first;
+                        if (key == val.first)
+                        {
+                            iter = root;
+                            return (make_pair(iter, false));
+                        }
                         root = root->right;
                     }
-                    // Here I have lost pointers!!!
-                    if (root->val.first == val.first)
-                        return (make_pair(iterator(root), false)); 
                     root->right = new_node;
                     new_node->left = NULL;
                     new_node->right = _last_node;
@@ -193,7 +205,8 @@ namespace ft
             }
         }
 
-        // then add balancing function !
+// then add balancing function ! 
+
 
         iterator insert(iterator position, const value_type &val);
 

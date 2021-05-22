@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 20:31:34 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 20:30:28 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,11 @@ namespace ft
             {
                 TreeNode *new_node = construct_tree_node(val);
                 TreeNode *root = _node;
+                TreeNode *root1 = _node;
+                key_type key;
+
+                if (key_is_not_unique(&_root1, val) == false)
+                    return (make_pair(iterator(root1), false));
 
                 if (val.first <= _node->val.first)
                 {
@@ -179,9 +184,8 @@ namespace ft
                     {
                         root = root->right;
                     }
-                    // Here I have lost pointers!!!
                     if (root->val.first == val.first)
-                        return (make_pair(iterator(root), false)); 
+                        return (make_pair(iterator(root), false));
                     root->right = new_node;
                     new_node->left = NULL;
                     new_node->right = _last_node;

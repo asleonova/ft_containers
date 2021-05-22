@@ -49,8 +49,7 @@ void constructor_test()
 	 mymap.insert(std::pair<int, int>(6, 100));
 	 mymap.insert(std::pair<int, int>(3, 400));
 	 mymap.insert(std::pair<int, int>(2, 400));
-	 mymap.insert(std::pair<int, int>(6, 100));
-
+	 mymap.insert(std::pair<int, int>(2, 400));
 
 	 it = mymap.begin();
 	std::cout << "begin of my map is: " << it->first << ", "<< it->second << std::endl;

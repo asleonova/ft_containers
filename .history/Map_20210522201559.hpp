@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 20:31:34 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 20:15:59 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,11 +160,18 @@ namespace ft
             {
                 TreeNode *new_node = construct_tree_node(val);
                 TreeNode *root = _node;
+                key_type key;
 
                 if (val.first <= _node->val.first)
                 {
                     while (root->left)
                     {
+                        key = root->val.first;
+                        if (key == val.first)
+                        {
+                            iter = root;
+                            return (make_pair(iter, false));
+                        }
                         root = root->left;
                     }
                     root->left = new_node;
@@ -177,11 +184,14 @@ namespace ft
                 {
                     while (root->right != _last_node)
                     {
+                        key = root->val.first;
+                        if (key == val.first)
+                        {
+                            iter = root;
+                            return (make_pair(iter, false));
+                        }
                         root = root->right;
                     }
-                    // Here I have lost pointers!!!
-                    if (root->val.first == val.first)
-                        return (make_pair(iterator(root), false)); 
                     root->right = new_node;
                     new_node->left = NULL;
                     new_node->right = _last_node;
@@ -190,6 +200,29 @@ namespace ft
                     iter = _last_node;
                 }
                 return make_pair(iter, true);
+            }
+        }
+
+        void key_is_not_unique()
+        {
+            bool left = true;
+
+            while (start_node != _last_node)
+            {
+                int curkey = start_node->value.first;
+                if (curkey == to_insert.first)
+                    return (ft::make_pair(iterator(start_node, _last_node), false));
+                prev_node = start_node;
+                if (to_insert.first > curkey)
+                {
+                    side = true;
+                    start_node = start_node->right;
+                }
+                else
+                {
+                    side = false;
+                    start_node = start_node->left;
+                }
             }
         }
 

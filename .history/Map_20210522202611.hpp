@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 20:31:34 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 20:26:11 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,11 +160,22 @@ namespace ft
             {
                 TreeNode *new_node = construct_tree_node(val);
                 TreeNode *root = _node;
+                TreeNode *root1 = _node;
+                key_type key;
+
+                if (key_is_not_unique(&_root1, val) == false)
+                    return (make_pair(iterator(root1), false));
 
                 if (val.first <= _node->val.first)
                 {
                     while (root->left)
                     {
+                        // key = root->val.first;
+                        // if (key == val.first)
+                        // {
+                        //     iter = root;
+                        //     return (make_pair(iter, false));
+                        // }
                         root = root->left;
                     }
                     root->left = new_node;
@@ -177,11 +188,14 @@ namespace ft
                 {
                     while (root->right != _last_node)
                     {
+                        // key = root->val.first;
+                        // if (key == val.first)
+                        // {
+                        //     iter = root;
+                        //     return (make_pair(iter, false));
+                        // }
                         root = root->right;
                     }
-                    // Here I have lost pointers!!!
-                    if (root->val.first == val.first)
-                        return (make_pair(iterator(root), false)); 
                     root->right = new_node;
                     new_node->left = NULL;
                     new_node->right = _last_node;
@@ -191,6 +205,32 @@ namespace ft
                 }
                 return make_pair(iter, true);
             }
+        }
+
+        bool key_is_not_unique(TreeNode **root, const value_type &val)
+        {
+            bool left = false; // left side is false, right side is true
+
+           // TreeNode *pr = _last_node;
+            while (root != _last_node)
+            {
+                int key = root->val.first;
+                if (key == val.first)
+                    return false;
+               // pr = root;
+                if (val.first > key)
+                {
+                    left = true;
+                    root = root->right;
+                }
+                else
+                {
+                    left = false;
+                    root = root->left;
+                }
+                
+            }
+            return true;
         }
 
         // then add balancing function !
