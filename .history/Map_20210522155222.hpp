@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 16:58:59 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 15:52:22 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,29 +159,32 @@ namespace ft
             else
             {
                 TreeNode *save = this->_node;
+                TreeNode *save1 = this->_node;
                 if (val <= this->_node->val)
                 {
-                    while (save->left)
-                        save = save->left;
+                 //   while (save->left)
+                    //    save = save->left;
                     this->_allocator_type.construct(&save->val, val);
                     this->_node->left = save;
                     save->left = NULL;
                     save->right = NULL;
                     save->parent = this->_node;
-                    iter = save;
+                            
+                    
+
                 }
                 else
                 {
-                    while (save->right != this->_last_node)
-                        save = save->right;
-                    this->_allocator_type.construct(&save->val, val);
-                    this->_node->right = save;
-                    save->left = NULL;
-                    save->right = this->_last_node;
-                    save->parent = this->_node;
+                  //  while (save1->right)
+                      //  save1 = save1->right;
+                    this->_allocator_type.construct(&save1->val, val);
+                    this->_node->right = save1;
+                    save1->left = NULL;
+                    save1->right = this->_last_node;
                     this->_last_node->parent = save;
-                    iter = this->_last_node;
+                    save1->parent = this->_node; 
                 }
+                iter = save;
                 return make_pair(iter, true);
             }
 

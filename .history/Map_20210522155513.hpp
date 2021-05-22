@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 16:58:59 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 15:55:13 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,11 +168,13 @@ namespace ft
                     save->left = NULL;
                     save->right = NULL;
                     save->parent = this->_node;
-                    iter = save;
+                            
+                    
+
                 }
                 else
                 {
-                    while (save->right != this->_last_node)
+                    while (save->right)
                         save = save->right;
                     this->_allocator_type.construct(&save->val, val);
                     this->_node->right = save;
@@ -180,8 +182,9 @@ namespace ft
                     save->right = this->_last_node;
                     save->parent = this->_node;
                     this->_last_node->parent = save;
-                    iter = this->_last_node;
+
                 }
+                iter = save;
                 return make_pair(iter, true);
             }
 

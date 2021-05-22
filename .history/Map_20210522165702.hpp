@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 16:58:59 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 16:57:02 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,14 +172,13 @@ namespace ft
                 }
                 else
                 {
-                    while (save->right != this->_last_node)
-                        save = save->right;
-                    this->_allocator_type.construct(&save->val, val);
-                    this->_node->right = save;
-                    save->left = NULL;
-                    save->right = this->_last_node;
-                    save->parent = this->_node;
-                    this->_last_node->parent = save;
+                    TreeNode *save1 = insert_right(save,);
+                    // this->_allocator_type.construct(&save->val, val);
+                    // this->_node->right = save;
+                    // save->left = NULL;
+                    // save->right = this->_last_node;
+                    // save->parent = this->_node;
+                    // this->_last_node->parent = save;
                     iter = this->_last_node;
                 }
                 return make_pair(iter, true);

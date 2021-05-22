@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 16:58:59 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 16:09:27 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,19 +169,31 @@ namespace ft
                     save->right = NULL;
                     save->parent = this->_node;
                     iter = save;
+                            
+                    
+
                 }
                 else
                 {
-                    while (save->right != this->_last_node)
+                    std::cout << "this->-last_node1: " << this->_last_node->val.first << std::endl;
+                    while (save->right)
                         save = save->right;
+                        
                     this->_allocator_type.construct(&save->val, val);
+                    std::cout << "this->-last_node2: " << this->_last_node->val.first << std::endl;
                     this->_node->right = save;
+                    std::cout << "this->-last_node3: " << this->_last_node->val.first << std::endl;
                     save->left = NULL;
                     save->right = this->_last_node;
+                    std::cout << "this->-last_node4: " << this->_last_node->val.first << std::endl;
                     save->parent = this->_node;
+                    std::cout << "this->-last_node5: " << this->_last_node->val.first << std::endl;
                     this->_last_node->parent = save;
+                    std::cout << "this->-last_node: " << this->_last_node->val.first << std::endl;
                     iter = this->_last_node;
+
                 }
+               
                 return make_pair(iter, true);
             }
 

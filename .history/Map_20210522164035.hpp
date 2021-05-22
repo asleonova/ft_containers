@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 16:58:59 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 16:40:35 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,19 +172,29 @@ namespace ft
                 }
                 else
                 {
-                    while (save->right != this->_last_node)
-                        save = save->right;
-                    this->_allocator_type.construct(&save->val, val);
-                    this->_node->right = save;
-                    save->left = NULL;
-                    save->right = this->_last_node;
-                    save->parent = this->_node;
-                    this->_last_node->parent = save;
-                    iter = this->_last_node;
+                    // this->_allocator_type.construct(&save->val, val);
+                    // this->_node->right = save;
+                    // save->left = NULL;
+                    // save->right = this->_last_node;
+                    // save->parent = this->_node;
+                    // this->_last_node->parent = save;
+                    // iter = this->_last_node;
                 }
                 return make_pair(iter, true);
             }
 
+        }
+
+        TreeNode *insert_right(TreeNode *node)
+        {
+            TreeNode *begin = node;
+            while (node->right)
+                node = node->right;
+            this->_allocator_type.construct(&node->val, val);
+            node->left = NULL;
+            node->right = this->_last_node;
+            node->parent = begin;
+            this->_last_node->parent = node;
         }
 
         iterator insert(iterator position, const value_type &val);

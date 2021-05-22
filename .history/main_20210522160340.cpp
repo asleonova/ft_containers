@@ -18,9 +18,9 @@ void constructor_test()
 	std::cout << blue << "***************[ Default constructor test ]***************" << cend << std::endl;
 
 	std::cout << green << "Testing empty map int: " << cend << std::endl;
-	ft::map<int, int> mymap;
-	ft::map<int, int>::iterator it;
-	ft::map<int, int>::iterator ite;
+	ft::map<char, int> mymap;
+	ft::map<char, int>::iterator it;
+	ft::map<char, int>::iterator ite;
 	std::map<int,int> std_map;
 
 	std_map[2] = 200;
@@ -42,10 +42,8 @@ void constructor_test()
   // first insert function version (single parameter)
 	
  	 mymap.insert ( std::pair<int,int>(2, 200) );
-	  mymap.insert(std::pair<int, int>(4, 400));
+	  mymap.insert(std::pair<int, int>(3, 300));
 	 mymap.insert(std::pair<int, int>(1, 100));
-	 mymap.insert(std::pair<int, int>(5, 400));
-	 mymap.insert(std::pair<int, int>(6, 400));
 
 	 it = mymap.begin();
 	std::cout << "begin of my map is: " << it->first << ", "<< it->second << std::endl;

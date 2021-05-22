@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 16:58:59 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 16:48:23 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,19 +172,52 @@ namespace ft
                 }
                 else
                 {
-                    while (save->right != this->_last_node)
-                        save = save->right;
-                    this->_allocator_type.construct(&save->val, val);
-                    this->_node->right = save;
-                    save->left = NULL;
-                    save->right = this->_last_node;
-                    save->parent = this->_node;
-                    this->_last_node->parent = save;
+                    TreeNode *save1 = insert_right(save, val);
+                    // this->_allocator_type.construct(&save->val, val);
+                    // this->_node->right = save;
+                    // save->left = NULL;
+                    // save->right = this->_last_node;
+                    // save->parent = this->_node;
+                    // this->_last_node->parent = save;
                     iter = this->_last_node;
                 }
                 return make_pair(iter, true);
             }
+        }
 
+        TreeNode *insert_element(TreeNode *root, const value_type &value)
+        {
+            if (!root)
+            {
+                // Insert the first node, if root is NULL.
+                root = allocate_tree_node();
+                this->_allocator_type.construct(&_node->val, val);
+                this->_last_node->parent = this->_node;
+                root->right = this->_last_node;
+                iter = root;
+                return make_pair(iter, true);
+            }
+
+            // Insert data.
+            if (val > root->val)
+            {
+                // Insert right node data, if the 'value'
+                // to be inserted is greater than 'root' node data.
+
+                // Process right nodes.
+                root->right = insert_element(root->right, value);
+            }
+            else
+            {
+                // Insert left node data, if the 'value'
+                // to be inserted is greater than 'root' node data.
+
+                // Process left nodes.
+                root->left = Insert(root->left, value);
+            }
+
+            // Return 'root' node, after insertion.
+            return root;
         }
 
         iterator insert(iterator position, const value_type &val);

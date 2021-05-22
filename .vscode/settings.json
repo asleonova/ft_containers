@@ -66,6 +66,7 @@
         "__cxx_version": "cpp",
         "list": "cpp",
         "__tree": "cpp",
-        "map": "cpp"
+        "map": "cpp",
+        "__functional_03": "cpp"
     }
 }

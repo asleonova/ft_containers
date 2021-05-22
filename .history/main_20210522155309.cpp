@@ -18,38 +18,35 @@ void constructor_test()
 	std::cout << blue << "***************[ Default constructor test ]***************" << cend << std::endl;
 
 	std::cout << green << "Testing empty map int: " << cend << std::endl;
-	ft::map<int, int> mymap;
-	ft::map<int, int>::iterator it;
-	ft::map<int, int>::iterator ite;
+	ft::map<char, int> mymap;
+	ft::map<char, int>::iterator it;
+	ft::map<char, int>::iterator ite;
 	std::map<int,int> std_map;
-
-	std_map[2] = 200;
-  	std_map[3] = 300;
+	
 	std_map[1] = 100;
-
-	// std_map[4] = 400;
-	// std_map[5] = 500;
-	// std_map[10] = 600;
+  	std_map[2] = 200;
+  	std_map[3] = 300;
+	std_map[4] = 400;
+	std_map[5] = 500;
+	std_map[10] = 600;
 
 	std::map<int, int>::iterator its;
 	std::map<int, int>::iterator itse;
 	its = std_map.begin();
 	std::cout << "begin is: " << its->first << ", "<< its->second << std::endl;
 	itse = std_map.end();
-	//itse--;
+	itse--;
 	std::cout << "end is: " << itse->first << ", "<< itse->second << std::endl;
 
   // first insert function version (single parameter)
 	
- 	 mymap.insert ( std::pair<int,int>(2, 200) );
-	  mymap.insert(std::pair<int, int>(4, 400));
-	 mymap.insert(std::pair<int, int>(1, 100));
-	 mymap.insert(std::pair<int, int>(5, 400));
-	 mymap.insert(std::pair<int, int>(6, 400));
+ 	 mymap.insert ( std::pair<char,int>('2',100) );
+	 // mymap.insert(std::pair<char, int>('1', 300));
+	 mymap.insert(std::pair<char, int>('1', 200));
 
-	 it = mymap.begin();
-	std::cout << "begin of my map is: " << it->first << ", "<< it->second << std::endl;
-	ite = mymap.end();
+	 //it = mymap.begin();
+	//std::cout << "begin of my map is: " << it->first << ", "<< it->second << std::endl;
+	//ite = mymap.end();
 	// //ite--;
 	std::cout << "end is: " << ite->first << ", "<< ite->second << std::endl;
 //	std::cout << "list size is: " << lst.size() << std::endl
