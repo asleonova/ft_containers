@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 20:43:14 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 20:40:25 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ namespace ft
             }
             else
             {
-                TreeNode *new_node;
+                TreeNode *new_node = construct_tree_node(val);
                 TreeNode *root = _node;
 
                 if (val.first <= _node->val.first)
@@ -167,7 +167,6 @@ namespace ft
                     {
                         root = root->left;
                     }
-                    new_node = construct_tree_node(val);
                     root->left = new_node;
                     new_node->right = NULL;
                     new_node->left = NULL;
@@ -180,9 +179,10 @@ namespace ft
                     {
                         root = root->right;
                     }
+                    // Here I have lost pointers!!!
+                    std::cout << "root->val.first is: " << root->val.first << std::endl; 
                     if (root->val.first == val.first)
                         return (make_pair(iterator(root), false));
-                    new_node = construct_tree_node(val);
                     root->right = new_node;
                     new_node->left = NULL;
                     new_node->right = _last_node;
@@ -190,7 +190,6 @@ namespace ft
                     new_node->parent = root;
                     iter = _last_node;
                 }
-                
                 return make_pair(iter, true);
             }
         }
