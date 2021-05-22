@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 17:35:44 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 17:31:40 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,13 +158,35 @@ namespace ft
             }
             else
             {
+                // TreeNode *save = this->_node;
+                // if (val <= this->_node->val)
+                // {
+                //     while (save->left)
+                //         save = save->left;
+                //     this->_allocator_type.construct(&save->val, val);
+                //     this->_node->left = save;
+                //     save->left = NULL;
+                //     save->right = NULL;
+                //     save->parent = this->_node;
+                //     iter = save;
+                // }
+                // else
+                // {
+                //     while (save->right != this->_last_node)
+                //         save = save->right;
+                //     this->_allocator_type.construct(&save->val, val);
+                //     this->_node->right = save;
+                //     save->left = NULL;
+                //     save->right = this->_last_node;
+                //     save->parent = this->_node;
+                //     this->_last_node->parent = save;
+                //     iter = this->_last_node;
+                // }
                 TreeNode *new_node = construct_tree_node(val);
                 TreeNode *root = this->_node;
 
                 if (val.first <= this->_node->val.first)
                 {
-                    while (root->left)
-                        root = root->left;
                     root->left = new_node;
                     new_node->right = NULL;
                     new_node->left = NULL;
@@ -173,8 +195,6 @@ namespace ft
                 }
                 else
                 {
-                    while (root->right != _last_node)
-                        root = root->right;
                     root->right = new_node;
                     new_node->left = NULL;
                     new_node->right = _last_node;

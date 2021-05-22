@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/22 17:35:44 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/22 17:33:15 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,6 @@ namespace ft
                 }
                 else
                 {
-                    while (root->right != _last_node)
-                        root = root->right;
                     root->right = new_node;
                     new_node->left = NULL;
                     new_node->right = _last_node;
