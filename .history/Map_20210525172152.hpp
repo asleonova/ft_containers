@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/25 17:52:42 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/25 17:21:52 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@
 
 namespace ft
 {
-    template <class Key, class T,
-              class Compare = less<Key>,
-              class Alloc = std::allocator<std::pair<const Key, T> > >
+    template <class key, class T,
+              class Compare = less<val>,
+              class Alloc = std::allocator<std::pair<const key, T> > >
     class map
     {
 
     private:
         struct TreeNode
         {
-            std::pair<const Key, T> val;
+            std::pair<const val, T> val;
             TreeNode *left;
             TreeNode *right;
             TreeNode *parent;
@@ -37,10 +37,10 @@ namespace ft
         };
 
     public:
-        typedef Key key_type;
+        typedef val val_type;
         typedef T mapped_type;
-        typedef std::pair<const key_type, mapped_type> value_type;
-        typedef less<key_type> key_compare;
+        typedef std::pair<const val_type, mapped_type> value_type;
+        typedef less<val_type> val_compare;
         typedef Alloc allocator_type;
         typedef typename Alloc::reference reference;
         typedef typename Alloc::const_reference const_reference;
@@ -57,7 +57,7 @@ namespace ft
         /*================================ 4 CONSTRUCTORS: ================================*/
 
         /* EMPTY */
-        explicit map(const key_compare &comp = key_compare(),
+        explicit map(const val_compare &comp = val_compare(),
                      const allocator_type &alloc = allocator_type()) : _node(NULL), _comp(comp), _allocator_type(alloc)
         {
             this->_last_node = allocate_tree_node();
@@ -67,7 +67,7 @@ namespace ft
 
         template <class InputIterator>
         map(InputIterator first, InputIterator last,
-            const key_compare &comp = key_compare(),
+            const val_compare &comp = val_compare(),
             const allocator_type &alloc = allocator_type());
 
         /*COPY*/
@@ -130,7 +130,7 @@ namespace ft
 
         /*================================ ELEMENT ACCESS: ================================*/
 
-        mapped_type &operator[](const key_type &k)
+        mapped_type &operator[](const val_type &k)
         {
             //return (*((this->insert(make_pair(k,mapped_type()))).first)).second);
         }
@@ -141,24 +141,14 @@ namespace ft
 
         /* The single element versions (1) return a pair,
         with its member pair::first set to an iterator pointing to either the newly inserted element
-        or to the element with an equivalent key in the map. The pair::second element in the pair 
+        or to the element with an equivalent val in the map. The pair::second element in the pair 
         is set to true if a new element was inserted or false if an equivalent key already existed. */
 
-        TreeNode *insert(const value_type &val)
+        std::pair<iterator, bool> insert(const value_type &val)
         {
-            if (!this->_node) // Insert the first node, if root is NULL.
-            {
-                this->_node = allocate_tree_node();
-                this->_allocator_type.construct(&_node->val, val);
-                this->_last_node->parent = this->_node;
-                this->_node->right = this->_last_node;
-                return _node;
-            }
-            else
-            {
-                 insert_node(_node, val);
-            }
-            return _node;
+            this->_node = insert_node(_node, val);
+            return make_pair(iterator(_node), true);
+
         }
 
         // std::pair<iterator, bool> insert(const value_type &val)
@@ -321,14 +311,14 @@ namespace ft
         /* Helper function that allocates a
    new node with the given key and
    NULL left and right pointers. */
-        TreeNode *newNode(const value_type &val)
+        TreeNode *newNode(const value_type key)
         {
             TreeNode *node;
-            node = allocate_tree_node();
-            _allocator_type.construct(&node->val, val);
-            node->right = NULL;
-            node->left = NULL;
-            node->height = 1; // new node is initially
+           node = allocate_tree_node();
+           _allocator_type.construct(&node->val, val);
+           node->right = NULL;
+           node->left = NULL;
+           node->height = 1; // new node is initially
                               // added at leaf
             return (node);
         }
@@ -392,17 +382,17 @@ namespace ft
         // Recursive function to insert a key
         // in the subtree rooted with node and
         // returns the new root of the subtree.
-        TreeNode *insert_node(TreeNode *node, const value_type &val)
+        TreeNode *insert_node(TreeNode *node, const value_type &key)
         {
             /* 1. Perform the normal BST insertion */
             if (node == NULL)
-                return (newNode(val));
+                return (newNode(key));
 
-            if (val.first < node->val.first)
-                node->left = insert_node(node->left, val);
-            else if (val.first > node->val.first)
-                node->right = insert_node(node->right, val);
-            else // Equal keys are not allowed in BST
+            if (val < node->val)
+                node->left = insert(node->left, val);
+            else if (val > node->val)
+                node->right = insert(node->right, val);
+            else // Equal vals are not allowed in BST
                 return node;
 
             /* 2. Update height of this ancestor node */
@@ -418,22 +408,22 @@ namespace ft
             // there are 4 cases
 
             // Left Left Case
-            if (balance > 1 && val.first < node->left->val.first)
+            if (balance > 1 && val < node->left->val)
                 return rightRotate(node);
 
             // Right Right Case
-            if (balance < -1 && val.first > node->right->val.first)
+            if (balance < -1 && val > node->right->val)
                 return leftRotate(node);
 
             // Left Right Case
-            if (balance > 1 && val.first > node->left->val.first)
+            if (balance > 1 && val > node->left->val)
             {
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
 
             // Right Left Case
-            if (balance < -1 && val.first < node->right->val.first)
+            if (balance < -1 && val < node->right->val)
             {
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
@@ -441,16 +431,6 @@ namespace ft
 
             /* return the (unchanged) node pointer */
             return node;
-        }
-
-        TreeNode *min_node(TreeNode *node)
-        {
-            if (node)
-            {
-                while (node->left)
-                    node = node->left;
-            }
-            return (node);
         }
 
     private:

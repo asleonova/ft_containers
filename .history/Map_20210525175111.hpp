@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/25 17:52:42 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/25 17:51:11 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -399,9 +399,9 @@ namespace ft
                 return (newNode(val));
 
             if (val.first < node->val.first)
-                node->left = insert_node(node->left, val);
+                node->left = insert(node->left, val);
             else if (val.first > node->val.first)
-                node->right = insert_node(node->right, val);
+                node->right = insert(node->right, val);
             else // Equal keys are not allowed in BST
                 return node;
 

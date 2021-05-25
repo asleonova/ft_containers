@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/25 17:52:42 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/25 17:28:38 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,21 +144,10 @@ namespace ft
         or to the element with an equivalent key in the map. The pair::second element in the pair 
         is set to true if a new element was inserted or false if an equivalent key already existed. */
 
-        TreeNode *insert(const value_type &val)
+        std::pair<iterator, bool> insert(const value_type &val)
         {
-            if (!this->_node) // Insert the first node, if root is NULL.
-            {
-                this->_node = allocate_tree_node();
-                this->_allocator_type.construct(&_node->val, val);
-                this->_last_node->parent = this->_node;
-                this->_node->right = this->_last_node;
-                return _node;
-            }
-            else
-            {
-                 insert_node(_node, val);
-            }
-            return _node;
+            &this->_node = insert_node(_node, val);
+            return make_pair(iterator(_node), true);
         }
 
         // std::pair<iterator, bool> insert(const value_type &val)
@@ -398,10 +387,10 @@ namespace ft
             if (node == NULL)
                 return (newNode(val));
 
-            if (val.first < node->val.first)
-                node->left = insert_node(node->left, val);
-            else if (val.first > node->val.first)
-                node->right = insert_node(node->right, val);
+            if (val < node->val)
+                node->left = insert(node->left, val);
+            else if (val > node->val)
+                node->right = insert(node->right, val);
             else // Equal keys are not allowed in BST
                 return node;
 
@@ -418,22 +407,22 @@ namespace ft
             // there are 4 cases
 
             // Left Left Case
-            if (balance > 1 && val.first < node->left->val.first)
+            if (balance > 1 && val < node->left->val)
                 return rightRotate(node);
 
             // Right Right Case
-            if (balance < -1 && val.first > node->right->val.first)
+            if (balance < -1 && val > node->right->val)
                 return leftRotate(node);
 
             // Left Right Case
-            if (balance > 1 && val.first > node->left->val.first)
+            if (balance > 1 && val > node->left->val)
             {
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
 
             // Right Left Case
-            if (balance < -1 && val.first < node->right->val.first)
+            if (balance < -1 && val < node->right->val)
             {
                 node->right = rightRotate(node->right);
                 return leftRotate(node);

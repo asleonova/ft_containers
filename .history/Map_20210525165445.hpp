@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/25 17:52:42 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/25 16:54:45 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,72 +144,55 @@ namespace ft
         or to the element with an equivalent key in the map. The pair::second element in the pair 
         is set to true if a new element was inserted or false if an equivalent key already existed. */
 
-        TreeNode *insert(const value_type &val)
+        std::pair<iterator, bool> insert(const value_type &val)
         {
+            iterator iter;
             if (!this->_node) // Insert the first node, if root is NULL.
             {
                 this->_node = allocate_tree_node();
                 this->_allocator_type.construct(&_node->val, val);
                 this->_last_node->parent = this->_node;
                 this->_node->right = this->_last_node;
-                return _node;
+                iter = this->_node;
+                return make_pair(iter, true);
             }
             else
             {
-                 insert_node(_node, val);
+                TreeNode *new_node;
+                TreeNode *root = _node;
+
+                if (val.first <= _node->val.first)
+                {
+                    while (root->left)
+                    {
+                        root = root->left;
+                    }
+                    new_node = construct_tree_node(val);
+                    root->left = new_node;
+                    new_node->right = NULL;
+                    new_node->left = NULL;
+                    new_node->parent = root;
+                    iter = new_node;
+                }
+                else
+                {
+                    while (root->right != _last_node)
+                    {
+                        root = root->right;
+                    }
+                    if (root->val.first == val.first)
+                        return (make_pair(iterator(root), false));
+                    new_node = construct_tree_node(val);
+                    root->right = new_node;
+                    new_node->left = NULL;
+                    new_node->right = _last_node;
+                    _last_node->parent = new_node;
+                    new_node->parent = root;
+                    iter = _last_node;
+                }
+                return make_pair(iter, true);
             }
-            return _node;
         }
-
-        // std::pair<iterator, bool> insert(const value_type &val)
-        // {
-        //     iterator iter;
-        //     if (!this->_node) // Insert the first node, if root is NULL.
-        //     {
-        //         this->_node = allocate_tree_node();
-        //         this->_allocator_type.construct(&_node->val, val);
-        //         this->_last_node->parent = this->_node;
-        //         this->_node->right = this->_last_node;
-        //         iter = this->_node;
-        //         return make_pair(iter, true);
-        //     }
-        //     else
-        //     {
-        //         TreeNode *new_node;
-        //         TreeNode *root = _node;
-
-        //         if (val.first <= _node->val.first)
-        //         {
-        //             while (root->left)
-        //             {
-        //                 root = root->left;
-        //             }
-        //             new_node = construct_tree_node(val);
-        //             root->left = new_node;
-        //             new_node->right = NULL;
-        //             new_node->left = NULL;
-        //             new_node->parent = root;
-        //             iter = new_node;
-        //         }
-        //         else
-        //         {
-        //             while (root->right != _last_node)
-        //             {
-        //                 root = root->right;
-        //             }
-        //             if (root->val.first == val.first)
-        //                 return (make_pair(iterator(root), false));
-        //             new_node = construct_tree_node(val);
-        //             root->right = new_node;
-        //             new_node->left = NULL;
-        //             new_node->right = _last_node;
-        //             _last_node->parent = new_node;
-        //             new_node->parent = root;
-        //             iter = _last_node;
-        //         }
-        //         return make_pair(iter, true);
-        //     }
-        // }
 
         // then add balancing function !
 
@@ -321,14 +304,13 @@ namespace ft
         /* Helper function that allocates a
    new node with the given key and
    NULL left and right pointers. */
-        TreeNode *newNode(const value_type &val)
+        TreeNode *newNode(const value_type key)
         {
-            TreeNode *node;
-            node = allocate_tree_node();
-            _allocator_type.construct(&node->val, val);
-            node->right = NULL;
-            node->left = NULL;
-            node->height = 1; // new node is initially
+           node = allocate_tree_node();
+           _allocator_type.construct(&node->val, val);
+           node->right = NULL;
+           node->left = NULL;
+           node->height = 1; // new node is initially
                               // added at leaf
             return (node);
         }
@@ -392,16 +374,16 @@ namespace ft
         // Recursive function to insert a key
         // in the subtree rooted with node and
         // returns the new root of the subtree.
-        TreeNode *insert_node(TreeNode *node, const value_type &val)
+        TreeNode *insert_node(TreeNode *node, const value_type &key)
         {
             /* 1. Perform the normal BST insertion */
             if (node == NULL)
-                return (newNode(val));
+                return (newNode(key));
 
-            if (val.first < node->val.first)
-                node->left = insert_node(node->left, val);
-            else if (val.first > node->val.first)
-                node->right = insert_node(node->right, val);
+            if (key < node->val)
+                node->left = insert(node->left, key);
+            else if (key > node->key)
+                node->right = insert(node->right, key);
             else // Equal keys are not allowed in BST
                 return node;
 
@@ -418,22 +400,22 @@ namespace ft
             // there are 4 cases
 
             // Left Left Case
-            if (balance > 1 && val.first < node->left->val.first)
+            if (balance > 1 && key < node->left->key)
                 return rightRotate(node);
 
             // Right Right Case
-            if (balance < -1 && val.first > node->right->val.first)
+            if (balance < -1 && key > node->right->key)
                 return leftRotate(node);
 
             // Left Right Case
-            if (balance > 1 && val.first > node->left->val.first)
+            if (balance > 1 && key > node->left->key)
             {
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
 
             // Right Left Case
-            if (balance < -1 && val.first < node->right->val.first)
+            if (balance < -1 && key < node->right->key)
             {
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
@@ -443,14 +425,16 @@ namespace ft
             return node;
         }
 
-        TreeNode *min_node(TreeNode *node)
+        void check_insert_func()
         {
-            if (node)
-            {
-                while (node->left)
-                    node = node->left;
-            }
-            return (node);
+            TreeNode *root = NULL;
+
+            /* Constructing tree given in
+    the above figure */
+            root = insert(root, 10);
+            root = insert(root, 20);
+            root = insert(root, 30);
+            root = insert(root, 40);
         }
 
     private:

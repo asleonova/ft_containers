@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/25 17:52:42 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/25 16:09:44 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ namespace ft
             TreeNode *left;
             TreeNode *right;
             TreeNode *parent;
-            int height;
         };
 
     public:
@@ -144,72 +143,55 @@ namespace ft
         or to the element with an equivalent key in the map. The pair::second element in the pair 
         is set to true if a new element was inserted or false if an equivalent key already existed. */
 
-        TreeNode *insert(const value_type &val)
+        std::pair<iterator, bool> insert(const value_type &val)
         {
+            iterator iter;
             if (!this->_node) // Insert the first node, if root is NULL.
             {
                 this->_node = allocate_tree_node();
                 this->_allocator_type.construct(&_node->val, val);
                 this->_last_node->parent = this->_node;
                 this->_node->right = this->_last_node;
-                return _node;
+                iter = this->_node;
+                return make_pair(iter, true);
             }
             else
             {
-                 insert_node(_node, val);
+                TreeNode *new_node;
+                TreeNode *root = _node;
+
+                if (val.first <= _node->val.first)
+                {
+                    while (root->left)
+                    {
+                        root = root->left;
+                    }
+                    new_node = construct_tree_node(val);
+                    root->left = new_node;
+                    new_node->right = NULL;
+                    new_node->left = NULL;
+                    new_node->parent = root;
+                    iter = new_node;
+                }
+                else
+                {
+                    while (root->right != _last_node)
+                    {
+                        root = root->right;
+                    }
+                    if (root->val.first == val.first)
+                        return (make_pair(iterator(root), false));
+                    new_node = construct_tree_node(val);
+                    root->right = new_node;
+                    new_node->left = NULL;
+                    new_node->right = _last_node;
+                    _last_node->parent = new_node;
+                    new_node->parent = root;
+                    iter = _last_node;
+                }
+                return make_pair(iter, true);
             }
-            return _node;
         }
-
-        // std::pair<iterator, bool> insert(const value_type &val)
-        // {
-        //     iterator iter;
-        //     if (!this->_node) // Insert the first node, if root is NULL.
-        //     {
-        //         this->_node = allocate_tree_node();
-        //         this->_allocator_type.construct(&_node->val, val);
-        //         this->_last_node->parent = this->_node;
-        //         this->_node->right = this->_last_node;
-        //         iter = this->_node;
-        //         return make_pair(iter, true);
-        //     }
-        //     else
-        //     {
-        //         TreeNode *new_node;
-        //         TreeNode *root = _node;
-
-        //         if (val.first <= _node->val.first)
-        //         {
-        //             while (root->left)
-        //             {
-        //                 root = root->left;
-        //             }
-        //             new_node = construct_tree_node(val);
-        //             root->left = new_node;
-        //             new_node->right = NULL;
-        //             new_node->left = NULL;
-        //             new_node->parent = root;
-        //             iter = new_node;
-        //         }
-        //         else
-        //         {
-        //             while (root->right != _last_node)
-        //             {
-        //                 root = root->right;
-        //             }
-        //             if (root->val.first == val.first)
-        //                 return (make_pair(iterator(root), false));
-        //             new_node = construct_tree_node(val);
-        //             root->right = new_node;
-        //             new_node->left = NULL;
-        //             new_node->right = _last_node;
-        //             _last_node->parent = new_node;
-        //             new_node->parent = root;
-        //             iter = _last_node;
-        //         }
-        //         return make_pair(iter, true);
-        //     }
-        // }
 
         // then add balancing function !
 
@@ -282,7 +264,49 @@ namespace ft
             return (node);
         }
 
-        size_type _height(TreeNode *tmp, int i = 1)
+        // size_type height_left(TreeNode *p)
+        // {
+        //     size_type height = 0;
+        //     while (p->left)
+        //     {
+        //         p = p->left;
+        //         ++height;
+        //     }
+        //     return height;
+        // }
+
+        // size_type height_right(TreeNode *p)
+        // {
+        //     size_type height = 0;
+        //     while (p->right)
+        //     {
+        //         p = p->right;
+        //         ++height;
+        //     }
+        //     return height;
+        // }
+
+        //     size_type height(TreeNode *p)
+        //     {
+        //         if (p)
+        //             return p->height;
+        //         else
+        //             return 0;
+        //     }
+
+        //    size_type balanceFactor(TreeNode *p)
+        //    {
+        //         return height(p->right) - height_left(p->left);
+        //    }
+
+        //     void fixHeight(TreeNode *p)
+        //     {
+        //         size_type hl = height(p->left);
+        //         size_type hr = height(p->right);
+        //         p->height = (hl > hr ? hl : hr) + 1; // +1 for root
+        //     }
+
+        int _height(TreeNode *tmp, int i = 1)
         {
             int x;
             int y;
@@ -304,143 +328,25 @@ namespace ft
 
             return (i);
         }
-        // A utility function to get maximum
-        // of two integers
-        int max(int a, int b)
+
+        TreeNode *rotateright(TreeNode *p) // правый поворот вокруг p
         {
-            return (a > b) ? a : b;
+            TreeNode *q = p->left;
+            p->left = q->right;
+            q->right = p;
+            fixheight(p);
+            fixheight(q);
+            return q;
         }
 
-        int height(TreeNode *N)
+        TreeNode *rotateleft(TreeNode *q) // левый поворот вокруг q
         {
-            if (N == NULL)
-                return 0;
-            return N->height;
-        }
-
-        /* Helper function that allocates a
-   new node with the given key and
-   NULL left and right pointers. */
-        TreeNode *newNode(const value_type &val)
-        {
-            TreeNode *node;
-            node = allocate_tree_node();
-            _allocator_type.construct(&node->val, val);
-            node->right = NULL;
-            node->left = NULL;
-            node->height = 1; // new node is initially
-                              // added at leaf
-            return (node);
-        }
-
-        // A utility function to right
-        // rotate subtree rooted with y
-        // See the diagram given above.
-        TreeNode *rightRotate(TreeNode *y)
-        {
-            TreeNode *x = y->left;
-            TreeNode *T2 = x->right;
-
-            // Perform rotation
-            x->right = y;
-            y->left = T2;
-
-            // Update heights
-            y->height = max(height(y->left),
-                            height(y->right)) +
-                        1;
-            x->height = max(height(x->left),
-                            height(x->right)) +
-                        1;
-
-            // Return new root
-            return x;
-        }
-
-        // A utility function to left
-        // rotate subtree rooted with x
-        // See the diagram given above.
-        TreeNode *leftRotate(TreeNode *x)
-        {
-            TreeNode *y = x->right;
-            TreeNode *T2 = y->left;
-
-            // Perform rotation
-            y->left = x;
-            x->right = T2;
-
-            // Update heights
-            x->height = max(height(x->left),
-                            height(x->right)) +
-                        1;
-            y->height = max(height(y->left),
-                            height(y->right)) +
-                        1;
-
-            // Return new root
-            return y;
-        }
-
-        // Get Balance factor of node N
-        int getBalance(TreeNode *N)
-        {
-            if (N == NULL)
-                return 0;
-            return height(N->left) - height(N->right);
-        }
-
-        // Recursive function to insert a key
-        // in the subtree rooted with node and
-        // returns the new root of the subtree.
-        TreeNode *insert_node(TreeNode *node, const value_type &val)
-        {
-            /* 1. Perform the normal BST insertion */
-            if (node == NULL)
-                return (newNode(val));
-
-            if (val.first < node->val.first)
-                node->left = insert_node(node->left, val);
-            else if (val.first > node->val.first)
-                node->right = insert_node(node->right, val);
-            else // Equal keys are not allowed in BST
-                return node;
-
-            /* 2. Update height of this ancestor node */
-            node->height = 1 + max(height(node->left),
-                                   height(node->right));
-
-            /* 3. Get the balance factor of this ancestor
-        node to check whether this node became
-        unbalanced */
-            int balance = getBalance(node);
-
-            // If this node becomes unbalanced, then
-            // there are 4 cases
-
-            // Left Left Case
-            if (balance > 1 && val.first < node->left->val.first)
-                return rightRotate(node);
-
-            // Right Right Case
-            if (balance < -1 && val.first > node->right->val.first)
-                return leftRotate(node);
-
-            // Left Right Case
-            if (balance > 1 && val.first > node->left->val.first)
-            {
-                node->left = leftRotate(node->left);
-                return rightRotate(node);
-            }
-
-            // Right Left Case
-            if (balance < -1 && val.first < node->right->val.first)
-            {
-                node->right = rightRotate(node->right);
-                return leftRotate(node);
-            }
-
-            /* return the (unchanged) node pointer */
-            return node;
+            TreeNode *p = q->right;
+            q->right = p->left;
+            p->left = q;
+            fixheight(q);
+            fixheight(p);
+            return p;
         }
 
         TreeNode *min_node(TreeNode *node)
@@ -451,6 +357,24 @@ namespace ft
                     node = node->left;
             }
             return (node);
+        }
+
+        TreeNode *balance(TreeNode *p) // балансировка узла p
+        {
+            fixheight(p);
+            if (bfactor(p) == 2)
+            {
+                if (bfactor(p->right) < 0)
+                    p->right = rotateright(p->right);
+                return rotateleft(p);
+            }
+            if (bfactor(p) == -2)
+            {
+                if (bfactor(p->left) > 0)
+                    p->left = rotateleft(p->left);
+                return rotateright(p);
+            }
+            return p; // балансировка не нужна
         }
 
     private:

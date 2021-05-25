@@ -8,7 +8,7 @@
             "type": "lldb",
             "request": "launch",
             "name": "Debug",
-            "program": "/Users/dbliss/21school/ft_containers/list/a.out",
+            "program": "/Users/dbliss/21school/ft_containers/a.out",
             "args": [],
             "cwd": "${workspaceFolder}"
         }

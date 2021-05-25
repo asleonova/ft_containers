@@ -44,14 +44,14 @@ void constructor_test()
 
   // first insert function version (single parameter)
 	
- 	 mymap.insert (std::pair<int,int>(5, 200) );
+ 	 mymap.insert ( std::pair<int,int>(5, 200) );
 	 mymap.insert(std::pair<int, int>(4, 400));
 	 mymap.insert(std::pair<int, int>(6, 100));
 	 mymap.insert(std::pair<int, int>(3, 400));
 	 mymap.insert(std::pair<int, int>(2, 400));
 	 mymap.insert(std::pair<int, int>(6, 100));
 
-
+	 
 
 
 

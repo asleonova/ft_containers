@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/25 17:52:42 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/25 17:49:09 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,26 +144,10 @@ namespace ft
         or to the element with an equivalent key in the map. The pair::second element in the pair 
         is set to true if a new element was inserted or false if an equivalent key already existed. */
 
-        TreeNode *insert(const value_type &val)
-        {
-            if (!this->_node) // Insert the first node, if root is NULL.
-            {
-                this->_node = allocate_tree_node();
-                this->_allocator_type.construct(&_node->val, val);
-                this->_last_node->parent = this->_node;
-                this->_node->right = this->_last_node;
-                return _node;
-            }
-            else
-            {
-                 insert_node(_node, val);
-            }
-            return _node;
-        }
-
         // std::pair<iterator, bool> insert(const value_type &val)
         // {
         //     iterator iter;
+        //     TreeNode *node;
         //     if (!this->_node) // Insert the first node, if root is NULL.
         //     {
         //         this->_node = allocate_tree_node();
@@ -175,41 +159,61 @@ namespace ft
         //     }
         //     else
         //     {
-        //         TreeNode *new_node;
-        //         TreeNode *root = _node;
-
-        //         if (val.first <= _node->val.first)
-        //         {
-        //             while (root->left)
-        //             {
-        //                 root = root->left;
-        //             }
-        //             new_node = construct_tree_node(val);
-        //             root->left = new_node;
-        //             new_node->right = NULL;
-        //             new_node->left = NULL;
-        //             new_node->parent = root;
-        //             iter = new_node;
-        //         }
-        //         else
-        //         {
-        //             while (root->right != _last_node)
-        //             {
-        //                 root = root->right;
-        //             }
-        //             if (root->val.first == val.first)
-        //                 return (make_pair(iterator(root), false));
-        //             new_node = construct_tree_node(val);
-        //             root->right = new_node;
-        //             new_node->left = NULL;
-        //             new_node->right = _last_node;
-        //             _last_node->parent = new_node;
-        //             new_node->parent = root;
-        //             iter = _last_node;
-        //         }
-        //         return make_pair(iter, true);
+        //          insert_node(node, val);
         //     }
+        //     iter = node;
+        //     return make_pair(iter, true);
         // }
+
+        std::pair<iterator, bool> insert(const value_type &val)
+        {
+            iterator iter;
+            if (!this->_node) // Insert the first node, if root is NULL.
+            {
+                this->_node = allocate_tree_node();
+                this->_allocator_type.construct(&_node->val, val);
+                this->_last_node->parent = this->_node;
+                this->_node->right = this->_last_node;
+                iter = this->_node;
+                return make_pair(iter, true);
+            }
+            else
+            {
+                TreeNode *new_node;
+                TreeNode *root = _node;
+
+                if (val.first <= _node->val.first)
+                {
+                    while (root->left)
+                    {
+                        root = root->left;
+                    }
+                    new_node = construct_tree_node(val);
+                    root->left = new_node;
+                    new_node->right = NULL;
+                    new_node->left = NULL;
+                    new_node->parent = root;
+                    iter = new_node;
+                }
+                else
+                {
+                    while (root->right != _last_node)
+                    {
+                        root = root->right;
+                    }
+                    if (root->val.first == val.first)
+                        return (make_pair(iterator(root), false));
+                    new_node = construct_tree_node(val);
+                    root->right = new_node;
+                    new_node->left = NULL;
+                    new_node->right = _last_node;
+                    _last_node->parent = new_node;
+                    new_node->parent = root;
+                    iter = _last_node;
+                }
+                return make_pair(iter, true);
+            }
+        }
 
         // then add balancing function !
 
@@ -399,9 +403,9 @@ namespace ft
                 return (newNode(val));
 
             if (val.first < node->val.first)
-                node->left = insert_node(node->left, val);
+                node->left = insert(node->left, val);
             else if (val.first > node->val.first)
-                node->right = insert_node(node->right, val);
+                node->right = insert(node->right, val);
             else // Equal keys are not allowed in BST
                 return node;
 
