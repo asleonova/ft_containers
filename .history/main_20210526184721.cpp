@@ -69,10 +69,10 @@ void constructor_test()
 	
 	ite--;
 	std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
-	// ite--;
-	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
-	// ite--;
-	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;		
+	ite--;
+	std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
+	ite--;
+	std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;		
 	// std::cout << "list size is: " << lst.size() << std::endl
 	// 		  << std::endl;
 

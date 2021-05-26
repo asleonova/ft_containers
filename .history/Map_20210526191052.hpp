@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 19:11:25 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 19:10:52 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,7 +400,7 @@ namespace ft
         // returns the new root of the subtree.
         TreeNode *insert_node(TreeNode *node, const value_type &val, int side)
         {
-            if (node == NULL)
+              if (node == NULL)
                 return (newNode(val));
             if (side == 2)
             {

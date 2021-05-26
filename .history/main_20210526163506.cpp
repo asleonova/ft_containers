@@ -49,7 +49,7 @@ void constructor_test()
 	 mymap.insert(std::pair<int, int>(6, 100));
 	 mymap.insert(std::pair<int, int>(3, 400));
 	 mymap.insert(std::pair<int, int>(2, 400));
-	// mymap.insert(std::pair<int, int>(6, 100));
+	 mymap.insert(std::pair<int, int>(6, 100));
 
 
 
@@ -67,8 +67,8 @@ void constructor_test()
 	std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
 	std::cout << "end is: " << ite->first << ", "<< ite->second << std::endl;
 	
-	ite--;
-	std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
+	// ite--;
+	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
 	// ite--;
 	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
 	// ite--;
@@ -106,7 +106,7 @@ void constructor_test()
 	print_list(lst1);
 	std::cout << std::endl;
     */
-  // sleep(50);
+   sleep(50);
 }
 
 int main()

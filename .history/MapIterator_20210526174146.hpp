@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 18:52:41 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 17:41:46 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ namespace ft
 
         MapIterator &operator--() //--a
         {
-            std::cout << "last_node parent is: " << _last_node->parent->val.first << std::endl;
             if (_node->left)
             {
                 this->_node = this->_node->left;
@@ -120,15 +119,13 @@ namespace ft
             }    
             else
             {
-                std::cout << "second condition " << std::endl;
                 TreeNode *y = this->_node->parent;
-                
                 while (_node == y->left)
                 {
                     _node = y;
                     y = y->parent;
                 }
-               _node = y;
+                _node = y;
             }
             return (*this);
         }

@@ -67,8 +67,8 @@ void constructor_test()
 	std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
 	std::cout << "end is: " << ite->first << ", "<< ite->second << std::endl;
 	
-	ite--;
-	std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
+	// ite--;
+	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
 	// ite--;
 	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
 	// ite--;

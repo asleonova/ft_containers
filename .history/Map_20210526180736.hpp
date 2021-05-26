@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 19:11:25 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 18:07:36 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ namespace ft
             }
             else
             {
-                insert_node(_node, val, 0);
+                insert_node(_node, val);
                 it = _node;
               //  std::cout << "_last_node->parent val : " << _last_node->parent->val.first << std::endl;
                 return make_pair(it, true);
@@ -398,45 +398,39 @@ namespace ft
         // Recursive function to insert a key
         // in the subtree rooted with node and
         // returns the new root of the subtree.
-        TreeNode *insert_node(TreeNode *node, const value_type &val, int side)
+        TreeNode *insert_node(TreeNode *node, const value_type &val)
         {
+            /* 1. Perform the normal BST insertion */
             if (node == NULL)
                 return (newNode(val));
-            if (side == 2)
-            {
-                std::cout << "val: " << val.first << std::endl; 
-                std::cout << "djljfd" << std::endl;
-            }
-            /* 1. Perform the normal BST insertion */
-          
             if (val.first < node->val.first)
             {
-                node->left = insert_node(node->left, val, 1);
+                node->left = insert_node(node->left, val);
+                node->left->parent = node;
             }
             else if (val.first > node->val.first)
             {
-                node->right = insert_node(node->right, val, 2);
-                //  _last_node->parent = node->right;
-                //  std::cout << "parent is: " << _last_node->parent->val.first << std::endl;
+                node->right = insert_node(node->right, val);
+                node->right->parent = node;
+              //  std::cout << "node val: " << node->val.first << std::endl;
+                 _last_node->parent = node->right;
+                node->right->right = _last_node;
+               
+              //  std::cout << "_last_node->parent val : " << _last_node->parent->val.first << std::endl;
             }
             else // Equal keys are not allowed in BST
                 return node;
-            
+            // if (node) 
+            //     std::cout << "Node value is: " << node->val.first << std::endl;
+            // if (node->parent)
+            //     std::cout << "Parent node val is: " << node->parent->val.first << std::endl << std::endl;
             /* 2. Update height of this ancestor node */
             node->height = 1 + max(height(node->left),
                                    height(node->right));
 
-            /* 3. Update the right of this node */
+            /* 3. Update the right of this ancestor node */
 
-            if (node->left)
-                node->left->parent = node;
-            if (node->right)
-            {
-                node->right = _last_node;
-                _last_node->parent = node->right;
-                std::cout << "parent is: " << _last_node->parent->val.first << std::endl;
-            }
-
+            
 
             /* 4. Get the balance factor of this ancestor
         node to check whether this node became

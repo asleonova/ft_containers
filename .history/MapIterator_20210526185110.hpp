@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 18:52:41 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 18:51:10 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,6 @@ namespace ft
 
         MapIterator &operator--() //--a
         {
-            std::cout << "last_node parent is: " << _last_node->parent->val.first << std::endl;
             if (_node->left)
             {
                 this->_node = this->_node->left;
