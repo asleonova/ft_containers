@@ -59,17 +59,17 @@ void constructor_test()
 	it = mymap.begin();
 	std::cout << "begin of my map is: " << it->first << ", "<< it->second << std::endl;
 	ite = mymap.end();
-	// it++;
+	it++;
 	std::cout << "end is: " << ite->first << ", "<< ite->second << std::endl;
-	// std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
-	// ite--;
-	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
-	// ite--;
-	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
-	// ite--;
-	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;		
-	// std::cout << "list size is: " << lst.size() << std::endl
-	// 		  << std::endl;
+	std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
+	ite--;
+	std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
+	ite--;
+	std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
+	ite--;
+	std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;		
+	std::cout << "list size is: " << lst.size() << std::endl
+			  << std::endl;
 
 	/*std::cout << blue << "***************[ Fill constructor test ]***************" << cend << std::endl;
 	std::cout << green << "Testing list<int> lst1(10, 42): " << cend << std::endl;

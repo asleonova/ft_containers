@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 14:46:30 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 14:31:01 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,24 +144,21 @@ namespace ft
         or to the element with an equivalent key in the map. The pair::second element in the pair 
         is set to true if a new element was inserted or false if an equivalent key already existed. */
 
-        std::pair<iterator, bool> insert (const value_type &val)
+        TreeNode *insert(const value_type &val)
          {
-              iterator it;
-            if (!this->_node) // Insert the first node, if root is NULL.
-            {
-                this->_node = allocate_tree_node();
-                this->_allocator_type.construct(&_node->val, val);
-                this->_last_node->parent = this->_node;
-                this->_node->right = this->_last_node;
-                it = this->_node;
-                return make_pair(it, true);
-            }
-            else
-            {
-                insert_node(_node, val);
-                it = _node;
-                return make_pair(it, true);
-            }
+        //     if (!this->_node) // Insert the first node, if root is NULL.
+        //     {
+        //         this->_node = allocate_tree_node();
+        //         this->_allocator_type.construct(&_node->val, val);
+        //         this->_last_node->parent = this->_node;
+        //         this->_node->right = this->_last_node;
+        //         return _node;
+        //     }
+        //     else
+        //     {
+                 insert_node(_node, val);
+        //  }
+            return _node;
         }
 
         // std::pair<iterator, bool> insert(const value_type &val)
@@ -327,7 +324,7 @@ namespace ft
         TreeNode *newNode(const value_type &val)
         {
             TreeNode *node;
-            node = _alloc_node.allocate(1);
+            node = allocate_tree_node();
             _allocator_type.construct(&node->val, val);
             node->right = NULL;
             node->left = NULL;

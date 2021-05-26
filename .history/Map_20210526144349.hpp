@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 14:46:30 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 14:43:48 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -327,7 +327,7 @@ namespace ft
         TreeNode *newNode(const value_type &val)
         {
             TreeNode *node;
-            node = _alloc_node.allocate(1);
+            _alloc_node.allocate(1);
             _allocator_type.construct(&node->val, val);
             node->right = NULL;
             node->left = NULL;
