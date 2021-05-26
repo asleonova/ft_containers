@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 16:31:41 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 16:04:31 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -391,7 +391,7 @@ namespace ft
         {
             if (N == NULL)
                 return 0;
-            return height(N->left) - height(N->right);
+            return _height(N->left) - _height(N->right);
         }
 
         // Recursive function to insert a key
@@ -402,23 +402,14 @@ namespace ft
             /* 1. Perform the normal BST insertion */
             if (node == NULL)
                 return (newNode(val));
+            std::cout << "lalalala" << std::endl;
             if (val.first < node->val.first)
-            {
                 node->left = insert_node(node->left, val);
-                node->left->parent = node;
-            }
             else if (val.first > node->val.first)
-            {
                 node->right = insert_node(node->right, val);
-                node->right->parent = node;
-                _last_node->parent = node->right;
-            }
             else // Equal keys are not allowed in BST
                 return node;
-            // if (node) 
-            //     std::cout << "Node value is: " << node->val.first << std::endl;
-            // if (node->parent)
-            //     std::cout << "Parent node val is: " << node->parent->val.first << std::endl << std::endl;
+
             /* 2. Update height of this ancestor node */
             node->height = 1 + max(height(node->left),
                                    height(node->right));

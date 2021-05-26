@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 16:02:33 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 15:15:38 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,8 @@ namespace ft
             }
             else
             {
-                TreeNode *y = _node->parent;
-                while (_node == y->right)
-                {
-                    _node = y;
-                    y = y->parent;
-                }
-                this->_node = y;
+                while (this->_node->parent && this->_node->parent->parent && this->_node->a)
+                this->_node = this->_node->parent;
             }
             return (*this);
 

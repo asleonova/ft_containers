@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 16:02:33 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 15:36:05 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,17 +88,31 @@ namespace ft
             }
             else
             {
-                TreeNode *y = _node->parent;
-                while (_node == y->right)
-                {
-                    _node = y;
-                    y = y->parent;
-                }
-                this->_node = y;
+                while (this->_node->parent && this->_node->parent->parent && this->_node->a)
+                this->_node = this->_node->parent;
             }
             return (*this);
 
         }
+
+        Node* NextItem(Node* node)
+{
+ if (node->IsHeader()) return node->Left;
+ 
+ if (node->Right != 0)
+  {
+   node = node->Right;
+   while (node->Left != 0) node = node->Left;
+  }
+ else
+  {
+   Node* y = node->Parent;
+   if (y->IsHeader()) return y;
+   while (node == y->Right) {node = y; y = y->Parent;}
+   node = y;
+  }
+ return node;
+}
 
         MapIterator operator++(int) //a++
         {

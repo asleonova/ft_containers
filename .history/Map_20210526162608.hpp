@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 16:31:41 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 16:26:08 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -411,14 +411,11 @@ namespace ft
             {
                 node->right = insert_node(node->right, val);
                 node->right->parent = node;
-                _last_node->parent = node->right;
             }
             else // Equal keys are not allowed in BST
                 return node;
-            // if (node) 
-            //     std::cout << "Node value is: " << node->val.first << std::endl;
-            // if (node->parent)
-            //     std::cout << "Parent node val is: " << node->parent->val.first << std::endl << std::endl;
+            
+            std::cout << "Parent node vale is: " << node->val.first << std::endl;
             /* 2. Update height of this ancestor node */
             node->height = 1 + max(height(node->left),
                                    height(node->right));

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 16:31:41 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 16:24:44 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,7 +331,9 @@ namespace ft
             _allocator_type.construct(&node->val, val);
             node->right = NULL;
             node->left = NULL;
-            node->parent = NULL;
+            node->parent = *parent;
+            if (node->parent)
+                std::cout << "parent value is: " << node->parent->val.first << std::endl;
             node->height = 1; // new node is initially
                               // added at leaf
                     
@@ -411,14 +413,10 @@ namespace ft
             {
                 node->right = insert_node(node->right, val);
                 node->right->parent = node;
-                _last_node->parent = node->right;
             }
             else // Equal keys are not allowed in BST
                 return node;
-            // if (node) 
-            //     std::cout << "Node value is: " << node->val.first << std::endl;
-            // if (node->parent)
-            //     std::cout << "Parent node val is: " << node->parent->val.first << std::endl << std::endl;
+
             /* 2. Update height of this ancestor node */
             node->height = 1 + max(height(node->left),
                                    height(node->right));
