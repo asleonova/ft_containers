@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 20:50:47 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 20:49:51 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ namespace ft
         {
             if (_node->right)
             {
-                std::cout << "_node->right condition " << std::endl;
                 TreeNode *y = _node->right;
                 while (y->left)
                     y = y->left;

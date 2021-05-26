@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 22:53:33 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 22:51:49 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ namespace ft
             // }
             // else
             // {
-                _node = insert_node(_node, val);
+                _node = insert_node(_node, val, 0);
                 it = _node;
               //  std::cout << "_last_node->parent val : " << _last_node->parent->val.first << std::endl;
                 return make_pair(it, true);
@@ -327,14 +327,14 @@ namespace ft
         /* Helper function that allocates a
    new node with the given key and
    NULL left and right pointers. */
-        TreeNode *newNode(const value_type &val, TreeNode *parent = NULL)
+        TreeNode *newNode(const value_type &val)
         {
             TreeNode *node;
             node = _alloc_node.allocate(1);
             _allocator_type.construct(&node->val, val);
             node->right = NULL;
             node->left = NULL;
-            node->parent = parent;
+            node->parent = NULL;
             node->height = 1; // new node is initially
                               // added at leaf
                     
@@ -403,7 +403,7 @@ namespace ft
         TreeNode *insert_node(TreeNode *node, const value_type &val, TreeNode *parent = NULL)
         {
             if (node == NULL)
-                return (newNode(val, parent));
+                return (newNode(val));
 
             //      if (side == 2)
             // {

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 22:53:33 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 22:53:08 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -403,7 +403,7 @@ namespace ft
         TreeNode *insert_node(TreeNode *node, const value_type &val, TreeNode *parent = NULL)
         {
             if (node == NULL)
-                return (newNode(val, parent));
+                return (newNode(val));
 
             //      if (side == 2)
             // {

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 22:53:33 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 22:19:38 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ namespace ft
             // }
             // else
             // {
-                _node = insert_node(_node, val);
+                insert_node(_node, val, 0);
                 it = _node;
               //  std::cout << "_last_node->parent val : " << _last_node->parent->val.first << std::endl;
                 return make_pair(it, true);
@@ -327,14 +327,14 @@ namespace ft
         /* Helper function that allocates a
    new node with the given key and
    NULL left and right pointers. */
-        TreeNode *newNode(const value_type &val, TreeNode *parent = NULL)
+        TreeNode *newNode(const value_type &val)
         {
             TreeNode *node;
             node = _alloc_node.allocate(1);
             _allocator_type.construct(&node->val, val);
             node->right = NULL;
             node->left = NULL;
-            node->parent = parent;
+            node->parent = NULL;
             node->height = 1; // new node is initially
                               // added at leaf
                     
@@ -400,10 +400,10 @@ namespace ft
         // Recursive function to insert a key
         // in the subtree rooted with node and
         // returns the new root of the subtree.
-        TreeNode *insert_node(TreeNode *node, const value_type &val, TreeNode *parent = NULL)
+        TreeNode *insert_node(TreeNode *node, const value_type &val, int side = 0)
         {
             if (node == NULL)
-                return (newNode(val, parent));
+                return (newNode(val));
 
             //      if (side == 2)
             // {
@@ -428,12 +428,12 @@ namespace ft
             if (val.first < node->val.first)
             {
               //  std::cout << "left : node->val.first : " << node->val.first << std::endl; 
-                node->left = insert_node(node->left, val, node);
+                node->left = insert_node(node->left, val, 1);
             }
             else if (val.first > node->val.first)
             {
               //  std::cout << "right:  node->val.first : " << node->val.first << std::endl; 
-                node->right = insert_node(node->right, val, node);
+                node->right = insert_node(node->right, val, 2);
             }
             else // Equal keys are not allowed in BST
                 return node;
@@ -444,10 +444,10 @@ namespace ft
 
             /* 3. Update the right of this node */
 
-            if (node->left)
-            {
-                node->left->parent = node;
-            }
+            // if (node->left)
+            // {
+            //     node->left->parent = node;
+            // }
             // if (node->right)
             // {
             //     std::cout << "right:  node->val.first : " << node->val.first << std::endl;

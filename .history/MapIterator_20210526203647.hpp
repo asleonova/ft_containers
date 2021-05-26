@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/26 20:50:47 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/26 20:36:47 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,11 @@ namespace ft
 
         MapIterator &operator++() // ++a
         {
-            if (_node->right)
+            if (this->_node->right)
             {
-                std::cout << "_node->right condition " << std::endl;
-                TreeNode *y = _node->right;
-                while (y->left)
-                    y = y->left;
-                _node = y;
+                this->_node = this->_node->right;
+                while (this->_node->left)
+                    this->_node = this->_node->left;
             }
             else
             {
@@ -122,7 +120,6 @@ namespace ft
             }    
             else
             {
-                std::cout << "right condition here: " << std::endl;
                 TreeNode *y = this->_node->parent;
                 
                 while (_node == y->left)
