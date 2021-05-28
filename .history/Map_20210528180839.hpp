@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/28 18:37:20 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/28 18:08:39 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,19 +126,9 @@ namespace ft
 
         bool empty() const;
 
-        size_type size() const
-        {
-            if (!_node)
-                return (0);
-            return(tree_size(_node));
+        size_type size() const;
 
-        }
-
-
-        size_type max_size() const
-        {
-            return this->_alloc_node.max_size();
-        }
+        size_type max_size() const;
 
         /*================================ ELEMENT ACCESS: ================================*/
 
@@ -158,8 +148,23 @@ namespace ft
 
         std::pair<iterator, bool> insert(const value_type &val)
         {
+            // if (!this->_node) // Insert the first node, if root is NULL.
+            // {
+            //     _node = allocate_tree_node();
+            //     _allocator_type.construct(&_node->val, val);
+            //     _last_node->parent = _node;
+            //     _node->left = NULL;
+            //     _node->right = NULL;
+            //     //_node->right = _last_node;
+            //     it = _node;
+            //     return make_pair(it, true);
+            // }
+            // else
+            // {
             _node = insert_node(_node, val);
+            //  std::cout << "_last_node->parent val : " << _last_node->parent->val.first << std::endl;
             return make_pair(iterator(_node), true);
+            // }
         }
 
         // std::pair<iterator, bool> insert(const value_type &val)
@@ -475,25 +480,6 @@ namespace ft
             return (node);
         }
 
-
-        size_type tree_size(TreeNode *node) const
-        {
-            size_type size = 0;
-            TreeNode *left = _node;
-            TreeNode *right = _node;
-            while (left->left)
-            {
-                left = left->left;
-                ++size;
-            }
-            while (right->right)
-            {
-                right = right->right;
-                ++size;
-            }
-            return (size + 1); // 1 for the root;
-        }
-
         /*      ----PRINT TREE----      */
         /** These methods are not included in the 
   *** container map. They can be used to 
@@ -553,13 +539,13 @@ namespace ft
             }
         }
 
-    private:
-        TreeNode *_node;
-        TreeNode *_last_node;
-        Compare _comp;
-        allocator_type _allocator_type;
-        node_allocator_type _alloc_node;
-    };
-}
+        private:
+            TreeNode *_node;
+            TreeNode *_last_node;
+            Compare _comp;
+            allocator_type _allocator_type;
+            node_allocator_type _alloc_node;
+        };
+    }
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/28 18:37:20 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/28 18:27:37 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,10 @@ namespace ft
 
         }
 
+        size_type tree_size(TreeNode *node) const
+        {
+            return (tree_size(node->left) + tree_size(node->right) + 1);
+        }
 
         size_type max_size() const
         {
@@ -473,25 +477,6 @@ namespace ft
                     node = node->left;
             }
             return (node);
-        }
-
-
-        size_type tree_size(TreeNode *node) const
-        {
-            size_type size = 0;
-            TreeNode *left = _node;
-            TreeNode *right = _node;
-            while (left->left)
-            {
-                left = left->left;
-                ++size;
-            }
-            while (right->right)
-            {
-                right = right->right;
-                ++size;
-            }
-            return (size + 1); // 1 for the root;
         }
 
         /*      ----PRINT TREE----      */

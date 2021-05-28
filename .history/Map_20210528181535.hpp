@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/28 18:37:20 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/28 18:15:35 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,12 +128,8 @@ namespace ft
 
         size_type size() const
         {
-            if (!_node)
-                return (0);
-            return(tree_size(_node));
-
+            
         }
-
 
         size_type max_size() const
         {
@@ -475,25 +471,6 @@ namespace ft
             return (node);
         }
 
-
-        size_type tree_size(TreeNode *node) const
-        {
-            size_type size = 0;
-            TreeNode *left = _node;
-            TreeNode *right = _node;
-            while (left->left)
-            {
-                left = left->left;
-                ++size;
-            }
-            while (right->right)
-            {
-                right = right->right;
-                ++size;
-            }
-            return (size + 1); // 1 for the root;
-        }
-
         /*      ----PRINT TREE----      */
         /** These methods are not included in the 
   *** container map. They can be used to 
@@ -553,13 +530,13 @@ namespace ft
             }
         }
 
-    private:
-        TreeNode *_node;
-        TreeNode *_last_node;
-        Compare _comp;
-        allocator_type _allocator_type;
-        node_allocator_type _alloc_node;
-    };
-}
+        private:
+            TreeNode *_node;
+            TreeNode *_last_node;
+            Compare _comp;
+            allocator_type _allocator_type;
+            node_allocator_type _alloc_node;
+        };
+    }
 
 #endif

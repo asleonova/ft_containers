@@ -54,7 +54,6 @@ void constructor_test()
 	 mymap.insert(std::pair<int, int>(6, 100));
 	 mymap.insert(std::pair<int, int>(7, 100));
 	 mymap.insert(std::pair<int, int>(7, 100));
-	 std::cout << "size is : " << mymap.size() << std::endl;
 	mymap.treeprint();
 
 
@@ -121,12 +120,12 @@ void constructor_test()
 
 int main()
 {
-	// std::map<int, int> mapp;
-	// mapp.insert(std::pair<int,int>(5, 200));
-	// mapp.insert(std::pair<int,int>(10, 200));
-	// std::map<int, int>::reverse_iterator rit = mapp.rend();
-	// std::map<int, int>::iterator it = --mapp.begin();
-	// std::cout << it->first << std::endl;
+	std::map<int, int> mapp;
+	mapp.insert(std::pair<int,int>(5, 200));
+	mapp.insert(std::pair<int,int>(10, 200));
+	std::map<int, int>::reverse_iterator rit = mapp.rend();
+	std::map<int, int>::iterator it = --mapp.begin();
+	std::cout << it->first << std::endl;
 
    	constructor_test();
     return 0;
