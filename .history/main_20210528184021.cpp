@@ -12,6 +12,7 @@
 #define blue "\x1b[34m"
 #define cend "\x1b[0m"
 
+
 void constructor_test()
 {
 	std::cout << blue << "***************[ Default constructor test ]***************" << cend << std::endl;
@@ -20,10 +21,10 @@ void constructor_test()
 	ft::map<int, int> mymap;
 	ft::map<int, int>::iterator it;
 	ft::map<int, int>::iterator ite;
-	std::map<int, int> std_map;
+	std::map<int,int> std_map;
 
 	std_map[2] = 200;
-	std_map[3] = 300;
+  	std_map[3] = 300;
 	std_map[1] = 200;
 	std_map[3] = 500;
 
@@ -34,40 +35,35 @@ void constructor_test()
 	std::map<int, int>::iterator its;
 	std::map<int, int>::iterator itse;
 	its = std_map.begin();
-	std::cout << "begin is: " << its->first << ", " << its->second << std::endl;
+	std::cout << "begin is: " << its->first << ", "<< its->second << std::endl;
 	itse = std_map.end();
 	itse--;
-	std::cout << "end-- is: " << itse->first << ", " << itse->second << std::endl;
+	std::cout << "end-- is: " << itse->first << ", "<< itse->second << std::endl;
 	itse--;
-	std::cout << "end-- is: " << itse->first << ", " << itse->second << std::endl;
+	std::cout << "end-- is: " << itse->first << ", "<< itse->second << std::endl;
 
-	// first insert function version (single parameter)
-
-	mymap.insert(std::pair<int, int>(5, 200));
-	mymap.insert(std::pair<int, int>(4, 400));
-	std::pair<ft::map<int, int>::iterator, bool> ret;
+  // first insert function version (single parameter)
 	
-	ret = mymap.insert(std::pair<int, int>(6, 100));
-	std::cout << "return value is: " << ret.first->first << '\n';
-	std::cout << " with a value of " << ret.first->second << '\n';
-	mymap.insert(std::pair<int, int>(3, 400));
+ 	 mymap.insert (std::pair<int,int>(5, 200) );
+	 mymap.insert(std::pair<int, int>(4, 400));
+	 mymap.insert(std::pair<int, int>(6, 100));
+	 mymap.insert(std::pair<int, int>(3, 400));
 	mymap.insert(std::pair<int, int>(2, 400));
-	mymap.insert(std::pair<int, int>(1, 400));
-	mymap.insert(std::pair<int, int>(8, 100));
-	
-	ret = mymap.insert(std::pair<int, int>(6, 100));
-	std::cout << "return value is: " << ret.first->first << '\n';
-	std::cout << " with a value of " << ret.first->second << '\n';
-	mymap.insert(std::pair<int, int>(7, 100));
-	std::cout << "***************************" << std::endl;
-	ret = mymap.insert(std::pair<int, int>(7, 100));
-	std::cout << "return value is: " << ret.first->first << '\n';
-	std::cout << " with a value of " << ret.first->second << '\n';
-	std::cout << "size is : " << mymap.size() << std::endl;
+	  mymap.insert(std::pair<int, int>(1, 400));
+	 mymap.insert(std::pair<int, int>(8, 100));
+	 mymap.insert(std::pair<int, int>(6, 100));
+	 mymap.insert(std::pair<int, int>(7, 100));
+	 mymap.insert(std::pair<int, int>(7, 100));
+	 std::cout << "size is : " << mymap.size() << std::endl;
 	mymap.treeprint();
 
+
+
+
+
+
 	it = mymap.begin();
-	std::cout << "begin of my map is: " << it->first << ", " << it->second << std::endl;
+	std::cout << "begin of my map is: " << it->first << ", "<< it->second << std::endl;
 	// ite = mymap.end();
 	// it++;
 	// std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
@@ -80,13 +76,13 @@ void constructor_test()
 	// it++;
 	// std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
 	// std::cout << "end is: " << ite->first << ", "<< ite->second << std::endl;
-
+	
 	// ite--;
 	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
 	// ite--;
 	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
 	// ite--;
-	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;
+	// std::cout << "end-- is: " << ite->first << ", "<< ite->second << std::endl;		
 	// std::cout << "list size is: " << lst.size() << std::endl
 	// 		  << std::endl;
 
@@ -120,7 +116,7 @@ void constructor_test()
 	print_list(lst1);
 	std::cout << std::endl;
     */
-	sleep(50);
+  sleep(50);
 }
 
 int main()
@@ -132,6 +128,6 @@ int main()
 	// std::map<int, int>::iterator it = --mapp.begin();
 	// std::cout << it->first << std::endl;
 
-	constructor_test();
-	return 0;
+   	constructor_test();
+    return 0;
 }

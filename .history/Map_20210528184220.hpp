@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/28 19:30:23 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/28 18:42:20 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,15 +163,13 @@ namespace ft
 
 
 
-            // old_size = size();
-            // std::cout << "old size is: " << old_size << std::endl;
+            old_size = size();
             _node = insert_node(_node, val);
-            // new_size = size();
-            //  std::cout << "new size is: " << new_size << std::endl;
+            new_size = size();
 
-            // if (old_size == new_size)
-            //     return std::make_pair(iterator(_node), false);
-            return std::make_pair(iterator(_node), true);
+            if (old_size == new_size)
+                return make_pair(iterator(_node), false);
+            return make_pair(iterator(_node), true);
         }
 
         // std::pair<iterator, bool> insert(const value_type &val)
@@ -472,6 +470,7 @@ namespace ft
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
             }
+
             /* return the (unchanged) node pointer */
             return node;
         }
@@ -489,9 +488,20 @@ namespace ft
 
         size_type tree_size(TreeNode *node) const
         {
-            if (node == NULL)
-                return 0;
-            return (tree_size(node->left) + 1 + tree_size(node->right));
+            size_type size = 0;
+            TreeNode *left = _node;
+            TreeNode *right = _node;
+            while (left->left)
+            {
+                tree_size(left->left);
+                ++size;
+            }
+            while (right->right)
+            {
+                tree_size(right->right);
+                ++size;
+            }
+            return (size + 1); // 1 for the root;
         }
 
         /*      ----PRINT TREE----      */

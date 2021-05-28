@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/28 19:30:23 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/28 18:53:51 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,14 +163,12 @@ namespace ft
 
 
 
-            // old_size = size();
-            // std::cout << "old size is: " << old_size << std::endl;
+            old_size = size();
             _node = insert_node(_node, val);
-            // new_size = size();
-            //  std::cout << "new size is: " << new_size << std::endl;
+            new_size = size();
 
-            // if (old_size == new_size)
-            //     return std::make_pair(iterator(_node), false);
+            if (old_size == new_size)
+                return std::make_pair(iterator(_node), false);
             return std::make_pair(iterator(_node), true);
         }
 
@@ -472,6 +470,7 @@ namespace ft
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
             }
+
             /* return the (unchanged) node pointer */
             return node;
         }

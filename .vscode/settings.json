@@ -67,6 +67,7 @@
         "list": "cpp",
         "__tree": "cpp",
         "map": "cpp",
-        "__functional_03": "cpp"
+        "__functional_03": "cpp",
+        "iomanip": "cpp"
     }
 }

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/28 19:30:23 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/28 19:24:05 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -472,6 +472,7 @@ namespace ft
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
             }
+            std::cout << "node val is: " << node << std::endl;
             /* return the (unchanged) node pointer */
             return node;
         }
