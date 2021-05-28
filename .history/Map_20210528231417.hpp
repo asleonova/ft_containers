@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/28 23:14:43 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/28 23:14:17 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,8 +214,7 @@ namespace ft
 
         TreeNode *insertFix(TreeNode *node, const value_type &val)
         {
-            if (node->parent)
-                node->parent->height = 1 + max(height(node->left),
+            node->parent->height = 1 + max(height(node->left),
                                    height(node->right));
 
             /* 3. Get the balance factor of this ancestor

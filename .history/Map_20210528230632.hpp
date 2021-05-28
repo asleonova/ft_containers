@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/28 23:14:43 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/28 23:06:32 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ namespace ft
                 parent = current;
                 if (current->val.first == val.first)
                     return make_pair(iterator(current), false);                
-                if (val.first < current->val.first)
+                if (_node->val.first < current->val.first)
                 {
                     current = current->left;
                 }
@@ -214,8 +214,7 @@ namespace ft
 
         TreeNode *insertFix(TreeNode *node, const value_type &val)
         {
-            if (node->parent)
-                node->parent->height = 1 + max(height(node->left),
+            node->height = 1 + max(height(node->left),
                                    height(node->right));
 
             /* 3. Get the balance factor of this ancestor
@@ -510,9 +509,8 @@ namespace ft
     {
         if (N == NULL)
             return 0;
-        return _height(N->left) - _height(N->right);
+        return height(N->left) - height(N->right);
     }
-
 
     // Recursive function to insert a key
     // in the subtree rooted with node and
