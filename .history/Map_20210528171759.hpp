@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/28 17:58:48 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/28 17:17:58 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 #include "Identifiers.hpp"
 #include "MapIterator.hpp"
 #include <utility>
-#include <iomanip>
-#include <math.h>
 
 namespace ft
 {
@@ -146,8 +144,9 @@ namespace ft
         or to the element with an equivalent key in the map. The pair::second element in the pair 
         is set to true if a new element was inserted or false if an equivalent key already existed. */
 
-        std::pair<iterator, bool> insert(const value_type &val)
-        {
+        std::pair<iterator, bool> insert (const value_type &val)
+         {
+              iterator it;
             // if (!this->_node) // Insert the first node, if root is NULL.
             // {
             //     _node = allocate_tree_node();
@@ -161,10 +160,11 @@ namespace ft
             // }
             // else
             // {
-            _node = insert_node(_node, val);
-            //  std::cout << "_last_node->parent val : " << _last_node->parent->val.first << std::endl;
-            return make_pair(iterator(_node), true);
-            // }
+                _node = insert_node(_node, val);
+                it = _node;
+              //  std::cout << "_last_node->parent val : " << _last_node->parent->val.first << std::endl;
+                return make_pair(it, true);
+           // }
         }
 
         // std::pair<iterator, bool> insert(const value_type &val)
@@ -337,7 +337,7 @@ namespace ft
             node->parent = parent;
             node->height = 1; // new node is initially
                               // added at leaf
-
+                    
             return (node);
         }
 
@@ -350,15 +350,11 @@ namespace ft
             TreeNode *T2 = x->right;
 
             // Perform rotation
-
+            x->parent = y->parent;
             x->right = y;
             y->left = T2;
-
-            // Update parent pointers
-            x->parent = y->parent;
             y->parent = x;
-            if (T2)
-                T2->parent = y;
+            T2->parent = y;
 
             // Update heights
             y->height = max(height(y->left),
@@ -383,13 +379,6 @@ namespace ft
             // Perform rotation
             y->left = x;
             x->right = T2;
-
-            // Update parent pointers
-
-            y->parent = x->parent;
-            x->parent = y;
-            if (T2)
-                T2->parent = x;
 
             // Update heights
             x->height = max(height(x->left),
@@ -419,8 +408,9 @@ namespace ft
             if (node == NULL)
                 return (newNode(val, parent)); // initially parent is set to NULL
 
-            /* 1. Perform the normal BST insertion */
 
+            /* 1. Perform the normal BST insertion */
+          
             if (val.first < node->val.first)
             {
                 node->left = insert_node(node->left, val, node); // here we instead of NULL parent has the value
@@ -431,10 +421,11 @@ namespace ft
             }
             else // Equal keys are not allowed in BST
                 return node;
-
+            
             /* 2. Update height of this ancestor node */
             node->height = 1 + max(height(node->left),
                                    height(node->right));
+
 
             /* 3. Get the balance factor of this ancestor
         node to check whether this node became
@@ -480,72 +471,13 @@ namespace ft
             return (node);
         }
 
-        /*      ----PRINT TREE----      */
-        /** These methods are not included in the 
-  *** container map. They can be used to 
-  *** check the balance of a tree.
-  **
-  */
-        void treeprint()
-        {
-            int i = 0;
-            while (i <= _height(_node) - 1)
-            {
-                printlv(i);
-                i++;
-                std::cout << std::endl;
-            }
-        }
-
-        void printlv(int n)
-        {
-            TreeNode *temp = _node;
-            int val = pow(2, _height(_node) - n + 1);
-            std::cout << std::setw(val) << "";
-            dispLV(temp, n, val);
-        }
-
-        void dispLV(TreeNode *p, int lv, int d)
-        {
-            int disp = 2 * d;
-            if (lv == 0)
-            {
-                if (p == NULL)
-                {
-
-                    std::cout << " x ";
-                    std::cout << std::setw(disp - 3) << "";
-                    return;
-                }
-                else
-                {
-                    // int result = ((p->data.first <= 1) ? 1 : log10(p->data.first) + 1);
-                    std::cout << " " << p->val.first << " ";
-                    std::cout << std::setw(disp - 3) << "";
-                }
-            }
-            else
-            {
-                if (p == NULL && lv >= 1)
-                {
-                    dispLV(NULL, lv - 1, d);
-                    dispLV(NULL, lv - 1, d);
-                }
-                else
-                {
-                    dispLV(p->left, lv - 1, d);
-                    dispLV(p->right, lv - 1, d);
-                }
-            }
-        }
-
-        private:
-            TreeNode *_node;
-            TreeNode *_last_node;
-            Compare _comp;
-            allocator_type _allocator_type;
-            node_allocator_type _alloc_node;
-        };
-    }
+    private:
+        TreeNode *_node;
+        TreeNode *_last_node;
+        Compare _comp;
+        allocator_type _allocator_type;
+        node_allocator_type _alloc_node;
+    };
+}
 
 #endif

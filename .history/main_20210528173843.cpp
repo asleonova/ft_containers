@@ -52,7 +52,6 @@ void constructor_test()
 	  mymap.insert(std::pair<int, int>(1, 400));
 	 mymap.insert(std::pair<int, int>(8, 100));
 	 mymap.insert(std::pair<int, int>(6, 100));
-	 mymap.insert(std::pair<int, int>(7, 100));
 	mymap.treeprint();
 
 

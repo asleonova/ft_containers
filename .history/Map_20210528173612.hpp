@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/28 17:58:48 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/28 17:36:12 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 #include "Identifiers.hpp"
 #include "MapIterator.hpp"
 #include <utility>
-#include <iomanip>
-#include <math.h>
 
 namespace ft
 {
@@ -148,6 +146,7 @@ namespace ft
 
         std::pair<iterator, bool> insert(const value_type &val)
         {
+            iterator it;
             // if (!this->_node) // Insert the first node, if root is NULL.
             // {
             //     _node = allocate_tree_node();
@@ -162,8 +161,9 @@ namespace ft
             // else
             // {
             _node = insert_node(_node, val);
+            it = _node;
             //  std::cout << "_last_node->parent val : " << _last_node->parent->val.first << std::endl;
-            return make_pair(iterator(_node), true);
+            return make_pair(it, true);
             // }
         }
 
