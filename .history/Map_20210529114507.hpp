@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 11:46:01 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 11:45:07 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,7 +302,7 @@ namespace ft
                 }
             }
 
-           link_end();
+           // link_end();
             // TreeNode *current = _node;
  //           TreeNode *res = NULL;
    //         TreeNode *tmp = NULL;

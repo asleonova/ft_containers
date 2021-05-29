@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 11:46:01 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 11:44:15 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,6 +276,7 @@ namespace ft
             
             while (current)
             {
+                tmp = current;
                 if (current->val.first == val.first)
                     return make_pair(iterator(current), false);
                 if (val.first < current->val.first)
@@ -302,7 +303,7 @@ namespace ft
                 }
             }
 
-           link_end();
+           // link_end();
             // TreeNode *current = _node;
  //           TreeNode *res = NULL;
    //         TreeNode *tmp = NULL;
