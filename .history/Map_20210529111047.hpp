@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 11:41:35 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 11:10:47 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,26 +256,33 @@ namespace ft
             _last_node->right->right = NULL;
         }
 
-        void link_end()
+        void link_end(TreeNode *node)
         {
             TreeNode *max = max_node(_node);
-            max->right = _last_node;
-            _last_node->right = max;
+            _last_node->right->right = max;
             _last_node->left = min_node(_node);
-          
+            _last_node->right = max;
+        }
+
+        void configure_last_node(TreeNode *node)
+        {
+            link_end(node);
+            _last_node->right
         }
 
         std::pair<iterator, bool>
         insert(const value_type &val)
         {
-            if (_last_node->right)
-                unlink_end();
+            _node = insert_node(_node, val);
 
             TreeNode *current = _node;
-            TreeNode *tmp;
-            
+            TreeNode *parent = NULL;
+            TreeNode *tmp = NULL;
+
+            unlink_end();            
             while (current)
             {
+                parent = current;
                 if (current->val.first == val.first)
                     return make_pair(iterator(current), false);
                 if (val.first < current->val.first)
@@ -287,28 +294,21 @@ namespace ft
                     current = current->right;
                 }
             }
-            _node = insert_node(_node, val);
-            current = _node;
-            while (current)
+            tmp = new_node(val);
+            tmp->parent = parent;
+            if (parent == nullptr)
             {
-                tmp = current;
-                if (val.first < current->val.first)
-                {
-                    current = current->left;
-                }
-                else
-                {
-                    current = current->right;
-                }
+                _node = tmp;
             }
-
-           // link_end();
-            // TreeNode *current = _node;
- //           TreeNode *res = NULL;
-   //         TreeNode *tmp = NULL;
-
-
-            return std::make_pair(iterator(tmp), true);
+            else if (tmp->val.first < parent->val.first)
+            {
+                parent->left = tmp;
+            }
+            else
+            {
+                parent->right = tmp;
+            }
+            return std::make_pair(iterator(_node), true);
         }
 
         // std::pair<iterator, bool> insert(const value_type &val)
@@ -636,7 +636,7 @@ namespace ft
 
         size_type tree_size(TreeNode *node) const
         {
-            if (node == NULL || node->right == _last_node)
+            if (node == NULL)
                 return 0;
             return (tree_size(node->left) + 1 + tree_size(node->right));
         }

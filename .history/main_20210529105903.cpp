@@ -50,7 +50,6 @@ void constructor_test()
 	ret = mymap.insert(std::pair<int, int>(6, 100));
 	std::cout << "return value is: " << ret.first->first << '\n';
 	std::cout << " with a value of " << ret.first->second << '\n';
-		std::cout << "bool value is: " << ret.second << '\n';
 	mymap.insert(std::pair<int, int>(3, 400));
 	mymap.insert(std::pair<int, int>(2, 400));
 	mymap.insert(std::pair<int, int>(1, 400));
@@ -59,16 +58,13 @@ void constructor_test()
 	ret = mymap.insert(std::pair<int, int>(6, 100));
 	std::cout << "return value is: " << ret.first->first << '\n';
 	std::cout << " with a value of " << ret.first->second << '\n';
-	std::cout << "bool value is: " << ret.second << '\n';
 	mymap.insert(std::pair<int, int>(7, 100));
 	std::cout << "***************************" << std::endl;
 	ret = mymap.insert(std::pair<int, int>(7, 100));
 	std::cout << "return value is: " << ret.first->first << '\n';
 	std::cout << " with a value of " << ret.first->second << '\n';
-	std::cout << "bool value is: " << ret.second << '\n';
 
-
-
+	
 	std::cout << "size is : " << mymap.size() << std::endl;
 	mymap.treeprint();
 
