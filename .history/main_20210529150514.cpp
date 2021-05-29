@@ -12,21 +12,6 @@
 #define blue "\x1b[34m"
 #define cend "\x1b[0m"
 
-
-template <class Key, class T>
-void print_map(ft::map<Key, T> &map)
-{
-	typename ft::map<Key, T>::iterator it = map.begin();
-	typename ft::map<Key, T>::iterator ite = map.end();
-	while (it != ite)
-	{
-		std::cout << it->first << " ," << it->second << " | ";
-		++it;
-	}
-	std::cout << std::endl;
-	std::cout << std::endl;
-}
-
 void constructor_test()
 {
 	std::cout << blue << "***************[ Default constructor test ]***************" << cend << std::endl;
@@ -37,67 +22,26 @@ void constructor_test()
 	ft::map<int, int>::iterator ite;
 	std::map<int, int> std_map;
 
-	// std_map[2] = 200;
-	// std_map[3] = 300;
-	// std_map[1] = 200;
-	// std_map[3] = 500;
+	std_map[2] = 200;
+	std_map[3] = 300;
+	std_map[1] = 200;
+	std_map[3] = 500;
 
 	// std_map[4] = 400;
 	// std_map[5] = 500;
 	// std_map[10] = 600;
 
-	// std::map<int, int>::iterator its;
-	// std::map<int, int>::iterator itse;
-	// its = std_map.begin();
-	// std::cout << "begin is: " << its->first << ", " << its->second << std::endl;
-	// itse = std_map.end();
-	// itse--;
-	// std::cout << "end-- is: " << itse->first << ", " << itse->second << std::endl;
-	// itse--;
-	// std::cout << "end-- is: " << itse->first << ", " << itse->second << std::endl;
+	std::map<int, int>::iterator its;
+	std::map<int, int>::iterator itse;
+	its = std_map.begin();
+	std::cout << "begin is: " << its->first << ", " << its->second << std::endl;
+	itse = std_map.end();
+	itse--;
+	std::cout << "end-- is: " << itse->first << ", " << itse->second << std::endl;
+	itse--;
+	std::cout << "end-- is: " << itse->first << ", " << itse->second << std::endl;
 
 	// first insert function version (single parameter)
-
-	std::cout << "***************?//////////STD////////////////?*******************" << std::endl;
-
-	std_map.insert(std::pair<int, int>(5, 200));
-	std_map.insert(std::pair<int, int>(4, 400));
-	std::pair<std::map<int, int>::iterator, bool> ret1;
-	
-	ret1 = std_map.insert(std::pair<int, int>(6, 100));
-	std::cout << "return value is (6): " << ret1.first->first << '\n';
-	std::cout << " with a value of " << ret1.first->second << '\n';
-	std::cout << "bool value is (1): " << ret1.second << '\n';
-	std_map.insert(std::pair<int, int>(3, 400));
-	std_map.insert(std::pair<int, int>(2, 400));
-	std_map.insert(std::pair<int, int>(1, 400));
-	std_map.insert(std::pair<int, int>(8, 100));
-	std::cout << "return value is (8): " << ret1.first->first << '\n';
-	std::cout << " with a value of " << ret1.first->second << '\n';
-	std::cout << "bool value is (1): " << ret1.second << '\n';
-	ret1 = std_map.insert(std::pair<int, int>(8, 100));
-	std::cout << "return value is (8): " << ret1.first->first << '\n';
-	std::cout << " with a value of " << ret1.first->second << '\n';
-	std::cout << "bool value is (0): " << ret1.second << '\n';
-	ret1 = std_map.insert(std::pair<int, int>(10, 100));
-	std::cout << "return value is (10): " << ret1.first->first << '\n';
-	std::cout << " with a value of " << ret1.first->second << '\n';
-	std::cout << "bool value is (1): " << ret1.second << '\n';
-	ret1 = std_map.insert(std::pair<int, int>(6, 100));
-	std::cout << "return value is (6): " << ret1.first->first << '\n';
-	std::cout << " with a value of " << ret1.first->second << '\n';
-	std::cout << "bool value is (0): " << ret1.second << '\n';
-	std_map.insert(std::pair<int, int>(7, 100));
-	ret1 = std_map.insert(std::pair<int, int>(7, 100));
-	std::cout << "return value is (7): " << ret1.first->first << '\n';
-	std::cout << " with a value of " << ret1.first->second << '\n';
-	std::cout << "bool value is (0): " << ret1.second << '\n';
-
-
-
-	std::cout << "size is : " << std_map.size() << std::endl;
-
-	std::cout << "**************************MY FUNCS********************************" << std::endl;
 
 	mymap.insert(std::pair<int, int>(5, 200));
 	mymap.insert(std::pair<int, int>(4, 400));
@@ -132,9 +76,7 @@ void constructor_test()
 	std::cout << " with a value of " << ret.first->second << '\n';
 	std::cout << "bool value is (0): " << ret.second << '\n';
 
-	std::cout << "begin is: " << mymap.begin()->first << std::endl;
-	std::cout << "end is: " << mymap.end()->first << std::endl;
-	//print_map(mymap);
+
 
 	std::cout << "size is : " << mymap.size() << std::endl;
 	mymap.treeprint();

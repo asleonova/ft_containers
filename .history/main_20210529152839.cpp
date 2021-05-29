@@ -132,8 +132,8 @@ void constructor_test()
 	std::cout << " with a value of " << ret.first->second << '\n';
 	std::cout << "bool value is (0): " << ret.second << '\n';
 
-	std::cout << "begin is: " << mymap.begin()->first << std::endl;
-	std::cout << "end is: " << mymap.end()->first << std::endl;
+	std::cout << "begin is: " << mymap.begin() << std::endl;
+	std::cout << "end is: " << mymap.end() << std::endl;
 	//print_map(mymap);
 
 	std::cout << "size is : " << mymap.size() << std::endl;

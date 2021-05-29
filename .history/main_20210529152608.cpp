@@ -16,8 +16,8 @@
 template <class Key, class T>
 void print_map(ft::map<Key, T> &map)
 {
-	typename ft::map<Key, T>::iterator it = map.begin();
-	typename ft::map<Key, T>::iterator ite = map.end();
+	typename ft::list<Key, T>::iterator it = map.begin();
+	typename ft::list<Key, T>::iterator ite = map.end();
 	while (it != ite)
 	{
 		std::cout << it->first << " ," << it->second << " | ";
@@ -132,9 +132,7 @@ void constructor_test()
 	std::cout << " with a value of " << ret.first->second << '\n';
 	std::cout << "bool value is (0): " << ret.second << '\n';
 
-	std::cout << "begin is: " << mymap.begin()->first << std::endl;
-	std::cout << "end is: " << mymap.end()->first << std::endl;
-	//print_map(mymap);
+	print_map(mymap);
 
 	std::cout << "size is : " << mymap.size() << std::endl;
 	mymap.treeprint();

@@ -13,15 +13,15 @@
 #define cend "\x1b[0m"
 
 
-template <class Key, class T>
-void print_map(ft::map<Key, T> &map)
+template <typename T>
+void print_map(ft::map<T> &lst)
 {
-	typename ft::map<Key, T>::iterator it = map.begin();
-	typename ft::map<Key, T>::iterator ite = map.end();
+	typename ft::list<T>::iterator it = lst.begin();
+	typename ft::list<T>::iterator ite = lst.end();
 	while (it != ite)
 	{
-		std::cout << it->first << " ," << it->second << " | ";
-		++it;
+		std::cout << *it << " | ";
+		it++;
 	}
 	std::cout << std::endl;
 	std::cout << std::endl;
@@ -132,9 +132,7 @@ void constructor_test()
 	std::cout << " with a value of " << ret.first->second << '\n';
 	std::cout << "bool value is (0): " << ret.second << '\n';
 
-	std::cout << "begin is: " << mymap.begin()->first << std::endl;
-	std::cout << "end is: " << mymap.end()->first << std::endl;
-	//print_map(mymap);
+
 
 	std::cout << "size is : " << mymap.size() << std::endl;
 	mymap.treeprint();

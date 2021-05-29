@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 15:10:58 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 15:09:12 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,7 +291,9 @@ namespace ft
             }
             _node = insert_node(_node, val);
             current = _node;
-            while (current)
+
+           link_end();
+                       while (current != _last_node)
             {
                 tmp = current;
                 if (val.first < current->val.first)
@@ -303,9 +305,6 @@ namespace ft
                     current = current->right;
                 }
             }
-            // if (tmp->right != _last_node)
-            //     tmp = tmp->right;
-           link_end();
            return std::make_pair(iterator(tmp), true);
         }
 
