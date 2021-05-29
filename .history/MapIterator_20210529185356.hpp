@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 18:54:43 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 18:53:56 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,26 +84,49 @@ namespace ft
 
         /*================================ INCREMENTS: ================================*/
 
-            MapIterator &operator++() // ++a
+        MapIterator &operator++() //pre increment
+        {
+            TreeNode *y;
+            if (_node->right)
             {
-                TreeNode *tmp = _node;
-                if (tmp->right)
+                y = _node->right;
+                while (y->left)
+                    y = y->left;
+                _node = y;
+            }
+            else if (_node->parent)
+            {
+                y = _node->parent;
+                while (_node == y->right && _node->right != y)
                 {
-                    tmp = _node->right;
-                    while (tmp->left && tmp->right != _node)
-                        tmp = tmp->left;
+                   // _node = y;
+                    y = y->parent;
                 }
-                else if (_node->parent)
-                {
-                    tmp = _node->parent;
-                    while (tmp->parent && tmp->val.first < _node->val.first)
-                    {
-                        tmp = tmp->parent;
-                    }
-                }
-             _node = tmp;
+                this->_node = y;
+            }
+            _node = y; 
             return (*this);
         }
+        //     MapIterator &operator++() // ++a
+        //     {
+        //         TreeNode *tmp = _node;
+        //         if (tmp->right)
+        //         {
+        //             tmp = _node->right;
+        //             while (tmp->left && tmp->right != _node)
+        //                 tmp = tmp->left;
+        //         }
+        //         else if (_node->parent)
+        //         {
+        //             tmp = _node->parent;
+        //             while (tmp->parent && tmp->val.first < _node->val.first)
+        //             {
+        //                 tmp = tmp->parent;
+        //             }
+        //         }
+        //      _node = tmp;
+        //     return (*this);
+        // }
 
         MapIterator operator++(int) //a++
         {

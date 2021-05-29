@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 18:54:43 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 16:35:18 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,14 @@ namespace ft
 
         /*================================ CONSTRUCTORS: ================================*/
 
-        MapIterator(TreeNode *node = 0, TreeNode *last_node = 0) : _node(node), _last_node(last_node) {} // default
+        MapIterator(TreeNode *node = 0) : _node(node) {} // default
 
         template <class Iter>
-        MapIterator(MapIterator<Iter, TreeNode> const &my_it) : _node(my_it.get_node()), _last_node(my_it.get_last_node()) {} // Copy constructor
+        MapIterator(MapIterator<Iter, TreeNode> const &my_it) : _node(my_it.get_node()) {} // Copy constructor
 
         MapIterator &operator=(MapIterator<T, TreeNode> const &rhs) // asignment operator
         {
             this->_node = rhs.get_node();
-            this->_last_node = rhs.get_last_node();
             return (*this);
         }
 
@@ -77,97 +76,93 @@ namespace ft
             return this->_node;
         }
 
-        TreeNode *get_last_node() const
-        {
-            return this->_last_node;
-        }
-
         /*================================ INCREMENTS: ================================*/
 
-            MapIterator &operator++() // ++a
-            {
-                TreeNode *tmp = _node;
-                if (tmp->right)
-                {
-                    tmp = _node->right;
-                    while (tmp->left && tmp->right != _node)
-                        tmp = tmp->left;
-                }
-                else if (_node->parent)
-                {
-                    tmp = _node->parent;
-                    while (tmp->parent && tmp->val.first < _node->val.first)
-                    {
-                        tmp = tmp->parent;
-                    }
-                }
-             _node = tmp;
-            return (*this);
-        }
-
-        MapIterator operator++(int) //a++
+        MapIterator &operator++() // ++a
         {
-            MapIterator copy(*this);
-            operator++();
-            return (copy);
-        }
-
-        /*================================ DECREMENT: ================================*/
-
-        MapIterator &operator--() //--a
-        {
-            if (_node->left)
+            if (_node->right)
             {
-                this->_node = this->_node->left;
-                while (this->_node->right)
-                    this->_node = this->_node->right;
+                TreeNode *y = _node->right;
+                while (y->left)
+                    y = y->left;
+                _node = y;
             }
             else
             {
-                TreeNode *y = this->_node->parent;
-
-                while (_node == y->left)
+                TreeNode *y = _node->parent;
+                while (_node == y->right)
                 {
                     _node = y;
                     y = y->parent;
                 }
                 _node = y;
             }
-            return (*this);
-        }
+        return (*this);
+    }
 
-        MapIterator operator--(int) // a--
+    MapIterator operator++(int) //a++
+    {
+        MapIterator copy(*this);
+        operator++();
+        return (copy);
+    }
+
+    /*================================ DECREMENT: ================================*/
+
+    MapIterator &operator--() //--a
+    {
+        if (_node->left)
         {
-            MapIterator copy(*this);
-            operator--();
-            return (copy);
+            this->_node = this->_node->left;
+            while (this->_node->right)
+                this->_node = this->_node->right;
         }
-
-        /*================================ DEREFERENCE: ================================*/
-
-        reference operator*()
+        else
         {
-            return (this->_node->val);
+            TreeNode *y = this->_node->parent;
+
+            while (_node == y->left)
+            {
+                _node = y;
+                y = y->parent;
+            }
+            _node = y;
         }
+        return (*this);
+    }
 
-        pointer operator->(void)
-        {
+    MapIterator operator--(int) // a--
+    {
+        MapIterator copy(*this);
+        operator--();
+        return (copy);
+    }
 
-            return &(this->_node->val);
-        }
+    /*================================ DEREFERENCE: ================================*/
 
-        /*================================ EQUALITY / INEQUALITY COMPARISONS: ================================*/
+    reference operator*()
+    {
+        return (this->_node->val);
+    }
 
-        bool operator==(const MapIterator &rhs)
-        {
-            return this->_node == rhs._node;
-        }
+    pointer operator->(void)
+    {
 
-        bool operator!=(const MapIterator &rhs)
-        {
-            return this->_node != rhs._node;
-        }
-    };
+        return &(this->_node->val);
+    }
+
+    /*================================ EQUALITY / INEQUALITY COMPARISONS: ================================*/
+
+    bool operator==(const MapIterator &rhs)
+    {
+        return this->_node == rhs._node;
+    }
+
+    bool operator!=(const MapIterator &rhs)
+    {
+        return this->_node != rhs._node;
+    }
+};
 }
 
 #endif

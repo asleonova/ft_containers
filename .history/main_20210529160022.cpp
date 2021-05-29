@@ -107,43 +107,38 @@ void constructor_test()
 
 	std::cout << "**************************MY FUNCS********************************" << std::endl;
 
-	// mymap.insert(std::pair<int, int>(5, 200));
-	// mymap.insert(std::pair<int, int>(4, 400));
-	// std::pair<ft::map<int, int>::iterator, bool> ret;
-	
-	// ret = mymap.insert(std::pair<int, int>(6, 100));
-	// std::cout << "return value is (6): " << ret.first->first << '\n';
-	// std::cout << " with a value of " << ret.first->second << '\n';
-	// std::cout << "bool value is (1): " << ret.second << '\n';
-	// mymap.insert(std::pair<int, int>(3, 400));
-	// mymap.insert(std::pair<int, int>(2, 400));
-	// mymap.insert(std::pair<int, int>(1, 400));
-	// mymap.insert(std::pair<int, int>(8, 100));
-	// std::cout << "return value is (8): " << ret.first->first << '\n';
-	// std::cout << " with a value of " << ret.first->second << '\n';
-	// std::cout << "bool value is (1): " << ret.second << '\n';
-	// ret = mymap.insert(std::pair<int, int>(8, 100));
-	// std::cout << "return value is (8): " << ret.first->first << '\n';
-	// std::cout << " with a value of " << ret.first->second << '\n';
-	// std::cout << "bool value is (0): " << ret.second << '\n';
-	// ret = mymap.insert(std::pair<int, int>(10, 100));
-	// std::cout << "return value is (10): " << ret.first->first << '\n';
-	// std::cout << " with a value of " << ret.first->second << '\n';
-	// std::cout << "bool value is (1): " << ret.second << '\n';
-	// ret = mymap.insert(std::pair<int, int>(6, 100));
-	// std::cout << "return value is (6): " << ret.first->first << '\n';
-	// std::cout << " with a value of " << ret.first->second << '\n';
-	// std::cout << "bool value is (0): " << ret.second << '\n';
-	// mymap.insert(std::pair<int, int>(7, 100));
-	// ret = mymap.insert(std::pair<int, int>(7, 100));
-	// std::cout << "return value is (7): " << ret.first->first << '\n';
-	// std::cout << " with a value of " << ret.first->second << '\n';
-	// std::cout << "bool value is (0): " << ret.second << '\n';
 	mymap.insert(std::pair<int, int>(5, 200));
-	mymap.insert(std::pair<int, int>(6, 200));
-	mymap.insert(std::pair<int, int>(7, 200));
-	mymap.insert(std::pair<int, int>(1, 200));
-	mymap.insert(std::pair<int, int>(2, 200));
+	mymap.insert(std::pair<int, int>(4, 400));
+	std::pair<ft::map<int, int>::iterator, bool> ret;
+	
+	ret = mymap.insert(std::pair<int, int>(6, 100));
+	std::cout << "return value is (6): " << ret.first->first << '\n';
+	std::cout << " with a value of " << ret.first->second << '\n';
+	std::cout << "bool value is (1): " << ret.second << '\n';
+	mymap.insert(std::pair<int, int>(3, 400));
+	mymap.insert(std::pair<int, int>(2, 400));
+	mymap.insert(std::pair<int, int>(1, 400));
+	mymap.insert(std::pair<int, int>(8, 100));
+	std::cout << "return value is (8): " << ret.first->first << '\n';
+	std::cout << " with a value of " << ret.first->second << '\n';
+	std::cout << "bool value is (1): " << ret.second << '\n';
+	ret = mymap.insert(std::pair<int, int>(8, 100));
+	std::cout << "return value is (8): " << ret.first->first << '\n';
+	std::cout << " with a value of " << ret.first->second << '\n';
+	std::cout << "bool value is (0): " << ret.second << '\n';
+	ret = mymap.insert(std::pair<int, int>(10, 100));
+	std::cout << "return value is (10): " << ret.first->first << '\n';
+	std::cout << " with a value of " << ret.first->second << '\n';
+	std::cout << "bool value is (1): " << ret.second << '\n';
+	ret = mymap.insert(std::pair<int, int>(6, 100));
+	std::cout << "return value is (6): " << ret.first->first << '\n';
+	std::cout << " with a value of " << ret.first->second << '\n';
+	std::cout << "bool value is (0): " << ret.second << '\n';
+	mymap.insert(std::pair<int, int>(7, 100));
+	ret = mymap.insert(std::pair<int, int>(7, 100));
+	std::cout << "return value is (7): " << ret.first->first << '\n';
+	std::cout << " with a value of " << ret.first->second << '\n';
+	std::cout << "bool value is (0): " << ret.second << '\n';
 
 	ite = mymap.end();
 	// ite--;
@@ -153,7 +148,7 @@ void constructor_test()
 	//print_map(mymap);
 
 	std::cout << "size is : " << mymap.size() << std::endl;
-	mymap.treeprint();
+	//mymap.treeprint();
 
 	it = mymap.begin();
 	ite = mymap.end();
@@ -174,15 +169,6 @@ void constructor_test()
 	// std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
 	// it++;
 	// std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
-	// 	it++;
-	// std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
-	// it++;
-	// std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
-	// it++;
-	// std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
-	// it++;
-	// std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
-	
 	// std::cout << "end is: " << ite->first << ", "<< ite->second << std::endl;
 
 	// ite--;
@@ -229,13 +215,13 @@ void constructor_test()
 
 int main()
 {
-	// std::map<int, int> mapp;
-	// mapp.insert(std::pair<int,int>(5, 200));
-	// mapp.insert(std::pair<int,int>(10, 200));
-	// std::map<int, int>::reverse_iterator rit = --mapp.rend();
-	// // std::map<int, int>::iterator it = --mapp.begin();
-	// std::cout << rit->first << std::endl;
+	std::map<int, int> mapp;
+	mapp.insert(std::pair<int,int>(5, 200));
+	mapp.insert(std::pair<int,int>(10, 200));
+	std::map<int, int>::reverse_iterator rit = mapp.rend();
+	// std::map<int, int>::iterator it = --mapp.begin();
+	//std::cout << it->first << std::endl;
 
-	constructor_test();
+	//constructor_test();
 	return 0;
 }

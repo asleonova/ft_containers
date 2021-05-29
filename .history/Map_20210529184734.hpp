@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 18:55:47 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 18:47:34 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -261,13 +261,11 @@ namespace ft
         void link_end()
         { 
             TreeNode *tmp = _node;
-            TreeNode *max = max_node(_node);
 
-            while(tmp->right != NULL && tmp->right != _last_node)
-            {
+            while(tmp->right != NULL)
                 tmp = tmp->right;
-            }
             tmp->right = _last_node;
+            TreeNode *max = max_node(_node);
             //std::cout << "max value is: " << max->val.first << std::endl;
            // max->right = _last_node;
           // std::cout << "max right value is: " << max->right->val.first << std::endl; 

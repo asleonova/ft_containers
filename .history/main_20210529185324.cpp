@@ -144,6 +144,7 @@ void constructor_test()
 	mymap.insert(std::pair<int, int>(7, 200));
 	mymap.insert(std::pair<int, int>(1, 200));
 	mymap.insert(std::pair<int, int>(2, 200));
+	mymap.insert(std::pair<int, int>(2, 200));
 
 	ite = mymap.end();
 	// ite--;

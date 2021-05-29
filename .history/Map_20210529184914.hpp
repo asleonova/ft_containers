@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 18:55:47 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 18:49:14 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -263,7 +263,7 @@ namespace ft
             TreeNode *tmp = _node;
             TreeNode *max = max_node(_node);
 
-            while(tmp->right != NULL && tmp->right != _last_node)
+            while(tmp->right != NULL)
             {
                 tmp = tmp->right;
             }
