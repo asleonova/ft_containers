@@ -156,6 +156,10 @@ void constructor_test()
 	{
 		std::cout << "end is: " << ite->first << std::endl;
 		ite--;
+		std::cout << "end is: " << ite->first << std::endl;
+		ite--;
+		std::cout << "end is: " << ite->first << std::endl;
+		ite--;
 	}
 
 

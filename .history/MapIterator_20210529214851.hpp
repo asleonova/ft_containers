@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 21:50:31 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 21:48:51 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,10 @@ namespace ft
 
         /*================================ DECREMENT: ================================*/
 
-MapIterator &operator--() //--a
+        MapIterator &operator--() //--a
         {
             TreeNode *tmp = _node;
-            if (tmp->right && tmp->right->parent != tmp)
+            if (tmp->right && tmp->right->right != tmp) // needs to the node before _last_node
             {
                 tmp = tmp->right;
                 if (tmp->right == _node)

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 21:50:31 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 19:20:42 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ namespace ft
         MapIterator &operator=(MapIterator<T, TreeNode> const &rhs) // asignment operator
         {
             this->_node = rhs.get_node();
+            this->_last_node = rhs.get_last_node();
             return (*this);
         }
 
@@ -108,32 +109,25 @@ namespace ft
 
         /*================================ DECREMENT: ================================*/
 
-MapIterator &operator--() //--a
+        MapIterator &operator--() //--a
         {
-            TreeNode *tmp = _node;
-            if (tmp->right && tmp->right->parent != tmp)
+            if (_node->left)
             {
-                tmp = tmp->right;
-                if (tmp->right == _node)
-                    _node = tmp;
-                return (*this);
+                this->_node = this->_node->left;
+                while (this->_node->right)
+                    this->_node = this->_node->right;
             }
-            
-            if (tmp->left)
+            else
             {
-                tmp = _node->left;
-                while (tmp->right)
-                    tmp = tmp->right;
-            }
-            else if (_node->parent)
-            {
-                tmp = _node->parent;
-                while (tmp->parent && _node->val.first < tmp->val.first)
+                TreeNode *y = this->_node->parent;
+
+                while (_node == y->left)
                 {
-                    tmp = tmp->parent;
+                    _node = y;
+                    y = y->parent;
                 }
+                _node = y;
             }
-            _node = tmp;
             return (*this);
         }
 

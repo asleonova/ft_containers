@@ -97,20 +97,10 @@ void constructor_test()
 
 	its = std_map.begin();
 	ites = std_map.end();
-	
 	while (its != ites)
 	{
 		std::cout << "contents of my map: " << its->first << ", " << its->second << std::endl;
 		++its;
-	}
-
-	its = std_map.begin();
-	ites = std_map.end();
-
-		while (ites != its)
-	{
-		std::cout << "end is: " << ites->first << std::endl;
-		ites--;
 	}
 
 	std::cout << "size is : " << std_map.size() << std::endl;
@@ -150,16 +140,10 @@ void constructor_test()
 	std::cout << " with a value of " << ret.first->second << '\n';
 	std::cout << "bool value is (0): " << ret.second << '\n';
 	
-	it = mymap.begin();	
+
 	ite = mymap.end();
-	while (ite != it)
-	{
-		std::cout << "end is: " << ite->first << std::endl;
-		ite--;
-	}
-
-
-
+	ite--;
+	ite--;
 	std::cout << "begin is: " << mymap.begin()->first << std::endl;
 	std::cout << "end is: " << ite->first << std::endl;
 	//print_map(mymap);

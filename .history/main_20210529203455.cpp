@@ -104,14 +104,13 @@ void constructor_test()
 		++its;
 	}
 
-	its = std_map.begin();
 	ites = std_map.end();
+	std::cout << "end is: " << ites->first << std::endl;
+	ites--;
+	std::cout << "end is: " << ites->first << std::endl;
+	ites--;
+	std::cout << "end is: " << ites->first << std::endl;
 
-		while (ites != its)
-	{
-		std::cout << "end is: " << ites->first << std::endl;
-		ites--;
-	}
 
 	std::cout << "size is : " << std_map.size() << std::endl;
 

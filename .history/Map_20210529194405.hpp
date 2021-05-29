@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 20:14:48 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 19:44:05 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,7 @@ namespace ft
 
             max->right = _last_node;
             _last_node->right = max;
-            _last_node->parent = max;
+          //  _last_node->parent = max;
             _last_node->left = min_node(_node);
           
         }

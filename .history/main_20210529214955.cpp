@@ -152,11 +152,15 @@ void constructor_test()
 	
 	it = mymap.begin();	
 	ite = mymap.end();
-	while (ite != it)
-	{
+	//while (ite != it)
+	//{
 		std::cout << "end is: " << ite->first << std::endl;
 		ite--;
-	}
+		std::cout << "end is: " << ite->first << std::endl;
+		ite--;
+		std::cout << "end is: " << ite->first << std::endl;
+		//ite--;
+	//}
 
 
 

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 21:50:31 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 19:53:13 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,18 +108,10 @@ namespace ft
 
         /*================================ DECREMENT: ================================*/
 
-MapIterator &operator--() //--a
+        MapIterator &operator--() //--a
         {
             TreeNode *tmp = _node;
-            if (tmp->right && tmp->right->parent != tmp)
-            {
-                tmp = tmp->right;
-                if (tmp->right == _node)
-                    _node = tmp;
-                return (*this);
-            }
-            
-            if (tmp->left)
+            if (tmp->left && tmp->left != _node)
             {
                 tmp = _node->left;
                 while (tmp->right)
@@ -136,6 +128,32 @@ MapIterator &operator--() //--a
             _node = tmp;
             return (*this);
         }
+
+
+// MapIterator& operator--()
+//  {
+//   if(!_p)
+//    return *this;
+//   node *tmp = _p;
+//   // _tail->left == _last  and  _last->right == _tail
+//   // _last->left == tmp    and  tmp->right   == NULL
+//   if (_p->left)
+//   {
+//    tmp = _p->left;
+//    while(tmp->right && tmp->right != _p)
+//     tmp = tmp->right;
+//   }
+//   else if ( _p->prev)
+//   {
+//    tmp = _p->prev;
+//    while(tmp->prev && _comp(_p->value.first, tmp->value.first)) // _p->value.first < tmp->value.first
+//     tmp = tmp->prev;
+//   }
+//   _p = tmp;
+//   return (*this);
+//  }
+
+
 
         MapIterator operator--(int) // a--
         {
