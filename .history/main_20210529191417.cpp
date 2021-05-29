@@ -139,7 +139,6 @@ void constructor_test()
 	std::cout << "return value is (7): " << ret.first->first << '\n';
 	std::cout << " with a value of " << ret.first->second << '\n';
 	std::cout << "bool value is (0): " << ret.second << '\n';
-	
 
 	ite = mymap.end();
 	// ite--;

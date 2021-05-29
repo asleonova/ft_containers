@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 19:19:17 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 19:18:33 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,9 +273,9 @@ namespace ft
         std::pair<iterator, bool>
         insert(const value_type &val)
         {
-            if (_last_node->right)
-                unlink_end();
-
+            // if (_last_node->right)
+            //     unlink_end();
+            
             TreeNode *current = _node;
             TreeNode *tmp;
             
@@ -283,7 +283,7 @@ namespace ft
             {
                 if (current->val.first == val.first)
                 {
-                    link_end();
+                    //link_end();
                     return make_pair(iterator(current), false);
                 }
                 if (val.first < current->val.first)
@@ -295,6 +295,8 @@ namespace ft
                     current = current->right;
                 }
             }
+            if (_last_node->right)
+                unlink_end();
             _node = insert_node(_node, val);
             current = _node;
             while (current)
@@ -309,6 +311,8 @@ namespace ft
                     current = current->right;
                 }
             }
+            // if (tmp->right != _last_node)
+            //     tmp = tmp->right;
            link_end();
            return std::make_pair(iterator(tmp), true);
         }
