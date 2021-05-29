@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 22:12:05 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 22:10:47 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ namespace ft
 
         mapped_type &operator[](const key_type &k)
         {
-           return (*((this->insert(std::make_pair(k,mapped_type()))).first)).second;
+           return (*((this->insert(make_pair(k,mapped_type()))).first)).second;
         }
 
         /*================================ MODIFIERS: ================================*/
@@ -179,6 +179,89 @@ namespace ft
                               // added at leaf
 
             return (node);
+        }
+
+        // std::pair<iterator, bool>
+        // insert(const value_type &val)
+        // {
+        //     TreeNode *current = _node; // x
+        //     TreeNode *parent = NULL; // y
+        //     TreeNode *tmp = NULL; // node
+
+        //         // unlink end
+        //         while (current) //x
+        //     {
+        //         parent = current;
+        //         if (current->val.first == val.first)
+        //             return make_pair(iterator(current), false);
+        //         if (val.first < current->val.first)
+        //         {
+        //             current = current->left;
+        //         }
+        //         else
+        //         {
+        //             current = current->right;
+        //         }
+        //     }
+        //     tmp = new_node(val);
+        //     tmp->parent = parent;
+        //     if (parent == nullptr)
+        //     {
+        //         _node = tmp;
+        //     }
+        //     else if (tmp->val.first < parent->val.first)
+        //     {
+        //         parent->left = tmp;
+        //     }
+        //     else
+        //     {
+        //         parent->right = tmp;
+        //     }
+
+        //     // if (tmp->parent->parent == NULL)
+        //     //     return make_pair(iterator(tmp), true);
+        //     insertFix(tmp, val);
+        //     return make_pair(iterator(tmp), true);
+        //      // link end (find min, find max, put left to min. right to last node)
+        // }
+
+        TreeNode *insertFix(TreeNode *node, const value_type &val)
+        {
+            if (node->parent)
+                node->parent->height = 1 + max(height(node->left),
+                                               height(node->right));
+
+            /* 3. Get the balance factor of this ancestor
+        node to check whether this node became
+        unbalanced */
+            int balance = getBalance(node);
+
+            // If this node becomes unbalanced, then
+            // there are 4 cases
+
+            // Left Left Case
+            if (balance > 1 && val.first < node->left->val.first)
+                return rightRotate(node);
+
+            // Right Right Case
+            if (balance < -1 && val.first > node->right->val.first)
+                return leftRotate(node);
+
+            // Left Right Case
+            if (balance > 1 && val.first > node->left->val.first)
+            {
+                node->left = leftRotate(node->left);
+                return rightRotate(node);
+            }
+
+            // Right Left Case
+            if (balance < -1 && val.first < node->right->val.first)
+            {
+                node->right = rightRotate(node->right);
+                return leftRotate(node);
+            }
+            /* return the (unchanged) node pointer */
+            return node;
         }
 
         void unlink_end()

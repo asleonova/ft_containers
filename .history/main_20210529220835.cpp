@@ -117,8 +117,6 @@ void constructor_test()
 
 	std::cout << "**************************MY FUNCS********************************" << std::endl;
 
-	mymap[1] = 200;
-	mymap[3] = 500;
 	mymap.insert(std::pair<int, int>(5, 200));
 	mymap.insert(std::pair<int, int>(4, 400));
 	std::pair<ft::map<int, int>::iterator, bool> ret;
