@@ -35,8 +35,8 @@ void constructor_test()
 	ft::map<int, int> mymap;
 	ft::map<int, int>::iterator it;
 	ft::map<int, int>::iterator ite;
-	std::map<int, int>::iterator its;
-	std::map<int, int>::iterator ites;
+		ft::map<int, int>::iterator its;
+	ft::map<int, int>::iterator ites;
 	std::map<int, int> std_map;
 
 	// std_map[2] = 200;
@@ -96,7 +96,6 @@ void constructor_test()
 	std::cout << "bool value is (0): " << ret1.second << '\n';
 
 	its = std_map.begin();
-	ites = std_map.end();
 	while (its != ites)
 	{
 		std::cout << "contents of my map: " << its->first << ", " << its->second << std::endl;
@@ -140,11 +139,8 @@ void constructor_test()
 	std::cout << " with a value of " << ret.first->second << '\n';
 	std::cout << "bool value is (0): " << ret.second << '\n';
 
-	ite = mymap.end();
-	// ite--;
-	// ite--;
 	std::cout << "begin is: " << mymap.begin()->first << std::endl;
-	std::cout << "end is: " << ite->first << std::endl;
+	std::cout << "end is: " << mymap.end()->first << std::endl;
 	//print_map(mymap);
 
 	std::cout << "size is : " << mymap.size() << std::endl;

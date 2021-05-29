@@ -143,20 +143,20 @@ void constructor_test()
 	ite = mymap.end();
 	// ite--;
 	// ite--;
-	std::cout << "begin is: " << mymap.begin()->first << std::endl;
+	// std::cout << "begin is: " << mymap.begin()->first << std::endl;
 	std::cout << "end is: " << ite->first << std::endl;
 	//print_map(mymap);
 
 	std::cout << "size is : " << mymap.size() << std::endl;
 	//mymap.treeprint();
 
-	it = mymap.begin();
-	ite = mymap.end();
-	while (it != ite)
-	{
-		std::cout << "contents of my map: " << it->first << ", " << it->second << std::endl;
-		++it;
-	}
+	// it = mymap.begin();
+	// ite = mymap.end();
+	// while (it != ite)
+	// {
+	// 	std::cout << "contents of my map: " << it->first << ", " << it->second << std::endl;
+	// 	++it;
+	// }
 
 	// ite = mymap.end();
 	// it++;
