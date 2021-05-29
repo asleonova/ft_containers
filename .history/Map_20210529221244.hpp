@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 23:04:22 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 22:12:44 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ namespace ft
         iterator begin()
         {
             if (!_last_node->right) // in the last node I always update the min value after insertion
-                return (iterator(_node));
+                return(iterator(_node));
             return (iterator(_last_node->right));
         }
 
@@ -155,7 +155,7 @@ namespace ft
 
         mapped_type &operator[](const key_type &k)
         {
-            return (*((this->insert(std::make_pair(k, mapped_type()))).first)).second;
+           return (*((this->insert(std::make_pair(k,mapped_type()))).first)).second;
         }
 
         /*================================ MODIFIERS: ================================*/
@@ -187,7 +187,7 @@ namespace ft
         }
 
         void link_end()
-        {
+        { 
             TreeNode *tmp = _node;
             TreeNode *max = max_node(_node);
 
@@ -205,7 +205,7 @@ namespace ft
 
             TreeNode *current = _node;
             TreeNode *tmp;
-
+            
             while (current)
             {
                 if (current->val.first == val.first)
@@ -236,8 +236,8 @@ namespace ft
                     current = current->right;
                 }
             }
-            link_end();
-            return std::make_pair(iterator(tmp), true);
+           link_end();
+           return std::make_pair(iterator(tmp), true);
         }
 
         iterator
@@ -248,14 +248,9 @@ namespace ft
 
         /* ERASE */
 
-       // void erase(iterator position);
+        void erase(iterator position);
 
-        size_type erase(const key_type &k)
-        {
-            deleteNode(_node, k);
-            size_type s = size();
-            return s;
-        }
+        size_type erase(const key_type &k);
 
         void erase(iterator first, iterator last);
 
@@ -494,109 +489,6 @@ namespace ft
             }
             /* return the (unchanged) node pointer */
             return node;
-        }
-
-        TreeNode *deleteNode(TreeNode *root, const key_type &k)
-        {
-            
-            // STEP 1: PERFORM STANDARD BST DELETE
-            if (root == NULL)
-                return root;
-
-            // If the key to be deleted is smaller
-            // than the root's key, then it lies
-            // in left subtree
-            if (k < root->val.first)
-                root->left = deleteNode(root->left, k);
-
-            // If the key to be deleted is greater
-            // than the root's key, then it lies
-            // in right subtree
-            else if (k > root->val.first)
-                root->right = deleteNode(root->right, k);
-
-            // if key is same as root's key, then
-            // This is the node to be deleted
-            else
-            {
-                // node with only one child or no child
-                if ((root->left == NULL) ||
-                    (root->right == NULL))
-                {
-                    TreeNode *temp = root->left ? root->left : root->right;
-
-                    // No child case
-                    if (temp == NULL)
-                    {
-                        temp = root;
-                        root = NULL;
-                    }
-                    else               // One child case
-                        *root = *temp; // Copy the contents of
-                                       // the non-empty child
-                    _alloc_node.destroy(temp);
-                    _alloc_node.deallocate(temp, 1);
-                }
-                else
-                {
-                    // node with two children: Get the inorder
-                    // successor (smallest in the right subtree)
-                    TreeNode *temp = minValueNode(root->right);
-
-                    // Copy the inorder successor's
-                    // data to this node
-                    root->val = temp->val;
-
-                    // Delete the inorder successor
-                    root->right = deleteNode(root->right,
-                                             temp->val);
-                }
-            }
-
-            // If the tree had only one node
-            // then return
-            if (root == NULL)
-                return root;
-
-            // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
-            root->height = 1 + max(height(root->left),
-                                   height(root->right));
-
-            // STEP 3: GET THE BALANCE FACTOR OF
-            // THIS NODE (to check whether this
-            // node became unbalanced)
-            int balance = getBalance(root);
-
-            // If this node becomes unbalanced,
-            // then there are 4 cases
-
-            // Left Left Case
-            if (balance > 1 &&
-                getBalance(root->left) >= 0)
-                return rightRotate(root);
-
-            // Left Right Case
-            if (balance > 1 &&
-                getBalance(root->left) < 0)
-            {
-                root->left = leftRotate(root->left);
-                return rightRotate(root);
-            }
-
-            // Right Right Case
-            if (balance < -1 &&
-                getBalance(root->right) <= 0)
-                return leftRotate(root);
-
-            // Right Left Case
-            if (balance < -1 &&
-                getBalance(root->right) > 0)
-            {
-                root->right = rightRotate(root->right);
-                return leftRotate(root);
-            }
-
-            return root;
         }
 
         TreeNode *min_node(TreeNode *node)

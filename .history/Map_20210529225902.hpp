@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 23:04:22 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 22:59:02 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,7 +250,7 @@ namespace ft
 
        // void erase(iterator position);
 
-        size_type erase(const key_type &k)
+        size_type erase(key_type &k)
         {
             deleteNode(_node, k);
             size_type s = size();
@@ -496,7 +496,7 @@ namespace ft
             return node;
         }
 
-        TreeNode *deleteNode(TreeNode *root, const key_type &k)
+        TreeNode *deleteNode(TreeNode *root, key_type &k)
         {
             
             // STEP 1: PERFORM STANDARD BST DELETE

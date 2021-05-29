@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 23:04:22 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 22:55:39 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,7 +248,7 @@ namespace ft
 
         /* ERASE */
 
-       // void erase(iterator position);
+        void erase(iterator position);
 
         size_type erase(const key_type &k)
         {
