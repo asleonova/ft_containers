@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 22:03:05 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 21:57:35 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ namespace ft
                 while (tmp->left && tmp->left != _node)
                     tmp = tmp->left;
             }
-            else if (_node->parent)
+            else if (_node->prev)
             {
-                tmp = _node->parent;
-                while (tmp->parent && tmp->val.first < _node->val.first)
-                    tmp = tmp->parent;
+                tmp = _node->prev;
+                while (tmp->prev && tmp->value.first < _p->value.first)
+                    tmp = tmp->prev;
             }
-            _node = tmp;
+            _p = tmp;
             return (*this);
         }
 
@@ -108,22 +108,30 @@ namespace ft
 
         /*================================ DECREMENT: ================================*/
 
-        MapIterator &operator--()
+        MapIterator &operator--() //--a
         {
             TreeNode *tmp = _node;
-            // _last_node->left == _last  and  _last->right == _last_node
-            // _last->left == tmp    and  tmp->right   == NULL
-            if (_node->left)
+            if (tmp->right && tmp->right->parent != tmp)
+            {
+                tmp = tmp->right;
+                if (tmp->right == _node)
+                    _node = tmp;
+                return (*this);
+            }
+
+            if (tmp->left)
             {
                 tmp = _node->left;
-                while (tmp->right && tmp->right != _node)
+                while (tmp->right)
                     tmp = tmp->right;
             }
             else if (_node->parent)
             {
                 tmp = _node->parent;
-                while (tmp->parent &&  _node->val.first < tmp->val.first)
+                while (tmp->parent && _node->val.first < tmp->val.first)
+                {
                     tmp = tmp->parent;
+                }
             }
             _node = tmp;
             return (*this);

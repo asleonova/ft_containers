@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 22:03:05 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 21:59:46 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ namespace ft
                 while (tmp->left && tmp->left != _node)
                     tmp = tmp->left;
             }
-            else if (_node->parent)
+            else if (_node->prev)
             {
-                tmp = _node->parent;
-                while (tmp->parent && tmp->val.first < _node->val.first)
-                    tmp = tmp->parent;
+                tmp = _node->prev;
+                while (tmp->prev && tmp->value.first < _node->value.first)
+                    tmp = tmp->prev;
             }
             _node = tmp;
             return (*this);
@@ -122,7 +122,7 @@ namespace ft
             else if (_node->parent)
             {
                 tmp = _node->parent;
-                while (tmp->parent &&  _node->val.first < tmp->val.first)
+                while (tmp->parent &&  _node->value.first < tmp->value.first)
                     tmp = tmp->parent;
             }
             _node = tmp;

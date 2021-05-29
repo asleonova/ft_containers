@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/29 22:02:34 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/29 22:01:52 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ namespace ft
 
         iterator begin()
         {
-            if (!_last_node->right) // in the last node I always update the min value after insertion
+            if (!_last_node->left) // in the last node I always update the min value after insertion
                 return(iterator(_node));
-            return (iterator(_last_node->right));
+            return (iterator(_last_node->left));
         }
 
         const_iterator begin() const;
