@@ -257,7 +257,6 @@ void constructor_test()
 
 void erase_func_test()
 {
-	std::cout << blue << "***************[ Erase func test ]***************" << cend << std::endl;
 	ft::map<char, int> mymap;
 	ft::map<char, int>::iterator it;
 
@@ -269,27 +268,23 @@ void erase_func_test()
 	mymap['e'] = 50;
 	mymap['f'] = 60;
 
-	it = mymap.begin();
-	it++;
-	std::cout << "it calue is: " << it->first << std::endl;
 	// it = mymap.find('b');
-	mymap.erase(it); // erasing by iterator
+	// mymap.erase(it); // erasing by iterator
 
 	mymap.erase('c'); // erasing by key
 
-	//it++;
 	// it = mymap.find('e');
-	//mymap.erase(it, mymap.end()); // erasing by range
+	// mymap.erase(it, mymap.end()); // erasing by range
 
 	// show content:
 	for (it = mymap.begin(); it != mymap.end(); ++it)
 		std::cout << it->first << " => " << it->second << '\n';
 
+	return 0;
 }
 
 int main()
 {
-	
 	// std::map<int, int> mapp;
 	// mapp.insert(std::pair<int,int>(5, 200));
 	// mapp.insert(std::pair<int,int>(10, 200));

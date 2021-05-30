@@ -275,7 +275,7 @@ void erase_func_test()
 	// it = mymap.find('b');
 	mymap.erase(it); // erasing by iterator
 
-	mymap.erase('c'); // erasing by key
+	//mymap.erase('c'); // erasing by key
 
 	//it++;
 	// it = mymap.find('e');

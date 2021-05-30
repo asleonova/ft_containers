@@ -269,17 +269,13 @@ void erase_func_test()
 	mymap['e'] = 50;
 	mymap['f'] = 60;
 
-	it = mymap.begin();
-	it++;
-	std::cout << "it calue is: " << it->first << std::endl;
 	// it = mymap.find('b');
-	mymap.erase(it); // erasing by iterator
+	// mymap.erase(it); // erasing by iterator
 
-	mymap.erase('c'); // erasing by key
+	//mymap.erase('c'); // erasing by key
 
-	//it++;
 	// it = mymap.find('e');
-	//mymap.erase(it, mymap.end()); // erasing by range
+	 //mymap.erase(it, mymap.end()); // erasing by range
 
 	// show content:
 	for (it = mymap.begin(); it != mymap.end(); ++it)
@@ -297,7 +293,7 @@ int main()
 	// // std::map<int, int>::iterator it = --mapp.begin();
 	// std::cout << rit->first << std::endl;
 
-	constructor_test();
+	//constructor_test();
 	erase_func_test();
 	return 0;
 }

@@ -273,7 +273,7 @@ void erase_func_test()
 	it++;
 	std::cout << "it calue is: " << it->first << std::endl;
 	// it = mymap.find('b');
-	mymap.erase(it); // erasing by iterator
+	//mymap.erase(it); // erasing by iterator
 
 	mymap.erase('c'); // erasing by key
 

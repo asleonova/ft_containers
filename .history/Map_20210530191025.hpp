@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/30 19:25:45 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/30 19:10:25 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ namespace ft
         /*================================ DESTRUCTOR: ================================*/
 
         virtual ~map() { 
-               // clear();
+                clear();
             }
 
         /*================================ OPERATOR=: ================================*/
@@ -90,7 +90,7 @@ namespace ft
         {
             	if (&x != this)
                 {
-                   // clear();
+                    clear();
                     insert(x.begin(), x.end());
                 }
 				return (*this);
@@ -279,12 +279,12 @@ namespace ft
             return s;
         }
 
-        void erase(iterator first, iterator last)
-        {
-           difference_type n = ft::distance(first, last);
-				while (n--)
-					erase((*(first++)).first);
-        }
+        // void erase(iterator first, iterator last)
+        // {
+        //    difference_type n = ft::distance(first, last);
+		// 		while (n--)
+		// 			erase(*(first++)); 
+        // }
 
         /* SWAP */
 
