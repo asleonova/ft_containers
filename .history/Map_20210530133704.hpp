@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/30 13:53:07 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/30 13:37:04 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,29 +73,15 @@ namespace ft
             const allocator_type &alloc = allocator_type());
 
         /*COPY*/
-        map(const map &x) : _node(x._node), _comp(x._comp), allocator_type(x._allocator_type)
-        {
-            insert(x.begin(), x.end());
-        }
+        map(const map &x);
 
         /*================================ DESTRUCTOR: ================================*/
 
-        virtual ~map() { 
-            //clear();
-            }
+        virtual ~map() {}
 
         /*================================ OPERATOR=: ================================*/
 
-        map &operator=(const map &x)
-        {
-            	if (&x != this)
-                {
-                    //clear();
-                    insert(x.begin(), x.end());
-                }
-				return (*this);
-            
-        }
+        map &operator=(const map &x);
 
         /*================================ ITERATORS: ================================*/
 
@@ -258,18 +244,13 @@ namespace ft
         insert(iterator position, const value_type &val);
 
         template <class InputIterator>
-        void insert(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator>::type isIterator = InputIterator())
-        {
-            difference_type n = ft::distance(first, last);
-				while (n--)
-					insert(*(first++));
-        }
+        void insert(InputIterator first, InputIterator last);
 
         /* ERASE */
 
        // void erase(iterator position);
 
-        size_type erase(const key_type &k)
+        size_type erase(const value_type &k)
         {
             deleteNode(_node, k);
             size_type s = size();
@@ -515,7 +496,7 @@ namespace ft
             return node;
         }
 
-        TreeNode *deleteNode(TreeNode *root, const key_type &k)
+        TreeNode *deleteNode(TreeNode *root, const value_type &k)
         {
             
             // STEP 1: PERFORM STANDARD BST DELETE
@@ -525,14 +506,14 @@ namespace ft
             // If the key to be deleted is smaller
             // than the root's key, then it lies
             // in left subtree
-            if (k < root->val.first)
-                root->left = deleteNode(root->left, k);
+            if (k.first < root->val.first)
+                root->left = deleteNode(root->left, k.first);
 
             // If the key to be deleted is greater
             // than the root's key, then it lies
             // in right subtree
-            else if (k > root->val.first)
-                root->right = deleteNode(root->right, k);
+            else if (k.first > root->val.first)
+                root->right = deleteNode(root->right, k.first);
 
             // if key is same as root's key, then
             // This is the node to be deleted

@@ -163,7 +163,7 @@ void constructor_test()
 	}
 
 	ft::map<int,int> anothermap;
- 	anothermap.insert(mymap.begin(),mymap.end());
+  //	anothermap.insert(mymap.begin(),mymap.end());
 
 	std::cout << "begin is: " << mymap.begin()->first << std::endl;
 	std::cout << "end is: " << ite->first << std::endl;
@@ -250,7 +250,7 @@ void constructor_test()
 	print_list(lst1);
 	std::cout << std::endl;
     */
-	//sleep(50);
+	sleep(50);
 }
 
 int main()

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/30 13:53:07 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/30 13:48:02 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,7 @@ namespace ft
             const allocator_type &alloc = allocator_type());
 
         /*COPY*/
-        map(const map &x) : _node(x._node), _comp(x._comp), allocator_type(x._allocator_type)
-        {
-            insert(x.begin(), x.end());
-        }
+        map(const map &x);
 
         /*================================ DESTRUCTOR: ================================*/
 

@@ -35,7 +35,6 @@ void constructor_test()
 	ft::map<int, int> mymap;
 	ft::map<int, int>::iterator it;
 	ft::map<int, int>::iterator ite;
-
 	std::map<int, int>::iterator its;
 	std::map<int, int>::iterator ites;
 	std::map<int, int> std_map;
@@ -152,7 +151,7 @@ void constructor_test()
 	std::cout << "return value is (7): " << ret.first->first << '\n';
 	std::cout << " with a value of " << ret.first->second << '\n';
 	std::cout << "bool value is (0): " << ret.second << '\n';
-//	mymap.erase(7);
+	mymap.erase(std::pair<int, int>(7, 100));
 	
 	it = mymap.begin();	
 	ite = mymap.end();
@@ -162,8 +161,7 @@ void constructor_test()
 		ite--;
 	}
 
-	ft::map<int,int> anothermap;
- 	anothermap.insert(mymap.begin(),mymap.end());
+
 
 	std::cout << "begin is: " << mymap.begin()->first << std::endl;
 	std::cout << "end is: " << ite->first << std::endl;
@@ -178,15 +176,6 @@ void constructor_test()
 	{
 		std::cout << "contents of my map: " << it->first << ", " << it->second << std::endl;
 		++it;
-	}
-	ft::map<int, int>::iterator it2;
-	ft::map<int, int>::iterator ite2;
-	it2 = anothermap.begin();
-	ite2 = anothermap.end();
-	while (it2 != ite2)
-	{
-		std::cout << "contents of another map: " << it2->first << ", " << it2->second << std::endl;
-		++it2;
 	}
 
 	// ite = mymap.end();
@@ -250,7 +239,7 @@ void constructor_test()
 	print_list(lst1);
 	std::cout << std::endl;
     */
-	//sleep(50);
+	sleep(50);
 }
 
 int main()
