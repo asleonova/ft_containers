@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/30 16:53:13 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/30 14:02:18 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 namespace ft
 {
 
-    template <class T>
+    template <class T, class TreeNode>
     struct iterator_traits<T *>
     {
         typedef ptrdiff_t difference_type;
@@ -28,7 +28,7 @@ namespace ft
         typedef bidirectional_iterator_tag iterator_category;
     };
 
-    template <class T>
+    template <class T, class TreeNode>
     struct iterator_traits<const T *>
     {
         typedef ptrdiff_t difference_type;
@@ -43,6 +43,7 @@ namespace ft
     {
     private:
         TreeNode *_node;
+        TreeNode *_last_node;
 
     public:
         typedef typename ft::iterator_traits<T>::iterator_category iterator_category;

@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/30 16:53:13 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/30 14:03:08 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ namespace ft
     {
     private:
         TreeNode *_node;
+        TreeNode *_last_node;
 
     public:
         typedef typename ft::iterator_traits<T>::iterator_category iterator_category;

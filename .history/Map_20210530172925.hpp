@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/30 18:07:18 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/30 17:29:23 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ namespace ft
 {
     template <class Key, class T,
               class Compare = less<Key>,
-              class Alloc = std::allocator<std::pair<Key, T> > >
+              class Alloc = std::allocator<std::pair<const Key, T> > >
     class map
     {
 
     private:
         struct TreeNode
         {
-            std::pair<Key, T> val;
+            std::pair<const Key, T> val;
             TreeNode *left;
             TreeNode *right;
             TreeNode *parent;
@@ -41,7 +41,7 @@ namespace ft
     public:
         typedef Key key_type;
         typedef T mapped_type;
-        typedef std::pair<key_type, mapped_type> value_type;
+        typedef std::pair<const key_type, mapped_type> value_type;
         typedef less<key_type> key_compare;
         typedef Alloc allocator_type;
         typedef typename Alloc::reference reference;
@@ -550,9 +550,8 @@ namespace ft
                         temp = root;
                         root = NULL;
                     }
-                    // !!!!! doesn't work with else
                     else               // One child case
-                       *root = *temp; // Copy the contents of
+                        *root = *temp; // Copy the contents of
                                        // the non-empty child
                     _alloc_node.destroy(temp);
                     _alloc_node.deallocate(temp, 1);
@@ -565,9 +564,7 @@ namespace ft
 
                     // Copy the inorder successor's
                     // data to this node
-
-                    //  Doesn't work with root->val = temp->val;
-                     root->val = temp->val;
+                    // root->val = temp->val;
 
                     // Delete the inorder successor
                     root->right = deleteNode(root->right,

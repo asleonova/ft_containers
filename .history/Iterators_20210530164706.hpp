@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/30 16:53:17 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/05/30 16:47:06 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,42 +15,42 @@
 
 namespace ft
 {
-    struct input_iterator_tag
-    {
-    };
-    struct forward_iterator_tag : input_iterator_tag
-    {
-    };
-    struct bidirectional_iterator_tag : forward_iterator_tag
-    {
-    };
-    struct random_access_iterator_tag : bidirectional_iterator_tag
-    {
-    };
-    struct output_iterator_tag
-    {
-    };
+    // struct input_iterator_tag
+    // {
+    // };
+    // struct forward_iterator_tag : input_iterator_tag
+    // {
+    // };
+    // struct bidirectional_iterator_tag : forward_iterator_tag
+    // {
+    // };
+    // struct random_access_iterator_tag : bidirectional_iterator_tag
+    // {
+    // };
+    // struct output_iterator_tag
+    // {
+    // };
 
-    template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T *, class Reference = T &>
-    struct iterator
-    {
-        typedef T value_type;               // Type of elements pointed by the iterator.
-        typedef Distance difference_type;   // Type to represent the difference between two iterators.
-        typedef Pointer pointer;            // Type to represent a pointer to an element pointed by the iterator.
-        typedef Reference reference;        // Type to represent a reference to an element pointed by the iterator.
-        typedef Category iterator_category; // Category to which the iterator belongs to. It must be one of the following iterator tags:
-        // input_iterator_tag; output_iterator_tag; forward_iterator_tag; bidireational_iterator_tag; ListIterator_tag; ListIterator_tag;
-    };
+    // template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T *, class Reference = T &>
+    // struct iterator
+    // {
+    //     typedef T value_type;               // Type of elements pointed by the iterator.
+    //     typedef Distance difference_type;   // Type to represent the difference between two iterators.
+    //     typedef Pointer pointer;            // Type to represent a pointer to an element pointed by the iterator.
+    //     typedef Reference reference;        // Type to represent a reference to an element pointed by the iterator.
+    //     typedef Category iterator_category; // Category to which the iterator belongs to. It must be one of the following iterator tags:
+    //     // input_iterator_tag; output_iterator_tag; forward_iterator_tag; bidireational_iterator_tag; ListIterator_tag; ListIterator_tag;
+    // };
 
-    template <class Iterator>
-    struct iterator_traits
-    {
-        typedef typename Iterator::difference_type difference_type;
-        typedef typename Iterator::value_type value_type;
-        typedef typename Iterator::pointer pointer;
-        typedef typename Iterator::reference reference;
-        typedef typename Iterator::iterator_category iterator_category;
-    };
+    // template <class Iterator>
+    // struct iterator_traits
+    // {
+    //     typedef typename Iterator::difference_type difference_type;
+    //     typedef typename Iterator::value_type value_type;
+    //     typedef typename Iterator::pointer pointer;
+    //     typedef typename Iterator::reference reference;
+    //     typedef typename Iterator::iterator_category iterator_category;
+    // };
 
 
     template <class InputIterator>
