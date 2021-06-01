@@ -307,12 +307,9 @@ void erase_func_test()
 	ite = mymap.end();
 	std::cout << " ,"<< ite->first << std::endl;
 
-	it++;
+	//it++;
 	// it = mymap.find('e');
-	mymap.erase(it, mymap.end()); // erasing by range
-	std::cout << "__________after erasing range____________" << std::endl << std::endl;
-	mymap.treeprint();
-
+	//mymap.erase(it, mymap.end()); // erasing by range
 
 	// show content:
 	// for (; it != ite; ++it)

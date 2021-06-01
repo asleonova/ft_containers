@@ -296,23 +296,14 @@ void erase_func_test()
 	mymap.erase(6); // erasing by key
 	mymap.treeprint();
 
-
-	std::cout << "Adding more values" << std::endl;
-	mymap[2] = 20;
-	mymap[3] = 30;
-	mymap[4] = 40;
-
 	it = mymap.begin();
 	std::cout << it->first;
 	ite = mymap.end();
 	std::cout << " ,"<< ite->first << std::endl;
 
-	it++;
+	//it++;
 	// it = mymap.find('e');
-	mymap.erase(it, mymap.end()); // erasing by range
-	std::cout << "__________after erasing range____________" << std::endl << std::endl;
-	mymap.treeprint();
-
+	//mymap.erase(it, mymap.end()); // erasing by range
 
 	// show content:
 	// for (; it != ite; ++it)
