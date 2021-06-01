@@ -296,6 +296,7 @@ void erase_func_test()
 	it = mymap.begin();
 	std::cout << it->first;
 	ite = mymap.end();
+	ite--;
 	std::cout << " ,"<< ite->first << std::endl;
 
 	//it++;

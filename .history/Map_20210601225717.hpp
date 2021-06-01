@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/01 23:02:20 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/01 22:57:17 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,8 @@ namespace ft
 
         void unlink_end()
         {
-            _last_node->left->right = NULL;
+            // _last_node->left->right = NULL;
+            _last_node->right->right = NULL;s
         }
 
         void link_end()
@@ -527,7 +528,6 @@ namespace ft
             /* return the (unchanged) node pointer */
             return node;
         }
-
 
         TreeNode *deleteNode(TreeNode *root, const key_type &key)
         {

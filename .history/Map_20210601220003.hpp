@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/01 23:02:20 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/01 22:00:03 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ namespace ft
         typedef typename Alloc::const_reference const_reference;
         typedef typename Alloc::pointer pointer;
         typedef typename Alloc::const_pointer const_pointer;
-        typedef typename ft::MapIterator<pointer, TreeNode> iterator;
+        typedef typename ft::MapIterator<pointer , TreeNode> iterator;
         typedef typename ft::MapIterator<const_pointer, TreeNode> const_iterator;
         typedef typename ft::myReverseIterator<iterator> reverse_iterator;
         typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
@@ -80,21 +80,21 @@ namespace ft
 
         /*================================ DESTRUCTOR: ================================*/
 
-        virtual ~map()
-        {
-            // clear();
-        }
+        virtual ~map() { 
+               // clear();
+            }
 
         /*================================ OPERATOR=: ================================*/
 
         map &operator=(const map &x)
         {
-            if (&x != this)
-            {
-                // clear();
-                insert(x.begin(), x.end());
-            }
-            return (*this);
+            	if (&x != this)
+                {
+                   // clear();
+                    insert(x.begin(), x.end());
+                }
+				return (*this);
+            
         }
 
         /*================================ ITERATORS: ================================*/
@@ -261,8 +261,8 @@ namespace ft
         void insert(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator>::type isIterator = InputIterator())
         {
             difference_type n = ft::distance(first, last);
-            while (n--)
-                insert(*(first++));
+				while (n--)
+					insert(*(first++));
         }
 
         /* ERASE */
@@ -283,9 +283,9 @@ namespace ft
 
         void erase(iterator first, iterator last)
         {
-            difference_type n = ft::distance(first, last);
-            while (n--)
-                erase((*(first++)).first);
+           difference_type n = ft::distance(first, last);
+				while (n--)
+					erase((*(first++)).first);
         }
 
         /* SWAP */
@@ -528,108 +528,215 @@ namespace ft
             return node;
         }
 
+        // TreeNode *deleteNode(TreeNode *root, const key_type &k)
+        // {
+            
+        //     // STEP 1: PERFORM STANDARD BST DELETE
+        //     if (root == NULL)
+        //         return root;
 
-        TreeNode *deleteNode(TreeNode *root, const key_type &key)
-        {
+        //     // If the key to be deleted is smaller
+        //     // than the root's key, then it lies
+        //     // in left subtree
+        //     if (k < root->val.first)
+        //         root->left = deleteNode(root->left, k);
 
-            // STEP 1: PERFORM STANDARD BST DELETE
-            if (root == NULL)
-                return root;
+        //     // If the key to be deleted is greater
+        //     // than the root's key, then it lies
+        //     // in right subtree
+        //     else if (k > root->val.first)
+        //         root->right = deleteNode(root->right, k);
 
-            // If the key to be deleted is smaller
-            // than the root's key, then it lies
-            // in left subtree
-            if (key < root->val.first)
-                root->left = deleteNode(root->left, key);
+        //     // if key is same as root's key, then
+        //     // This is the node to be deleted
+        //     else
+        //     {
+        //         // node with only one child or no child
+        //         if ((root->left == NULL) ||
+        //             (root->right == NULL))
+        //         {
+        //             TreeNode *temp = root->left ? root->left : root->right;
 
-            // If the key to be deleted is greater
-            // than the root's key, then it lies
-            // in right subtree
-            else if (key > root->val.first)
-                root->right = deleteNode(root->right, key);
+        //             // No child case
+        //             if (temp == NULL)
+        //             {
+        //                 temp = root;
+        //                 root = NULL;
+        //             }
+        //             // !!!!! doesn't work with else
+        //             else               // One child case
+        //                *root = *temp; // Copy the contents of
+        //                                // the non-empty child
+        //             _alloc_node.destroy(temp);
+        //             _alloc_node.deallocate(temp, 1);
+        //         }
+        //         else
+        //         {
+        //             // node with two children: Get the inorder
+        //             // successor (smallest in the right subtree)
+        //             TreeNode *temp = min_node(root->right);
 
-            // if key is same as root's key, then
-            // This is the node to be deleted
-            else
-            {
-                // node with only one child or no child
-                if ((root->left == NULL) ||
-                    (root->right == NULL))
-                {
-                    TreeNode *temp = root->left ? root->left : root->right;
+        //             // Copy the inorder successor's
+        //             // data to this node
 
-                    // No child case
-                    if (temp == NULL)
-                    {
-                        temp = root;
-                        root = NULL;
-                    }
-                    else               // One child case
-                        *root = *temp; // Copy the contents of
-                                       // the non-empty child
-                    free(temp);
-                }
-                else
-                {
-                    // node with two children: Get the inorder
-                    // successor (smallest in the right subtree)
-                    TreeNode *temp = min_node(root->right);
+        //             //  Doesn't work with root->val = temp->val;
+        //              root->val = temp->val;
 
-                    // Copy the inorder successor's
-                    // data to this node
-                    root->val = temp->val;
+        //             // Delete the inorder successor
+        //             root->right = deleteNode(root->right,
+        //                                      temp->val.first);
+        //         }
+        //     }
 
-                    // Delete the inorder successor
-                    root->right = deleteNode(root->right,
-                                             temp->val.first);
-                }
-            }
+        //     // If the tree had only one node
+        //     // then return
+        //     if (root == NULL)
+        //         return root;
 
-            // If the tree had only one node
-            // then return
-            if (root == NULL)
-                return root;
+        //     // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
+        //     root->height = 1 + max(height(root->left),
+        //                            height(root->right));
 
-            // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE
-            root->height = 1 + max(height(root->left),
-                                   height(root->right));
+        //     // STEP 3: GET THE BALANCE FACTOR OF
+        //     // THIS NODE (to check whether this
+        //     // node became unbalanced)
+        //     int balance = getBalance(root);
 
-            // STEP 3: GET THE BALANCE FACTOR OF
-            // THIS NODE (to check whether this
-            // node became unbalanced)
-            int balance = getBalance(root);
+        //     // If this node becomes unbalanced,
+        //     // then there are 4 cases
 
-            // If this node becomes unbalanced,
-            // then there are 4 cases
+        //     // Left Left Case
+        //     if (balance > 1 &&
+        //         getBalance(root->left) >= 0)
+        //         return rightRotate(root);
 
-            // Left Left Case
-            if (balance > 1 &&
-                getBalance(root->left) >= 0)
-                return rightRotate(root);
+        //     // Left Right Case
+        //     if (balance > 1 &&
+        //         getBalance(root->left) < 0)
+        //     {
+        //         root->left = leftRotate(root->left);
+        //         return rightRotate(root);
+        //     }
 
-            // Left Right Case
-            if (balance > 1 &&
-                getBalance(root->left) < 0)
-            {
-                root->left = leftRotate(root->left);
-                return rightRotate(root);
-            }
+        //     // Right Right Case
+        //     if (balance < -1 &&
+        //         getBalance(root->right) <= 0)
+        //         return leftRotate(root);
 
-            // Right Right Case
-            if (balance < -1 &&
-                getBalance(root->right) <= 0)
-                return leftRotate(root);
+        //     // Right Left Case
+        //     if (balance < -1 &&
+        //         getBalance(root->right) > 0)
+        //     {
+        //         root->right = rightRotate(root->right);
+        //         return leftRotate(root);
+        //     }
 
-            // Right Left Case
-            if (balance < -1 &&
-                getBalance(root->right) > 0)
-            {
-                root->right = rightRotate(root->right);
-                return leftRotate(root);
-            }
+        //     return root;
+        // }
 
-            return root;
-        }
+        Node* deleteNode(TreeNode* root, const key_type &key) 
+{ 
+      
+    // STEP 1: PERFORM STANDARD BST DELETE 
+    if (root == NULL) 
+        return root; 
+  
+    // If the key to be deleted is smaller 
+    // than the root's key, then it lies
+    // in left subtree 
+    if ( key < root->key ) 
+        root->left = deleteNode(root->left, key); 
+  
+    // If the key to be deleted is greater 
+    // than the root's key, then it lies 
+    // in right subtree 
+    else if( key > root->key ) 
+        root->right = deleteNode(root->right, key); 
+  
+    // if key is same as root's key, then 
+    // This is the node to be deleted 
+    else
+    { 
+        // node with only one child or no child 
+        if( (root->left == NULL) ||
+            (root->right == NULL) ) 
+        { 
+            Node *temp = root->left ? 
+                         root->left : 
+                         root->right; 
+  
+            // No child case 
+            if (temp == NULL) 
+            { 
+                temp = root; 
+                root = NULL; 
+            } 
+            else // One child case 
+            *root = *temp; // Copy the contents of 
+                           // the non-empty child 
+            free(temp); 
+        } 
+        else
+        { 
+            // node with two children: Get the inorder 
+            // successor (smallest in the right subtree) 
+            Node* temp = minValueNode(root->right); 
+  
+            // Copy the inorder successor's 
+            // data to this node 
+            root->key = temp->key; 
+  
+            // Delete the inorder successor 
+            root->right = deleteNode(root->right, 
+                                     temp->key); 
+        } 
+    } 
+  
+    // If the tree had only one node
+    // then return 
+    if (root == NULL) 
+    return root; 
+  
+    // STEP 2: UPDATE HEIGHT OF THE CURRENT NODE 
+    root->height = 1 + max(height(root->left), 
+                           height(root->right)); 
+  
+    // STEP 3: GET THE BALANCE FACTOR OF 
+    // THIS NODE (to check whether this 
+    // node became unbalanced) 
+    int balance = getBalance(root); 
+  
+    // If this node becomes unbalanced, 
+    // then there are 4 cases 
+  
+    // Left Left Case 
+    if (balance > 1 && 
+        getBalance(root->left) >= 0) 
+        return rightRotate(root); 
+  
+    // Left Right Case 
+    if (balance > 1 && 
+        getBalance(root->left) < 0) 
+    { 
+        root->left = leftRotate(root->left); 
+        return rightRotate(root); 
+    } 
+  
+    // Right Right Case 
+    if (balance < -1 && 
+        getBalance(root->right) <= 0) 
+        return leftRotate(root); 
+  
+    // Right Left Case 
+    if (balance < -1 && 
+        getBalance(root->right) > 0) 
+    { 
+        root->right = rightRotate(root->right); 
+        return leftRotate(root); 
+    } 
+  
+    return root; 
+} 
 
         TreeNode *min_node(TreeNode *node)
         {

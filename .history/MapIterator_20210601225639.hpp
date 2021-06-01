@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/01 23:02:40 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/01 22:56:39 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,24 +77,24 @@ namespace ft
 
         /*================================ INCREMENTS: ================================*/
 
-        MapIterator &operator++()
-        {
-            TreeNode *tmp = _node;
-            // _last_node->right == _first  and  _first->left == NULL
-            // _last->right == _last_node   and  _last_node->left  == _last
-            if (_node->right)
+            MapIterator &operator++() // ++a
             {
-                tmp = _node->right;
-                while (tmp->left && tmp->left != _node)
-                    tmp = tmp->left;
-            }
-            else if (_node->parent)
-            {
-                tmp = _node->parent;
-                while (tmp->parent && tmp->val.first < _node->val.first)
-                    tmp = tmp->parent;
-            }
-            _node = tmp;
+                TreeNode *tmp = _node;
+                if (tmp->right)
+                {
+                    tmp = _node->right;
+                    while (tmp->left && tmp->right != _node)
+                        tmp = tmp->left;
+                }
+                else if (_node->parent)
+                {
+                    tmp = _node->parent;
+                    while (tmp->parent && tmp->val.first < _node->val.first)
+                    {
+                        tmp = tmp->parent;
+                    }
+                }
+             _node = tmp;
             return (*this);
         }
 
@@ -107,27 +107,35 @@ namespace ft
 
         /*================================ DECREMENT: ================================*/
 
-        MapIterator &operator--()
+        MapIterator &operator--() //--a
         {
             TreeNode *tmp = _node;
-            // _last_node->left == _last  and  _last->right == _last_node
-            // _last->left == tmp    and  tmp->right   == NULL
-            if (_node->left)
+            if (tmp->right && tmp->right->parent != tmp)
+            {
+                tmp = tmp->right;
+                if (tmp->right == _node)
+                    _node = tmp;
+                return (*this);
+            }
+            
+            if (tmp->left)
             {
                 tmp = _node->left;
-                while (tmp->right && tmp->right != _node)
+                while (tmp->right)
                     tmp = tmp->right;
             }
             else if (_node->parent)
             {
                 tmp = _node->parent;
-                while (tmp->parent &&  _node->val.first < tmp->val.first)
+                while (tmp->parent && _node->val.first < tmp->val.first)
+                {
                     tmp = tmp->parent;
+                }
             }
             _node = tmp;
             return (*this);
         }
-
+        
         MapIterator operator--(int) // a--
         {
             MapIterator copy(*this);

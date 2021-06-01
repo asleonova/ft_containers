@@ -296,15 +296,15 @@ void erase_func_test()
 	it = mymap.begin();
 	std::cout << it->first;
 	ite = mymap.end();
-	std::cout << " ,"<< ite->first << std::endl;
+	std::cout << " ,~"<< ite->first << std::endl;
 
 	//it++;
 	// it = mymap.find('e');
 	//mymap.erase(it, mymap.end()); // erasing by range
 
 	// show content:
-	for (; it != ite; ++it)
-		std::cout << it->first << " => " << it->second << '\n';
+	// for (it = mymap.begin(); it != mymap.end(); ++it)
+	// 	std::cout << it->first << " => " << it->second << '\n';
 
 }
 

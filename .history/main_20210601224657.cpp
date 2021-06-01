@@ -303,8 +303,8 @@ void erase_func_test()
 	//mymap.erase(it, mymap.end()); // erasing by range
 
 	// show content:
-	for (; it != ite; ++it)
-		std::cout << it->first << " => " << it->second << '\n';
+	// for (it = mymap.begin(); it != mymap.end(); ++it)
+	// 	std::cout << it->first << " => " << it->second << '\n';
 
 }
 

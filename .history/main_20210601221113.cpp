@@ -192,6 +192,22 @@ void constructor_test()
 		++it2;
 	}
 	ft::map<int, int> mymap2;
+
+	// insert some values:
+	mymap2[1] = 10;
+	mymap2[2] = 20;
+	mymap2[3] = 30;
+	mymap2[4] = 40;
+	mymap2[5] = 50;
+	mymap2[6] = 60;
+	mymap2[7] = 70;
+	mymap2[8] = 80;
+	mymap2[9] = 90;
+	mymap2[10] = 100;
+
+std::cout << "()(()()()()()()()(()(()((())()(()(((((" << std::endl;
+	mymap2.treeprint();
+
 	// ite = mymap.end();
 	// it++;
 	// std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
@@ -261,7 +277,6 @@ void erase_func_test()
 	std::cout << blue << "***************[ Erase func test ]***************" << cend << std::endl;
 	ft::map<int, int> mymap;
 	ft::map<int, int>::iterator it;
-	ft::map<int, int>::iterator ite;
 
 	// insert some values:
 	mymap[1] = 10;
@@ -284,26 +299,21 @@ void erase_func_test()
 
 	mymap.treeprint();
 	mymap.erase(3); // erasing by key
-	std::cout << "__________after erase 3_________________________" << std::endl << std::endl;
+	std::cout << "___________________________________" << std::endl << std::endl;
 	mymap.treeprint();
+	std::cout << "___________________________________" << std::endl << std::endl;
 	mymap.erase(4); // erasing by key
-	std::cout << "__________after erase 4________________________" << std::endl << std::endl;
 	mymap.treeprint();
-	std::cout << "__________after erase 6____________" << std::endl << std::endl;
-	mymap.erase(6); // erasing by key
+	std::cout << "___________________________________" << std::endl << std::endl;
+	//mymap.erase(6); // erasing by key
 	mymap.treeprint();
-
-	it = mymap.begin();
-	std::cout << it->first;
-	ite = mymap.end();
-	std::cout << " ,"<< ite->first << std::endl;
-
+//
 	//it++;
 	// it = mymap.find('e');
 	//mymap.erase(it, mymap.end()); // erasing by range
 
 	// show content:
-	for (; it != ite; ++it)
+	for (it = mymap.begin(); it != mymap.end(); ++it)
 		std::cout << it->first << " => " << it->second << '\n';
 
 }

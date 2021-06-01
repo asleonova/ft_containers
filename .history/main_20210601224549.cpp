@@ -261,7 +261,6 @@ void erase_func_test()
 	std::cout << blue << "***************[ Erase func test ]***************" << cend << std::endl;
 	ft::map<int, int> mymap;
 	ft::map<int, int>::iterator it;
-	ft::map<int, int>::iterator ite;
 
 	// insert some values:
 	mymap[1] = 10;
@@ -294,17 +293,14 @@ void erase_func_test()
 	mymap.treeprint();
 
 	it = mymap.begin();
-	std::cout << it->first;
-	ite = mymap.end();
-	std::cout << " ,"<< ite->first << std::endl;
-
+	std::cout << it->first;	
 	//it++;
 	// it = mymap.find('e');
 	//mymap.erase(it, mymap.end()); // erasing by range
 
 	// show content:
-	for (; it != ite; ++it)
-		std::cout << it->first << " => " << it->second << '\n';
+	// for (it = mymap.begin(); it != mymap.end(); ++it)
+	// 	std::cout << it->first << " => " << it->second << '\n';
 
 }
 

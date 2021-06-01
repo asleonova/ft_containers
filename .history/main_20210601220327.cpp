@@ -151,8 +151,7 @@ void constructor_test()
 	std::cout << "return value is (7): " << ret.first->first << '\n';
 	std::cout << " with a value of " << ret.first->second << '\n';
 	std::cout << "bool value is (0): " << ret.second << '\n';
-	mymap.insert(std::pair<int, int>(9, 100));
-	//mymap.erase(7);
+	mymap.erase(7);
 
 	it = mymap.begin();
 	ite = mymap.end();
@@ -191,7 +190,7 @@ void constructor_test()
 		std::cout << "contents of another map: " << it2->first << ", " << it2->second << std::endl;
 		++it2;
 	}
-	ft::map<int, int> mymap2;
+
 	// ite = mymap.end();
 	// it++;
 	// std::cout << "begin++ of my map is: " << it->first << ", "<< it->second << std::endl;
@@ -261,7 +260,6 @@ void erase_func_test()
 	std::cout << blue << "***************[ Erase func test ]***************" << cend << std::endl;
 	ft::map<int, int> mymap;
 	ft::map<int, int>::iterator it;
-	ft::map<int, int>::iterator ite;
 
 	// insert some values:
 	mymap[1] = 10;
@@ -275,35 +273,29 @@ void erase_func_test()
 	mymap[9] = 90;
 	mymap[10] = 100;
 
-
-	// it = mymap.begin();
-	// it++;
-	// std::cout << "it calue is: " << it->first << std::endl;
+	it = mymap.begin();
+	it++;
+	std::cout << "it calue is: " << it->first << std::endl;
 	// it = mymap.find('b');
 	//mymap.erase(it); // erasing by iterator
 
 	mymap.treeprint();
 	mymap.erase(3); // erasing by key
-	std::cout << "__________after erase 3_________________________" << std::endl << std::endl;
+	std::cout << "___________________________________" << std::endl << std::endl;
 	mymap.treeprint();
+	std::cout << "___________________________________" << std::endl << std::endl;
 	mymap.erase(4); // erasing by key
-	std::cout << "__________after erase 4________________________" << std::endl << std::endl;
 	mymap.treeprint();
-	std::cout << "__________after erase 6____________" << std::endl << std::endl;
-	mymap.erase(6); // erasing by key
+	std::cout << "___________________________________" << std::endl << std::endl;
+	//mymap.erase(6); // erasing by key
 	mymap.treeprint();
-
-	it = mymap.begin();
-	std::cout << it->first;
-	ite = mymap.end();
-	std::cout << " ,"<< ite->first << std::endl;
-
+//
 	//it++;
 	// it = mymap.find('e');
 	//mymap.erase(it, mymap.end()); // erasing by range
 
 	// show content:
-	for (; it != ite; ++it)
+	for (it = mymap.begin(); it != mymap.end(); ++it)
 		std::cout << it->first << " => " << it->second << '\n';
 
 }

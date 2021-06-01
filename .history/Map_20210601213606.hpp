@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/01 23:02:20 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/01 21:36:06 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ namespace ft
         typedef typename Alloc::const_reference const_reference;
         typedef typename Alloc::pointer pointer;
         typedef typename Alloc::const_pointer const_pointer;
-        typedef typename ft::MapIterator<pointer, TreeNode> iterator;
+        typedef typename ft::MapIterator<pointer , TreeNode> iterator;
         typedef typename ft::MapIterator<const_pointer, TreeNode> const_iterator;
         typedef typename ft::myReverseIterator<iterator> reverse_iterator;
         typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
@@ -80,21 +80,21 @@ namespace ft
 
         /*================================ DESTRUCTOR: ================================*/
 
-        virtual ~map()
-        {
-            // clear();
-        }
+        virtual ~map() { 
+               // clear();
+            }
 
         /*================================ OPERATOR=: ================================*/
 
         map &operator=(const map &x)
         {
-            if (&x != this)
-            {
-                // clear();
-                insert(x.begin(), x.end());
-            }
-            return (*this);
+            	if (&x != this)
+                {
+                   // clear();
+                    insert(x.begin(), x.end());
+                }
+				return (*this);
+            
         }
 
         /*================================ ITERATORS: ================================*/
@@ -261,8 +261,8 @@ namespace ft
         void insert(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator>::type isIterator = InputIterator())
         {
             difference_type n = ft::distance(first, last);
-            while (n--)
-                insert(*(first++));
+				while (n--)
+					insert(*(first++));
         }
 
         /* ERASE */
@@ -283,9 +283,9 @@ namespace ft
 
         void erase(iterator first, iterator last)
         {
-            difference_type n = ft::distance(first, last);
-            while (n--)
-                erase((*(first++)).first);
+           difference_type n = ft::distance(first, last);
+				while (n--)
+					erase((*(first++)).first);
         }
 
         /* SWAP */
@@ -528,10 +528,9 @@ namespace ft
             return node;
         }
 
-
-        TreeNode *deleteNode(TreeNode *root, const key_type &key)
+        TreeNode *deleteNode(TreeNode *root, const key_type &k)
         {
-
+            
             // STEP 1: PERFORM STANDARD BST DELETE
             if (root == NULL)
                 return root;
@@ -539,14 +538,14 @@ namespace ft
             // If the key to be deleted is smaller
             // than the root's key, then it lies
             // in left subtree
-            if (key < root->val.first)
-                root->left = deleteNode(root->left, key);
+            if (k < root->val.first)
+                root->left = deleteNode(root->left, k);
 
             // If the key to be deleted is greater
             // than the root's key, then it lies
             // in right subtree
-            else if (key > root->val.first)
-                root->right = deleteNode(root->right, key);
+            else if (k > root->val.first)
+                root->right = deleteNode(root->right, k);
 
             // if key is same as root's key, then
             // This is the node to be deleted
@@ -564,10 +563,12 @@ namespace ft
                         temp = root;
                         root = NULL;
                     }
+                    // !!!!! doesn't work with else
                     else               // One child case
-                        *root = *temp; // Copy the contents of
+                       *root = *temp; // Copy the contents of
                                        // the non-empty child
-                    free(temp);
+                    _alloc_node.destroy(temp);
+                    _alloc_node.deallocate(temp, 1);
                 }
                 else
                 {
@@ -577,7 +578,9 @@ namespace ft
 
                     // Copy the inorder successor's
                     // data to this node
-                    root->val = temp->val;
+
+                    //  Doesn't work with root->val = temp->val;
+                     root->val = temp->val;
 
                     // Delete the inorder successor
                     root->right = deleteNode(root->right,

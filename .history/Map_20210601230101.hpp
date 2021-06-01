@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/01 23:02:20 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/01 23:01:01 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,24 +197,33 @@ namespace ft
 
         void unlink_end()
         {
-            _last_node->left->right = NULL;
+            // _last_node->left->right = NULL;
+            _last_node->right->right = NULL;
         }
 
         void link_end()
         {
-            TreeNode *tmp = _node;
+            // TreeNode *tmp = _node;
+            // TreeNode *max = max_node(_node);
+
+            // max->right = _last_node;
+            // _last_node->left = max;
+            // _last_node->right = min_node(_node);
+            // _last_node->parent = max;
+                        TreeNode *tmp = _node;
             TreeNode *max = max_node(_node);
 
             max->right = _last_node;
-            _last_node->left = max;
-            _last_node->right = min_node(_node);
+            _last_node->right = max;
             _last_node->parent = max;
+            _last_node->left = min_node(_node);
+          
         }
 
         std::pair<iterator, bool>
         insert(const value_type &val)
         {
-            if (_last_node->left)
+            if (_last_node->right)
                 unlink_end();
 
             TreeNode *current = _node;
@@ -527,7 +536,6 @@ namespace ft
             /* return the (unchanged) node pointer */
             return node;
         }
-
 
         TreeNode *deleteNode(TreeNode *root, const key_type &key)
         {

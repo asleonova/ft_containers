@@ -290,12 +290,13 @@ void erase_func_test()
 	std::cout << "__________after erase 4________________________" << std::endl << std::endl;
 	mymap.treeprint();
 	std::cout << "__________after erase 6____________" << std::endl << std::endl;
-	mymap.erase(6); // erasing by key
+	//mymap.erase(6); // erasing by key
 	mymap.treeprint();
 
 	it = mymap.begin();
 	std::cout << it->first;
 	ite = mymap.end();
+	ite--;
 	std::cout << " ,"<< ite->first << std::endl;
 
 	//it++;
