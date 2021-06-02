@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/02 23:15:06 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/02 23:09:06 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,11 @@ namespace ft
         explicit map(const key_compare &comp = key_compare(),
                      const allocator_type &alloc = allocator_type()) : _node(NULL), _comp(comp), _allocator_type(alloc)
         {
-            this->_last_node = allocate_tree_node();
+            _alloc_node.allocate(1);
+            _last_node->right = NULL;
+            _last_node->left = NULL;
+            _last_node->parent = NULL;
+            std::memset(&_last_node->val, 0, sizeof(_last_node->val));
         }
 
         /*RANGE*/
@@ -83,7 +87,6 @@ namespace ft
         virtual ~map()
         {
            clear();
-           _alloc_node.deallocate(_last_node, 1);
         }
 
         /*================================ OPERATOR=: ================================*/
@@ -291,7 +294,7 @@ namespace ft
             if (_last_node->right == _last_node->left)
             {
                 unlink_end();
-                // _alloc_node.deallocate(_last_node, 1);
+                _alloc_node.deallocate(_last_node, 1);
                 _alloc_node.destroy(_node);
                 _alloc_node.deallocate(_node, 1);
                 _node = NULL;
@@ -358,17 +361,17 @@ namespace ft
 
         /*================================ HELPING FUNCTIONS : ================================*/
 
-        TreeNode *allocate_tree_node()
-        {
-            TreeNode *node;
+        // TreeNode *allocate_tree_node()
+        // {
+        //     TreeNode *node;
 
-            node = this->_alloc_node.allocate(1);
-            node->right = NULL;
-            node->left = NULL;
-            node->parent = NULL;
-            std::memset(&node->val, 0, sizeof(node->val));
-            return node;
-        }
+        //     node = this->_alloc_node.allocate(1);
+        //     node->right = NULL;
+        //     node->left = NULL;
+        //     node->parent = NULL;
+        //     std::memset(&node->val, 0, sizeof(node->val));
+        //     return node;
+        // }
 
         TreeNode *construct_tree_node(const_reference val)
         {
