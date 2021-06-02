@@ -265,54 +265,8 @@ void constructor_test()
 	std::cout << std::endl;
     */
 	//sleep(50);
-	it = anothermap.begin();
-	std::cout << "map begin: " << it->first << std::endl;
-	std::cout << "map end: " << anothermap.end()->first << std::endl;
 
-	//anothermap.clear();
-	// std::cout << "_________________________________" << std::endl;
-	
-	// std::cout << "IT value is: " << it->first << std::endl;
-	// anothermap.erase(1); // 1
-	// std::cout << "________________1_______________" << std::endl;
-	// std::cout << "IT value is: " << it->first << std::endl;
-	// anothermap.treeprint();
-	// anothermap.erase(2); // 2
-	// 	std::cout << "______________2__________________" << std::endl;
-	// anothermap.treeprint();
-	// anothermap.erase(3); //3
-	// 		std::cout << "______________3__________________" << std::endl;
-	// anothermap.treeprint();	
-	// anothermap.erase(4); //4
-	// 		std::cout << "______________4__________________" << std::endl;
-	// anothermap.treeprint();
-	// anothermap.erase(5);//5
-	// 		std::cout << "______________5__________________" << std::endl;
-	// anothermap.treeprint();
-	// anothermap.erase(6);//6
-	// 		std::cout << "______________6__________________" << std::endl;
-	// anothermap.treeprint();
-	// anothermap.erase(7); //7
-	// 		std::cout << "______________7__________________" << std::endl;
-	// anothermap.treeprint();
-	// anothermap.erase(8); //8
-	// 		std::cout << "______________8__________________" << std::endl;
-	// anothermap.treeprint();
-	// anothermap.erase(9); //9
-	// 		std::cout << "______________9__________________" << std::endl;
-	// anothermap.treeprint();
-	// anothermap.erase(10); //10
-	// 		std::cout << "______________10__________________" << std::endl;
-	// anothermap.treeprint();
-	// anothermap.erase(17);
-	// std::cout << "______________17__________________" << std::endl;
-
-
-	
-	anothermap.clear();
-	//anothermap.erase(anothermap.begin(), anothermap.end());
-	//anothermap.treeprint();
-	std::cout << "mymap size is: " << anothermap.size() << std::endl;
+	mymap.clear();
 }
 
 void erase_func_test()
@@ -333,24 +287,6 @@ void erase_func_test()
 	mymap[8] = 80;
 	mymap[9] = 90;
 	mymap[10] = 100;
-
-	std::cout << "SIZE SHOULD BE 10: " << mymap.size() << std::endl;
-
-	std::map<int, int> mymapp;
-
-	// insert some values:
-	mymapp[1] = 10;
-	mymapp[2] = 20;
-	mymapp[3] = 30;
-	mymapp[4] = 40;
-	mymapp[5] = 50;
-	mymapp[6] = 60;
-	mymapp[7] = 70;
-	mymapp[8] = 80;
-	mymapp[9] = 90;
-	mymapp[10] = 100;
-
-	std::cout << "SIZE SHOULD BE 10 (SSTD): " << mymapp.size() << std::endl;
 
 
 	it = mymap.begin();
@@ -388,9 +324,9 @@ void erase_func_test()
 	// it = mymap.find('e');
 	mymap.erase(mymap.begin(), mymap.end()); // erasing by range
 	std::cout << "__________after erasing range____________" << std::endl << std::endl;
-	// //mymap.treeprint();
+	//mymap.treeprint();
 
-	// std::cout << "size is: " << mymap.size() << std::endl;
+	std::cout << "size is: " << mymap.size() << std::endl;
 
 
 	// show content:

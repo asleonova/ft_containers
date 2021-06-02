@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/02 23:02:52 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/02 21:51:45 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ namespace ft
 
         virtual ~map()
         {
-           clear();
+            //clear();
         }
 
         /*================================ OPERATOR=: ================================*/
@@ -179,7 +179,21 @@ namespace ft
         /* The single element versions (1) return a pair,
         with its member pair::first set to an iterator pointing to either the newly inserted element
         or to the element with an equivalent key in the map. The pair::second element in the pair 
-        is set to true if a new element was inserted or false if an equivalent key already existed. */ 
+        is set to true if a new element was inserted or false if an equivalent key already existed. */
+
+        TreeNode *new_node(const value_type &val)
+        {
+            TreeNode *node;
+            node = _alloc_node.allocate(1);
+            _alloc_node.construct(&node->val, val);
+            node->right = NULL;
+            node->left = NULL;
+            node->parent = NULL;
+            node->height = 1; // new node is initially
+                              // added at leaf
+
+            return (node);
+        }
 
         void unlink_end()
         {
@@ -287,33 +301,26 @@ namespace ft
 
         size_type erase(const key_type &k)
         {
-            if (_last_node->right == _last_node->left)
-            {
-                unlink_end();
-                _alloc_node.deallocate(_last_node, 1);
-                _alloc_node.destroy(_node);
-                _alloc_node.deallocate(_node, 1);
-                _node = NULL;
-                return 1;
-            }
             unlink_end();
-            _node = deleteNode(_node, k);
+            deleteNode(_node, k);
             link_end();
-            return 1;
+            size_type s = size();
+            return s;
         }
 
         void erase(iterator first, iterator last)
         {
-            while (first != last && size() != 0)
-            {
-                erase((*(first++)).first);
-            }
+            // while (first != last)
+            // {
+            //    erase((*(first)).first);
+            //    first++;
+            // }
             //  _alloc_node.deallocate(_last_node, 1);
-        //    difference_type n = ft::distance(first, last);
-        //     while (n-- > 0) {
-        //         erase(first);
-        //         first++;
-        //     }
+           difference_type n = ft::distance(first, last);
+            while (n-- > 1) {
+                erase(first);
+                first++;
+            }
          //   _alloc_node.deallocate(_last_node, 1);
         
         }
@@ -601,8 +608,7 @@ TreeNode *deleteNode(TreeNode *root, const key_type &key)
                     }               // One child case
  // Copy the contents of
                                        // the non-empty child
-                    _alloc_node.destroy(temp);
-                    _alloc_node.deallocate(temp, 1);
+                    free(temp);
                 }
                 else
                 {

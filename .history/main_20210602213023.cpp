@@ -265,51 +265,56 @@ void constructor_test()
 	std::cout << std::endl;
     */
 	//sleep(50);
-	it = anothermap.begin();
-	std::cout << "map begin: " << it->first << std::endl;
+	std::cout << "map begin: " << anothermap.begin()->first << std::endl;
 	std::cout << "map end: " << anothermap.end()->first << std::endl;
 
 	//anothermap.clear();
-	// std::cout << "_________________________________" << std::endl;
+	std::cout << "_________________________________" << std::endl;
 	
-	// std::cout << "IT value is: " << it->first << std::endl;
-	// anothermap.erase(1); // 1
-	// std::cout << "________________1_______________" << std::endl;
-	// std::cout << "IT value is: " << it->first << std::endl;
-	// anothermap.treeprint();
-	// anothermap.erase(2); // 2
-	// 	std::cout << "______________2__________________" << std::endl;
-	// anothermap.treeprint();
-	// anothermap.erase(3); //3
+	it = anothermap.begin();
+	std::cout << "IT value is: " << it->first << std::endl;
+	anothermap.erase(it); // 1
+	std::cout << "________________1_______________" << std::endl;
+	std::cout << "IT value is: " << it->first << std::endl;
+	anothermap.treeprint();
+	it = anothermap.begin();
+	anothermap.erase(it); // 2
+		std::cout << "______________2__________________" << std::endl;
+	anothermap.treeprint();
+	// it++;
+	// anothermap.erase(it); //3
 	// 		std::cout << "______________3__________________" << std::endl;
 	// anothermap.treeprint();	
-	// anothermap.erase(4); //4
+	// it++;
+	// anothermap.erase(it); //4
 	// 		std::cout << "______________4__________________" << std::endl;
 	// anothermap.treeprint();
-	// anothermap.erase(5);//5
+	// it++;
+	// anothermap.erase(it);//5
 	// 		std::cout << "______________5__________________" << std::endl;
 	// anothermap.treeprint();
-	// anothermap.erase(6);//6
+	// it++;
+	// anothermap.erase(it);//6
 	// 		std::cout << "______________6__________________" << std::endl;
 	// anothermap.treeprint();
-	// anothermap.erase(7); //7
+	// it++;
+	// anothermap.erase(it); //7
 	// 		std::cout << "______________7__________________" << std::endl;
 	// anothermap.treeprint();
-	// anothermap.erase(8); //8
+	// it++;
+	// anothermap.erase(it); //8
 	// 		std::cout << "______________8__________________" << std::endl;
 	// anothermap.treeprint();
-	// anothermap.erase(9); //9
+	// it++;
+	// anothermap.erase(it); //9
 	// 		std::cout << "______________9__________________" << std::endl;
 	// anothermap.treeprint();
-	// anothermap.erase(10); //10
+	// it++;
+	// anothermap.erase(it); //10
 	// 		std::cout << "______________10__________________" << std::endl;
 	// anothermap.treeprint();
-	// anothermap.erase(17);
-	// std::cout << "______________17__________________" << std::endl;
-
-
 	
-	anothermap.clear();
+
 	//anothermap.erase(anothermap.begin(), anothermap.end());
 	//anothermap.treeprint();
 	std::cout << "mymap size is: " << anothermap.size() << std::endl;

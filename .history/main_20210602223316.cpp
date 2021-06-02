@@ -309,8 +309,8 @@ void constructor_test()
 
 
 	
-	anothermap.clear();
-	//anothermap.erase(anothermap.begin(), anothermap.end());
+
+	anothermap.erase(anothermap.begin(), anothermap.end());
 	//anothermap.treeprint();
 	std::cout << "mymap size is: " << anothermap.size() << std::endl;
 }

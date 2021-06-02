@@ -270,7 +270,7 @@ void constructor_test()
 	std::cout << "map end: " << anothermap.end()->first << std::endl;
 
 	//anothermap.clear();
-	// std::cout << "_________________________________" << std::endl;
+	std::cout << "_________________________________" << std::endl;
 	
 	// std::cout << "IT value is: " << it->first << std::endl;
 	// anothermap.erase(1); // 1
@@ -304,13 +304,9 @@ void constructor_test()
 	// anothermap.erase(10); //10
 	// 		std::cout << "______________10__________________" << std::endl;
 	// anothermap.treeprint();
-	// anothermap.erase(17);
-	// std::cout << "______________17__________________" << std::endl;
-
-
 	
-	anothermap.clear();
-	//anothermap.erase(anothermap.begin(), anothermap.end());
+
+	anothermap.erase(anothermap.begin(), anothermap.end());
 	//anothermap.treeprint();
 	std::cout << "mymap size is: " << anothermap.size() << std::endl;
 }

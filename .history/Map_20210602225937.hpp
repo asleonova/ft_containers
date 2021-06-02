@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/02 23:02:52 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/02 22:59:37 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,10 +289,10 @@ namespace ft
         {
             if (_last_node->right == _last_node->left)
             {
-                unlink_end();
-                _alloc_node.deallocate(_last_node, 1);
+                //unlink_end();
                 _alloc_node.destroy(_node);
                 _alloc_node.deallocate(_node, 1);
+                _alloc_node.deallocate(_last_node, 1);
                 _node = NULL;
                 return 1;
             }
