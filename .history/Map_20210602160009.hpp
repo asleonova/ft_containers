@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/02 17:11:54 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/02 16:00:09 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ namespace ft
 
         virtual ~map()
         {
-            //clear();
+            // clear();
         }
 
         /*================================ OPERATOR=: ================================*/
@@ -185,7 +185,7 @@ namespace ft
         {
             TreeNode *node;
             node = _alloc_node.allocate(1);
-            _alloc_node.construct(&node->val, val);
+            _allocator_type.construct(&node->val, val);
             node->right = NULL;
             node->left = NULL;
             node->parent = NULL;
@@ -258,28 +258,28 @@ namespace ft
         iterator
         insert(iterator position, const value_type &val)
         {
-            TreeNode *current;
-            TreeNode *tmp;
+            // TreeNode *current;
+            // TreeNode *tmp;
             
             (void)position;
             if (_last_node->left)
                 unlink_end();
             _node = insert_node(_node, val);
-            current = _node;
-            while (current)
-            {
-                tmp = current;
-                if (val.first < current->val.first)
-                {
-                    current = current->left;
-                }
-                else
-                {
-                    current = current->right;
-                }
-            }
+            // current = _node;
+            // while (current)
+            // {
+            //     tmp = current;
+            //     if (val.first < current->val.first)
+            //     {
+            //         current = current->left;
+            //     }
+            //     else
+            //     {
+            //         current = current->right;
+            //     }
+            // }
             link_end();
-            return (iterator(tmp));
+            return (iterator(position));
         }
 
         template <class InputIterator>
@@ -368,7 +368,7 @@ namespace ft
         {
             TreeNode *node;
             node = allocate_tree_node();
-            this->_alloc_node.construct(&node->val, val);
+            this->_allocator_type.construct(&node->val, val);
             return (node);
         }
 
@@ -596,10 +596,7 @@ namespace ft
                     }               // One child case
  // Copy the contents of
                                        // the non-empty child
-                    // free(temp);
-                    _alloc_node.destroy(temp);
-                    _alloc_node.deallocate(temp, 1);
-                    
+                    free(temp);
                 }
                 else
                 {

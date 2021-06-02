@@ -98,8 +98,7 @@ void constructor_test()
 	its++;
 	its++;
 	its++;
-	ites = std_map.insert(its, std::pair<int, int>(17, 89));
-	std::cout << "Iterator return position value: " << ites->first << std::endl;
+	std_map.insert(its, std::pair<int, int>(17, 89));
 
 	its = std_map.begin();
 	ites = std_map.end();
@@ -158,11 +157,6 @@ void constructor_test()
 	std::cout << " with a value of " << ret.first->second << '\n';
 	std::cout << "bool value is (0): " << ret.second << '\n';
 	mymap.insert(std::pair<int, int>(9, 100));
-	it = mymap.begin();
-	it++;
-	it++;
-	it = mymap.insert(it, std::pair<int, int>(17, 89));
-	std::cout << "ITER VALUE IS:::: " << it->first << std::endl;
 	//mymap.erase(7);
 
 	it = mymap.begin();
@@ -342,7 +336,6 @@ int main()
 	// std::cout << rit->first << std::endl;
 
 	constructor_test();
-	//erase_func_test();
-	sleep(50);
+	erase_func_test();
 	return 0;
 }

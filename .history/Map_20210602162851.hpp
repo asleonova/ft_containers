@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/02 17:11:54 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/02 16:28:51 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ namespace ft
 
         virtual ~map()
         {
-            //clear();
+            clear();
         }
 
         /*================================ OPERATOR=: ================================*/
@@ -185,7 +185,7 @@ namespace ft
         {
             TreeNode *node;
             node = _alloc_node.allocate(1);
-            _alloc_node.construct(&node->val, val);
+            _allocator_type.construct(&node->val, val);
             node->right = NULL;
             node->left = NULL;
             node->parent = NULL;
@@ -308,8 +308,9 @@ namespace ft
 
         void erase(iterator first, iterator last)
         {
-            difference_type n = ft::distance(first, last);
-            while (n--)
+            // difference_type n = ft::distance(first, last);
+            // while (n--)
+            while (first != last)
                 erase((*(first++)).first);
         }
 
@@ -368,7 +369,7 @@ namespace ft
         {
             TreeNode *node;
             node = allocate_tree_node();
-            this->_alloc_node.construct(&node->val, val);
+            this->_allocator_type.construct(&node->val, val);
             return (node);
         }
 
@@ -596,10 +597,7 @@ namespace ft
                     }               // One child case
  // Copy the contents of
                                        // the non-empty child
-                    // free(temp);
-                    _alloc_node.destroy(temp);
-                    _alloc_node.deallocate(temp, 1);
-                    
+                    free(temp);
                 }
                 else
                 {

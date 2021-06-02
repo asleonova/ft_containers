@@ -342,7 +342,6 @@ int main()
 	// std::cout << rit->first << std::endl;
 
 	constructor_test();
-	//erase_func_test();
-	sleep(50);
+	erase_func_test();
 	return 0;
 }

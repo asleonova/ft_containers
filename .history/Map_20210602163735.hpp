@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/02 17:11:54 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/02 16:37:35 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ namespace ft
 
         virtual ~map()
         {
-            //clear();
+            clear();
         }
 
         /*================================ OPERATOR=: ================================*/
@@ -597,8 +597,8 @@ namespace ft
  // Copy the contents of
                                        // the non-empty child
                     // free(temp);
-                    _alloc_node.destroy(temp);
-                    _alloc_node.deallocate(temp, 1);
+                    _alloc_node.destroy(tmp);
+                    _alloc_node.deallocate(1);
                     
                 }
                 else
