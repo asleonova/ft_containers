@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/02 14:48:51 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/02 14:43:31 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -565,12 +565,8 @@ namespace ft
                         temp = root;
                         root = NULL;
                     }
-                    else
-                    {
-                        temp->parent = root->parent;
-                        *root = *temp;
-                    }               // One child case
- // Copy the contents of
+                    else               // One child case
+                        *root = *temp; // Copy the contents of
                                        // the non-empty child
                     free(temp);
                 }

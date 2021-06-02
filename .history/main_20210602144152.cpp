@@ -315,8 +315,8 @@ void erase_func_test()
 
 
 	// show content:
-	for (; it != ite; ++it)
-		std::cout << it->first << " => " << it->second << '\n';
+	// for (; it != ite; ++it)
+	// 	std::cout << it->first << " => " << it->second << '\n';
 
 }
 

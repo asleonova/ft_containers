@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/02 14:48:51 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/02 14:36:36 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,8 +204,7 @@ namespace ft
         {
             TreeNode *tmp = _node;
             TreeNode *max = max_node(_node);
-            
-            _node->parent = NULL;
+
             max->right = _last_node;
             _last_node->left = max;
             _last_node->right = min_node(_node);
@@ -445,7 +444,8 @@ namespace ft
             x->right = T2;
 
             // Update parent pointers
-
+            if (x->parent == NULL)
+                y->parent == NULL;
             y->parent = x->parent;
             x->parent = y;
             if (T2)
@@ -565,12 +565,8 @@ namespace ft
                         temp = root;
                         root = NULL;
                     }
-                    else
-                    {
-                        temp->parent = root->parent;
-                        *root = *temp;
-                    }               // One child case
- // Copy the contents of
+                    else               // One child case
+                        *root = *temp; // Copy the contents of
                                        // the non-empty child
                     free(temp);
                 }
@@ -583,6 +579,7 @@ namespace ft
                     // Copy the inorder successor's
                     // data to this node
                     root->val = temp->val;
+                    root->parent = NULL;
 
                     // Delete the inorder successor
                     root->right = deleteNode(root->right,
