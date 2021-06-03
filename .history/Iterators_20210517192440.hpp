@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Iterators.hpp                                      :+:      :+:    :+:   */
+/*   Iterators_20210517192440.hpp                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/17 19:24:39 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/03 21:41:20 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,13 +196,13 @@ namespace ft
                 return myReverseIterator(this->_type - n);
             }
 
-            myReverseIterator &operator++() // Internally, the pre-increment version (1) decrements the base iterator kept by the object (as if applying operator-- to it).
+            virtual myReverseIterator &operator++() // Internally, the pre-increment version (1) decrements the base iterator kept by the object (as if applying operator-- to it).
             {
                 this->_type--;
                 return (*this);
             }
 
-            myReverseIterator operator++(int)
+            virtual myReverseIterator operator++(int)
             {
                 myReverseIterator base_copy(*this);
                 this->_type--;
@@ -220,13 +220,13 @@ namespace ft
                 return myReverseIterator(this->_type + n);
             }
 
-            myReverseIterator &operator--()
+            virtual myReverseIterator &operator--()
             {
                 this->_type++;
                 return (*this);
             }
 
-            myReverseIterator operator--(int)
+            virtual myReverseIterator operator--(int)
             {
                 myReverseIterator base_copy(*this);
                 this->_type++;
@@ -249,7 +249,7 @@ namespace ft
                 return base()[-n - 1];
             }
 
-        private:
+        protected:
             iterator_type _type;
         };
 

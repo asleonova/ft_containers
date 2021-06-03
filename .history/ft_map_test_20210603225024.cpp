@@ -12,6 +12,13 @@
 #define blue "\x1b[34m"
 #define cend "\x1b[0m"
 
+bool fncomp (char lhs, char rhs) {return lhs<rhs;}
+
+struct classcomp {
+  bool operator() (const char& lhs, const char& rhs) const
+  {return lhs<rhs;}
+};
+
 template <class Key, class T>
 void print_map(ft::map<Key, T> &map)
 {
@@ -32,12 +39,31 @@ void constructor_test()
 
 	std::cout << green << "Testing empty map int: " << cend << std::endl;
 	ft::map<int, int> mymap;
-	ft::map<int, int>::iterator it;
-	ft::map<int, int>::iterator ite;
 
-	std::map<int, int>::iterator its;
-	std::map<int, int>::iterator ites;
-	std::map<int, int> std_map;
+	std::cout << green << "Testing map <char, int> with some values added: " << cend << std::endl;
+
+	ft::map<char,int> first;
+
+ 	first['a']=10;
+  	first['b']=30;
+  	first['c']=50;
+  	first['d']=70;
+
+	std::cout << green << "Testing range constructor: " << cend << std::endl;
+  	ft::map<char,int> second (first.begin(),first.end());
+
+	std::cout << green << "Testing copy constructor: " << cend << std::endl;
+  	ft::map<char,int> third (second);
+	std::cout << green << "Map contents (first): " << cend << std::endl;
+	print_map(first);
+	std::cout << green << "Map contents (second): " << cend << std::endl;
+	print_map(second);
+
+  	ft::map<char,int,classcomp> fourth; // class as Compare
+
+  	bool(*fn_pt)(char,char) = fncomp;
+  	ft::map<char,int,bool(*)(char,char)> fifth (fn_pt); // function pointer as Compare
+
 
 	// std_map[2] = 200;
 	// std_map[3] = 300;
@@ -59,68 +85,11 @@ void constructor_test()
 	// std::cout << "end-- is: " << itse->first << ", " << itse->second << std::endl;
 
 	// first insert function version (single parameter)
+}
 
-	std::cout << "***************?//////////STD////////////////?*******************" << std::endl;
-
-	std_map.insert(std::pair<int, int>(5, 200));
-	std_map.insert(std::pair<int, int>(4, 400));
-	std::pair<std::map<int, int>::iterator, bool> ret1;
-
-	ret1 = std_map.insert(std::pair<int, int>(6, 100));
-	std::cout << "return value is (6): " << ret1.first->first << '\n';
-	std::cout << " with a value of " << ret1.first->second << '\n';
-	std::cout << "bool value is (1): " << ret1.second << '\n';
-	std_map.insert(std::pair<int, int>(3, 400));
-	std_map.insert(std::pair<int, int>(2, 400));
-	std_map.insert(std::pair<int, int>(1, 400));
-	std_map.insert(std::pair<int, int>(8, 100));
-	std::cout << "return value is (8): " << ret1.first->first << '\n';
-	std::cout << " with a value of " << ret1.first->second << '\n';
-	std::cout << "bool value is (1): " << ret1.second << '\n';
-	ret1 = std_map.insert(std::pair<int, int>(8, 100));
-	std::cout << "return value is (8): " << ret1.first->first << '\n';
-	std::cout << " with a value of " << ret1.first->second << '\n';
-	std::cout << "bool value is (0): " << ret1.second << '\n';
-	ret1 = std_map.insert(std::pair<int, int>(10, 100));
-	std::cout << "return value is (10): " << ret1.first->first << '\n';
-	std::cout << " with a value of " << ret1.first->second << '\n';
-	std::cout << "bool value is (1): " << ret1.second << '\n';
-	ret1 = std_map.insert(std::pair<int, int>(6, 100));
-	std::cout << "return value is (6): " << ret1.first->first << '\n';
-	std::cout << " with a value of " << ret1.first->second << '\n';
-	std::cout << "bool value is (0): " << ret1.second << '\n';
-	std_map.insert(std::pair<int, int>(7, 100));
-	ret1 = std_map.insert(std::pair<int, int>(7, 100));
-	std::cout << "return value is (7): " << ret1.first->first << '\n';
-	std::cout << " with a value of " << ret1.first->second << '\n';
-	std::cout << "bool value is (0): " << ret1.second << '\n';
-	its = std_map.begin();
-	its++;
-	its++;
-	its++;
-	ites = std_map.insert(its, std::pair<int, int>(17, 89));
-	std::cout << "Iterator return position value: " << ites->first << std::endl;
-
-	its = std_map.begin();
-	ites = std_map.end();
-
-	while (its != ites)
-	{
-		std::cout << "contents of my map: " << its->first << ", " << its->second << std::endl;
-		++its;
-	}
-
-	its = std_map.begin();
-	ites = std_map.end();
-
-	while (ites != its)
-	{
-		std::cout << "end is: " << ites->first << std::endl;
-		ites--;
-	}
-
-	std::cout << "size is : " << std_map.size() << std::endl;
-
+void insert_test()
+{
+	
 	std::cout << "**************************MY FUNCS********************************" << std::endl;
 
 	mymap[1] = 200;
@@ -318,6 +287,7 @@ void constructor_test()
 void erase_func_test()
 {
 	std::cout << blue << "***************[ Erase func test ]***************" << cend << std::endl;
+	
 	ft::map<int, int> mymap;
 	ft::map<int, int>::iterator it;
 	ft::map<int, int>::iterator ite;
@@ -396,20 +366,26 @@ void erase_func_test()
 	// show content:
 	// for (; it != ite; ++it)
 	// 	std::cout << it->first << " => " << it->second << '\n';
-
 }
 
-void find_func()
+void find_std_func()
 {
-	ft::map<char,int> mymap;
-  	ft::map<char,int>::iterator it;
-	ft::map<char, int>::reverse_iterator rit;
-	ft::map<char, int>:: reverse_iterator rite;
+	std::cout << blue << "***************[ FIND && REVERSE_ITERATOR func test STD]***************" << cend << std::endl;
+	std::map<char,int> mymap;
+  	std::map<char,int>::iterator it;
+	std::map<char, int>::reverse_iterator rit;
+	std::map<char, int>:: reverse_iterator rite;
+
 
   	mymap['a']=50;
   	mymap['b']=100;
   	mymap['c']=150;
   	mymap['d']=200;
+	mymap['t']=600;
+	mymap['o']=800;
+	mymap['i']=500;
+	mymap['l']=100; 
+
 
   	it = mymap.find('b');
   	if (it != mymap.end())
@@ -425,17 +401,72 @@ void find_func()
   rit = mymap.rbegin();
   rite = mymap.rend();
   rite--;
-  std::cout << rit->first << std::endl;
   std::cout << rite->first << std::endl;
-//   while (rit != rite)
-// 	{
-// 		std::cout << rit->first << " | ";
-// 		rit++;
-// 	}
+ 
+  
+  rit++;
+  std::cout << "reverse iterator: " << std::endl;
+  std::cout << rite->first << std::endl;
+  std::cout << rit->first << std::endl;
+  while (rit != rite)
+	{
+		std::cout << rit->first << " | ";
+		rit++;
+	}
+	std::cout << std::endl;
+}
+
+
+void find_func()
+{
+	std::cout << blue << "***************[ FIND && REVERSE_ITERATOR func test FT]***************" << cend << std::endl;	
+	ft::map<char,int> mymap;
+  	ft::map<char,int>::iterator it;
+	ft::map<char, int>::reverse_iterator rit;
+	ft::map<char, int>:: reverse_iterator rite;
+
+  	mymap['a']=50;
+  	mymap['b']=100;
+  	mymap['c']=150;
+  	mymap['d']=200;
+	mymap['t']=600;
+	mymap['o']=800;
+	mymap['i']=500;
+	mymap['l']=100; 
+
+
+  	it = mymap.find('b');
+  	if (it != mymap.end())
+    	mymap.erase (it);
+
+  // print content:
+  std::cout << "elements in mymap:" << '\n';
+  std::cout << "a => " << mymap.find('a')->second << '\n';
+  std::cout << "c => " << mymap.find('c')->second << '\n';
+  std::cout << "d => " << mymap.find('d')->second << '\n';
+
+  std::cout << "reverse iterator test: " << std::endl;
+  rit = mymap.rbegin();
+  rite = mymap.rend();
+  rite--;
+  std::cout << rite->first << std::endl;
+ 
+  
+  rit++;
+  std::cout << "reverse iterator: " << std::endl;
+  std::cout << rite->first << std::endl;
+  std::cout << rit->first << std::endl;
+  while (rit != rite)
+	{
+		std::cout << rit->first << " | ";
+		rit++;
+	}
 }
 
 void count_func()
 {
+	std::cout << std::endl;
+	std::cout << std::endl;
 	  ft::map<char,int> mymap;
   char c;
 
@@ -465,6 +496,7 @@ int main()
 
 	constructor_test();
 	erase_func_test();
+	find_std_func();
 	find_func();
 	count_func();
 	sleep(50);
