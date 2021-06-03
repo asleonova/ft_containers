@@ -403,8 +403,6 @@ void find_func()
 {
 	ft::map<char,int> mymap;
   	ft::map<char,int>::iterator it;
-	ft::map<char, int>::reverse_iterator rit;
-	ft::map<char, int>:: reverse_iterator rite;
 
   	mymap['a']=50;
   	mymap['b']=100;
@@ -420,37 +418,6 @@ void find_func()
   std::cout << "a => " << mymap.find('a')->second << '\n';
   std::cout << "c => " << mymap.find('c')->second << '\n';
   std::cout << "d => " << mymap.find('d')->second << '\n';
-
-  std::cout << "reverse iterator test: " << std::endl;
-  rit = mymap.rbegin();
-  rite = mymap.rend();
-  rite--;
-  std::cout << rit->first << std::endl;
-  std::cout << rite->first << std::endl;
-//   while (rit != rite)
-// 	{
-// 		std::cout << rit->first << " | ";
-// 		rit++;
-// 	}
-}
-
-void count_func()
-{
-	  ft::map<char,int> mymap;
-  char c;
-
-  mymap ['a']=101;
-  mymap ['c']=202;
-  mymap ['f']=303;
-
-  for (c='a'; c<'h'; c++)
-  {
-    std::cout << c;
-    if (mymap.count(c)>0)
-      std::cout << " is an element of mymap.\n";
-    else 
-      std::cout << " is not an element of mymap.\n";
-  }
 }
 
 int main()
@@ -466,7 +433,6 @@ int main()
 	constructor_test();
 	erase_func_test();
 	find_func();
-	count_func();
 	sleep(50);
 	return 0;
 }

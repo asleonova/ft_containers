@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/03 18:02:52 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/03 18:01:30 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,6 @@ namespace ft
     template <class T, class TreeNode, class Compare>
     class MapIterator
     {
-    public:
-        typedef Compare key_compare;
-
     private:
         TreeNode *_node;
         key_compare _comp;
@@ -54,6 +51,7 @@ namespace ft
         typedef typename ft::iterator_traits<T>::difference_type difference_type;
         typedef typename ft::iterator_traits<T>::reference reference;
         typedef typename ft::iterator_traits<T>::pointer pointer;
+        typedef Compare key_compare;
 
         /*================================ CONSTRUCTORS: ================================*/
 
@@ -126,7 +124,7 @@ namespace ft
             else if (_node->parent)
             {
                 tmp = _node->parent;
-                while (tmp->parent && _comp(_node->val.first, tmp->val.first)) // _node->val.first < tmp->val.first
+                while (tmp->parent &&  _comp(_node->val.first, tmp->val.first)) // _node->val.first < tmp->val.first
                     tmp = tmp->parent;
             }
             _node = tmp;

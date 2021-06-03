@@ -434,25 +434,6 @@ void find_func()
 // 	}
 }
 
-void count_func()
-{
-	  ft::map<char,int> mymap;
-  char c;
-
-  mymap ['a']=101;
-  mymap ['c']=202;
-  mymap ['f']=303;
-
-  for (c='a'; c<'h'; c++)
-  {
-    std::cout << c;
-    if (mymap.count(c)>0)
-      std::cout << " is an element of mymap.\n";
-    else 
-      std::cout << " is not an element of mymap.\n";
-  }
-}
-
 int main()
 {
 	
@@ -466,7 +447,6 @@ int main()
 	constructor_test();
 	erase_func_test();
 	find_func();
-	count_func();
 	sleep(50);
 	return 0;
 }

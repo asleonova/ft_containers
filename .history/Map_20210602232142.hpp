@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/03 18:35:36 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/02 23:21:42 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ namespace ft
         typedef typename Alloc::const_reference const_reference;
         typedef typename Alloc::pointer pointer;
         typedef typename Alloc::const_pointer const_pointer;
-        typedef typename ft::MapIterator<pointer, TreeNode, key_compare> iterator;
-        typedef typename ft::MapIterator<const_pointer, TreeNode, key_compare> const_iterator;
+        typedef typename ft::MapIterator<pointer, TreeNode> iterator;
+        typedef typename ft::MapIterator<const_pointer, TreeNode> const_iterator;
         typedef typename ft::myReverseIterator<iterator> reverse_iterator;
         typedef typename ft::myReverseIterator<const_iterator> const_reverse_iterator;
         typedef ptrdiff_t difference_type;
@@ -82,8 +82,8 @@ namespace ft
 
         virtual ~map()
         {
-            clear();
-            _alloc_node.deallocate(_last_node, 1);
+           clear();
+           _alloc_node.deallocate(_last_node, 1);
         }
 
         /*================================ OPERATOR=: ================================*/
@@ -180,7 +180,7 @@ namespace ft
         /* The single element versions (1) return a pair,
         with its member pair::first set to an iterator pointing to either the newly inserted element
         or to the element with an equivalent key in the map. The pair::second element in the pair 
-        is set to true if a new element was inserted or false if an equivalent key already existed. */
+        is set to true if a new element was inserted or false if an equivalent key already existed. */ 
 
         void unlink_end()
         {
@@ -191,7 +191,7 @@ namespace ft
         {
             TreeNode *tmp = _node;
             TreeNode *max = max_node(_node);
-
+            
             _node->parent = NULL;
             max->right = _last_node;
             _last_node->left = max;
@@ -215,7 +215,7 @@ namespace ft
                     link_end();
                     return make_pair(iterator(current), false);
                 }
-                if (_comp(val.first, current->val.first)) // val.first < current->val.first
+                if (val.first < current->val.first)
                 {
                     current = current->left;
                 }
@@ -229,7 +229,7 @@ namespace ft
             while (current)
             {
                 tmp = current;
-                if (_comp(val.first, current->val.first)) // val.first < current->val.first
+                if (val.first < current->val.first)
                 {
                     current = current->left;
                 }
@@ -247,7 +247,7 @@ namespace ft
         {
             TreeNode *current;
             TreeNode *tmp;
-
+            
             (void)position;
             if (_last_node->left)
                 unlink_end();
@@ -256,7 +256,7 @@ namespace ft
             while (current)
             {
                 tmp = current;
-                if (_comp(val.first, current->val.first)) // val.first < current->val.first
+                if (val.first < current->val.first)
                 {
                     current = current->left;
                 }
@@ -272,6 +272,8 @@ namespace ft
         template <class InputIterator>
         void insert(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator>::type isIterator = InputIterator())
         {
+            // while (first != last)
+            //     insert(*(first++));
             difference_type n = ft::distance(first, last);
             while (n--)
                 insert(*(first++));
@@ -289,6 +291,7 @@ namespace ft
             if (_last_node->right == _last_node->left)
             {
                 unlink_end();
+                // _alloc_node.deallocate(_last_node, 1);
                 _alloc_node.destroy(_node);
                 _alloc_node.deallocate(_node, 1);
                 _node = NULL;
@@ -306,6 +309,14 @@ namespace ft
             {
                 erase((*(first++)).first);
             }
+            //  _alloc_node.deallocate(_last_node, 1);
+        //    difference_type n = ft::distance(first, last);
+        //     while (n-- > 0) {
+        //         erase(first);
+        //         first++;
+        //     }
+         //   _alloc_node.deallocate(_last_node, 1);
+        
         }
 
         /* SWAP */
@@ -327,76 +338,11 @@ namespace ft
 
         /*================================ OPERATIONS: ================================*/
 
-        iterator find(const key_type &k)
-        {
+        iterator find(const key_type &k);
 
-                TreeNode *current = _node;
-                unlink_end();
-                while (current)
-                {
-                    if (current->val.first == k)
-                    {
-                        link_end();
-                        return(iterator(current));
-                    }
-                    if (_comp(k, current->val.first)) // k < current->val.first
-                    {
-                        current = current->left;
-                    }
-                    else
-                    {
-                        current = current->right;
-                    }
-                }
-                link_end();
-                return end();
-        }
+        const_iterator find(const key_type &k) const;
 
-        const_iterator find(const key_type &k) const
-        {
-                TreeNode *current = _node;
-                unlink_end();
-                while (current)
-                {
-                    if (current->val.first == k)
-                    {
-                        link_end();
-                        return(const_iterator(current));
-                    }
-                    if (_comp(k, current->val.first)) // k < current->val.first
-                    {
-                        current = current->left;
-                    }
-                    else
-                    {
-                        current = current->right;
-                    }
-                }
-                link_end();
-                return end();
-        }
-
-        size_type count(const key_type &k) const
-        {
-                TreeNode *current = _node;
-                size_type count = 0;
-                while (current)
-                {
-                    if (current->val.first == k)
-                    {
-                        count++;
-                    }
-                    if (_comp(k, current->val.first)) // k < current->val.first
-                    {
-                        current = current->left;
-                    }
-                    else
-                    {
-                        current = current->right;
-                    }
-                }
-                return count;
-        }
+        size_type count(const key_type &k) const;
 
         iterator lower_bound(const key_type &k);
 
@@ -565,11 +511,11 @@ namespace ft
 
             /* 1. Perform the normal BST insertion */
 
-            if (_comp(val.first, node->val.first)) // val.first < node->val.first
+            if (val.first < node->val.first)
             {
                 node->left = insert_node(node->left, val, node); // here we instead of NULL parent has the value
             }
-            else if (_comp(node->val.first, val.first)) // val.first > node->val.first
+            else if (val.first > node->val.first)
             {
                 node->right = insert_node(node->right, val, node); // here we instead of NULL parent has the value
             }
@@ -589,22 +535,22 @@ namespace ft
             // there are 4 cases
 
             // Left Left Case
-            if (balance > 1 && _comp(val.first, node->left->val.first)) //val.first < node->left->val.first
+            if (balance > 1 && val.first < node->left->val.first)
                 return rightRotate(node);
 
             // Right Right Case
-            if (balance < -1 && _comp(node->right->val.first, val.first)) // val.first > node->right->val.first
+            if (balance < -1 && val.first > node->right->val.first)
                 return leftRotate(node);
 
             // Left Right Case
-            if (balance > 1 && _comp(node->left->val.first, val.first)) // val.first > node->left->val.first
+            if (balance > 1 && val.first > node->left->val.first)
             {
                 node->left = leftRotate(node->left);
                 return rightRotate(node);
             }
 
             // Right Left Case
-            if (balance < -1 && _comp(val.first, node->right->val.first)) // val.first < node->right->val.first
+            if (balance < -1 && val.first < node->right->val.first)
             {
                 node->right = rightRotate(node->right);
                 return leftRotate(node);
@@ -613,7 +559,8 @@ namespace ft
             return node;
         }
 
-        TreeNode *deleteNode(TreeNode *root, const key_type &key)
+
+TreeNode *deleteNode(TreeNode *root, const key_type &key)
         {
 
             // STEP 1: PERFORM STANDARD BST DELETE
@@ -623,13 +570,13 @@ namespace ft
             // If the key to be deleted is smaller
             // than the root's key, then it lies
             // in left subtree
-            if (_comp(key, root->val.first)) // key < root->val.first
+            if (key < root->val.first)
                 root->left = deleteNode(root->left, key);
 
             // If the key to be deleted is greater
             // than the root's key, then it lies
             // in right subtree
-            else if (_comp(root->val.first, key)) // key > root->val.first
+            else if (key > root->val.first)
                 root->right = deleteNode(root->right, key);
 
             // if key is same as root's key, then
@@ -652,9 +599,9 @@ namespace ft
                     {
                         temp->parent = root->parent;
                         *root = *temp;
-                    } // One child case
-                      // Copy the contents of
-                      // the non-empty child
+                    }               // One child case
+ // Copy the contents of
+                                       // the non-empty child
                     _alloc_node.destroy(temp);
                     _alloc_node.deallocate(temp, 1);
                 }
@@ -719,6 +666,7 @@ namespace ft
 
             return root;
         }
+
 
         TreeNode *min_node(TreeNode *node)
         {
@@ -786,8 +734,9 @@ namespace ft
                 }
                 else
                 {
+                    // int result = ((p->data.first <= 1) ? 1 : log10(p->data.first) + 1);
                     std::cout << " " << p->val.first << " ";
-                    if (p->parent)
+                    if(p->parent)
                         std::cout << "|" << p->parent->val.first;
                     std::cout << std::setw(disp - 3) << "";
                 }

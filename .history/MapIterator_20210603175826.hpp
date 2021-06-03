@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/03 18:02:52 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/03 17:58:26 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,9 @@ namespace ft
     template <class T, class TreeNode, class Compare>
     class MapIterator
     {
-    public:
-        typedef Compare key_compare;
-
     private:
         TreeNode *_node;
-        key_compare _comp;
+        Compare _comp;
 
     public:
         typedef typename ft::iterator_traits<T>::iterator_category iterator_category;
@@ -60,9 +57,9 @@ namespace ft
         MapIterator(TreeNode *node = 0) : _node(node) {} // default
 
         template <class Iter>
-        MapIterator(MapIterator<Iter, TreeNode, key_compare> const &my_it) : _node(my_it.get_node()) {} // Copy constructor
+        MapIterator(MapIterator<Iter, TreeNode, Compare> const &my_it) : _node(my_it.get_node()), _comp(Compare) {} // Copy constructor
 
-        MapIterator &operator=(MapIterator<T, TreeNode, key_compare> const &rhs) // asignment operator
+        MapIterator &operator=(MapIterator<T, TreeNode, Compare> const &rhs) // asignment operator
         {
             this->_node = rhs.get_node();
             this->_comp = rhs._comp;
@@ -126,7 +123,7 @@ namespace ft
             else if (_node->parent)
             {
                 tmp = _node->parent;
-                while (tmp->parent && _comp(_node->val.first, tmp->val.first)) // _node->val.first < tmp->val.first
+                while (tmp->parent &&  _comp(_node->val.first, tmp->val.first)) // _node->val.first < tmp->val.first
                     tmp = tmp->parent;
             }
             _node = tmp;

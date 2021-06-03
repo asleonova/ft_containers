@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/03 18:35:36 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/03 18:34:02 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -380,6 +380,7 @@ namespace ft
         {
                 TreeNode *current = _node;
                 size_type count = 0;
+             //   unlink_end();
                 while (current)
                 {
                     if (current->val.first == k)
@@ -395,6 +396,7 @@ namespace ft
                         current = current->right;
                     }
                 }
+               // link_end();
                 return count;
         }
 

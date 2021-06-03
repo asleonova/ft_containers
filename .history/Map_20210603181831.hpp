@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/03 18:35:36 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/03 18:18:31 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,27 +376,7 @@ namespace ft
                 return end();
         }
 
-        size_type count(const key_type &k) const
-        {
-                TreeNode *current = _node;
-                size_type count = 0;
-                while (current)
-                {
-                    if (current->val.first == k)
-                    {
-                        count++;
-                    }
-                    if (_comp(k, current->val.first)) // k < current->val.first
-                    {
-                        current = current->left;
-                    }
-                    else
-                    {
-                        current = current->right;
-                    }
-                }
-                return count;
-        }
+        size_type count(const key_type &k) const;
 
         iterator lower_bound(const key_type &k);
 
