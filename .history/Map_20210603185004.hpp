@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/03 18:55:56 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/03 18:50:04 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ namespace ft
         typedef Key key_type;
         typedef T mapped_type;
         typedef std::pair<key_type, mapped_type> value_type;
-        typedef Compare key_compare;
+        typedef less<key_type> key_compare;
         typedef Alloc allocator_type;
         typedef typename Alloc::reference reference;
         typedef typename Alloc::const_reference const_reference;
@@ -56,7 +56,7 @@ namespace ft
         typedef size_t size_type;
         typedef typename Alloc::template rebind<TreeNode>::other node_allocator_type;
 
-        class value_compare : public std::binary_function<value_type, value_type, bool>
+        class value_compare : public ft::binary_function<value_type, value_type, bool>
         {
         protected:
             Compare comp;
@@ -66,7 +66,7 @@ namespace ft
             bool
             operator()(const value_type &x, const value_type &y) const
             {
-                return comp(x.first, y.first);
+                return comp(x.first, y.first));
             }
         };
 
@@ -340,11 +340,8 @@ namespace ft
             return key_compare();
         }
 
-        value_compare value_comp() const
-        {
-
-            return value_compare();
-        }
+        value_compare value_comp() const {
+            value_compare}
 
         /*================================ OPERATIONS: ================================*/
 

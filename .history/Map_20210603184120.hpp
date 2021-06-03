@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/03 18:55:56 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/03 18:41:20 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ namespace ft
         typedef Key key_type;
         typedef T mapped_type;
         typedef std::pair<key_type, mapped_type> value_type;
-        typedef Compare key_compare;
+        typedef less<key_type> key_compare;
         typedef Alloc allocator_type;
         typedef typename Alloc::reference reference;
         typedef typename Alloc::const_reference const_reference;
@@ -55,20 +55,6 @@ namespace ft
         typedef ptrdiff_t difference_type;
         typedef size_t size_type;
         typedef typename Alloc::template rebind<TreeNode>::other node_allocator_type;
-
-        class value_compare : public std::binary_function<value_type, value_type, bool>
-        {
-        protected:
-            Compare comp;
-            value_compare(Compare c) : comp(c) {}
-
-        public:
-            bool
-            operator()(const value_type &x, const value_type &y) const
-            {
-                return comp(x.first, y.first);
-            }
-        };
 
         /*================================ 4 CONSTRUCTORS: ================================*/
 
@@ -342,8 +328,7 @@ namespace ft
 
         value_compare value_comp() const
         {
-
-            return value_compare();
+            value_compare
         }
 
         /*================================ OPERATIONS: ================================*/
@@ -351,72 +336,72 @@ namespace ft
         iterator find(const key_type &k)
         {
 
-            TreeNode *current = _node;
-            unlink_end();
-            while (current)
-            {
-                if (current->val.first == k)
+                TreeNode *current = _node;
+                unlink_end();
+                while (current)
                 {
-                    link_end();
-                    return (iterator(current));
+                    if (current->val.first == k)
+                    {
+                        link_end();
+                        return(iterator(current));
+                    }
+                    if (_comp(k, current->val.first)) // k < current->val.first
+                    {
+                        current = current->left;
+                    }
+                    else
+                    {
+                        current = current->right;
+                    }
                 }
-                if (_comp(k, current->val.first)) // k < current->val.first
-                {
-                    current = current->left;
-                }
-                else
-                {
-                    current = current->right;
-                }
-            }
-            link_end();
-            return end();
+                link_end();
+                return end();
         }
 
         const_iterator find(const key_type &k) const
         {
-            TreeNode *current = _node;
-            unlink_end();
-            while (current)
-            {
-                if (current->val.first == k)
+                TreeNode *current = _node;
+                unlink_end();
+                while (current)
                 {
-                    link_end();
-                    return (const_iterator(current));
+                    if (current->val.first == k)
+                    {
+                        link_end();
+                        return(const_iterator(current));
+                    }
+                    if (_comp(k, current->val.first)) // k < current->val.first
+                    {
+                        current = current->left;
+                    }
+                    else
+                    {
+                        current = current->right;
+                    }
                 }
-                if (_comp(k, current->val.first)) // k < current->val.first
-                {
-                    current = current->left;
-                }
-                else
-                {
-                    current = current->right;
-                }
-            }
-            link_end();
-            return end();
+                link_end();
+                return end();
         }
 
         size_type count(const key_type &k) const
         {
-            TreeNode *current = _node;
-            size_type count = 0;
-            while (current)
-            {
-                if (current->val.first == k)
+                TreeNode *current = _node;
+                size_type count = 0;
+                while (current)
                 {
-                    count++;
+                    if (current->val.first == k)
+                    {
+                        count++;
+                    }
+                    if (_comp(k, current->val.first)) // k < current->val.first
+                    {
+                        current = current->left;
+                    }
+                    else
+                    {
+                        current = current->right;
+                    }
                 }
-                if (_comp(k, current->val.first)) // k < current->val.first
-                {
-                    current = current->left;
-                }
-                else
-                {
-                    current = current->right;
-                }
-            }
-            return count;
+                return count;
         }
 
         iterator lower_bound(const key_type &k);

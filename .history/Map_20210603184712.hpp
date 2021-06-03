@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/03 18:55:56 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/03 18:47:12 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 namespace ft
 {
     template <class Key, class T,
-              class Compare = less<Key>,
-              class Alloc = std::allocator<std::pair<Key, T> > >
+                class Compare = less<Key>,
+                class Alloc = std::allocator<std::pair<Key, T> > >
     class map
     {
 
@@ -42,7 +42,7 @@ namespace ft
         typedef Key key_type;
         typedef T mapped_type;
         typedef std::pair<key_type, mapped_type> value_type;
-        typedef Compare key_compare;
+        typedef less<key_type> key_compare;
         typedef Alloc allocator_type;
         typedef typename Alloc::reference reference;
         typedef typename Alloc::const_reference const_reference;
@@ -55,20 +55,6 @@ namespace ft
         typedef ptrdiff_t difference_type;
         typedef size_t size_type;
         typedef typename Alloc::template rebind<TreeNode>::other node_allocator_type;
-
-        class value_compare : public std::binary_function<value_type, value_type, bool>
-        {
-        protected:
-            Compare comp;
-            value_compare(Compare c) : comp(c) {}
-
-        public:
-            bool
-            operator()(const value_type &x, const value_type &y) const
-            {
-                return comp(x.first, y.first);
-            }
-        };
 
         /*================================ 4 CONSTRUCTORS: ================================*/
 
@@ -340,11 +326,8 @@ namespace ft
             return key_compare();
         }
 
-        value_compare value_comp() const
-        {
-
-            return value_compare();
-        }
+        value_compare value_comp() const {
+            value_compare}
 
         /*================================ OPERATIONS: ================================*/
 
