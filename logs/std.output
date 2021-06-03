@@ -1,43 +1,38 @@
 [34m***************[ Default constructor test ]***************[0m
-[32mTesting empty list int: [0m
-list size is: 0
+[32mTesting empty map int: [0m
+[32mTesting map <char, int> with some values added: [0m
+[32mMap contents: [0m
+a ,10 | b ,30 | c ,50 | d ,70 | 
 
-[34m***************[ Fill constructor test ]***************[0m
-[32mTesting list<int> lst1(10, 42): [0m
-42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 
+[32mMap contents: [0m
+a ,10 | b ,30 | c ,50 | d ,70 | 
 
+[32mTesting copy constructor: [0m
+[32mMap contents (third): [0m
+a ,10 | b ,30 | c ,50 | d ,70 | 
 
-[34m***************[ Range constructor test ]***************[0m
-0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+[32mTesting operator = : [0m
+[32mMap contents (third): [0m
+a ,10 | b ,30 | c ,50 | d ,70 | 
 
+[34m***************[ Iterators test (int) ]***************[0m
+[32mmap contents, using iterator: [0m
+1 ,1 | 2 ,2 | 3 ,3 | 4 ,4 | 5 ,5 | 6 ,6 | 
 
-[34m***************[ Copy constructor test ]***************[0m
-[32mMaking copy list<int> lst4(lst1): [0m
-42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 42 | 
-
-[34m***************[ Operator = test ]***************[0m
-[32mMaking list<int> lst5 = lst1: [0m
-4 | 4 | 4 | 4 | 4 | 4 | 4 | 4 | 4 | 4 | 
-
-
-[34m***************[ Iterators test (char) ]***************[0m
-[32mlist contents, using iterator: [0m
-0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
-
-[32mlist contents in reverse, using the reverse iterator: [0m
-9 8 7 6 5 4 3 2 1 0 
+[32mmap contents in reverse, using the reverse iterator: [0m
+6 6 | 5 5 | 4 4 | 3 3 | 2 2 | 1 1 | 
 [32mTesting arithmetic operations on iterator: [0m
-it value: 0
-it++ value: 1
-it-- value: 0
-++it value: 1
---it value: 0
+it value: 1
+it++ value: 2
+it-- value: 1
+++it value: 2
+--it value: 1
 [32mTesting arithmetic operations on reverse iterator: [0m
-itr value: 9
-itr++ value: 8
-itr-- value: 9
-++itr value: 8
---itr value: 9
+itr value: 6
+itr++ value: 5
+itr-- value: 6
+++itr value: 5
+--itr value: 6
 [32mTesting iterator comparison: [0m
 it == ite: 0
 it == it: 1
@@ -50,260 +45,162 @@ rit != rite: 0
 rite != rite: 0
 
 [34m***************[ Const iterators test (char) ]***************[0m
-[32mlist contents, using iterator: [0m
-0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
+[32mmap contents, using iterator: [0m
+1 ,1 | 2 ,2 | 3 ,3 | 4 ,4 | 5 ,5 | 6 ,6 | 
 
 [32mTesting iterator comparison: [0m
-it == ite: 0
+cit == cite: 0
 it == it: 1
-it != ite: 1
-ite != ite: 0
-[34m***************[ empty() test (int) ]***************[0m
-[32mEmpty list: [0m
-is_empty: 1
-size: 0
-[32mAfter push_back 10 elements: [0m
-is_empty: 0
-1. size: 10
-0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
-
-[32mAfter inserting 10 elements: [0m
-2. size: 20
-[32mAfter popback(): [0m
-3. size: 19
-
-0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 100 | 100 | 100 | 100 | 100 | 100 | 100 | 100 | 100 | 
-
-[32mAfter push_front(666): [0m
-size: 20
-
-list contents: 
-Printing in reverse order: 
-100 100 100 100 100 100 100 100 100 9 8 7 6 5 4 3 2 1 0 666 0 1 2 3 4 [32mAfter popfront(): [0m
-4. size: 24
-list contents: 
-3 | 2 | 1 | 0 | 666 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 100 | 100 | 100 | 100 | 100 | 100 | 100 | 100 | 100 | 
-
-[34m***************[ max_size() and size() test (int) ]***************[0m
-[32mTaking the same list: [0m
-size: 24
-max_size: 768614336404564650
-
-[34m***************[ front() function (int) ]***************[0m
-mylist.front() is now 55
-[34m***************[ back() function (int) ]***************[0m
-mylist contains: 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 
-
-[34m***************[ assign() test (int) ]***************[0m
-[32massign 7 ints with the value of 100 [0m
-list contents: 
-100 | 100 | 100 | 100 | 100 | 100 | 100 | 
-
-[32massign 5 central values of first[0m
-list contents: 
-100 | 100 | 100 | 100 | 100 | 100 | 100 | 
-
-[32mcreating array of ints {1776, 7, 4} and assigning from it: [0m
-list contents: 
-1776 | 7 | 4 | 
-
-Size of first: 7
-Size of second: 7
-Size of third: 3
-
-[34m***************[ push_front() and pop_front() test (int) ]***************[0m
-[32mAfter push_front(666): [0m
-size: 11
-
-list contents: 
-666 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
-
-list contents: 
-4 | 3 | 2 | 1 | 0 | 666 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
-
-[32mAfter popfront(): [0m
-size: 15
-list contents: 
-3 | 2 | 1 | 0 | 666 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
-
-[34m***************[ push_back() and pop_back() test (float) ]***************[0m
-list contents: 
-1.23 | 2.34 | 3.45 | 4.55 | 5.56 | 
-
-[32mcalling pop_back() 2 times: [0m
-list contents: 
-1.23 | 2.34 | 3.45 | 
-
-list in reverse: 
-3.45 | 2.34 | 1.23 | 
-
-[34m***************[ insert test (int) ]***************[0m
-list contents: 
-0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
-
-[32minsert 1 element at 2nd position with the value of 666 [0m
-list contents: 
-0 | 1 | 666 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
-
-list size: 11
-[32minsert 5 element at 5th position with the value of 55 [0m
-list contents: 
-0 | 1 | 666 | 55 | 55 | 55 | 55 | 55 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
-
-list size: 16
-[32minsert range of elements int arr[] = {501,502,503} at the begin() + 1[0m
-501 | 502 | 503 | 0 | 1 | 666 | 55 | 55 | 55 | 55 | 55 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
-
-list in reverse: 
-9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 55 | 55 | 55 | 55 | 55 | 666 | 1 | 0 | 503 | 502 | 501 | 
-
-list size: 19
-[34m***************[ erase test (int) ]***************[0m
-[32merase the 6th element: [0m
-502 | 503 | 0 | 1 | 666 | 55 | 55 | 55 | 55 | 55 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
-
-list size: 18
-[32merase the first 3 elements: [0m
-502 | 503 | 0 | 1 | 666 | 55 | 55 | 55 | 55 | 55 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 
-
-list size: 18
-[34m***************[ swap() test (string) ]***************[0m
-list vs1 contents: 
-chto | kak | sunshine | ? | 
-
-list vs2 contents: 
-prosto | sdelai | it | 
-
-[32mafter swapping values : [0m
-list vs1 contents: 
-prosto | sdelai | it | 
-
-list vs2 contents: 
-chto | kak | sunshine | ? | 
-
-[34m***************[ resize() test (int) ]***************[0m
-[32mmyints.resize(5): [0m
-3 | 2 | 1 | 0 | 666 | 
-
-[32mmyints.resize(8, 100): [0m
-3 | 2 | 1 | 0 | 666 | 100 | 100 | 100 | 
-
-[32mmyints.resize(12): [0m
-3 | 2 | 1 | 0 | 666 | 100 | 100 | 100 | 0 | 0 | 0 | 0 | 
-
-
-[34m***************[ erase test (int) ]***************[0m
-[32merase the first element: [0m
-2 | 1 | 0 | 666 | 100 | 100 | 100 | 0 | 0 | 0 | 0 | 
-
-list size: 11
-
-[32merase the first 3 elements: [0m
-2
-666
-666 | 100 | 100 | 100 | 0 | 0 | 0 | 0 | 
-
-list size: 8
-size: 0
-is_empty: 1
-[34m***************[ clear() test (string) ]***************[0m
-[32mInitial list contents : [0m
-prosto | sdelai | it | 
-
-list size: 3
-[32mlist contents after clear() : [0m
-
-
-list size: 0
-[34m***************[ splice() test (int) ]***************[0m
-mylist1 contents: 
-1 | 2 | 3 | 4 | 
-
-mylist1 size: 4
-mylist2 contents: 
-10 | 20 | 30 | 
-
-mylist2 size: 3
-[32mSPLICE (entire list) mylist2 to mylist1 at the 1st position:[0m		
-[33m'it' still points to: [0m		
-2
-[33mmylist1 after splicing mylist2 to it at 1st position:[0m		
-1 | 10 | 20 | 30 | 2 | 3 | 4 | 
-
-mylist1 size: 7
-[33mmylist2 after being spliced to mylist1 at 1st position:[0m		
-
-
-mylist2 size: 0
-[32mSPLICE (single) mylist2 to mylist1 at the 1st position:[0m		
-[33m'it' is invalid now[0m		
-2
-[33mmylist1 after splicing[0m		
-1 | 10 | 20 | 30 | 3 | 4 | 
-
-mylist1 size: 6
-[33mmylist2 after splicing[0m		
-2 | 
-
-mylist2 size: 1
-IT: 30
-[32mSPLICE (elem range) mylist1 3 last elements to the begining:[0m		
-mylist1 contains: 30 | 3 | 4 | 1 | 10 | 20 | 
-
-mylist1 size: 6
-mylist2 contains: 2 | 
-
-mylist2 size: 1
-
-[34m***************[ remove() test (int) ]***************[0m
-[34m***************[ remove() test (int) ]***************[0m
-mylist contents before removing: 
-17 | 89 | 7 | 14 | 
-
-list size before removing: 4
-mylist contains: 
-17 | 7 | 14 | 
-
-list size: 3
-[34m***************[ remove_if() test (int) ]***************[0m
-SORT ::: 
-1 | 4 | 7 | 15 | 17 | 20 | 36 | 39 | 
-
-mylist contains: 20 | 36 | 
-
-[34m***************[ unique() test (int) ]***************[0m
-list before unique func: 
-0 | 2.72 | 3.14 | 12.15 | 12.77 | 12.77 | 15.3 | 72.25 | 72.25 | 73 | 
-
-mylist contains: 0 | 2.72 | 3.14 | 12.15 | 12.77 | 15.3 | 72.25 | 73 | 
-
-mylist contains: 0 | 2.72 | 3.14 | 12.15 | 15.3 | 72.25 | 73 | 
-
-mylist contains: 0 | 12.15 | 72.25 | 
-
-mylist contains: a | g | p | 
-
-mylist contains: a | g | p | 
-
-first contains: 1.4 | 2.2 | 2.9 | 3.1 | 3.7 | 7.1 | 
-
-secont contains: 
-
-first contains: 1.4 | 2.2 | 2.9 | 2.1 | 3.1 | 3.7 | 7.1 | 
-
-secont contains: 
-
-[34m***************[ reverse() test (int) ]***************[0m
-mylist contains: 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 
-
-
-a and b are equal
-b and c are not equal
-b is less than c
-c is greater than b
-a is less than or equal to b
-a is greater than or equal to b
-foo contains: 200 | 200 | 200 | 200 | 200 | 
-
-bar contains:100 | 100 | 100 | 
-
+cit != cite: 1
+cite != cite: 0
+**************************MY FUNCS********************************
+return value is (6): 6
+ with a value of 100
+bool value is (1): 1
+return value is (8): 6
+ with a value of 100
+bool value is (1): 1
+return value is (8): 8
+ with a value of 100
+bool value is (0): 0
+return value is (10): 10
+ with a value of 100
+bool value is (1): 1
+return value is (6): 6
+ with a value of 100
+bool value is (0): 0
+return value is (7): 7
+ with a value of 100
+bool value is (0): 0
+ITER VALUE IS: 17
+end is: 1
+end is: 17
+end is: 10
+end is: 9
+end is: 8
+end is: 7
+end is: 6
+end is: 5
+end is: 4
+end is: 3
+end is: 2
+begin is: 1
+end is: 1
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+size is : 11
+contents of my map: 1, 200
+contents of my map: 2, 400
+contents of my map: 3, 500
+contents of my map: 4, 400
+contents of my map: 5, 200
+contents of my map: 6, 100
+contents of my map: 7, 100
+contents of my map: 8, 100
+contents of my map: 9, 100
+contents of my map: 10, 100
+contents of my map: 17, 89
+contents of another map: 1, 200
+contents of another map: 2, 400
+contents of another map: 3, 500
+contents of another map: 4, 400
+contents of another map: 5, 200
+contents of another map: 6, 100
+contents of another map: 7, 100
+contents of another map: 8, 100
+contents of another map: 9, 100
+contents of another map: 10, 100
+contents of another map: 17, 89
+map begin: 1
+map end: 32766
+IT value is: 1
+________________1_______________
+IT value is: 1
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________2__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________3__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________4__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________5__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________6__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________7__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________8__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________9__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________10__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________17__________________
+Contents of mymap: 
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+mymap size is: 0
+Inserting new elements : 
+Contents of mymap: 
+mymap size is: 0
+[34m***************[ Erase func test ]***************[0m
+SIZE SHOULD BE 10: 10
+it value is: 2
+1 ,10 | 2 ,20 | 3 ,30 | 4 ,40 | 5 ,50 | 6 ,60 | 7 ,70 | 8 ,80 | 9 ,90 | 10 ,100 | 
+
+__________after erase 3_________________________
+
+1 ,10 | 2 ,20 | 4 ,40 | 5 ,50 | 6 ,60 | 7 ,70 | 8 ,80 | 9 ,90 | 10 ,100 | 
+
+__________after erase 2_________________________
+
+1 ,10 | 4 ,40 | 5 ,50 | 6 ,60 | 7 ,70 | 8 ,80 | 9 ,90 | 10 ,100 | 
+
+__________after erase 4________________________
+
+1 ,10 | 5 ,50 | 6 ,60 | 7 ,70 | 8 ,80 | 9 ,90 | 10 ,100 | 
+
+__________after erase 6____________
+
+1 ,10 | 5 ,50 | 7 ,70 | 8 ,80 | 9 ,90 | 10 ,100 | 
+
+[34m***************[ FIND && REVERSE_ITERATOR func test STD]***************[0m
+elements in mymap:
+a => 50
+c => 150
+d => 200
+reverse iterator test: 
+a
+reverse iterator: 
+a
+o
+o | l | i | d | c | 
+[34m***************[ FIND && REVERSE_ITERATOR func test FT]***************[0m
+elements in mymap:
+a => 50
+c => 150
+d => 200
+reverse iterator test: 
+a
+reverse iterator: 
+a
+o
+o | l | i | d | c | 
+
+a is an element of mymap.
+b is not an element of mymap.
+c is an element of mymap.
+d is not an element of mymap.
+e is not an element of mymap.
+f is an element of mymap.
+g is not an element of mymap.

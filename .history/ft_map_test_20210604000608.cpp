@@ -503,8 +503,8 @@ int main()
 	const_iterator_test();
 	insert_test();
 	erase_func_test();
-	find_std_func();
-	find_func();
-	count_func();
+	//find_std_func();
+	//find_func();
+	//count_func();
 	return 0;
 }
