@@ -364,7 +364,6 @@ void erase_func_test()
 	mymap.erase(3); // erasing by key
 	std::cout << "__________after erase 3_________________________" << std::endl << std::endl;
 	//mymap.treeprint();
-	print_map(mymap);
 
 	std::cout << "__________after erase 2_________________________" << std::endl << std::endl;
 	mymap.erase(it); // erasing by iterator
