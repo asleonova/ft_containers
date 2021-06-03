@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/19 17:14:29 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/04 00:16:08 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/04 00:09:14 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ namespace ft
         template <class InputIterator>
         map(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value> * = NULL,
             const key_compare &comp = key_compare(),
-            const allocator_type &alloc = allocator_type()) : _node(NULL), _comp(comp), _allocator_type(alloc) 
+            const allocator_type &alloc = allocator_type()) :  _comp(comp), _allocator_type(alloc) 
             {
                 this->_last_node = allocate_tree_node();
                 this->insert(first, last); 
@@ -295,9 +295,8 @@ namespace ft
         void insert(InputIterator first, InputIterator last, typename ft::enable_if<!is_integral<InputIterator>::value, InputIterator>::type isIterator = InputIterator())
         {
             (void)isIterator;
-            // difference_type n = ft::distance(first, last);
-            // while (n--)
-            while (first != last)
+            difference_type n = ft::distance(first, last);
+            while (n--)
                 insert(*(first++));
         }
 
