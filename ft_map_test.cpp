@@ -90,11 +90,11 @@ void iterator_test()
 
 	ft::map<int, int> map;
 	map[1] = 1;
-	map[3] = 3;
-	map[6] = 6;
 	map[2] = 2;
+	map[3] = 3;
 	map[4] = 4;
 	map[5] = 5;
+	map[6] = 6;
 	std::cout << green << "map contents, using iterator: " << cend << std::endl;
 	print_map(map);
 	std::cout << green << "map contents in reverse, using the reverse iterator: " << cend << std::endl;
@@ -161,13 +161,14 @@ void const_iterator_test()
 	
 	ft::map<int, int> map;
 	map[1] = 1;
-	map[3] = 3;
-	map[6] = 6;
 	map[2] = 2;
+	map[3] = 3;
 	map[4] = 4;
 	map[5] = 5;
+	map[6] = 6;
 	std::cout << green << "map contents, using iterator: " << cend << std::endl;
 	print_map_const(map);
+	//map.treeprint();
 
 	std::cout << green << "Testing iterator comparison: " << cend << std::endl;
 	ft::map<int, int>::const_iterator cit = map.begin();
@@ -181,8 +182,63 @@ void const_iterator_test()
 	std::cout << "cit != cite: " << b << std::endl;
 	b = cite != cite;
 	std::cout << "cite != cite: " << b << std::endl;
+
+	std::cout << blue << "***************[ Const reverse iterators test (char) ]***************" << cend << std::endl;
+
+	ft::map<int, int>::const_reverse_iterator crit = map.rbegin();
+	ft::map<int, int>::const_reverse_iterator crite = map.rend();
+
+	b = crit == crite;
+	std::cout << "crit == crite: " << b << std::endl;
+	b = crit == crit;
+	std::cout << "crit == crit: " << b << std::endl;
+	b = crit != crite;
+	std::cout << "crit != crite: " << b << std::endl;
+	b = crite != crite;
+	std::cout << "crite != crite: " << b << std::endl;
 }
 
+void capasity_test()
+{
+	std::cout << blue << "***************[ Empty test (char, int) ]***************" << cend << std::endl;
+
+	ft::map<char,int> mymap;
+
+  	mymap['a']=10;
+  	mymap['b']=20;
+  	mymap['c']=30;
+
+  	while (!mymap.empty())
+  	{
+    	std::cout << mymap.begin()->first << " => " << mymap.begin()->second << '\n';
+    	mymap.erase(mymap.begin());
+  	}
+
+	std::cout << blue << "***************[ Size test (char, int) ]***************" << cend << std::endl;
+	std::cout << "mymap.size() is " << mymap.size() << '\n';
+	mymap['d']=340;
+	mymap['d']=30;
+	mymap['e']=60;
+	std::cout << "mymap.size() is " << mymap.size() << '\n';
+	mymap['f']=50;
+	std::cout << "mymap.size() is " << mymap.size() << '\n';
+	mymap.erase('b');
+	std::cout << "mymap.size() is " << mymap.size() << '\n';
+	
+	std::cout << blue << "***************[ Max size test (int, int) ]***************" << cend << std::endl;
+
+	std::cout << mymap.max_size() << std::endl;
+	int i;
+	ft::map<int,int> mymap1;
+
+  	if (mymap1.max_size()>1000)
+ 	{
+    	for (i=0; i<1000; i++) mymap1[i]=0;
+    	std::cout << "The map contains 1000 elements.\n";
+  	}
+  	else std::cout << "The map could not hold 1000 elements.\n";
+
+}
 	void insert_test()
 	{
 		ft::map<int, int> mymap;
@@ -232,13 +288,6 @@ void const_iterator_test()
 	it++;
 	it = mymap.insert(it, std::pair<int, int>(17, 89));
 	std::cout << "ITER VALUE IS: " << it->first << std::endl;
-	it = mymap.begin();
-	ite = mymap.end();
-	while (ite != it)
-	{
-		std::cout << "end is: " << ite->first << std::endl;
-		ite--;
-	}
 	ft::map<int, int> anothermap;
 	ft::map<int, int> anothermap1;
 	anothermap.insert(mymap.begin(), mymap.end());
@@ -246,7 +295,6 @@ void const_iterator_test()
 	anothermap1 = anothermap;
 
 	std::cout << "begin is: " << mymap.begin()->first << std::endl;
-	std::cout << "end is: " << ite->first << std::endl;
 	print_map(mymap);
 	std::cout << "size is : " << mymap.size() << std::endl;
 	//mymap.treeprint();
@@ -268,7 +316,7 @@ void const_iterator_test()
 	}
 	it = anothermap.begin();
 	std::cout << "map begin: " << it->first << std::endl;
-	std::cout << "map end: " << anothermap.end()->first << std::endl;
+	// std::cout << "map end: " << anothermap.end()->first << std::endl;
 	std::cout << "IT value is: " << it->first << std::endl;
 	anothermap.erase(1); // 1
 	std::cout << "________________1_______________" << std::endl;
@@ -332,10 +380,41 @@ void const_iterator_test()
 	std::cout << "mymap size is: " << anothermap.size() << std::endl;
 }
 
-void erase_func_test()
+void erase_range_test()
+{
+			ft::map<char,int> mymap;
+  	ft::map<char,int>::iterator it;
+ft::map<char,int>::iterator ite;
+
+  	mymap['a']=50;
+  	mymap['b']=100;
+  	mymap['c']=150;
+  	mymap['d']=200;
+	mymap['t']=600;
+	mymap['o']=800;
+	mymap['l']=100; 
+	mymap['i']=500;
+	it = mymap.begin();
+	ite = mymap.end();
+
+print_map(mymap);
+it++;
+it++;
+ite--;
+ite--;
+	//mymap.treeprint();
+	mymap.erase(it, ite);
+	print_map(mymap);
+
+
+}
+
+void erase_and_clear_func_test()
 {
 	std::cout << blue << "***************[ Erase func test ]***************" << cend << std::endl;
 	
+	erase_range_test();
+
 	ft::map<int, int> mymap;
 	ft::map<int, int>::iterator it;
 	ft::map<int, int>::iterator ite;
@@ -380,54 +459,83 @@ void erase_func_test()
 	print_map(mymap);
 }
 
-void find_std_func()
+void 	swap_func_test()
 {
-	std::cout << blue << "***************[ FIND && REVERSE_ITERATOR func test STD]***************" << cend << std::endl;
-	std::map<char,int> mymap;
-  	std::map<char,int>::iterator it;
-	std::map<char, int>::reverse_iterator rit;
-	std::map<char, int>:: reverse_iterator rite;
+	std::cout << blue << "***************[ swap func test]***************" << cend << std::endl;	
+	ft::map<char,int> foo,bar;
 
+  foo['x']=100;
+  foo['y']=200;
 
-  	mymap['a']=50;
-  	mymap['b']=100;
-  	mymap['c']=150;
-  	mymap['d']=200;
-	mymap['t']=600;
-	mymap['o']=800;
-	mymap['i']=500;
-	mymap['l']=100; 
+  bar['a']=11;
+  bar['b']=22;
+  bar['c']=33;
 
+  foo.swap(bar);
 
-  	it = mymap.find('b');
-  	if (it != mymap.end())
-    	mymap.erase (it);
+  std::cout << "foo contains:\n";
+  for (ft::map<char,int>::iterator it=foo.begin(); it!=foo.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
 
-  // print content:
-  std::cout << "elements in mymap:" << '\n';
-  std::cout << "a => " << mymap.find('a')->second << '\n';
-  std::cout << "c => " << mymap.find('c')->second << '\n';
-  std::cout << "d => " << mymap.find('d')->second << '\n';
-
-  std::cout << "reverse iterator test: " << std::endl;
-  rit = mymap.rbegin();
-  rite = mymap.rend();
-  rite--;
-  std::cout << rite->first << std::endl;
- 
-  
-  rit++;
-  std::cout << "reverse iterator: " << std::endl;
-  std::cout << rite->first << std::endl;
-  std::cout << rit->first << std::endl;
-  while (rit != rite)
-	{
-		std::cout << rit->first << " | ";
-		rit++;
-	}
-	std::cout << std::endl;
+  std::cout << "bar contains:\n";
+  for (ft::map<char,int>::iterator it=bar.begin(); it!=bar.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
 }
 
+void modifiers_test()
+{
+	insert_test();
+	erase_and_clear_func_test();
+	swap_func_test();
+}
+void value_comparison_test()
+{
+		std::cout << blue << "***************[ value_comp func test]***************" << cend << std::endl;
+	 ft::map<char,int> mymap;
+
+  mymap['x']=1001;
+  mymap['y']=2002;
+  mymap['z']=3003;
+
+  std::cout << "mymap contains:\n";
+
+  std::pair<char,int> highest = *mymap.rbegin();          // last element
+
+  ft::map<char,int>::iterator it = mymap.begin();
+  do {
+    std::cout << it->first << " => " << it->second << '\n';
+  } while ( mymap.value_comp()(*it++, highest) );
+}
+
+void key_comparison_test()
+{
+	std::cout << blue << "***************[ key_comp func test]***************" << cend << std::endl;
+
+	ft::map<char,int> mymap;
+
+  ft::map<char,int>::key_compare mycomp = mymap.key_comp();
+
+  mymap['a']=100;
+  mymap['b']=200;
+  mymap['c']=300;
+
+  std::cout << "mymap contains:\n";
+
+  char highest = mymap.rbegin()->first;     // key value of last element
+
+  ft::map<char,int>::iterator it = mymap.begin();
+  do {
+    std::cout << it->first << " => " << it->second << '\n';
+  } while ( mycomp((*it++).first, highest) );
+
+  std::cout << '\n';
+
+}
+void observers_test()
+{
+	key_comparison_test();
+	value_comparison_test();
+}
 
 void find_func()
 {
@@ -477,6 +585,7 @@ void find_func()
 
 void count_func()
 {
+	std::cout << blue << "***************[ count func test]***************" << cend << std::endl;
 	std::cout << std::endl;
 	std::cout << std::endl;
 	  ft::map<char,int> mymap;
@@ -496,15 +605,81 @@ void count_func()
   }
 }
 
+void lower_bound_test()
+{
+	ft::map<char,int> mymap;
+  	ft::map<char,int>::iterator itlow,itup;
+
+  mymap['a']=20;
+  mymap['b']=40;
+  mymap['c']=60;
+  mymap['d']=80;
+  mymap['e']=100;
+
+  itlow=mymap.lower_bound ('b');  // itlow points to b
+  itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+
+  	std::cout << "UPPER: itlow val: " << itlow->first << std::endl;
+	std::cout << "UPPER: itupval: " << itup->first << std::endl;
+
+}
+
+void upper_bound_test()
+{
+	ft::map<char,int> mymap;
+  	ft::map<char,int>::iterator itlow,itup;
+
+  mymap['a']=20;
+  mymap['b']=40;
+  mymap['c']=60;
+  mymap['d']=80;
+  mymap['e']=100;
+
+  itlow=mymap.lower_bound ('b');  // itlow points to b
+  itup=mymap.upper_bound ('d');   // itup points to e (not d!)
+}
+
+void equal_range()
+{
+	 ft::map<char,int> mymap;
+
+  mymap['a']=10;
+  mymap['b']=20;
+  mymap['c']=30;
+
+  std::pair< ft::map <char,int>::iterator, ft::map <char,int>::iterator> ret;
+  ret = mymap.equal_range('b');
+
+  std::cout << "lower bound points to: ";
+  std::cout << ret.first->first << " => " << ret.first->second << '\n';
+
+  std::cout << "upper bound points to: ";
+  std::cout << ret.second->first << " => " << ret.second->second << '\n';
+}
+
+void operations_test()
+{
+	find_func();
+	count_func();
+	lower_bound_test();
+	upper_bound_test();
+	equal_range();
+}
+
+
+
+
 int main()
 {
 	constructor_test();
 	iterator_test();
 	const_iterator_test();
-	insert_test();
-	erase_func_test();
-	find_std_func();
-	find_func();
-	count_func();
+	capasity_test();
+	modifiers_test();
+	observers_test();
+	operations_test();
+	//sleep(50);
+
+
 	return 0;
 }

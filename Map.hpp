@@ -59,17 +59,17 @@ namespace ft
         class value_compare : public std::binary_function<value_type, value_type, bool>
         {
             friend class map;
-        protected:
-            Compare comp;
-            value_compare(Compare c) : comp(c) {}
+            protected:
+                Compare comp;
+                value_compare(Compare c) : comp(c) {}
 
-        public:
-            bool
-            operator()(const value_type &x, const value_type &y) const
-            {
-                return comp(x.first, y.first);
-            }
-        };
+            public:
+                bool
+                operator()(const value_type &x, const value_type &y) const
+                {
+                    return comp(x.first, y.first);
+                }
+            };
 
         /*================================ 4 CONSTRUCTORS: ================================*/
 
@@ -326,9 +326,16 @@ namespace ft
 
         void erase(iterator first, iterator last)
         {
-            while (first != last && size() != 0)
+            if (first == this->begin() && last == this->end())
             {
-                erase((*(first++)).first);
+                while (first != last && _node != NULL)
+                    erase((*(first++)).first);
+            }
+            else
+            {
+                difference_type n = ft::distance(first, last);
+                while (n--)
+                    erase((*(first++)).first);
             }
         }
 

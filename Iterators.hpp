@@ -83,7 +83,7 @@ namespace ft
             explicit myReverseIterator(iterator_type type) : _type(type) {} // initialization constructor
 
             template <class Iter>
-            myReverseIterator(const myReverseIterator<Iter> &rev_type) : _type(rev_type._type) {}
+            myReverseIterator(const myReverseIterator<Iter> &rev_type) : _type(rev_type.base()) {}
 
             iterator_type base() const // returns a copy of the base iterator
             {
