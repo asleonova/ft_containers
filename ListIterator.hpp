@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/17 19:31:27 by dbliss            #+#    #+#             */
-/*   Updated: 2021/05/20 16:02:24 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/07 12:10:23 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,25 @@
 namespace ft
 {
 
-    template <class T>
-    struct iterator_traits<T *>
-    {
-        typedef ptrdiff_t difference_type;
-        typedef T value_type;
-        typedef T *pointer;
-        typedef T &reference;
-        typedef bidirectional_iterator_tag iterator_category;
-    };
+    // template <class T>
+    // struct iterator_traits<T *>
+    // {
+    //     typedef ptrdiff_t difference_type;
+    //     typedef T value_type;
+    //     typedef T *pointer;
+    //     typedef T &reference;
+    //     typedef bidirectional_iterator_tag iterator_category;
+    // };
 
-    template <class T>
-    struct iterator_traits<const T *>
-    {
-        typedef ptrdiff_t difference_type;
-        typedef T value_type;
-        typedef const T *pointer;
-        typedef const T &reference;
-        typedef bidirectional_iterator_tag iterator_category;
-    };
+    // template <class T>
+    // struct iterator_traits<const T *>
+    // {
+    //     typedef ptrdiff_t difference_type;
+    //     typedef T value_type;
+    //     typedef const T *pointer;
+    //     typedef const T &reference;
+    //     typedef bidirectional_iterator_tag iterator_category;
+    // };
 
     template <class T, class Node>
     class ListIterator
