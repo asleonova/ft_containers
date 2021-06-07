@@ -1,6 +1,18 @@
-#include "Queue.hpp"
-#include "Vector.hpp"
-#include "List.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_queue_test.cpp                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/07 14:15:40 by dbliss            #+#    #+#             */
+/*   Updated: 2021/06/07 14:15:42 by dbliss           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../Queue.hpp"
+#include "../Vector.hpp"
+#include "../List.hpp"
 #include <deque>
 #include <list>
 #include <vector>

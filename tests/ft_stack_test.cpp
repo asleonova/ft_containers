@@ -1,6 +1,18 @@
-#include "Stack.hpp"
-#include "Vector.hpp"
-#include "List.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_stack_test.cpp                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/07 14:15:51 by dbliss            #+#    #+#             */
+/*   Updated: 2021/06/07 14:15:53 by dbliss           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../Stack.hpp"
+#include "../Vector.hpp"
+#include "../List.hpp"
 #include <deque>
 #include <list>
 #include <vector>
