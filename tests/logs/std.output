@@ -1,0 +1,228 @@
+[34m***************[ Default constructor test ]***************[0m
+[32mTesting empty map int: [0m
+[32mTesting map <char, int> with some values added: [0m
+[32mMap contents: [0m
+a ,10 | b ,30 | c ,50 | d ,70 | 
+
+[32mTesting range constructor: [0m
+[32mMap contents: [0m
+a ,10 | b ,30 | c ,50 | d ,70 | 
+
+[32mTesting copy constructor: [0m
+[32mMap contents (third): [0m
+a ,10 | b ,30 | c ,50 | d ,70 | 
+
+[32mTesting operator = : [0m
+[32mMap contents (third): [0m
+a ,10 | b ,30 | c ,50 | d ,70 | 
+
+[34m***************[ Iterators test (int) ]***************[0m
+[32mmap contents, using iterator: [0m
+1 ,1 | 2 ,2 | 3 ,3 | 4 ,4 | 5 ,5 | 6 ,6 | 
+
+[32mmap contents in reverse, using the reverse iterator: [0m
+6 6 | 5 5 | 4 4 | 3 3 | 2 2 | 1 1 | 
+[32mTesting arithmetic operations on iterator: [0m
+it value: 1
+it++ value: 2
+it-- value: 1
+++it value: 2
+--it value: 1
+[32mTesting arithmetic operations on reverse iterator: [0m
+itr value: 6
+itr++ value: 5
+itr-- value: 6
+++itr value: 5
+--itr value: 6
+[32mTesting iterator comparison: [0m
+it == ite: 0
+it == it: 1
+it != ite: 1
+ite != ite: 0
+[32mTesting reverse iterator comparison: [0m
+rit == rite: 1
+rit == rit: 1
+rit != rite: 0
+rite != rite: 0
+
+[34m***************[ Const iterators test (char) ]***************[0m
+[32mmap contents, using iterator: [0m
+1 ,1 | 2 ,2 | 3 ,3 | 4 ,4 | 5 ,5 | 6 ,6 | 
+
+[32mTesting iterator comparison: [0m
+cit == cite: 0
+it == it: 1
+cit != cite: 1
+cite != cite: 0
+[34m***************[ Const reverse iterators test (char) ]***************[0m
+crit == crite: 0
+crit == crit: 1
+crit != crite: 1
+crite != crite: 0
+[34m***************[ Empty test (char, int) ]***************[0m
+a => 10
+b => 20
+c => 30
+[34m***************[ Size test (char, int) ]***************[0m
+mymap.size() is 0
+mymap.size() is 2
+mymap.size() is 3
+mymap.size() is 3
+[34m***************[ Max size test (int, int) ]***************[0m
+461168601842738790
+The map contains 1000 elements.
+**************************MY FUNCS********************************
+return value is (6): 6
+ with a value of 100
+bool value is (1): 1
+return value is (8): 6
+ with a value of 100
+bool value is (1): 1
+return value is (8): 8
+ with a value of 100
+bool value is (0): 0
+return value is (10): 10
+ with a value of 100
+bool value is (1): 1
+return value is (6): 6
+ with a value of 100
+bool value is (0): 0
+return value is (7): 7
+ with a value of 100
+bool value is (0): 0
+ITER VALUE IS: 17
+begin is: 1
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+size is : 11
+contents of my map: 1, 200
+contents of my map: 2, 400
+contents of my map: 3, 500
+contents of my map: 4, 400
+contents of my map: 5, 200
+contents of my map: 6, 100
+contents of my map: 7, 100
+contents of my map: 8, 100
+contents of my map: 9, 100
+contents of my map: 10, 100
+contents of my map: 17, 89
+contents of another map: 1, 200
+contents of another map: 2, 400
+contents of another map: 3, 500
+contents of another map: 4, 400
+contents of another map: 5, 200
+contents of another map: 6, 100
+contents of another map: 7, 100
+contents of another map: 8, 100
+contents of another map: 9, 100
+contents of another map: 10, 100
+contents of another map: 17, 89
+map begin: 1
+IT value is: 1
+________________1_______________
+IT value is: 1
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________2__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________3__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________4__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________5__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________6__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________7__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________8__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________9__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________10__________________
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+______________17__________________
+Contents of mymap: 
+1 ,200 | 2 ,400 | 3 ,500 | 4 ,400 | 5 ,200 | 6 ,100 | 7 ,100 | 8 ,100 | 9 ,100 | 10 ,100 | 17 ,89 | 
+
+mymap size is: 0
+Inserting new elements : 
+Contents of mymap: 
+mymap size is: 0
+[34m***************[ Erase func test ]***************[0m
+a ,50 | b ,100 | c ,150 | d ,200 | i ,500 | l ,100 | o ,800 | t ,600 | 
+
+a ,50 | b ,100 | o ,800 | t ,600 | 
+
+SIZE SHOULD BE 10: 10
+it value is: 2
+1 ,10 | 2 ,20 | 3 ,30 | 4 ,40 | 5 ,50 | 6 ,60 | 7 ,70 | 8 ,80 | 9 ,90 | 10 ,100 | 
+
+__________after erase 3_________________________
+
+1 ,10 | 2 ,20 | 4 ,40 | 5 ,50 | 6 ,60 | 7 ,70 | 8 ,80 | 9 ,90 | 10 ,100 | 
+
+__________after erase 2_________________________
+
+1 ,10 | 4 ,40 | 5 ,50 | 6 ,60 | 7 ,70 | 8 ,80 | 9 ,90 | 10 ,100 | 
+
+__________after erase 4________________________
+
+1 ,10 | 5 ,50 | 6 ,60 | 7 ,70 | 8 ,80 | 9 ,90 | 10 ,100 | 
+
+__________after erase 6____________
+
+1 ,10 | 5 ,50 | 7 ,70 | 8 ,80 | 9 ,90 | 10 ,100 | 
+
+[34m***************[ swap func test]***************[0m
+foo contains:
+a => 11
+b => 22
+c => 33
+bar contains:
+x => 100
+y => 200
+[34m***************[ key_comp func test]***************[0m
+mymap contains:
+a => 100
+b => 200
+c => 300
+
+[34m***************[ value_comp func test]***************[0m
+mymap contains:
+x => 1001
+y => 2002
+z => 3003
+[34m***************[ FIND && REVERSE_ITERATOR func test FT]***************[0m
+elements in mymap:
+a => 50
+c => 150
+d => 200
+reverse iterator test: 
+a
+reverse iterator: 
+a
+o
+o | l | i | d | c | [34m***************[ count func test]***************[0m
+
+
+a is an element of mymap.
+b is not an element of mymap.
+c is an element of mymap.
+d is not an element of mymap.
+e is not an element of mymap.
+f is an element of mymap.
+g is not an element of mymap.
+UPPER: itlow val: b
+UPPER: itupval: e
+lower bound points to: b => 20
+upper bound points to: c => 30

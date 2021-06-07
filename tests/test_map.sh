@@ -19,7 +19,7 @@ ENDCOLOR="\x1b[0m"
 if [ -d "logs" ]; then rm -fr logs; fi
 mkdir logs
 
-clang++ ft_map_test.cpp -o logs/ft_map && 
+clang++ -Wall -Wextra -Werror ft_map_test.cpp -o logs/ft_map && 
 ./logs/ft_map > logs/user.output
 echo -e "${GREEN}ft_tests successfully complied! Log file has been created.${ENDCOLOR}\n"
 cp ft_map_test.cpp std_map_test.cpp
