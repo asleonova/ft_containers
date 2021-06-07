@@ -1,4 +1,4 @@
-#include "Stack.hpp"
+#include "Queue.hpp"
 #include "Vector.hpp"
 #include "List.hpp"
 #include <deque>
@@ -6,7 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <iterator>
-#include <stack>
+#include <squeue>
 #include <unistd.h>
 
 #define red "\x1b[31m"
@@ -22,13 +22,13 @@ void contstructor_test()
     std::deque<char> mydeque(9, 'a'); // deque with 9 elements
     ft::vector<int> myvector(2, 200); // vector with 2 elements
 
-    ft::stack<int> first;          // empty stack
-    ft::stack<int, ft::list <int> >mylist; // stack initialized to copy of deque
+    ft::squeue<int> first;          // empty squeue
+    ft::squeue<int, ft::list <int> >mylist; // squeue initialized to copy of deque
 
-    ft::stack<int, ft::list <int> > second(mylist); // stack initialized to copy of list
+    ft::squeue<int, ft::list <int> > second(mylist); // squeue initialized to copy of list
 
-    ft::stack<int, ft::vector<int> > third; // empty stack using vector
-    ft::stack<int, ft::vector<int> > fourth(myvector);
+    ft::squeue<int, ft::vector<int> > third; // empty squeue using vector
+    ft::squeue<int, ft::vector<int> > fourth(myvector);
 
     std::cout << "size of first: " << first.size() << std::endl;
     std::cout << "size of second: " << second.size() << std::endl;
@@ -40,16 +40,16 @@ void empty_test()
 {
     std::cout << blue << "***************[ empty() test ]***************" << cend << std::endl;
 
-    ft::stack<int> mystack_e;
+    ft::squeue<int> mysqueue_e;
     int sum(0);
 
     for (int i = 1; i <= 10; i++)
-        mystack_e.push(i);
+        mysqueue_e.push(i);
 
-    while (!mystack_e.empty())
+    while (!mysqueue_e.empty())
     {
-        sum += mystack_e.top();
-        mystack_e.pop();
+        sum += mysqueue_e.top();
+        mysqueue_e.pop();
     }
 
     std::cout << "total: " << sum << std::endl;
@@ -59,7 +59,7 @@ void size_test()
 {
     std::cout << blue << "***************[ size() test ]***************" << cend << std::endl;
 
-    ft::stack<int> myints;
+    ft::squeue<int> myints;
     std::cout << "0. size: " << myints.size() << std::endl;
 
     for (int i = 0; i < 5; i++)
@@ -73,53 +73,53 @@ void size_test()
 void top_push_test()
 {
     std::cout << blue << "***************[ top & push test ]***************" << cend << std::endl;
-    ft::stack<int> mystack;
+    ft::squeue<int> mysqueue;
 
-    mystack.push(10);
-    mystack.push(20);
+    mysqueue.push(10);
+    mysqueue.push(20);
 
-    mystack.top() -= 5;
+    mysqueue.top() -= 5;
 
-    std::cout << "mystack.top() is now " << mystack.top() << std::endl;
+    std::cout << "mysqueue.top() is now " << mysqueue.top() << std::endl;
 }
 
 void pop_test()
 {
     std::cout << blue << "***************[ pop() test ]***************" << cend << std::endl;
-    ft::stack<int> mystack;
+    ft::squeue<int> mysqueue;
 
     for (int i = 0; i < 5; ++i)
-        mystack.push(i);
+        mysqueue.push(i);
 
     std::cout << "Popping out elements...";
-    while (!mystack.empty())
+    while (!mysqueue.empty())
     {
-        std::cout << ' ' << mystack.top();
-        mystack.pop();
+        std::cout << ' ' << mysqueue.top();
+        mysqueue.pop();
     }
     std::cout << std::endl;
 }
 
 void relational_operators_test()
 {
-    ft::stack<int> mystack;
+    ft::squeue<int> mysqueue;
     for (int i = 0; i < 10; ++i)
-        mystack.push(i);
-    ft::stack<int> mystack1(mystack);
+        mysqueue.push(i);
+    ft::squeue<int> mysqueue1(mysqueue);
 
-    bool b = mystack == mystack1;
-    std::cout << "mystack == mystack1(true) : " << b << std::endl;
-    b = mystack != mystack1;
-    std::cout << "mystack != mystack1(false) : " << b << std::endl;
-    mystack.pop();
-    b = mystack < mystack1;
-    std::cout << "mystack < mystack1(true) : " << b << std::endl;
-    b = mystack > mystack1;
-    std::cout << "mystack > mystack1(false) : " << b << std::endl;
-    b = mystack <= mystack1;
-    std::cout << "mystack <= mystack1(true) : " << b << std::endl;
-    b = mystack >= mystack1;
-    std::cout << "mystack >= mystack1(false) : " << b << std::endl;  
+    bool b = mysqueue == mysqueue1;
+    std::cout << "mysqueue == mysqueue1(true) : " << b << std::endl;
+    b = mysqueue != mysqueue1;
+    std::cout << "mysqueue != mysqueue1(false) : " << b << std::endl;
+    mysqueue.pop();
+    b = mysqueue < mysqueue1;
+    std::cout << "mysqueue < mysqueue1(true) : " << b << std::endl;
+    b = mysqueue > mysqueue1;
+    std::cout << "mysqueue > mysqueue1(false) : " << b << std::endl;
+    b = mysqueue <= mysqueue1;
+    std::cout << "mysqueue <= mysqueue1(true) : " << b << std::endl;
+    b = mysqueue >= mysqueue1;
+    std::cout << "mysqueue >= mysqueue1(false) : " << b << std::endl;  
 }
 
 int main()

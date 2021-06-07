@@ -1,4 +1,4 @@
-#include "Stack.hpp"
+#include "Queue.hpp"
 #include "Vector.hpp"
 #include "List.hpp"
 #include <deque>
@@ -8,6 +8,7 @@
 #include <iterator>
 #include <stack>
 #include <unistd.h>
+#include <queue>
 
 #define red "\x1b[31m"
 #define green "\x1b[32m"
@@ -22,13 +23,13 @@ void contstructor_test()
     std::deque<char> mydeque(9, 'a'); // deque with 9 elements
     ft::vector<int> myvector(2, 200); // vector with 2 elements
 
-    ft::stack<int> first;          // empty stack
-    ft::stack<int, ft::list <int> >mylist; // stack initialized to copy of deque
+    ft::queue<int> first;          // empty queue
+    ft::queue<int, ft::list <int> >mylist; // queue initialized to copy of deque
 
-    ft::stack<int, ft::list <int> > second(mylist); // stack initialized to copy of list
+    ft::queue<int, ft::list <int> > second(mylist); // queue initialized to copy of list
 
-    ft::stack<int, ft::vector<int> > third; // empty stack using vector
-    ft::stack<int, ft::vector<int> > fourth(myvector);
+    ft::queue<int, ft::vector<int> > third; // empty queue using vector
+    ft::queue<int, ft::vector<int> > fourth(myvector);
 
     std::cout << "size of first: " << first.size() << std::endl;
     std::cout << "size of second: " << second.size() << std::endl;
@@ -40,26 +41,25 @@ void empty_test()
 {
     std::cout << blue << "***************[ empty() test ]***************" << cend << std::endl;
 
-    ft::stack<int> mystack_e;
-    int sum(0);
+  ft::queue<int> myqueue;
+  int sum (0);
 
-    for (int i = 1; i <= 10; i++)
-        mystack_e.push(i);
+  for (int i=1;i<=10;i++) myqueue.push(i);
 
-    while (!mystack_e.empty())
-    {
-        sum += mystack_e.top();
-        mystack_e.pop();
-    }
+  while (!myqueue.empty())
+  {
+     sum += myqueue.front();
+     myqueue.pop();
+  }
 
-    std::cout << "total: " << sum << std::endl;
+  std::cout << "total: " << sum << '\n';
 }
 
 void size_test()
 {
     std::cout << blue << "***************[ size() test ]***************" << cend << std::endl;
 
-    ft::stack<int> myints;
+    ft::queue<int> myints;
     std::cout << "0. size: " << myints.size() << std::endl;
 
     for (int i = 0; i < 5; i++)
