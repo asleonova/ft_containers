@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 12:53:03 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/07 14:28:18 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/07 14:27:33 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ namespace ft
         return ret;
     }
 
-    /* =============================== REVERSE ITERATOR FUNCTIONS =============================== */
+    /* REVERSE ITERATOR FUNCTIONS*/
 
     template <class Iterator>
         class myReverseIterator : public ft::iterator<typename ft::iterator_traits<Iterator>::iterator_category,
