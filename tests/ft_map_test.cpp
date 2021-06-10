@@ -6,7 +6,7 @@
 /*   By: dbliss <dbliss@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 14:15:32 by dbliss            #+#    #+#             */
-/*   Updated: 2021/06/07 14:15:33 by dbliss           ###   ########.fr       */
+/*   Updated: 2021/06/10 14:14:12 by dbliss           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void iterator_test()
 	map[6] = 6;
 	std::cout << green << "map contents, using iterator: " << cend << std::endl;
 	print_map(map);
+	map.treeprint();
 	std::cout << green << "map contents in reverse, using the reverse iterator: " << cend << std::endl;
 
 	ft::map<int, int>::reverse_iterator rit = map.rbegin();
